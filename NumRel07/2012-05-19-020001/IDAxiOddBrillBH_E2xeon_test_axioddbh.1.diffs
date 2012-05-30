@@ -1,0 +1,99 @@
+   gxx.dl: differences below tolerance on 28 lines
+   gxx.xl: differences below tolerance on 20 lines
+   gxx.yl: differences below tolerance on 18 lines
+   gxx.zl: differences below tolerance on 12 lines
+   gxy.dl: differences below tolerance on 4 lines
+   gxy.xl: differences below tolerance on 24 lines
+   gxy.yl: differences below tolerance on 24 lines
+   gxz.dl: differences below tolerance on 22 lines
+   gxz.xl: differences below tolerance on 11 lines
+   gxz.yl: differences below tolerance on 23 lines
+   gxz.zl: differences below tolerance on 16 lines
+   gyy.dl: differences below tolerance on 30 lines
+   gyy.xl: differences below tolerance on 18 lines
+   gyy.yl: differences below tolerance on 20 lines
+   gyy.zl: differences below tolerance on 18 lines
+   gyz.dl: differences below tolerance on 18 lines
+   gyz.xl: differences below tolerance on 23 lines
+   gyz.yl: differences below tolerance on 11 lines
+   gyz.zl: differences below tolerance on 20 lines
+   gzz.dl: differences below tolerance on 6 lines
+   gzz.zl: differences below tolerance on 8 lines
+   ham.dl: differences below tolerance on 60 lines
+   ham.xl: differences below tolerance on 60 lines
+   ham.yl: differences below tolerance on 60 lines
+   ham.zl: differences below tolerance on 60 lines
+   kxx.dl: differences below tolerance on 64 lines
+   kxx.xl: differences below tolerance on 58 lines
+   kxx.yl: differences below tolerance on 59 lines
+   kxx.zl: differences below tolerance on 58 lines
+   kxy.dl: differences below tolerance on 26 lines
+   kxy.xl: differences below tolerance on 63 lines
+   kxy.yl: differences below tolerance on 63 lines
+   kxy.zl: differences below tolerance on 17 lines
+   kxz.dl: differences below tolerance on 60 lines
+   kxz.xl: differences below tolerance on 44 lines
+   kxz.yl: differences below tolerance on 64 lines
+   kxz.zl: differences below tolerance on 60 lines
+   kyy.dl: differences below tolerance on 64 lines
+   kyy.xl: differences below tolerance on 59 lines
+   kyy.yl: differences below tolerance on 58 lines
+   kyy.zl: differences below tolerance on 58 lines
+   kyz.dl: differences below tolerance on 60 lines
+   kyz.xl: differences below tolerance on 64 lines
+   kyz.yl: differences below tolerance on 44 lines
+   kyz.zl: differences below tolerance on 60 lines
+   kzz.dl: differences below tolerance on 30 lines
+   kzz.xl: differences below tolerance on 29 lines
+   kzz.yl: differences below tolerance on 29 lines
+   kzz.zl: differences below tolerance on 28 lines
+   psix.dl: differences below tolerance on 64 lines
+   psix.xl: differences below tolerance on 64 lines
+   psix.yl: differences below tolerance on 64 lines
+   psix.zl: differences below tolerance on 60 lines
+   psixx.dl: differences below tolerance on 64 lines
+   psixx.xl: differences below tolerance on 64 lines
+   psixx.yl: differences below tolerance on 64 lines
+   psixx.zl: differences below tolerance on 62 lines
+   psixy.dl: differences below tolerance on 64 lines
+   psixy.xl: differences below tolerance on 64 lines
+   psixy.yl: differences below tolerance on 64 lines
+   psixy.zl: differences below tolerance on 40 lines
+   psixz.dl: differences below tolerance on 64 lines
+   psixz.xl: differences below tolerance on 64 lines
+   psixz.yl: differences below tolerance on 40 lines
+   psixz.zl: differences below tolerance on 54 lines
+   psiy.dl: differences below tolerance on 64 lines
+   psiy.xl: differences below tolerance on 64 lines
+   psiy.yl: differences below tolerance on 64 lines
+   psiy.zl: differences below tolerance on 60 lines
+   psiyy.dl: differences below tolerance on 64 lines
+   psiyy.xl: differences below tolerance on 64 lines
+   psiyy.yl: differences below tolerance on 64 lines
+   psiyy.zl: differences below tolerance on 62 lines
+   psiyz.dl: differences below tolerance on 64 lines
+   psiyz.xl: differences below tolerance on 40 lines
+   psiyz.yl: differences below tolerance on 64 lines
+   psiyz.zl: differences below tolerance on 54 lines
+   psiz.dl: differences below tolerance on 64 lines
+   psiz.xl: differences below tolerance on 64 lines
+   psiz.yl: differences below tolerance on 64 lines
+   psiz.zl: differences below tolerance on 64 lines
+   psizz.dl: differences below tolerance on 64 lines
+   psizz.xl: differences below tolerance on 64 lines
+   psizz.yl: differences below tolerance on 64 lines
+   psizz.zl: differences below tolerance on 64 lines
+
+   betaz.yl: not in thorn archive
+   betay.zl: not in thorn archive
+   betay.dl: not in thorn archive
+   betaz.dl: not in thorn archive
+   betax.yl: not in thorn archive
+   betay.xl: not in thorn archive
+   betax.dl: not in thorn archive
+   betax.xl: not in thorn archive
+   betay.yl: not in thorn archive
+   betaz.xl: not in thorn archive
+   betaz.zl: not in thorn archive
+   betax.zl: not in thorn archive
+

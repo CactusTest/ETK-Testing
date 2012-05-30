@@ -1,0 +1,112 @@
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus: TEST.1
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus: TEST.2
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus/arrangements/EinsteinEOS/EOS_Omni/param.ccl /home/jhar131/TESTING/einsteintoolkit/2012-05-24-020001/Cactus/arrangements/EinsteinEOS/EOS_Omni/param.ccl
+69c69
+< STRING nuceos_table_name "nuceos table name (hdf5)"
+---
+> STRING nuceos_table_name "nuceos table name (hdf5)" STEERABLE=ALWAYS
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus/arrangements/ExternalLibraries/GSL/GSL.sh /home/jhar131/TESTING/einsteintoolkit/2012-05-24-020001/Cactus/arrangements/ExternalLibraries/GSL/GSL.sh
+150,155c150,158
+<     # Obtain configuration options from GSL's configuration
+<     GSL_INC_DIRS="$(echo '' $(${GSL_DIR}/bin/gsl-config --cflags) '' | sed -e 's/ -I/ /g' | sed -e 's+ -L/include + +g;s+ -L/usr/include + +g;s+ -L/usr/local/include + +g')"
+<     # Don't try to split library directories and libraries -- just put
+<     # everything into "libraries"
+<     GSL_LIB_DIRS=''
+<     GSL_LIBS="$(echo '' $(${GSL_DIR}/bin/gsl-config --libs) '' | sed -e 's/ -l/ /g' | sed -e 's+ -L/lib + +g;s+ -L/lib64 + +g;s+ -L/usr/lib + +g;s+ -L/usr/lib64 + +g;s+ -L/usr/local/lib + +g;s+ -L/usr/local/lib64 + +g')"
+---
+>     # Obtain configuration options from GSL's configuration:
+>     # - for INC_DIRS, remove "standard" directories, and remove -I
+>     #   prefix from flags
+>     # - for LIB_DIRS, remove all -l flags, and remove "standard"
+>     #   directories, and remove -L prefix from flags
+>     # - for LIBS, keep only -l flags, and remove -l prefix from flags
+>     GSL_INC_DIRS="$(echo '' $(${GSL_DIR}/bin/gsl-config --cflags) '' | sed -e 's+ -I/include + +g;s+ -I/usr/include + +g;s+ -I/usr/local/include + +g' | sed -e 's/ -I/ /g')"
+>     GSL_LIB_DIRS="$(echo '' $(${GSL_DIR}/bin/gsl-config --libs) '' | sed -e 's/ -l[^ ]*/ /g' | sed -e 's+ -L/lib + +g;s+ -L/lib64 + +g;s+ -L/usr/lib + +g;s+ -L/usr/lib64 + +g;s+ -L/usr/local/lib + +g;s+ -L/usr/local/lib64 + +g' | sed -e 's/ -L/ /g')"
+>     GSL_LIBS="$(echo '' $(${GSL_DIR}/bin/gsl-config --libs) '' | sed -e 's/ -[^l][^ ]*/ /g' | sed -e 's/ -l/ /g')"
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus: cactusjar.git
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus: exe
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus: log
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus/repos/carpet/.hg/dirstate and /home/jhar131/TESTING/einsteintoolkit/2012-05-24-020001/Cactus/repos/carpet/.hg/dirstate differ
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus/simfactory/lib/archive: __init__.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus/simfactory/lib/archive: petashare.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus/simfactory/lib/archive: uberftp.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus/simfactory/lib: libutil.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus/simfactory/lib: pyini.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus/simfactory/lib: restartlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus/simfactory/lib: sim-build.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus/simfactory/lib: sim-info.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus/simfactory/lib: sim-manage.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus/simfactory/lib: sim-sync.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus/simfactory/lib: sim-util.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus/simfactory/lib: simarchive.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus/simfactory/lib: simdb.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus/simfactory/lib: simdt.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus/simfactory/lib: simenv.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus/simfactory/lib: simlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus/simfactory/lib: simopts.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus/simfactory/lib: simproperties.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus/simfactory/lib: simremote.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus/simfactory/lib: simrestart.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus/simfactory/lib: simsubs.pyc
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus/simfactory/mdb/machines/forge.ini /home/jhar131/TESTING/einsteintoolkit/2012-05-24-020001/Cactus/simfactory/mdb/machines/forge.ini
+33,39d32
+< enabled-thorns = <<EOF
+<     ExternalLibraries/OpenCL
+<         CactusExamples/WaveToyOpenCL
+<         CactusUtils/Accelerator
+<         CactusUtils/OpenCLRunTime
+<         McLachlan/ML_WaveToy_CL
+< EOF
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus/simfactory/mdb/machines/lonestar.ini /home/jhar131/TESTING/einsteintoolkit/2012-05-24-020001/Cactus/simfactory/mdb/machines/lonestar.ini
+27,35d26
+< enabled-thorns = <<EOT
+<     ExternalLibraries/OpenCL
+<         CactusExamples/WaveToyOpenCL
+<         CactusUtils/OpenCLRunTime
+<         CactusUtils/Accelerator
+<         McLachlan/ML_WaveToy_CL
+<     ExternalLibraries/PAPI
+<         Performance/PAPIClocks
+< EOT
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus/simfactory/mdb/machines/nvidia.ini /home/jhar131/TESTING/einsteintoolkit/2012-05-24-020001/Cactus/simfactory/mdb/machines/nvidia.ini
+23,29d22
+< enabled-thorns = <<EOT
+<     ExternalLibraries/OpenCL
+<         CactusExamples/WaveToyOpenCL
+<         CactusUtils/Accelerator
+<         CactusUtils/OpenCLRunTime
+<         McLachlan/ML_WaveToy_CL
+< EOT
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus/simfactory/mdb/machines/trestles.ini /home/jhar131/TESTING/einsteintoolkit/2012-05-24-020001/Cactus/simfactory/mdb/machines/trestles.ini
+18,21d17
+< disabled-thorns = <<EOT
+< EOT
+< enabled-thorns = <<EOT
+< EOT
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus/simfactory/mdb/optionlists/debian-lenny-gcc.cfg /home/jhar131/TESTING/einsteintoolkit/2012-05-24-020001/Cactus/simfactory/mdb/optionlists/debian-lenny-gcc.cfg
+56c56
+< HDF5_DIR  = BUILD
+---
+> #HDF5_DIR  = BUILD
+60,63c60,67
+< MPI             = OpenMPI
+< OPENMPI_DIR     = /usr/bin
+< OPENMPI_LIB_DIR = /usr/lib/openmpi/lib
+< OPENMPI_INC_DIR = /usr/lib/openmpi/include
+---
+> #MPI             = OpenMPI
+> #OPENMPI_DIR     = /usr/bin
+> #OPENMPI_LIB_DIR = /usr/lib/openmpi/lib
+> #OPENMPI_INC_DIR = /usr/lib/openmpi/include
+> MPI             = CUSTOM
+> MPI_LIB_DIRS    = /usr/lib
+> MPI_INC_DIRS    = /usr/include/mpich2
+> MPI_LIBS        = mpich
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus/simfactory/mdb/optionlists/lonestar.cfg /home/jhar131/TESTING/einsteintoolkit/2012-05-24-020001/Cactus/simfactory/mdb/optionlists/lonestar.cfg
+26a27,29
+> LDFLAGS = -Wl,-rpath,/opt/apps/intel11_1/gsl/1.14/lib
+> 
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-23-020002/Cactus/simfactory/mdb/runscripts/debian-lenny-gcc.sh /home/jhar131/TESTING/einsteintoolkit/2012-05-24-020001/Cactus/simfactory/mdb/runscripts/debian-lenny-gcc.sh
+20a21
+> mpd --daemon

@@ -1,0 +1,27 @@
+   dens_maximum.asc: differences below tolerance on 1 lines
+   dens_x_[2][2].asc: differences below tolerance on 55 lines
+   dens_y_[20][2].asc: differences below tolerance on 15 lines
+   dens_z_[20][2].asc: differences below tolerance on 15 lines
+   eps_x_[2][2].asc: differences below tolerance on 32 lines
+   eps_y_[20][2].asc: differences below tolerance on 10 lines
+   eps_z_[20][2].asc: differences below tolerance on 10 lines
+   press_maximum.asc: differences below tolerance on 1 lines
+   press_x_[2][2].asc: differences below tolerance on 41 lines
+   press_y_[20][2].asc: differences below tolerance on 15 lines
+   press_z_[20][2].asc: differences below tolerance on 15 lines
+   rho_x_[2][2].asc: differences below tolerance on 52 lines
+   rho_y_[20][2].asc: differences below tolerance on 15 lines
+   rho_z_[20][2].asc: differences below tolerance on 15 lines
+   scon[0]_minimum.asc: differences below tolerance on 50 lines
+   scon[0]_x_[2][2].asc: differences below tolerance on 56 lines
+   scon[0]_y_[20][2].asc: differences below tolerance on 15 lines
+   scon[0]_z_[20][2].asc: differences below tolerance on 15 lines
+   tau_x_[2][2].asc: differences below tolerance on 65 lines
+   tau_y_[20][2].asc: differences below tolerance on 25 lines
+   tau_z_[20][2].asc: differences below tolerance on 25 lines
+   vel[0]_minimum.asc: differences below tolerance on 13 lines
+   vel[0]_x_[2][2].asc: differences below tolerance on 10 lines
+   w_lorentz_maximum.asc: differences below tolerance on 14 lines
+   w_lorentz_x_[2][2].asc: differences below tolerance on 9 lines
+
+

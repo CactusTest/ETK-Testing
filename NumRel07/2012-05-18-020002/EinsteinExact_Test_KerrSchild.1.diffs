@@ -1,0 +1,23 @@
+   alp.x.asc: substantial differences
+      did not reproduce  1 NaNs from old alp.x.asc
+      significant differences on 1 (out of 13) lines
+   betax.x.asc: substantial differences
+      did not reproduce  1 NaNs from old betax.x.asc
+      significant differences on 1 (out of 13) lines
+      maximum absolute difference in column 13 is 5.55111512312578e-17
+      maximum relative difference in column 13 is 2.50166292678507e-16
+      (insignificant differences on 2 lines)
+   gxx.x.asc: substantial differences
+      did not reproduce  1 NaNs from old gxx.x.asc
+      significant differences on 1 (out of 13) lines
+      maximum absolute difference in column 13 is 2.22044604925031e-16
+      maximum relative difference in column 13 is 1.72953182182738e-16
+      (insignificant differences on 2 lines)
+   kxx.x.asc: substantial differences
+      did not reproduce  1 NaNs from old kxx.x.asc
+      significant differences on 1 (out of 13) lines
+      maximum absolute difference in column 13 is 8.88178419700125e-16
+      maximum relative difference in column 13 is 3.57896230567748e-14
+      (insignificant differences on 7 lines)
+
+

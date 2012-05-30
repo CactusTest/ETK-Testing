@@ -1,0 +1,37 @@
+# /*@@
+#   @file      test_recover.par
+#   @date      Thu Oct 12 2000
+#   @author    Thomas Radke
+#   @desc
+#              Wavetoy parameter file
+#              demonstrating recovery with IOHDF5.
+#
+#              Run this parfile in conjunction with checkpoint.par.
+#   @enddesc
+#   @version   $Id: test_recover.par 224 2005-11-01 18:50:41Z yye00 $
+# @@*/
+
+!DESC "Recover from a WaveToy ID checkpoint file in HDF5 format"
+
+ActiveThorns = "Time WavetoyC IDScalarWaveC PUGH PUGHReduce PUGHSlab CartGrid3D CoordBase SymBase Boundary IOUtil IOBasic IOASCII IOHDF5Util IOHDF5 LocalReduce"
+
+# Say that we want to recover ...
+# You can also try "auto" and omit the ".it_0" field in the recover_file.
+IO::recover       = "manual"
+
+# ... from a ID checkpoint file with basename ...
+IO::recover_file  = "WavetoyID.chkpt.it_0"
+
+# ... to be found in directory ...
+IO::recover_dir  = "../../../arrangements/CactusPUGHIO/IOHDF5/test/"
+
+# Note that this parameter is restored to "yes" during parameter recovery.
+# Since we don't need to checkpoint twice it is explicitely disabled here.
+IO::checkpoint_ID = "no"
+
+# disable output of file information (parameter filename, creation date)
+# because this could cause diffs when running the testsuite
+IO::out_fileinfo = "none"
+
+# do not use the new scheme for names of output files
+IO::new_filename_scheme = "no"

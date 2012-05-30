@@ -1,0 +1,59 @@
+######################################################################
+#!DESC "Initial data for axisymmetric distored black hole"
+######################################################################
+
+ActiveThorns = "coordgauge admanalysis admbase admmacros staticconformal time boundary ellbase ADMconstraints pugh pughinterp pughreduce pughslab cartgrid3d ADM RotatingDBHIVP ioascii iobasic ioutil ADMCoupling CoordBase SpaceMask LocalReduce LocalInterp SymBase"
+
+# GENERAL 
+
+admbase::evolution_method = "ADM"     
+
+driver::global_nx =  32
+driver::global_ny =  32
+driver::global_nz =  32
+
+grid::type = "byspacing"
+grid::dxyz = 0.4
+grid::domain = "full"
+
+time::dtfac = 0.25   
+
+cactus::cctk_initial_time = 0.   
+cactus::cctk_itlast       = 1
+
+adm::method           = "stagleap" 
+adm::bound            = "static"
+admconstraints::bound = "static"
+
+# MODEL 
+
+admbase::initial_data    = "rotatingdbh"
+rotatingdbhivp::amp      = 0.5
+rotatingdbhivp::eta0     = 0.0
+rotatingdbhivp::sigma    = 1.0
+rotatingdbhivp::byJ      = 10.0
+rotatingdbhivp::mm       = 2.0
+rotatingdbhivp::etamax   = 6.0
+rotatingdbhivp::neta     = 102
+rotatingdbhivp::ntheta   = 27
+rotatingdbhivp::nphi     = 5
+rotatingdbhivp::interpolation_order = 1
+
+# GAUGE
+admbase::lapse_evolution_method    = "geodesic"
+admbase::metric_type               = "static conformal"
+staticconformal::conformal_storage = "factor+derivs+2nd derivs"
+
+# OUTPUT ########################################################
+IO::out_dir              = $parfile
+IO::out_fileinfo         = "none"
+IO::new_filename_scheme  = "no"
+
+IOASCII::out1d_every     =  1
+IOBasic::outScalar_vars  = "admbase::metric admbase::curv admconstraints::ham"
+IOASCII::out1D_vars      = "admbase::metric admbase::curv admbase::lapse admconstraints::ham staticconformal::psi staticconformal::confac_1derivs staticconformal::confac_2derivs"
+IOBasic::outInfo_every   = 1
+IOBasic::outInfo_vars    = "admconstraints::ham admbase::gxx"
+
+##################################################################
+

@@ -1,0 +1,41 @@
+   gxx_minimum.xg: substantial differences
+      significant differences on 1 (out of 4) lines
+      maximum absolute difference in column 2 is 1
+      maximum relative difference in column 2 is 1
+   gxx_norm1.xg: substantial differences
+      significant differences on 1 (out of 4) lines
+      maximum absolute difference in column 2 is 0.001
+      maximum relative difference in column 2 is 0.000959801412188962
+      (insignificant differences on 1 lines)
+   gxx_norm2.xg: substantial differences
+      significant differences on 1 (out of 4) lines
+      maximum absolute difference in column 2 is 0.000500125062499968
+      maximum relative difference in column 2 is 0.000500125062499968
+   gyy_minimum.xg: substantial differences
+      significant differences on 1 (out of 4) lines
+      maximum absolute difference in column 2 is 1
+      maximum relative difference in column 2 is 1
+   gyy_norm1.xg: substantial differences
+      significant differences on 1 (out of 4) lines
+      maximum absolute difference in column 2 is 0.001
+      maximum relative difference in column 2 is 0.000959801412188962
+      (insignificant differences on 1 lines)
+   gyy_norm2.xg: substantial differences
+      significant differences on 1 (out of 4) lines
+      maximum absolute difference in column 2 is 0.000500125062499968
+      maximum relative difference in column 2 is 0.000500125062499968
+   gzz_minimum.xg: substantial differences
+      significant differences on 1 (out of 4) lines
+      maximum absolute difference in column 2 is 1
+      maximum relative difference in column 2 is 1
+   gzz_norm1.xg: substantial differences
+      significant differences on 1 (out of 4) lines
+      maximum absolute difference in column 2 is 0.001
+      maximum relative difference in column 2 is 0.000959801412188962
+      (insignificant differences on 1 lines)
+   gzz_norm2.xg: substantial differences
+      significant differences on 1 (out of 4) lines
+      maximum absolute difference in column 2 is 0.000500125062499968
+      maximum relative difference in column 2 is 0.000500125062499968
+
+

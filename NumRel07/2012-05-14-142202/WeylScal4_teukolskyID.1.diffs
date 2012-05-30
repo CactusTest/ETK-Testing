@@ -1,0 +1,34 @@
+   Psi4i.d.asc: substantial differences
+      significant differences on 5 (out of 25) lines
+      maximum absolute difference in column 13 is 1.6746597132686e-05
+      maximum relative difference in column 13 is 0.0527521626034551
+      (insignificant differences on 13 lines)
+   Psi4i.x.asc: differences below tolerance on 50 lines
+   Psi4i.y.asc: differences below tolerance on 39 lines
+   Psi4i.z.asc: substantial differences
+      significant differences on 3 (out of 44) lines
+      maximum absolute difference in column 13 is 1.6746597132686e-05
+      maximum relative difference in column 13 is 0.000306089344552884
+      (insignificant differences on 27 lines)
+   Psi4r.d.asc: substantial differences
+      significant differences on 3 (out of 25) lines
+      maximum absolute difference in column 13 is 1.30619946430094e-10
+      maximum relative difference in column 13 is 0.00307191861283844
+      (insignificant differences on 16 lines)
+   Psi4r.x.asc: substantial differences
+      significant differences on 6 (out of 67) lines
+      maximum absolute difference in column 13 is 1.18514203762108e-05
+      maximum relative difference in column 13 is 0.000530303392331513
+      (insignificant differences on 49 lines)
+   Psi4r.y.asc: substantial differences
+      significant differences on 6 (out of 67) lines
+      maximum absolute difference in column 13 is 1.18514163593019e-05
+      maximum relative difference in column 13 is 0.000385239873383948
+      (insignificant differences on 46 lines)
+   Psi4r.z.asc: substantial differences
+      significant differences on 3 (out of 44) lines
+      maximum absolute difference in column 13 is 1.30619946430094e-10
+      maximum relative difference in column 13 is 4.60783412799337e-07
+      (insignificant differences on 35 lines)
+
+

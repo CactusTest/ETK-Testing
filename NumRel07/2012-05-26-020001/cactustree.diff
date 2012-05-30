@@ -1,0 +1,212 @@
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-25-020001/Cactus: TEST.1
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-25-020001/Cactus: TEST.2
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-25-020001/Cactus/arrangements/EinsteinBase/ADMBase/src/Initialisation.c /home/jhar131/TESTING/einsteintoolkit/2012-05-26-020001/Cactus/arrangements/EinsteinBase/ADMBase/src/Initialisation.c
+75d74
+<   int i;
+79,80c78
+< #pragma omp parallel for
+<   for(i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+---
+>   for(int i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+101,102c99
+< #pragma omp parallel for
+<     for(i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+---
+>     for(int i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+116,117c113
+< #pragma omp parallel for
+<     for(i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+---
+>     for(int i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+132,133c128
+< #pragma omp parallel for
+<     for(i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+---
+>     for(int i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+147,148c142
+< #pragma omp parallel for
+<     for(i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+---
+>     for(int i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+182d175
+<   int i;
+186,187c179
+< #pragma omp parallel for
+<   for(i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+---
+>   for(int i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+194,195c186
+< #pragma omp parallel for
+<     for(i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+---
+>     for(int i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+203,204c194
+< #pragma omp parallel for
+<     for(i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+---
+>     for(int i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+228d217
+<   int i;
+232,233c221
+< #pragma omp parallel for
+<   for(i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+---
+>   for(int i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+242,243c230
+< #pragma omp parallel for
+<     for(i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+---
+>     for(int i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+253,254c240
+< #pragma omp parallel for
+<     for(i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+---
+>     for(int i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+280d265
+<   int i;
+284,285c269
+< #pragma omp parallel for
+<   for(i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+---
+>   for(int i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+292,293c276
+< #pragma omp parallel for
+<     for(i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+---
+>     for(int i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+301,302c284
+< #pragma omp parallel for
+<     for(i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+---
+>     for(int i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+326d307
+<   int i;
+330,331c311
+< #pragma omp parallel for
+<   for(i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+---
+>   for(int i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+340,341c320
+< #pragma omp parallel for
+<     for(i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+---
+>     for(int i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+351,352c330
+< #pragma omp parallel for
+<     for(i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+---
+>     for(int i = 0; i < cctk_lsh[0]*cctk_lsh[1]*cctk_lsh[2]; i++)
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-25-020001/Cactus/arrangements/EinsteinInitialData/Exact/src/gauge.F77 /home/jhar131/TESTING/einsteintoolkit/2012-05-26-020001/Cactus/arrangements/EinsteinInitialData/Exact/src/gauge.F77
+91,109c91,109
+< C$omp    parallel do private (
+< C$omp$     i, j, k,
+< C$omp$     tt, xx, yy, zz,
+< C$omp$     alptmp, dtalptmp, axtmp, aytmp, aztmp, 
+< C$omp$     betaxtmp, betaytmp, betaztmp,
+< C$omp$     dtbetaxtmp, dtbetaytmp, dtbetaztmp,
+< C$omp$     bxxtmp, bxytmp, bxztmp, 
+< C$omp$     byxtmp, byytmp, byztmp, 
+< C$omp$     bzxtmp, bzytmp, bzztmp,
+< C$omp$     dxgxxtmp, dxgyytmp, dxgzztmp, 
+< C$omp$     dxgxytmp, dxgyztmp, dxgxztmp,
+< C$omp$     dygxxtmp, dygyytmp, dygzztmp, 
+< C$omp$     dygxytmp, dygyztmp, dygxztmp,
+< C$omp$     dzgxxtmp, dzgyytmp, dzgzztmp, 
+< C$omp$     dzgxytmp, dzgyztmp, dzgxztmp,
+< C$omp$     exact_psi,
+< C$omp$     exact_psix, exact_psiy, exact_psiz,
+< C$omp$     exact_psixx, exact_psiyy, exact_psizz,
+< C$omp$     exact_psixy, exact_psiyz, exact_psixz)
+---
+> C$o mp    parallel do private (
+> C$o mp$     i, j, k,
+> C$o mp$     tt, xx, yy, zz,
+> C$o mp$     alptmp, dtalptmp, axtmp, aytmp, aztmp, 
+> C$o mp$     betaxtmp, betaytmp, betaztmp,
+> C$o mp$     dtbetaxtmp, dtbetaytmp, dtbetaztmp,
+> C$o mp$     bxxtmp, bxytmp, bxztmp, 
+> C$o mp$     byxtmp, byytmp, byztmp, 
+> C$o mp$     bzxtmp, bzytmp, bzztmp,
+> C$o mp$     dxgxxtmp, dxgyytmp, dxgzztmp, 
+> C$o mp$     dxgxytmp, dxgyztmp, dxgxztmp,
+> C$o mp$     dygxxtmp, dygyytmp, dygzztmp, 
+> C$o mp$     dygxytmp, dygyztmp, dygxztmp,
+> C$o mp$     dzgxxtmp, dzgyytmp, dzgzztmp, 
+> C$o mp$     dzgxytmp, dzgyztmp, dzgxztmp,
+> C$o mp$     exact_psi,
+> C$o mp$     exact_psix, exact_psiy, exact_psiz,
+> C$o mp$     exact_psixx, exact_psiyy, exact_psizz,
+> C$o mp$     exact_psixy, exact_psiyz, exact_psixz)
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-25-020001/Cactus/arrangements/EinsteinInitialData/Exact/src/initialize.F77 /home/jhar131/TESTING/einsteintoolkit/2012-05-26-020001/Cactus/arrangements/EinsteinInitialData/Exact/src/initialize.F77
+63,81c63,81
+< C$omp parallel do private(
+< C$omp$     i, j, k,
+< C$omp$     tt, xx, yy, zz,
+< C$omp$     alpjunk, dtalpjunk, axjunk, ayjunk, azjunk, 
+< C$omp$     betaxjunk, betayjunk, betazjunk,
+< C$omp$     dtbetaxjunk, dtbetayjunk, dtbetazjunk,
+< C$omp$     bxxjunk, bxyjunk, bxzjunk, 
+< C$omp$     byxjunk, byyjunk, byzjunk, 
+< C$omp$     bzxjunk, bzyjunk, bzzjunk,
+< C$omp$     dxgxxjunk, dxgyyjunk, dxgzzjunk, 
+< C$omp$     dxgxyjunk, dxgyzjunk, dxgxzjunk,
+< C$omp$     dygxxjunk, dygyyjunk, dygzzjunk, 
+< C$omp$     dygxyjunk, dygyzjunk, dygxzjunk,
+< C$omp$     dzgxxjunk, dzgyyjunk, dzgzzjunk, 
+< C$omp$     dzgxyjunk, dzgyzjunk, dzgxzjunk,
+< C$omp$     exact_psi,
+< C$omp$     exact_psix, exact_psiy, exact_psiz,
+< C$omp$     exact_psixx, exact_psiyy, exact_psizz,
+< C$omp$     exact_psixy, exact_psiyz, exact_psixz)
+---
+> C$o mp parallel do private(
+> C$o mp$     i, j, k,
+> C$o mp$     tt, xx, yy, zz,
+> C$o mp$     alpjunk, dtalpjunk, axjunk, ayjunk, azjunk, 
+> C$o mp$     betaxjunk, betayjunk, betazjunk,
+> C$o mp$     dtbetaxjunk, dtbetayjunk, dtbetazjunk,
+> C$o mp$     bxxjunk, bxyjunk, bxzjunk, 
+> C$o mp$     byxjunk, byyjunk, byzjunk, 
+> C$o mp$     bzxjunk, bzyjunk, bzzjunk,
+> C$o mp$     dxgxxjunk, dxgyyjunk, dxgzzjunk, 
+> C$o mp$     dxgxyjunk, dxgyzjunk, dxgxzjunk,
+> C$o mp$     dygxxjunk, dygyyjunk, dygzzjunk, 
+> C$o mp$     dygxyjunk, dygyzjunk, dygxzjunk,
+> C$o mp$     dzgxxjunk, dzgyyjunk, dzgzzjunk, 
+> C$o mp$     dzgxyjunk, dzgyzjunk, dzgxzjunk,
+> C$o mp$     exact_psi,
+> C$o mp$     exact_psix, exact_psiy, exact_psiz,
+> C$o mp$     exact_psixx, exact_psiyy, exact_psizz,
+> C$o mp$     exact_psixy, exact_psiyz, exact_psixz)
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-25-020001/Cactus: cactusjar.git
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-25-020001/Cactus: exe
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-25-020001/Cactus: log
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-05-25-020001/Cactus/repos/carpet/.hg/dirstate and /home/jhar131/TESTING/einsteintoolkit/2012-05-26-020001/Cactus/repos/carpet/.hg/dirstate differ
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-25-020001/Cactus/simfactory/doc/userguide/use.rst /home/jhar131/TESTING/einsteintoolkit/2012-05-26-020001/Cactus/simfactory/doc/userguide/use.rst
+184c184,186
+< parameter file will be used by Cactus. 
+---
+> parameter file will be used by Cactus. NB: Remember to use the full path
+> of the original script when determining the output filename, not just the
+> base name.
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-25-020001/Cactus/simfactory/lib/archive: __init__.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-25-020001/Cactus/simfactory/lib/archive: petashare.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-25-020001/Cactus/simfactory/lib/archive: uberftp.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-25-020001/Cactus/simfactory/lib: libutil.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-25-020001/Cactus/simfactory/lib: pyini.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-25-020001/Cactus/simfactory/lib: restartlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-25-020001/Cactus/simfactory/lib: sim-build.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-25-020001/Cactus/simfactory/lib: sim-info.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-25-020001/Cactus/simfactory/lib: sim-manage.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-25-020001/Cactus/simfactory/lib: sim-sync.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-25-020001/Cactus/simfactory/lib: sim-util.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-25-020001/Cactus/simfactory/lib: simarchive.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-25-020001/Cactus/simfactory/lib: simdb.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-25-020001/Cactus/simfactory/lib: simdt.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-25-020001/Cactus/simfactory/lib: simenv.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-25-020001/Cactus/simfactory/lib: simlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-25-020001/Cactus/simfactory/lib: simopts.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-25-020001/Cactus/simfactory/lib: simproperties.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-25-020001/Cactus/simfactory/lib: simremote.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-25-020001/Cactus/simfactory/lib: simrestart.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-25-020001/Cactus/simfactory/lib: simsubs.pyc

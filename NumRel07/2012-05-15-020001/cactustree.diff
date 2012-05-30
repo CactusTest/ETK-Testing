@@ -1,0 +1,257 @@
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus: TEST.1
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus: TEST.2
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/arrangements/AEIThorns/ADMMass/src/surface_integral.c /home/jhar131/TESTING/einsteintoolkit/2012-05-15-020001/Cactus/arrangements/AEIThorns/ADMMass/src/surface_integral.c
+218,223c218,229
+<               /* Select the points on the surfaces of the requested cube, 
+<                  paying attention not to compute the corners (and the verteces)
+<                  more than once. */
+<              
+<               /* the whole face of the cube */
+<               if (i == x_min_i)  ds[0] = -oneDY*oneDZ;
+---
+>               /* Select the points on the surfaces of the requested cube */
+>               CCTK_INT n_bound = 0;
+>               if (i == x_min_i)
+>               {
+>                   n_bound++;
+>                   ds[0] = -oneDY*oneDZ;
+>               }
+>               if (i == x_max_i)
+>               {
+>                   n_bound++;
+>                   ds[0] = oneDY*oneDZ;
+>               }
+225,230c231,233
+<               /* the whole face of the cube */
+<               if (i == x_max_i)  ds[0] = oneDY*oneDZ;
+< 
+<               /* face, excluding the two corners (and the four verteces) that
+<                  were already computed above*/
+<               if ((j == y_min_j) && (i != x_min_i) && (i != x_max_i))
+---
+>               if (j == y_min_j)
+>               {
+>                   n_bound++;
+232,235c235,238
+< 
+<               /* face, excluding the other two corners (and the four verteces) 
+<                  that were already computed above*/
+<               if ((j == y_max_j) && (i != x_min_i) && (i != x_max_i))
+---
+>               }
+>               if (j == y_max_j)
+>               {
+>                   n_bound++;
+236a240
+>               }
+238,240c242,244
+<               /* face, excluding all corners (and verteces), since they were
+<                  already computed above */
+<               if ((k == z_min_k) && (j != y_min_j) && (i != x_min_i) && (j != y_max_j) && (i != x_max_i))
+---
+>               if (k == z_min_k)
+>               {
+>                   n_bound++;
+242,246c246,249
+< 
+<               /* face, excluding all corners (and verteces), since they were
+<                  already computed above */
+<               if ((k == z_max_k) && (j != y_min_j) && (i != x_min_i) &&
+<                   (j != y_max_j) && (i != x_max_i))
+---
+>               }
+>               if (k == z_max_k)
+>               {
+>                   n_bound++;
+247a251,259
+>               }
+> 
+>               /* Take care of corners and edges */
+>               if (n_bound == 2)
+>                   for (ti=0; ti<3; ti++)
+>                       ds[ti] /= 2;
+>               if (n_bound == 3)
+>                   for (ti=0; ti<3; ti++)
+>                       ds[ti] /= 4;
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/arrangements/AEIThorns/ADMMass/src/volume_integral.c /home/jhar131/TESTING/einsteintoolkit/2012-05-15-020001/Cactus/arrangements/AEIThorns/ADMMass/src/volume_integral.c
+314c314
+<                    "detector %d: ADM mass  %g, volume (cube): xmin %g, xmax %g, ymin %g, ymax %g, zmin %g, zmax %g",
+---
+>                    "detector %d: ADM mass  %g, volume (sphere of radius) %g",
+316,319c316,317
+<                    ADMMass_SurfaceMass[*ADMMass_LoopCounter],
+<                    *ADMMass_box_x_min,*ADMMass_box_x_max,
+<                    *ADMMass_box_y_min,*ADMMass_box_y_max,
+<                    *ADMMass_box_z_min,*ADMMass_box_z_max);
+---
+>                    ADMMass_VolumeMass[*ADMMass_LoopCounter],
+>                    ADMMass_surface_distance[*ADMMass_LoopCounter]);
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/arrangements/AEIThorns/ADMMass/test/tov/ADMMass_SurfaceMass[0].asc /home/jhar131/TESTING/einsteintoolkit/2012-05-15-020001/Cactus/arrangements/AEIThorns/ADMMass/test/tov/ADMMass_SurfaceMass[0].asc
+2c2
+< 0.0000000000000	1.4689042255930
+---
+> 0.0000000000000	1.4686423912489
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/arrangements/AEIThorns/ADMMass/test/tov/ADMMass_SurfaceMass_Lapse[0].asc /home/jhar131/TESTING/einsteintoolkit/2012-05-15-020001/Cactus/arrangements/AEIThorns/ADMMass/test/tov/ADMMass_SurfaceMass_Lapse[0].asc
+2c2
+< 0.0000000000000	1.3350129389323
+---
+> 0.0000000000000	1.3347679137279
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/arrangements/AEIThorns/ADMMass/test/tov_carpet/ADMMass_SurfaceMass[0]..asc /home/jhar131/TESTING/einsteintoolkit/2012-05-15-020001/Cactus/arrangements/AEIThorns/ADMMass/test/tov_carpet/ADMMass_SurfaceMass[0]..asc
+3c3
+< 0	0 0 0 0	0 0 0	0	0 0 0	1.46890422559304
+---
+> 0	0	0 0 0	0 0 0	0	0 0 0	1.4686423912489
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/arrangements/AEIThorns/ADMMass/test/tov_carpet/ADMMass_SurfaceMass_Lapse[0]..asc /home/jhar131/TESTING/einsteintoolkit/2012-05-15-020001/Cactus/arrangements/AEIThorns/ADMMass/test/tov_carpet/ADMMass_SurfaceMass_Lapse[0]..asc
+3c3
+< 0	0 0 0 0	0 0 0	0	0 0 0	1.33501293893232
+---
+> 0	0	0 0 0	0 0 0	0	0 0 0	1.33476791372789
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/arrangements/AEIThorns/ADMMass/test/tov_carpet/ADMMass_VolumeMass[0]..asc /home/jhar131/TESTING/einsteintoolkit/2012-05-15-020001/Cactus/arrangements/AEIThorns/ADMMass/test/tov_carpet/ADMMass_VolumeMass[0]..asc
+3c3
+< 0	0 0 0 0	0 0 0	0	0 0 0	1.31862873803609
+---
+> 0	0	0 0 0	0 0 0	0	0 0 0	1.31862873803609
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/configuration.ccl /home/jhar131/TESTING/einsteintoolkit/2012-05-15-020001/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/configuration.ccl
+1a2,5
+> 
+> OPTIONAL HDF5
+> {
+> }
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/src/patch/patch_system.cc /home/jhar131/TESTING/einsteintoolkit/2012-05-15-020001/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/src/patch/patch_system.cc
+83c83
+< #ifdef CCTK_HDF5
+---
+> #ifdef HAVE_CAPABILITY_HDF5
+2542c2542
+< #ifdef CCTK_HDF5
+---
+> #ifdef HAVE_CAPABILITY_HDF5
+2619c2619
+< #ifdef CCTK_HDF5
+---
+> #ifdef HAVE_CAPABILITY_HDF5
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/arrangements/EinsteinBase/ADMBase/src/InitSymBound.c /home/jhar131/TESTING/einsteintoolkit/2012-05-15-020001/Cactus/arrangements/EinsteinBase/ADMBase/src/InitSymBound.c
+126c126,127
+< static void select_bc(cGH const* const cctkGH, char const* const groupname)
+---
+> static void select_bc(cGH const* const cctkGH, char const* const groupname,
+>                       int const stencil)
+131c132
+<     Boundary_SelectGroupForBC(cctkGH, CCTK_ALL_FACES, 1, -1,
+---
+>     Boundary_SelectGroupForBC(cctkGH, CCTK_ALL_FACES, stencil, -1,
+169,170c170,171
+<     select_bc(cctkGH, "ADMBase::metric");
+<     select_bc(cctkGH, "ADMBase::curv");
+---
+>     select_bc(cctkGH, "ADMBase::metric", stencil);
+>     select_bc(cctkGH, "ADMBase::curv", stencil);
+174c175
+<     select_bc(cctkGH, "ADMBase::lapse");
+---
+>     select_bc(cctkGH, "ADMBase::lapse", stencil);
+178c179
+<     select_bc(cctkGH, "ADMBase::dtlapse");
+---
+>     select_bc(cctkGH, "ADMBase::dtlapse", stencil);
+182c183
+<     select_bc(cctkGH, "ADMBase::shift");
+---
+>     select_bc(cctkGH, "ADMBase::shift", stencil);
+186c187
+<     select_bc(cctkGH, "ADMBase::dtshift");
+---
+>     select_bc(cctkGH, "ADMBase::dtshift", stencil);
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/arrangements/McLachlan/ML_BSSN_Helper/param.ccl /home/jhar131/TESTING/einsteintoolkit/2012-05-15-020001/Cactus/arrangements/McLachlan/ML_BSSN_Helper/param.ccl
+23a24
+> USES CCTK_REAL conformalMethod
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/arrangements/McLachlan/ML_BSSN_Helper/src/NewRad.c /home/jhar131/TESTING/einsteintoolkit/2012-05-15-020001/Cactus/arrangements/McLachlan/ML_BSSN_Helper/src/NewRad.c
+27c27
+<   newrad (cctkGH, phi  , phirhs  , 0.0, v0 );
+---
+>   newrad (cctkGH, phi  , phirhs  , conformalMethod ? 1 : 0, v0 );
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-15-020001/Cactus/arrangements/McLachlan/ML_BSSN_Test/test: ML_BSSN_NewRad
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-15-020001/Cactus/arrangements/McLachlan/ML_BSSN_Test/test: ML_BSSN_NewRad.par
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/arrangements/McLachlan/ML_BSSN_Test/test/test.ccl /home/jhar131/TESTING/einsteintoolkit/2012-05-15-020001/Cactus/arrangements/McLachlan/ML_BSSN_Test/test/test.ccl
+1a2,7
+> 
+> TEST ML_BSSN_NewRad
+> {
+>   NPROCS 2
+>   ABSTOL 1e-11
+> }
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/arrangements/McLachlan/ML_CCZ4_Helper/param.ccl /home/jhar131/TESTING/einsteintoolkit/2012-05-15-020001/Cactus/arrangements/McLachlan/ML_CCZ4_Helper/param.ccl
+23a24
+> USES CCTK_REAL conformalMethod
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/arrangements/McLachlan/ML_CCZ4_Helper/src/NewRad.c /home/jhar131/TESTING/einsteintoolkit/2012-05-15-020001/Cactus/arrangements/McLachlan/ML_CCZ4_Helper/src/NewRad.c
+27c27
+<   newrad (cctkGH, phi  , phirhs  , 0.0, v0 );
+---
+>   newrad (cctkGH, phi  , phirhs  , conformalMethod ? 1 : 0, v0 );
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/arrangements/McLachlan/m/prototype/ML_BSSN_Helper/param.ccl /home/jhar131/TESTING/einsteintoolkit/2012-05-15-020001/Cactus/arrangements/McLachlan/m/prototype/ML_BSSN_Helper/param.ccl
+23a24
+> USES CCTK_REAL conformalMethod
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/arrangements/McLachlan/m/prototype/ML_BSSN_Helper/src/NewRad.c /home/jhar131/TESTING/einsteintoolkit/2012-05-15-020001/Cactus/arrangements/McLachlan/m/prototype/ML_BSSN_Helper/src/NewRad.c
+27c27
+<   newrad (cctkGH, phi  , phirhs  , 0.0, v0 );
+---
+>   newrad (cctkGH, phi  , phirhs  , conformalMethod ? 1 : 0, v0 );
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus: cactusjar.git
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus: exe
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus: log
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/repos/McLachlan/ML_BSSN_Helper/param.ccl /home/jhar131/TESTING/einsteintoolkit/2012-05-15-020001/Cactus/repos/McLachlan/ML_BSSN_Helper/param.ccl
+23a24
+> USES CCTK_REAL conformalMethod
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/repos/McLachlan/ML_BSSN_Helper/src/NewRad.c /home/jhar131/TESTING/einsteintoolkit/2012-05-15-020001/Cactus/repos/McLachlan/ML_BSSN_Helper/src/NewRad.c
+27c27
+<   newrad (cctkGH, phi  , phirhs  , 0.0, v0 );
+---
+>   newrad (cctkGH, phi  , phirhs  , conformalMethod ? 1 : 0, v0 );
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-15-020001/Cactus/repos/McLachlan/ML_BSSN_Test/test: ML_BSSN_NewRad
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-15-020001/Cactus/repos/McLachlan/ML_BSSN_Test/test: ML_BSSN_NewRad.par
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/repos/McLachlan/ML_BSSN_Test/test/test.ccl /home/jhar131/TESTING/einsteintoolkit/2012-05-15-020001/Cactus/repos/McLachlan/ML_BSSN_Test/test/test.ccl
+1a2,7
+> 
+> TEST ML_BSSN_NewRad
+> {
+>   NPROCS 2
+>   ABSTOL 1e-11
+> }
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/repos/McLachlan/ML_CCZ4_Helper/param.ccl /home/jhar131/TESTING/einsteintoolkit/2012-05-15-020001/Cactus/repos/McLachlan/ML_CCZ4_Helper/param.ccl
+23a24
+> USES CCTK_REAL conformalMethod
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/repos/McLachlan/ML_CCZ4_Helper/src/NewRad.c /home/jhar131/TESTING/einsteintoolkit/2012-05-15-020001/Cactus/repos/McLachlan/ML_CCZ4_Helper/src/NewRad.c
+27c27
+<   newrad (cctkGH, phi  , phirhs  , 0.0, v0 );
+---
+>   newrad (cctkGH, phi  , phirhs  , conformalMethod ? 1 : 0, v0 );
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/repos/McLachlan/m/prototype/ML_BSSN_Helper/param.ccl /home/jhar131/TESTING/einsteintoolkit/2012-05-15-020001/Cactus/repos/McLachlan/m/prototype/ML_BSSN_Helper/param.ccl
+23a24
+> USES CCTK_REAL conformalMethod
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/repos/McLachlan/m/prototype/ML_BSSN_Helper/src/NewRad.c /home/jhar131/TESTING/einsteintoolkit/2012-05-15-020001/Cactus/repos/McLachlan/m/prototype/ML_BSSN_Helper/src/NewRad.c
+27c27
+<   newrad (cctkGH, phi  , phirhs  , 0.0, v0 );
+---
+>   newrad (cctkGH, phi  , phirhs  , conformalMethod ? 1 : 0, v0 );
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/repos/carpet/.hg/dirstate and /home/jhar131/TESTING/einsteintoolkit/2012-05-15-020001/Cactus/repos/carpet/.hg/dirstate differ
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/simfactory/lib/archive: __init__.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/simfactory/lib/archive: petashare.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/simfactory/lib/archive: uberftp.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/simfactory/lib: libutil.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/simfactory/lib: pyini.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/simfactory/lib: restartlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/simfactory/lib: sim-build.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/simfactory/lib: sim-info.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/simfactory/lib: sim-manage.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/simfactory/lib: sim-sync.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/simfactory/lib: sim-util.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/simfactory/lib: simarchive.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/simfactory/lib: simdb.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/simfactory/lib: simdt.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/simfactory/lib: simenv.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/simfactory/lib: simlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/simfactory/lib: simopts.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/simfactory/lib: simproperties.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/simfactory/lib: simremote.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/simfactory/lib: simrestart.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-14-142202/Cactus/simfactory/lib: simsubs.pyc

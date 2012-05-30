@@ -1,0 +1,1485 @@
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus: TEST.1
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus: TEST.2
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/AEIThorns/AEILocalInterp/src/InterpLocalUniform.c /home/jhar131/TESTING/einsteintoolkit/2012-05-18-020002/Cactus/arrangements/AEIThorns/AEILocalInterp/src/InterpLocalUniform.c
+49c49
+<   @version   $Id: InterpLocalUniform.c 55 2012-05-06 22:14:23Z schnetter $
+---
+>   @version   $Id: InterpLocalUniform.c 56 2012-05-18 01:18:57Z schnetter $
+107,108c107,108
+< 			 const CCTK_REAL *restrict coord_origin,
+< 			 const CCTK_REAL *restrict coord_delta,
+---
+> 			 const CCTK_REAL coord_origin[],
+> 			 const CCTK_REAL coord_delta[],
+112c112
+< 			 const void *restrict const *restrict interp_coords,
+---
+> 			 const void *const interp_coords[],
+115,117c115,117
+< 			 const CCTK_INT *restrict input_array_dims,
+< 			 const CCTK_INT *restrict input_array_type_codes,
+< 			 const void *restrict const *restrict input_arrays,
+---
+> 			 const CCTK_INT input_array_dims[],
+> 			 const CCTK_INT input_array_type_codes[],
+> 			 const void *const input_arrays[],
+120,121c120,121
+< 			 const CCTK_INT *restrict output_array_type_codes,
+< 			 void *restrict const *restrict output_arrays);
+---
+> 			 const CCTK_INT output_array_type_codes[],
+> 			 void *const output_arrays[]);
+130c130
+< 			   struct error_info *restrict p_error_info);
+---
+> 			   struct error_info *p_error_info);
+134,135c134,135
+< 	 int buffer_size, char *restrict molecule_family_string_buffer,
+< 	 enum molecule_family *restrict p_molecule_family);
+---
+> 	 int buffer_size, char molecule_family_string_buffer[],
+> 	 enum molecule_family *p_molecule_family);
+139c139
+< 	 int N_dims, CCTK_INT *restrict molecule_positions_array[MAX_N_DIMS]);
+---
+> 	 int N_dims, CCTK_INT* molecule_positions_array[MAX_N_DIMS]);
+143c143
+< 			struct Jacobian_info *restrict p_Jacobian_info);
+---
+> 			struct Jacobian_info* p_Jacobian_info);
+146c146
+< 		     struct error_info *restrict p_error_info);
+---
+> 		     struct error_info* p_error_info);
+150c150
+< 	 const struct molecule_structure_flags *restrict p_molecule_structure_flags);
+---
+> 	 const struct molecule_structure_flags* p_molecule_structure_flags);
+155c155
+< 	 const struct molecule_min_max_m_info *restrict p_molecule_min_max_m_info);
+---
+> 	 const struct molecule_min_max_m_info* p_molecule_min_max_m_info);
+158c158
+<   int get_and_check_INT(int param_table_handle, const char *restrict name,
+---
+>   int get_and_check_INT(int param_table_handle, const char name[],
+161,162c161,162
+< 			const char *restrict max_value_string,
+< 			CCTK_INT *restrict p_value);
+---
+> 			const char max_value_string[],
+> 			CCTK_INT* p_value);
+164c164
+<   int get_INT_array(int param_table_handle, const char *restrict name,
+---
+>   int get_INT_array(int param_table_handle, const char name[],
+166,167c166,167
+< 		    int N, CCTK_INT *restrict buffer,
+< 		    bool *restrict p_value_not_set);
+---
+> 		    int N, CCTK_INT buffer[],
+> 		    bool* p_value_not_set);
+169c169
+<   int get_REAL_array(int param_table_handle, const char *restrict name,
+---
+>   int get_REAL_array(int param_table_handle, const char name[],
+171c171
+< 		      int N, CCTK_REAL *restrict buffer);
+---
+> 		      int N, CCTK_REAL buffer[]);
+427,428c427,428
+< 				 const CCTK_REAL *restrict coord_origin,
+< 				 const CCTK_REAL *restrict coord_delta,
+---
+> 				 const CCTK_REAL coord_origin[],
+> 				 const CCTK_REAL coord_delta[],
+432c432
+< 				 const void *restrict const *restrict interp_coords,
+---
+> 				 const void *const interp_coords[],
+435,437c435,437
+< 				 const CCTK_INT *restrict input_array_dims,
+< 				 const CCTK_INT *restrict input_array_type_codes,
+< 				 const void *restrict const *restrict input_arrays,
+---
+> 				 const CCTK_INT input_array_dims[],
+> 				 const CCTK_INT input_array_type_codes[],
+> 				 const void *const input_arrays[],
+440,441c440,441
+< 				 const CCTK_INT *restrict output_array_type_codes,
+< 				 void *restrict const *restrict output_arrays)
+---
+> 				 const CCTK_INT output_array_type_codes[],
+> 				 void *const output_arrays[])
+495,496c495,496
+< 				const CCTK_REAL *restrict coord_origin,
+< 				const CCTK_REAL *restrict coord_delta,
+---
+> 				const CCTK_REAL coord_origin[],
+> 				const CCTK_REAL coord_delta[],
+500c500
+< 				const void *restrict const *restrict interp_coords,
+---
+> 				const void *const interp_coords[],
+503,505c503,505
+< 				const CCTK_INT *restrict input_array_dims,
+< 				const CCTK_INT *restrict input_array_type_codes,
+< 				const void *restrict const *restrict input_arrays,
+---
+> 				const CCTK_INT input_array_dims[],
+> 				const CCTK_INT input_array_type_codes[],
+> 				const void *const input_arrays[],
+508,509c508,509
+< 				const CCTK_INT *restrict output_array_type_codes,
+< 				void *restrict const *restrict output_arrays)
+---
+> 				const CCTK_INT output_array_type_codes[],
+> 				void *const output_arrays[])
+556,557c556,557
+< 			    const CCTK_REAL *restrict coord_origin,
+< 			    const CCTK_REAL *restrict coord_delta,
+---
+> 			    const CCTK_REAL coord_origin[],
+> 			    const CCTK_REAL coord_delta[],
+561c561
+< 			    const void *restrict const *restrict interp_coords,
+---
+> 			    const void *const interp_coords[],
+564,566c564,566
+< 			    const CCTK_INT *restrict input_array_dims,
+< 			    const CCTK_INT *restrict input_array_type_codes,
+< 			    const void *restrict const *restrict input_arrays,
+---
+> 			    const CCTK_INT input_array_dims[],
+> 			    const CCTK_INT input_array_type_codes[],
+> 			    const void *const input_arrays[],
+569,570c569,570
+< 			    const CCTK_INT *restrict output_array_type_codes,
+< 			    void *restrict const *restrict output_arrays)
+---
+> 			    const CCTK_INT output_array_type_codes[],
+> 			    void *const output_arrays[])
+1032,1033c1032,1033
+< 			 const CCTK_REAL *restrict coord_origin,
+< 			 const CCTK_REAL *restrict coord_delta,
+---
+> 			 const CCTK_REAL coord_origin[],
+> 			 const CCTK_REAL coord_delta[],
+1037c1037
+< 			 const void *restrict const *restrict interp_coords,
+---
+> 			 const void *const interp_coords[],
+1040,1042c1040,1042
+< 			 const CCTK_INT *restrict input_array_dims,
+< 			 const CCTK_INT *restrict input_array_type_codes,
+< 			 const void *restrict const *restrict input_arrays,
+---
+> 			 const CCTK_INT input_array_dims[],
+> 			 const CCTK_INT input_array_type_codes[],
+> 			 const void *const input_arrays[],
+1045,1046c1045,1046
+< 			 const CCTK_INT *restrict output_array_type_codes,
+< 			 void *restrict const *restrict output_arrays)
+---
+> 			 const CCTK_INT output_array_type_codes[],
+> 			 void *const output_arrays[])
+1399c1399
+< CCTK_INT *restrict const operation_codes
+---
+> CCTK_INT* const operation_codes
+1426,1427c1426,1427
+< struct molecule_min_max_m_info *restrict p_molecule_min_max_m_info = NULL;
+< struct molecule_min_max_m_info           molecule_min_max_m_info;
+---
+> struct molecule_min_max_m_info* p_molecule_min_max_m_info = NULL;
+> struct molecule_min_max_m_info  molecule_min_max_m_info;
+1455,1456c1455,1456
+< CCTK_INT *restrict *restrict p_molecule_positions = NULL;
+< CCTK_INT *restrict           molecule_positions_array[MAX_N_DIMS];
+---
+> CCTK_INT** p_molecule_positions = NULL;
+> CCTK_INT*  molecule_positions_array[MAX_N_DIMS];
+1494,1495c1494,1495
+< struct Jacobian_info *restrict p_Jacobian_info = NULL;
+< struct Jacobian_info           Jacobian_info;
+---
+> struct Jacobian_info* p_Jacobian_info = NULL;
+> struct Jacobian_info  Jacobian_info;
+1797c1797
+< 			   struct error_info *restrict p_error_info)
+---
+> 			   struct error_info *p_error_info)
+1867,1868c1867,1868
+< 	 int buffer_size, char *restrict molecule_family_string_buffer,
+< 	 enum molecule_family *restrict p_molecule_family)
+---
+> 	 int buffer_size, char molecule_family_string_buffer[],
+> 	 enum molecule_family *p_molecule_family)
+1941c1941
+< 	 int N_dims, CCTK_INT *restrict molecule_positions_array[MAX_N_DIMS])
+---
+> 	 int N_dims, CCTK_INT* molecule_positions_array[MAX_N_DIMS])
+1991c1991
+< 			struct Jacobian_info *restrict p_Jacobian_info)
+---
+> 			struct Jacobian_info* p_Jacobian_info)
+2109c2109
+< 		     struct error_info *restrict p_error_info)
+---
+> 		     struct error_info* p_error_info)
+2149c2149
+< 	 const struct molecule_structure_flags *restrict p_molecule_structure_flags)
+---
+> 	 const struct molecule_structure_flags* p_molecule_structure_flags)
+2201c2201
+< 	 const struct molecule_min_max_m_info *restrict p_molecule_min_max_m_info)
+---
+> 	 const struct molecule_min_max_m_info* p_molecule_min_max_m_info)
+2254c2254
+<   int get_and_check_INT(int param_table_handle, const char *restrict name,
+---
+>   int get_and_check_INT(int param_table_handle, const char name[],
+2257,2258c2257,2258
+< 			const char *restrict max_value_string,
+< 			CCTK_INT *restrict p_value)
+---
+> 			const char max_value_string[],
+> 			CCTK_INT* p_value)
+2356c2356
+<   int get_INT_array(int param_table_handle, const char *restrict name,
+---
+>   int get_INT_array(int param_table_handle, const char name[],
+2358,2359c2358,2359
+< 		    int N, CCTK_INT *restrict buffer,
+< 		    bool *restrict p_value_not_set)
+---
+> 		    int N, CCTK_INT buffer[],
+> 		    bool* p_value_not_set)
+2436c2436
+<   int get_REAL_array(int param_table_handle, const char *restrict name,
+---
+>   int get_REAL_array(int param_table_handle, const char name[],
+2438c2438
+< 		     int N, CCTK_REAL *restrict buffer)
+---
+> 		     int N, CCTK_REAL buffer[])
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/AEIThorns/AEILocalInterp/src/InterpLocalUniform.h /home/jhar131/TESTING/einsteintoolkit/2012-05-18-020002/Cactus/arrangements/AEIThorns/AEILocalInterp/src/InterpLocalUniform.h
+134c134
+< 	CCTK_INT *restrict per_point_status;
+---
+> 	CCTK_INT* per_point_status;
+156,157c156,157
+< 	CCTK_REAL *restrict *restrict Jacobian_pointer;
+< 	CCTK_INT *restrict            Jacobian_offset;
+---
+> 	CCTK_REAL** Jacobian_pointer;
+> 	CCTK_INT*   Jacobian_offset;
+199,200c199,200
+< 				 const CCTK_REAL *restrict coord_origin,
+< 				 const CCTK_REAL *restrict coord_delta,
+---
+> 				 const CCTK_REAL coord_origin[],
+> 				 const CCTK_REAL coord_delta[],
+204c204
+< 				 const void *restrict const *restrict interp_coords,
+---
+> 				 const void *const interp_coords[],
+207,209c207,209
+< 				 const CCTK_INT *restrict input_array_dims,
+< 				 const CCTK_INT *restrict input_array_type_codes,
+< 				 const void *restrict const *restrict input_arrays,
+---
+> 				 const CCTK_INT input_array_dims[],
+> 				 const CCTK_INT input_array_type_codes[],
+> 				 const void *const input_arrays[],
+212,213c212,213
+< 				 const CCTK_INT *restrict output_array_type_codes,
+< 				 void *restrict const *restrict output_arrays);
+---
+> 				 const CCTK_INT output_array_type_codes[],
+> 				 void *const output_arrays[]);
+217,218c217,218
+< 				 const CCTK_REAL *restrict coord_origin,
+< 				 const CCTK_REAL *restrict coord_delta,
+---
+> 				 const CCTK_REAL coord_origin[],
+> 				 const CCTK_REAL coord_delta[],
+222c222
+< 				 const void *restrict const *restrict interp_coords,
+---
+> 				 const void *const interp_coords[],
+225,227c225,227
+< 				 const CCTK_INT *restrict input_array_dims,
+< 				 const CCTK_INT *restrict input_array_type_codes,
+< 				 const void *restrict const *restrict input_arrays,
+---
+> 				 const CCTK_INT input_array_dims[],
+> 				 const CCTK_INT input_array_type_codes[],
+> 				 const void *const input_arrays[],
+230,231c230,231
+< 				 const CCTK_INT *restrict output_array_type_codes,
+< 				 void *restrict const *restrict output_arrays);
+---
+> 				 const CCTK_INT output_array_type_codes[],
+> 				 void *const output_arrays[]);
+235,236c235,236
+< 			     const CCTK_REAL *restrict coord_origin,
+< 			     const CCTK_REAL *restrict coord_delta,
+---
+> 			     const CCTK_REAL coord_origin[],
+> 			     const CCTK_REAL coord_delta[],
+240c240
+< 			     const void *restrict const *restrict interp_coords,
+---
+> 			     const void *const interp_coords[],
+243,245c243,245
+< 			     const CCTK_INT *restrict input_array_dims,
+< 			     const CCTK_INT *restrict input_array_type_codes,
+< 			     const void *restrict const *restrict input_arrays,
+---
+> 			     const CCTK_INT input_array_dims[],
+> 			     const CCTK_INT input_array_type_codes[],
+> 			     const void *const input_arrays[],
+248,249c248,249
+< 			     const CCTK_INT *restrict output_array_type_codes,
+< 			     void *restrict const *restrict output_arrays);
+---
+> 			     const CCTK_INT output_array_type_codes[],
+> 			     void *const output_arrays[]);
+261c261
+< 				 int *restrict i_center, fp *restrict x_rel);
+---
+> 				 int* i_center, fp* x_rel);
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/AEIThorns/AEILocalInterp/src/common/evaluate.c /home/jhar131/TESTING/einsteintoolkit/2012-05-18-020002/Cactus/arrangements/AEIThorns/AEILocalInterp/src/common/evaluate.c
+16,17c16,17
+< fp AEILocalInterp_eval_1dcube2(const struct coeffs_struct_1d_cube_size2 *restrict const coeffs,
+< 			       const struct data_struct_1d_cube_size2 *restrict const data)
+---
+> fp AEILocalInterp_eval_1dcube2(const struct coeffs_struct_1d_cube_size2 *coeffs,
+> 			       const struct data_struct_1d_cube_size2 *data)
+23,24c23,24
+< fp AEILocalInterp_eval_1dcube3(const struct coeffs_struct_1d_cube_size3 *restrict const coeffs,
+< 			       const struct data_struct_1d_cube_size3 *restrict const data)
+---
+> fp AEILocalInterp_eval_1dcube3(const struct coeffs_struct_1d_cube_size3 *coeffs,
+> 			       const struct data_struct_1d_cube_size3 *data)
+30,31c30,31
+< fp AEILocalInterp_eval_1dcube4(const struct coeffs_struct_1d_cube_size4 *restrict const coeffs,
+< 			       const struct data_struct_1d_cube_size4 *restrict const data)
+---
+> fp AEILocalInterp_eval_1dcube4(const struct coeffs_struct_1d_cube_size4 *coeffs,
+> 			       const struct data_struct_1d_cube_size4 *data)
+37,38c37,38
+< fp AEILocalInterp_eval_1dcube5(const struct coeffs_struct_1d_cube_size5 *restrict const coeffs,
+< 			       const struct data_struct_1d_cube_size5 *restrict const data)
+---
+> fp AEILocalInterp_eval_1dcube5(const struct coeffs_struct_1d_cube_size5 *coeffs,
+> 			       const struct data_struct_1d_cube_size5 *data)
+44,45c44,45
+< fp AEILocalInterp_eval_1dcube6(const struct coeffs_struct_1d_cube_size6 *restrict const coeffs,
+< 			       const struct data_struct_1d_cube_size6 *restrict const data)
+---
+> fp AEILocalInterp_eval_1dcube6(const struct coeffs_struct_1d_cube_size6 *coeffs,
+> 			       const struct data_struct_1d_cube_size6 *data)
+51,52c51,52
+< fp AEILocalInterp_eval_1dcube7(const struct coeffs_struct_1d_cube_size7 *restrict const coeffs,
+< 			       const struct data_struct_1d_cube_size7 *restrict const data)
+---
+> fp AEILocalInterp_eval_1dcube7(const struct coeffs_struct_1d_cube_size7 *coeffs,
+> 			       const struct data_struct_1d_cube_size7 *data)
+64,65c64,65
+< fp AEILocalInterp_eval_2dcube2(const struct coeffs_struct_2d_cube_size2 *restrict const coeffs,
+< 			       const struct data_struct_2d_cube_size2 *restrict const data)
+---
+> fp AEILocalInterp_eval_2dcube2(const struct coeffs_struct_2d_cube_size2 *coeffs,
+> 			       const struct data_struct_2d_cube_size2 *data)
+71,72c71,72
+< fp AEILocalInterp_eval_2dcube3(const struct coeffs_struct_2d_cube_size3 *restrict const coeffs,
+< 			       const struct data_struct_2d_cube_size3 *restrict const data)
+---
+> fp AEILocalInterp_eval_2dcube3(const struct coeffs_struct_2d_cube_size3 *coeffs,
+> 			       const struct data_struct_2d_cube_size3 *data)
+78,79c78,79
+< fp AEILocalInterp_eval_2dcube4(const struct coeffs_struct_2d_cube_size4 *restrict const coeffs,
+< 			       const struct data_struct_2d_cube_size4 *restrict const data)
+---
+> fp AEILocalInterp_eval_2dcube4(const struct coeffs_struct_2d_cube_size4 *coeffs,
+> 			       const struct data_struct_2d_cube_size4 *data)
+85,86c85,86
+< fp AEILocalInterp_eval_2dcube5(const struct coeffs_struct_2d_cube_size5 *restrict const coeffs,
+< 			       const struct data_struct_2d_cube_size5 *restrict const data)
+---
+> fp AEILocalInterp_eval_2dcube5(const struct coeffs_struct_2d_cube_size5 *coeffs,
+> 			       const struct data_struct_2d_cube_size5 *data)
+92,93c92,93
+< fp AEILocalInterp_eval_2dcube6(const struct coeffs_struct_2d_cube_size6 *restrict const coeffs,
+< 			       const struct data_struct_2d_cube_size6 *restrict const data)
+---
+> fp AEILocalInterp_eval_2dcube6(const struct coeffs_struct_2d_cube_size6 *coeffs,
+> 			       const struct data_struct_2d_cube_size6 *data)
+105,106c105,106
+< fp AEILocalInterp_eval_3dcube2(const struct coeffs_struct_3d_cube_size2 *restrict const coeffs,
+< 			       const struct data_struct_3d_cube_size2 *restrict const data)
+---
+> fp AEILocalInterp_eval_3dcube2(const struct coeffs_struct_3d_cube_size2 *coeffs,
+> 			       const struct data_struct_3d_cube_size2 *data)
+112,113c112,113
+< fp AEILocalInterp_eval_3dcube3(const struct coeffs_struct_3d_cube_size3 *restrict const coeffs,
+< 			       const struct data_struct_3d_cube_size3 *restrict const data)
+---
+> fp AEILocalInterp_eval_3dcube3(const struct coeffs_struct_3d_cube_size3 *coeffs,
+> 			       const struct data_struct_3d_cube_size3 *data)
+119,120c119,120
+< fp AEILocalInterp_eval_3dcube4(const struct coeffs_struct_3d_cube_size4 *restrict const coeffs,
+< 			       const struct data_struct_3d_cube_size4 *restrict const data)
+---
+> fp AEILocalInterp_eval_3dcube4(const struct coeffs_struct_3d_cube_size4 *coeffs,
+> 			       const struct data_struct_3d_cube_size4 *data)
+126,127c126,127
+< fp AEILocalInterp_eval_3dcube5(const struct coeffs_struct_3d_cube_size5 *restrict const coeffs,
+< 			       const struct data_struct_3d_cube_size5 *restrict const data)
+---
+> fp AEILocalInterp_eval_3dcube5(const struct coeffs_struct_3d_cube_size5 *coeffs,
+> 			       const struct data_struct_3d_cube_size5 *data)
+133,134c133,134
+< fp AEILocalInterp_eval_3dcube6(const struct coeffs_struct_3d_cube_size6 *restrict const coeffs,
+< 			       const struct data_struct_3d_cube_size6 *restrict const data)
+---
+> fp AEILocalInterp_eval_3dcube6(const struct coeffs_struct_3d_cube_size6 *coeffs,
+> 			       const struct data_struct_3d_cube_size6 *data)
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/AEIThorns/AEILocalInterp/src/common/evaluate.h /home/jhar131/TESTING/einsteintoolkit/2012-05-18-020002/Cactus/arrangements/AEIThorns/AEILocalInterp/src/common/evaluate.h
+11,22c11,22
+< fp AEILocalInterp_eval_1dcube2(const struct coeffs_struct_1d_cube_size2 *restrict coeffs,
+< 			       const struct data_struct_1d_cube_size2 *restrict data);
+< fp AEILocalInterp_eval_1dcube3(const struct coeffs_struct_1d_cube_size3 *restrict coeffs,
+< 			       const struct data_struct_1d_cube_size3 *restrict data);
+< fp AEILocalInterp_eval_1dcube4(const struct coeffs_struct_1d_cube_size4 *restrict coeffs,
+< 			       const struct data_struct_1d_cube_size4 *restrict data);
+< fp AEILocalInterp_eval_1dcube5(const struct coeffs_struct_1d_cube_size5 *restrict coeffs,
+< 			       const struct data_struct_1d_cube_size5 *restrict data);
+< fp AEILocalInterp_eval_1dcube6(const struct coeffs_struct_1d_cube_size6 *restrict coeffs,
+< 			       const struct data_struct_1d_cube_size6 *restrict data);
+< fp AEILocalInterp_eval_1dcube7(const struct coeffs_struct_1d_cube_size7 *restrict coeffs,
+< 			       const struct data_struct_1d_cube_size7 *restrict data);
+---
+> fp AEILocalInterp_eval_1dcube2(const struct coeffs_struct_1d_cube_size2 *coeffs,
+> 			       const struct data_struct_1d_cube_size2 *data);
+> fp AEILocalInterp_eval_1dcube3(const struct coeffs_struct_1d_cube_size3 *coeffs,
+> 			       const struct data_struct_1d_cube_size3 *data);
+> fp AEILocalInterp_eval_1dcube4(const struct coeffs_struct_1d_cube_size4 *coeffs,
+> 			       const struct data_struct_1d_cube_size4 *data);
+> fp AEILocalInterp_eval_1dcube5(const struct coeffs_struct_1d_cube_size5 *coeffs,
+> 			       const struct data_struct_1d_cube_size5 *data);
+> fp AEILocalInterp_eval_1dcube6(const struct coeffs_struct_1d_cube_size6 *coeffs,
+> 			       const struct data_struct_1d_cube_size6 *data);
+> fp AEILocalInterp_eval_1dcube7(const struct coeffs_struct_1d_cube_size7 *coeffs,
+> 			       const struct data_struct_1d_cube_size7 *data);
+24,33c24,33
+< fp AEILocalInterp_eval_2dcube2(const struct coeffs_struct_2d_cube_size2 *restrict coeffs,
+< 			       const struct data_struct_2d_cube_size2 *restrict data);
+< fp AEILocalInterp_eval_2dcube3(const struct coeffs_struct_2d_cube_size3 *restrict coeffs,
+< 			       const struct data_struct_2d_cube_size3 *restrict data);
+< fp AEILocalInterp_eval_2dcube4(const struct coeffs_struct_2d_cube_size4 *restrict coeffs,
+< 			       const struct data_struct_2d_cube_size4 *restrict data);
+< fp AEILocalInterp_eval_2dcube5(const struct coeffs_struct_2d_cube_size5 *restrict coeffs,
+< 			       const struct data_struct_2d_cube_size5 *restrict data);
+< fp AEILocalInterp_eval_2dcube6(const struct coeffs_struct_2d_cube_size6 *restrict coeffs,
+< 			       const struct data_struct_2d_cube_size6 *restrict data);
+---
+> fp AEILocalInterp_eval_2dcube2(const struct coeffs_struct_2d_cube_size2 *coeffs,
+> 			       const struct data_struct_2d_cube_size2 *data);
+> fp AEILocalInterp_eval_2dcube3(const struct coeffs_struct_2d_cube_size3 *coeffs,
+> 			       const struct data_struct_2d_cube_size3 *data);
+> fp AEILocalInterp_eval_2dcube4(const struct coeffs_struct_2d_cube_size4 *coeffs,
+> 			       const struct data_struct_2d_cube_size4 *data);
+> fp AEILocalInterp_eval_2dcube5(const struct coeffs_struct_2d_cube_size5 *coeffs,
+> 			       const struct data_struct_2d_cube_size5 *data);
+> fp AEILocalInterp_eval_2dcube6(const struct coeffs_struct_2d_cube_size6 *coeffs,
+> 			       const struct data_struct_2d_cube_size6 *data);
+35,44c35,44
+< fp AEILocalInterp_eval_3dcube2(const struct coeffs_struct_3d_cube_size2 *restrict coeffs,
+< 			       const struct data_struct_3d_cube_size2 *restrict data);
+< fp AEILocalInterp_eval_3dcube3(const struct coeffs_struct_3d_cube_size3 *restrict coeffs,
+< 			       const struct data_struct_3d_cube_size3 *restrict data);
+< fp AEILocalInterp_eval_3dcube4(const struct coeffs_struct_3d_cube_size4 *restrict coeffs,
+< 			       const struct data_struct_3d_cube_size4 *restrict data);
+< fp AEILocalInterp_eval_3dcube5(const struct coeffs_struct_3d_cube_size5 *restrict coeffs,
+< 			       const struct data_struct_3d_cube_size5 *restrict data);
+< fp AEILocalInterp_eval_3dcube6(const struct coeffs_struct_3d_cube_size6 *restrict coeffs,
+< 			       const struct data_struct_3d_cube_size6 *restrict data);
+---
+> fp AEILocalInterp_eval_3dcube2(const struct coeffs_struct_3d_cube_size2 *coeffs,
+> 			       const struct data_struct_3d_cube_size2 *data);
+> fp AEILocalInterp_eval_3dcube3(const struct coeffs_struct_3d_cube_size3 *coeffs,
+> 			       const struct data_struct_3d_cube_size3 *data);
+> fp AEILocalInterp_eval_3dcube4(const struct coeffs_struct_3d_cube_size4 *coeffs,
+> 			       const struct data_struct_3d_cube_size4 *data);
+> fp AEILocalInterp_eval_3dcube5(const struct coeffs_struct_3d_cube_size5 *coeffs,
+> 			       const struct data_struct_3d_cube_size5 *data);
+> fp AEILocalInterp_eval_3dcube6(const struct coeffs_struct_3d_cube_size6 *coeffs,
+> 			       const struct data_struct_3d_cube_size6 *data);
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/AEIThorns/AEILocalInterp/src/common/load-template.c /home/jhar131/TESTING/einsteintoolkit/2012-05-18-020002/Cactus/arrangements/AEIThorns/AEILocalInterp/src/common/load-template.c
+18a19,25
+> void LOAD_FUNCTION_NAME(r)(const CCTK_REAL *ptr,
+> 			   INT_STRIDE_IJK,
+> 			  struct DATA_STRUCT *data)
+> {
+> #include LOAD_DATA_FILE_NAME
+> }
+> 
+20c27
+<   void LOAD_FUNCTION_NAME(r4)(const CCTK_REAL4 *restrict const ptr,
+---
+>   void LOAD_FUNCTION_NAME(r4)(const CCTK_REAL4 *ptr,
+22c29
+< 			      struct DATA_STRUCT *restrict const data)
+---
+> 			      struct DATA_STRUCT *data)
+29c36
+<   void LOAD_FUNCTION_NAME(r8)(const CCTK_REAL8 *restrict const ptr,
+---
+>   void LOAD_FUNCTION_NAME(r8)(const CCTK_REAL8 *ptr,
+31c38
+< 			      struct DATA_STRUCT *restrict const data)
+---
+> 			      struct DATA_STRUCT *data)
+38c45
+<   void LOAD_FUNCTION_NAME(r16)(const CCTK_REAL16 *restrict const ptr,
+---
+>   void LOAD_FUNCTION_NAME(r16)(const CCTK_REAL16 *ptr,
+40c47
+< 				struct DATA_STRUCT *restrict const data)
+---
+> 				struct DATA_STRUCT *data)
+54a62,68
+> void LOAD_FUNCTION_NAME(c)(const CCTK_REAL (*ptr)[COMPLEX_N_PARTS],
+> 			   INT_STRIDE_IJK, int part,
+> 			   struct DATA_STRUCT *data)
+> {
+> #include LOAD_DATA_FILE_NAME
+> }
+> 
+56c70
+<   void LOAD_FUNCTION_NAME(c8)(const CCTK_REAL4 (*restrict const ptr)[COMPLEX_N_PARTS],
+---
+>   void LOAD_FUNCTION_NAME(c8)(const CCTK_REAL4 (*ptr)[COMPLEX_N_PARTS],
+58c72
+< 			      struct DATA_STRUCT *restrict const data)
+---
+> 			      struct DATA_STRUCT *data)
+65c79
+<   void LOAD_FUNCTION_NAME(c16)(const CCTK_REAL8 (*restrict const ptr)[COMPLEX_N_PARTS],
+---
+>   void LOAD_FUNCTION_NAME(c16)(const CCTK_REAL8 (*ptr)[COMPLEX_N_PARTS],
+67c81
+< 				struct DATA_STRUCT *restrict const data)
+---
+> 				struct DATA_STRUCT *data)
+74c88
+<   void LOAD_FUNCTION_NAME(c32)(const CCTK_REAL16 (*restrict const ptr)[COMPLEX_N_PARTS],
+---
+>   void LOAD_FUNCTION_NAME(c32)(const CCTK_REAL16 (*ptr)[COMPLEX_N_PARTS],
+76c90
+< 				struct DATA_STRUCT *restrict const data)
+---
+> 				struct DATA_STRUCT *data)
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/AEIThorns/AEILocalInterp/src/common/load-template.h /home/jhar131/TESTING/einsteintoolkit/2012-05-18-020002/Cactus/arrangements/AEIThorns/AEILocalInterp/src/common/load-template.h
+21c21
+< void LOAD_FUNCTION_NAME(r)(const CCTK_REAL *restrict ptr,
+---
+> void LOAD_FUNCTION_NAME(r)(const CCTK_REAL *ptr,
+23c23
+< 			   struct DATA_STRUCT *restrict data);
+---
+> 			   struct DATA_STRUCT *data);
+26c26
+<   void LOAD_FUNCTION_NAME(r4)(const CCTK_REAL4 *restrict ptr,
+---
+>   void LOAD_FUNCTION_NAME(r4)(const CCTK_REAL4 *ptr,
+28c28
+< 			      struct DATA_STRUCT *restrict data);
+---
+> 			      struct DATA_STRUCT *data);
+32c32
+<   void LOAD_FUNCTION_NAME(r8)(const CCTK_REAL8 *restrict ptr,
+---
+>   void LOAD_FUNCTION_NAME(r8)(const CCTK_REAL8 *ptr,
+34c34
+< 			      struct DATA_STRUCT *restrict data);
+---
+> 			      struct DATA_STRUCT *data);
+38c38
+<   void LOAD_FUNCTION_NAME(r16)(const CCTK_REAL16 *restrict ptr,
+---
+>   void LOAD_FUNCTION_NAME(r16)(const CCTK_REAL16 *ptr,
+40c40
+< 				struct DATA_STRUCT *restrict data);
+---
+> 				struct DATA_STRUCT *data);
+49c49
+< void LOAD_FUNCTION_NAME(c)(const CCTK_REAL (*restrict ptr)[COMPLEX_N_PARTS],
+---
+> void LOAD_FUNCTION_NAME(c)(const CCTK_REAL (*ptr)[COMPLEX_N_PARTS],
+51c51
+< 			   struct DATA_STRUCT *restrict data);
+---
+> 			   struct DATA_STRUCT *data);
+54c54
+<   void LOAD_FUNCTION_NAME(c8)(const CCTK_REAL4 (*restrict ptr)[COMPLEX_N_PARTS],
+---
+>   void LOAD_FUNCTION_NAME(c8)(const CCTK_REAL4 (*ptr)[COMPLEX_N_PARTS],
+56c56
+< 			      struct DATA_STRUCT *restrict data);
+---
+> 			      struct DATA_STRUCT *data);
+60c60
+<   void LOAD_FUNCTION_NAME(c16)(const CCTK_REAL8 (*restrict ptr)[COMPLEX_N_PARTS],
+---
+>   void LOAD_FUNCTION_NAME(c16)(const CCTK_REAL8 (*ptr)[COMPLEX_N_PARTS],
+62c62
+< 				struct DATA_STRUCT *restrict data);
+---
+> 				struct DATA_STRUCT *data);
+66c66
+<   void LOAD_FUNCTION_NAME(c32)(const CCTK_REAL16 (*restrict ptr)[COMPLEX_N_PARTS],
+---
+>   void LOAD_FUNCTION_NAME(c32)(const CCTK_REAL16 (*ptr)[COMPLEX_N_PARTS],
+68c68
+< 				struct DATA_STRUCT *restrict data);
+---
+> 				struct DATA_STRUCT *data);
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/AEIThorns/AEILocalInterp/src/common/store.c /home/jhar131/TESTING/einsteintoolkit/2012-05-18-020002/Cactus/arrangements/AEIThorns/AEILocalInterp/src/common/store.c
+20,21c20,21
+<       (fp factor, const struct coeffs_struct_1d_cube_size2 *restrict const coeffs,
+<        fp *restrict Jacobian_ptr,
+---
+>       (fp factor, const struct coeffs_struct_1d_cube_size2 *coeffs,
+>        fp Jacobian_ptr[],
+28,29c28,29
+<       (fp factor, const struct coeffs_struct_1d_cube_size3 *restrict const coeffs,
+<        fp *restrict Jacobian_ptr,
+---
+>       (fp factor, const struct coeffs_struct_1d_cube_size3 *coeffs,
+>        fp Jacobian_ptr[],
+36,37c36,37
+<       (fp factor, const struct coeffs_struct_1d_cube_size4 *restrict const coeffs,
+<        fp *restrict Jacobian_ptr,
+---
+>       (fp factor, const struct coeffs_struct_1d_cube_size4 *coeffs,
+>        fp Jacobian_ptr[],
+44,45c44,45
+<       (fp factor, const struct coeffs_struct_1d_cube_size5 *restrict const coeffs,
+<        fp *restrict Jacobian_ptr,
+---
+>       (fp factor, const struct coeffs_struct_1d_cube_size5 *coeffs,
+>        fp Jacobian_ptr[],
+52,53c52,53
+<       (fp factor, const struct coeffs_struct_1d_cube_size6 *restrict const coeffs,
+<        fp *restrict Jacobian_ptr,
+---
+>       (fp factor, const struct coeffs_struct_1d_cube_size6 *coeffs,
+>        fp Jacobian_ptr[],
+60,61c60,61
+<       (fp factor, const struct coeffs_struct_1d_cube_size7 *restrict const coeffs,
+<        fp *restrict Jacobian_ptr,
+---
+>       (fp factor, const struct coeffs_struct_1d_cube_size7 *coeffs,
+>        fp Jacobian_ptr[],
+78,79c78,79
+<       (fp factor, const struct coeffs_struct_2d_cube_size2 *restrict const coeffs,
+<        fp *restrict Jacobian_ptr,
+---
+>       (fp factor, const struct coeffs_struct_2d_cube_size2 *coeffs,
+>        fp Jacobian_ptr[],
+86,87c86,87
+<       (fp factor, const struct coeffs_struct_2d_cube_size3 *restrict const coeffs,
+<        fp *restrict Jacobian_ptr,
+---
+>       (fp factor, const struct coeffs_struct_2d_cube_size3 *coeffs,
+>        fp Jacobian_ptr[],
+94,95c94,95
+<       (fp factor, const struct coeffs_struct_2d_cube_size4 *restrict const coeffs,
+<        fp *restrict Jacobian_ptr,
+---
+>       (fp factor, const struct coeffs_struct_2d_cube_size4 *coeffs,
+>        fp Jacobian_ptr[],
+102,103c102,103
+<       (fp factor, const struct coeffs_struct_2d_cube_size5 *restrict const coeffs,
+<        fp *restrict Jacobian_ptr,
+---
+>       (fp factor, const struct coeffs_struct_2d_cube_size5 *coeffs,
+>        fp Jacobian_ptr[],
+110,111c110,111
+<       (fp factor, const struct coeffs_struct_2d_cube_size6 *restrict const coeffs,
+<        fp *restrict Jacobian_ptr,
+---
+>       (fp factor, const struct coeffs_struct_2d_cube_size6 *coeffs,
+>        fp Jacobian_ptr[],
+129,130c129,130
+<       (fp factor, const struct coeffs_struct_3d_cube_size2 *restrict const coeffs,
+<        fp *restrict Jacobian_ptr,
+---
+>       (fp factor, const struct coeffs_struct_3d_cube_size2 *coeffs,
+>        fp Jacobian_ptr[],
+137,138c137,138
+<       (fp factor, const struct coeffs_struct_3d_cube_size3 *restrict const coeffs,
+<        fp *restrict Jacobian_ptr,
+---
+>       (fp factor, const struct coeffs_struct_3d_cube_size3 *coeffs,
+>        fp Jacobian_ptr[],
+145,146c145,146
+<       (fp factor, const struct coeffs_struct_3d_cube_size4 *restrict const coeffs,
+<        fp *restrict Jacobian_ptr,
+---
+>       (fp factor, const struct coeffs_struct_3d_cube_size4 *coeffs,
+>        fp Jacobian_ptr[],
+153,154c153,154
+<       (fp factor, const struct coeffs_struct_3d_cube_size5 *restrict const coeffs,
+<        fp *restrict Jacobian_ptr,
+---
+>       (fp factor, const struct coeffs_struct_3d_cube_size5 *coeffs,
+>        fp Jacobian_ptr[],
+161,162c161,162
+<       (fp factor, const struct coeffs_struct_3d_cube_size6 *restrict const coeffs,
+<        fp *restrict Jacobian_ptr,
+---
+>       (fp factor, const struct coeffs_struct_3d_cube_size6 *coeffs,
+>        fp Jacobian_ptr[],
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/AEIThorns/AEILocalInterp/src/common/store.h /home/jhar131/TESTING/einsteintoolkit/2012-05-18-020002/Cactus/arrangements/AEIThorns/AEILocalInterp/src/common/store.h
+12,13c12,13
+<       (fp factor, const struct coeffs_struct_1d_cube_size2 *restrict coeffs,
+<        fp *restrict Jacobian_ptr,
+---
+>       (fp factor, const struct coeffs_struct_1d_cube_size2 *coeffs,
+>        fp Jacobian_ptr[],
+16,17c16,17
+<       (fp factor, const struct coeffs_struct_1d_cube_size3 *restrict coeffs,
+<        fp *restrict Jacobian_ptr,
+---
+>       (fp factor, const struct coeffs_struct_1d_cube_size3 *coeffs,
+>        fp Jacobian_ptr[],
+20,21c20,21
+<       (fp factor, const struct coeffs_struct_1d_cube_size4 *restrict coeffs,
+<        fp *restrict Jacobian_ptr,
+---
+>       (fp factor, const struct coeffs_struct_1d_cube_size4 *coeffs,
+>        fp Jacobian_ptr[],
+24,25c24,25
+<       (fp factor, const struct coeffs_struct_1d_cube_size5 *restrict coeffs,
+<        fp *restrict Jacobian_ptr,
+---
+>       (fp factor, const struct coeffs_struct_1d_cube_size5 *coeffs,
+>        fp Jacobian_ptr[],
+28,29c28,29
+<       (fp factor, const struct coeffs_struct_1d_cube_size6 *restrict coeffs,
+<        fp *restrict Jacobian_ptr,
+---
+>       (fp factor, const struct coeffs_struct_1d_cube_size6 *coeffs,
+>        fp Jacobian_ptr[],
+32,33c32,33
+<       (fp factor, const struct coeffs_struct_1d_cube_size7 *restrict coeffs,
+<        fp *restrict Jacobian_ptr,
+---
+>       (fp factor, const struct coeffs_struct_1d_cube_size7 *coeffs,
+>        fp Jacobian_ptr[],
+37,38c37,38
+<       (fp factor, const struct coeffs_struct_2d_cube_size2 *restrict coeffs,
+<        fp *restrict Jacobian_ptr,
+---
+>       (fp factor, const struct coeffs_struct_2d_cube_size2 *coeffs,
+>        fp Jacobian_ptr[],
+41,42c41,42
+<       (fp factor, const struct coeffs_struct_2d_cube_size3 *restrict coeffs,
+<        fp *restrict Jacobian_ptr,
+---
+>       (fp factor, const struct coeffs_struct_2d_cube_size3 *coeffs,
+>        fp Jacobian_ptr[],
+45,46c45,46
+<       (fp factor, const struct coeffs_struct_2d_cube_size4 *restrict coeffs,
+<        fp *restrict Jacobian_ptr,
+---
+>       (fp factor, const struct coeffs_struct_2d_cube_size4 *coeffs,
+>        fp Jacobian_ptr[],
+49,50c49,50
+<       (fp factor, const struct coeffs_struct_2d_cube_size5 *restrict coeffs,
+<        fp *restrict Jacobian_ptr,
+---
+>       (fp factor, const struct coeffs_struct_2d_cube_size5 *coeffs,
+>        fp Jacobian_ptr[],
+53,54c53,54
+<       (fp factor, const struct coeffs_struct_2d_cube_size6 *restrict coeffs,
+<        fp *restrict Jacobian_ptr,
+---
+>       (fp factor, const struct coeffs_struct_2d_cube_size6 *coeffs,
+>        fp Jacobian_ptr[],
+58,59c58,59
+<       (fp factor, const struct coeffs_struct_3d_cube_size2 *restrict coeffs,
+<        fp *restrict Jacobian_ptr,
+---
+>       (fp factor, const struct coeffs_struct_3d_cube_size2 *coeffs,
+>        fp Jacobian_ptr[],
+62,63c62,63
+<       (fp factor, const struct coeffs_struct_3d_cube_size3 *restrict coeffs,
+<        fp *restrict Jacobian_ptr,
+---
+>       (fp factor, const struct coeffs_struct_3d_cube_size3 *coeffs,
+>        fp Jacobian_ptr[],
+66,67c66,67
+<       (fp factor, const struct coeffs_struct_3d_cube_size4 *restrict coeffs,
+<        fp *restrict Jacobian_ptr,
+---
+>       (fp factor, const struct coeffs_struct_3d_cube_size4 *coeffs,
+>        fp Jacobian_ptr[],
+70,71c70,71
+<       (fp factor, const struct coeffs_struct_3d_cube_size5 *restrict coeffs,
+<        fp *restrict Jacobian_ptr,
+---
+>       (fp factor, const struct coeffs_struct_3d_cube_size5 *coeffs,
+>        fp Jacobian_ptr[],
+74,75c74,75
+<       (fp factor, const struct coeffs_struct_3d_cube_size6 *restrict coeffs,
+<        fp *restrict Jacobian_ptr,
+---
+>       (fp factor, const struct coeffs_struct_3d_cube_size6 *coeffs,
+>        fp Jacobian_ptr[],
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/AEIThorns/AEILocalInterp/src/molecule_posn.c /home/jhar131/TESTING/einsteintoolkit/2012-05-18-020002/Cactus/arrangements/AEIThorns/AEILocalInterp/src/molecule_posn.c
+7c7
+<    @version   $Id: molecule_posn.c 55 2012-05-06 22:14:23Z schnetter $
+---
+>    @version   $Id: molecule_posn.c 56 2012-05-18 01:18:57Z schnetter $
+191c191
+< 				 int *restrict i_center, fp *restrict x_rel)
+---
+> 				 int* i_center, fp* x_rel)
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/AEIThorns/AEILocalInterp/src/template.c /home/jhar131/TESTING/einsteintoolkit/2012-05-18-020002/Cactus/arrangements/AEIThorns/AEILocalInterp/src/template.c
+220c220
+<     void compute_coeffs_I(FP_XYZ, struct COEFFS_STRUCT *restrict coeffs_I);
+---
+>     void compute_coeffs_I(FP_XYZ, struct COEFFS_STRUCT *coeffs_I);
+224c224
+<     void compute_coeffs_dx(FP_XYZ, struct COEFFS_STRUCT *restrict coeffs_dx);
+---
+>     void compute_coeffs_dx(FP_XYZ, struct COEFFS_STRUCT *coeffs_dx);
+228c228
+<     void compute_coeffs_dy(FP_XYZ, struct COEFFS_STRUCT *restrict coeffs_dy);
+---
+>     void compute_coeffs_dy(FP_XYZ, struct COEFFS_STRUCT *coeffs_dy);
+232c232
+<     void compute_coeffs_dz(FP_XYZ, struct COEFFS_STRUCT *restrict coeffs_dz);
+---
+>     void compute_coeffs_dz(FP_XYZ, struct COEFFS_STRUCT *coeffs_dz);
+236c236
+<     void compute_coeffs_dxx(FP_XYZ, struct COEFFS_STRUCT *restrict coeffs_dxx);
+---
+>     void compute_coeffs_dxx(FP_XYZ, struct COEFFS_STRUCT *coeffs_dxx);
+240c240
+<     void compute_coeffs_dxy(FP_XYZ, struct COEFFS_STRUCT *restrict coeffs_dxy);
+---
+>     void compute_coeffs_dxy(FP_XYZ, struct COEFFS_STRUCT *coeffs_dxy);
+244c244
+<     void compute_coeffs_dxz(FP_XYZ, struct COEFFS_STRUCT *restrict coeffs_dxz);
+---
+>     void compute_coeffs_dxz(FP_XYZ, struct COEFFS_STRUCT *coeffs_dxz);
+248c248
+<     void compute_coeffs_dyy(FP_XYZ, struct COEFFS_STRUCT *restrict coeffs_dyy);
+---
+>     void compute_coeffs_dyy(FP_XYZ, struct COEFFS_STRUCT *coeffs_dyy);
+252c252
+<     void compute_coeffs_dyz(FP_XYZ, struct COEFFS_STRUCT *restrict coeffs_dyz);
+---
+>     void compute_coeffs_dyz(FP_XYZ, struct COEFFS_STRUCT *coeffs_dyz);
+256c256
+<     void compute_coeffs_dzz(FP_XYZ, struct COEFFS_STRUCT *restrict coeffs_dzz);
+---
+>     void compute_coeffs_dzz(FP_XYZ, struct COEFFS_STRUCT *coeffs_dzz);
+338,339c338,339
+< 		  const CCTK_REAL *restrict coord_origin,
+< 		  const CCTK_REAL *restrict coord_delta,
+---
+> 		  const CCTK_REAL coord_origin[],
+> 		  const CCTK_REAL coord_delta[],
+343,346c343,346
+< 		  const void *restrict const *restrict interp_coords,
+< 		  const CCTK_INT *restrict N_boundary_points_to_omit,
+< 		  const CCTK_REAL *restrict boundary_off_centering_tolerance,
+< 		  const CCTK_REAL *restrict boundary_extrapolation_tolerance,
+---
+> 		  const void* const interp_coords[],
+> 		  const CCTK_INT N_boundary_points_to_omit[],
+> 		  const CCTK_REAL boundary_off_centering_tolerance[],
+> 		  const CCTK_REAL boundary_extrapolation_tolerance[],
+349,354c349,354
+< 		  const CCTK_INT *restrict input_array_offsets,
+< 		  const CCTK_INT *restrict input_array_strides,
+< 		  const CCTK_INT *restrict input_array_min_subscripts,
+< 		  const CCTK_INT *restrict input_array_max_subscripts,
+< 		  const CCTK_INT *restrict input_array_type_codes,
+< 		  const void *restrict const *restrict input_arrays,
+---
+> 		  const CCTK_INT input_array_offsets[],
+> 		  const CCTK_INT input_array_strides[],
+> 		  const CCTK_INT input_array_min_subscripts[],
+> 		  const CCTK_INT input_array_max_subscripts[],
+> 		  const CCTK_INT input_array_type_codes[],
+> 		  const void* const input_arrays[],
+357,358c357,358
+< 		  const CCTK_INT *restrict output_array_type_codes,
+< 		  void* const *restrict output_arrays,
+---
+> 		  const CCTK_INT output_array_type_codes[],
+> 		  void* const output_arrays[],
+360,361c360,361
+< 		  const CCTK_INT *restrict operand_indices,
+< 		  const CCTK_INT *restrict operation_codes,
+---
+> 		  const CCTK_INT operand_indices[],
+> 		  const CCTK_INT operation_codes[],
+368,369c368,369
+< 		  CCTK_INT *restrict const *restrict molecule_positions,
+< 		  struct Jacobian_info *restrict Jacobian_info)
+---
+> 		  CCTK_INT* const molecule_positions[],
+> 		  struct Jacobian_info* Jacobian_info)
+827d826
+< #pragma omp parallel for
+875c874
+<      *	  But then we'd have to have a sentinel value
+---
+>      *	  But then we'd have to have a sentinal value
+888a888,895
+> 	case CCTK_VARIABLE_REAL:
+> 		  {
+> 		const CCTK_REAL *const interp_coords_ptr_real
+> 			= (const CCTK_REAL *) interp_coords_ptr;
+> 		interp_coords_fp[axis] = interp_coords_ptr_real[pt];
+> 		break;
+> 		  }
+> 
+891,893d897
+<         #ifdef CCTK_REAL_PRECISION_4
+< 	case CCTK_VARIABLE_REAL:
+<         #endif
+904,906d907
+<         #ifdef CCTK_REAL_PRECISION_8
+< 	case CCTK_VARIABLE_REAL:
+<         #endif
+917,919d917
+<         #ifdef CCTK_REAL_PRECISION_16
+< 	case CCTK_VARIABLE_REAL:
+<         #endif
+940,942c938
+< #pragma omp critical
+<                 return_status = UTIL_ERROR_BAD_INPUT;
+<                 goto next_iteration;
+---
+> 		return UTIL_ERROR_BAD_INPUT;	/*** ERROR RETURN ***/
+1159,1164c1155,1156
+< 	    if (this_point_status < 0)
+< 	       then {
+< #pragma omp critical
+< 		    if (this_point_status < return_status)
+< 		       then return_status = this_point_status;
+< 		    }
+---
+> 	    if (this_point_status < return_status)
+> 	       then return_status = this_point_status;
+1304c1296
+< 	const void *restrict input_array_ptr__last_load = NULL;
+---
+> 	const void* input_array_ptr__last_load = NULL;
+1310c1302
+< 	    const void *restrict const input_array_ptr = input_arrays[in];
+---
+> 	    const void* const input_array_ptr = input_arrays[in];
+1334,1336c1326
+< #pragma omp critical
+<                     return_status = UTIL_ERROR_BAD_INPUT;
+<                     goto next_iteration;
+---
+> 		    return UTIL_ERROR_BAD_INPUT;	/*** ERROR RETURN ***/
+1374,1376c1364,1365
+< #pragma omp critical
+<                                 return_status = UTIL_ERROR_BAD_INPUT;
+<                                 goto next_iteration;
+---
+> 				return UTIL_ERROR_BAD_INPUT;
+> 							/*** ERROR RETURN ***/
+1389,1406d1377
+< #ifdef HAVE_CCTK_REAL4
+< case CCTK_VARIABLE_REAL4:
+< #ifdef CCTK_REAL_PRECISION_4
+< case CCTK_VARIABLE_REAL:
+< #endif
+< 	  {
+< 	const CCTK_REAL4 *restrict const input_array_ptr_real4
+< 		= ((const CCTK_REAL4 *) input_array_ptr) + input_posn;
+< 	LOAD_DATA_REAL4(input_array_ptr_real4,
+< 			STRIDE_IJK,
+< 			&data);
+< 	break;
+< 	  }
+< #endif
+< 
+< #ifdef HAVE_CCTK_REAL8
+< case CCTK_VARIABLE_REAL8:
+< #ifdef CCTK_REAL_PRECISION_8
+1408d1378
+< #endif
+1410,1414c1380,1384
+< 	const CCTK_REAL8 *restrict const input_array_ptr_real8
+< 		= ((const CCTK_REAL8 *) input_array_ptr) + input_posn;
+< 	LOAD_DATA_REAL8(input_array_ptr_real8,
+<                         STRIDE_IJK,
+<                         &data);
+---
+> 	const CCTK_REAL *const input_array_ptr_real
+> 		= ((const CCTK_REAL *) input_array_ptr) + input_posn;
+> 	LOAD_DATA_REAL(input_array_ptr_real,
+> 		       STRIDE_IJK,
+> 		       &data);
+1440a1411,1433
+> 
+> #ifdef HAVE_CCTK_REAL4
+> case CCTK_VARIABLE_REAL4:
+> 	  {
+> 	const CCTK_REAL4 *const input_array_ptr_real4
+> 		= ((const CCTK_REAL4 *) input_array_ptr) + input_posn;
+> 	LOAD_DATA_REAL4(input_array_ptr_real4,
+> 			STRIDE_IJK,
+> 			&data);
+> 	break;
+> 	  }
+> #endif
+> 
+> #ifdef HAVE_CCTK_REAL8
+> case CCTK_VARIABLE_REAL8:
+> 	  {
+> 	const CCTK_REAL8 *const input_array_ptr_real8
+> 		= ((const CCTK_REAL8 *) input_array_ptr) + input_posn;
+> 	LOAD_DATA_REAL8(input_array_ptr_real8,
+> 			STRIDE_IJK,
+> 			&data);
+> 	break;
+> 	  }
+1445,1447d1437
+< #ifdef CCTK_REAL_PRECISION_16
+< case CCTK_VARIABLE_REAL:
+< #endif
+1451c1441
+< 	const CCTK_REAL16 *restrict const input_array_ptr_real16
+---
+> 	const CCTK_REAL16 *const input_array_ptr_real16
+1459a1450,1460
+> case CCTK_VARIABLE_COMPLEX:
+> 	  {
+> 	const CCTK_REAL (*const input_array_ptr_complex)[COMPLEX_N_PARTS]
+> 		= ((const CCTK_REAL (*)[COMPLEX_N_PARTS]) input_array_ptr)
+> 		  + input_posn;
+> 	LOAD_DATA_COMPLEX(input_array_ptr_complex,
+> 			  STRIDE_IJK, part,
+> 			  &data);
+> 	break;
+> 	  }
+> 
+1462,1464d1462
+< #ifdef CCTK_COMPLEX_PRECISION_8
+< case CCTK_VARIABLE_COMPLEX:
+< #endif
+1466c1464
+< 	const CCTK_REAL4 (*restrict const input_array_ptr_complex8)[COMPLEX_N_PARTS]
+---
+> 	const CCTK_REAL4 (*const input_array_ptr_complex8)[COMPLEX_N_PARTS]
+1478,1480d1475
+< #ifdef CCTK_COMPLEX_PRECISION_16
+< case CCTK_VARIABLE_COMPLEX:
+< #endif
+1482c1477
+< 	const CCTK_REAL8 (*restrict const input_array_ptr_complex16)[COMPLEX_N_PARTS]
+---
+> 	const CCTK_REAL8 (*const input_array_ptr_complex16)[COMPLEX_N_PARTS]
+1495,1497d1489
+< #ifdef CCTK_COMPLEX_PRECISION_32
+< case CCTK_VARIABLE_COMPLEX:
+< #endif
+1501c1493
+< 	const CCTK_REAL16 (*restrict const input_array_ptr_complex32)[COMPLEX_N_PARTS]
+---
+> 	const CCTK_REAL16 (*const input_array_ptr_complex32)[COMPLEX_N_PARTS]
+1519,1521c1511
+< #pragma omp critical
+< return_status = UTIL_ERROR_BAD_INPUT;
+< goto next_iteration;
+---
+> return UTIL_ERROR_BAD_INPUT;			/*** ERROR RETURN ***/
+1621,1623c1611,1612
+< #pragma omp critical
+<                                 return_status = UTIL_ERROR_BAD_INPUT;
+<                                 goto next_iteration;
+---
+> 				return UTIL_ERROR_BAD_INPUT;
+> 							/*** ERROR RETURN ***/
+1642a1632,1650
+> case CCTK_VARIABLE_REAL:
+> 	  {
+> 	CCTK_REAL *const output_array_ptr_real
+> 		= (CCTK_REAL *) output_arrays[out];
+> 	if (debug >= 10)
+> 	   then {
+> 		if ((pt & (pt-1)) == 0) /* pt is 0 or a power of 2 */
+> 		   then {
+> 			printf("                 result addr is %p\n",
+> 			       (void *) &output_array_ptr_real[pt]);
+> 			printf("                 previous value there was %g\n",
+> 			       output_array_ptr_real[pt]);
+> 			fflush(stdout);
+> 			}
+> 		}
+> 	output_array_ptr_real[pt] = (CCTK_REAL) result;
+> 	break;
+> 	  }
+> 
+1645,1647d1652
+< #ifdef CCTK_REAL_PRECISION_4
+< case CCTK_VARIABLE_REAL:
+< #endif
+1649c1654
+< 	CCTK_REAL4 *restrict const output_array_ptr_real4
+---
+> 	CCTK_REAL4 *const output_array_ptr_real4
+1658,1660d1662
+< #ifdef CCTK_REAL_PRECISION_8
+< case CCTK_VARIABLE_REAL:
+< #endif
+1662c1664
+< 	CCTK_REAL8 *restrict const output_array_ptr_real8
+---
+> 	CCTK_REAL8 *const output_array_ptr_real8
+1665,1675d1666
+< 	if (debug >= 10)
+< 	   then {
+< 		if ((pt & (pt-1)) == 0) /* pt is 0 or a power of 2 */
+< 		   then {
+< 			printf("                 result addr is %p\n",
+< 			       (void *) &output_array_ptr_real8[pt]);
+< 			printf("                 previous value there was %.17g\n",
+< 			       (double) output_array_ptr_real8[pt]);
+< 			fflush(stdout);
+< 			}
+< 		}
+1682,1684d1672
+< #ifdef CCTK_REAL_PRECISION_16
+< case CCTK_VARIABLE_REAL:
+< #endif
+1686c1674
+< 	CCTK_REAL16 *restrict const output_array_ptr_real16
+---
+> 	CCTK_REAL16 *const output_array_ptr_real16
+1692a1681,1688
+> case CCTK_VARIABLE_COMPLEX:
+> 	  {
+> 	CCTK_REAL (*const output_array_ptr_complex)[COMPLEX_N_PARTS]
+> 		= (CCTK_REAL (*)[COMPLEX_N_PARTS]) output_arrays[out];
+> 	output_array_ptr_complex[pt][part] = (CCTK_REAL) result;
+> 	break;
+> 	  }
+> 
+1695,1697d1690
+< #ifdef CCTK_COMPLEX_PRECISION_8
+< case CCTK_VARIABLE_COMPLEX:
+< #endif
+1699c1692
+< 	CCTK_REAL4 (*restrict const output_array_ptr_complex8)[COMPLEX_N_PARTS]
+---
+> 	CCTK_REAL4 (*const output_array_ptr_complex8)[COMPLEX_N_PARTS]
+1708,1710d1700
+< #ifdef CCTK_COMPLEX_PRECISION_16
+< case CCTK_VARIABLE_COMPLEX:
+< #endif
+1712c1702
+< 	CCTK_REAL8 (*restrict const output_array_ptr_complex16)[COMPLEX_N_PARTS]
+---
+> 	CCTK_REAL8 (*const output_array_ptr_complex16)[COMPLEX_N_PARTS]
+1721,1723d1710
+< #ifdef CCTK_COMPLEX_PRECISION_32
+< case CCTK_VARIABLE_COMPLEX:
+< #endif
+1725c1712
+< 	CCTK_REAL16 (*restrict const output_array_ptr_complex32)[COMPLEX_N_PARTS]
+---
+> 	CCTK_REAL16 (*const output_array_ptr_complex32)[COMPLEX_N_PARTS]
+1740,1742c1727
+< #pragma omp critical
+<         return_status = UTIL_ERROR_BAD_INPUT;
+<         goto next_iteration;
+---
+> 	return UTIL_ERROR_BAD_INPUT;			/*** ERROR RETURN ***/
+1756c1741
+< 			CCTK_REAL *restrict const Jacobian_ptr
+---
+> 			CCTK_REAL *const Jacobian_ptr
+1846,1848c1831,1832
+< #pragma omp critical
+<                                 return_status = UTIL_ERROR_BAD_INPUT;
+<                                 goto next_iteration;
+---
+> 				return UTIL_ERROR_BAD_INPUT;
+> 							/*** ERROR RETURN ***/
+1864d1847
+<   next_iteration:;
+1929c1912
+<     void compute_coeffs_I(FP_XYZ, struct COEFFS_STRUCT *restrict coeffs_I)
+---
+>     void compute_coeffs_I(FP_XYZ, struct COEFFS_STRUCT *coeffs_I)
+1937c1920
+<     void compute_coeffs_dx(FP_XYZ, struct COEFFS_STRUCT *restrict coeffs_dx)
+---
+>     void compute_coeffs_dx(FP_XYZ, struct COEFFS_STRUCT *coeffs_dx)
+1945c1928
+<     void compute_coeffs_dy(FP_XYZ, struct COEFFS_STRUCT *restrict coeffs_dy)
+---
+>     void compute_coeffs_dy(FP_XYZ, struct COEFFS_STRUCT *coeffs_dy)
+1953c1936
+<     void compute_coeffs_dz(FP_XYZ, struct COEFFS_STRUCT *restrict coeffs_dz)
+---
+>     void compute_coeffs_dz(FP_XYZ, struct COEFFS_STRUCT *coeffs_dz)
+1961c1944
+<     void compute_coeffs_dxx(FP_XYZ, struct COEFFS_STRUCT *restrict coeffs_dxx)
+---
+>     void compute_coeffs_dxx(FP_XYZ, struct COEFFS_STRUCT *coeffs_dxx)
+1969c1952
+<     void compute_coeffs_dxy(FP_XYZ, struct COEFFS_STRUCT *restrict coeffs_dxy)
+---
+>     void compute_coeffs_dxy(FP_XYZ, struct COEFFS_STRUCT *coeffs_dxy)
+1977c1960
+<     void compute_coeffs_dxz(FP_XYZ, struct COEFFS_STRUCT *restrict coeffs_dxz)
+---
+>     void compute_coeffs_dxz(FP_XYZ, struct COEFFS_STRUCT *coeffs_dxz)
+1985c1968
+<     void compute_coeffs_dyy(FP_XYZ, struct COEFFS_STRUCT *restrict coeffs_dyy)
+---
+>     void compute_coeffs_dyy(FP_XYZ, struct COEFFS_STRUCT *coeffs_dyy)
+1993c1976
+<     void compute_coeffs_dyz(FP_XYZ, struct COEFFS_STRUCT *restrict coeffs_dyz)
+---
+>     void compute_coeffs_dyz(FP_XYZ, struct COEFFS_STRUCT *coeffs_dyz)
+2001c1984
+<     void compute_coeffs_dzz(FP_XYZ, struct COEFFS_STRUCT *restrict coeffs_dzz)
+---
+>     void compute_coeffs_dzz(FP_XYZ, struct COEFFS_STRUCT *coeffs_dzz)
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/AEIThorns/AEILocalInterp/src/template.h /home/jhar131/TESTING/einsteintoolkit/2012-05-18-020002/Cactus/arrangements/AEIThorns/AEILocalInterp/src/template.h
+11,12c11,12
+< 		  const CCTK_REAL *restrict coord_origin,
+< 		  const CCTK_REAL *restrict coord_delta,
+---
+> 		  const CCTK_REAL coord_origin[],
+> 		  const CCTK_REAL coord_delta[],
+16,19c16,19
+< 		  const void *restrict const *restrict interp_coords,
+< 		  const CCTK_INT *restrict N_boundary_points_to_omit,
+< 		  const CCTK_REAL *restrict boundary_off_centering_tolerance,
+< 		  const CCTK_REAL *restrict boundary_extrapolation_tolerance,
+---
+> 		  const void* const interp_coords[],
+> 		  const CCTK_INT N_boundary_points_to_omit[],
+> 		  const CCTK_REAL boundary_off_centering_tolerance[],
+> 		  const CCTK_REAL boundary_extrapolation_tolerance[],
+22,27c22,27
+< 		  const CCTK_INT *restrict input_array_offsets,
+< 		  const CCTK_INT *restrict input_array_strides,
+< 		  const CCTK_INT *restrict input_array_min_subscripts,
+< 		  const CCTK_INT *restrict input_array_max_subscripts,
+< 		  const CCTK_INT *restrict input_array_type_codes,
+< 		  const void *restrict const *restrict input_arrays,
+---
+> 		  const CCTK_INT input_array_offsets[],
+> 		  const CCTK_INT input_array_strides[],
+> 		  const CCTK_INT input_array_min_subscripts[],
+> 		  const CCTK_INT input_array_max_subscripts[],
+> 		  const CCTK_INT input_array_type_codes[],
+> 		  const void* const input_arrays[],
+30,31c30,31
+< 		  const CCTK_INT *restrict output_array_type_codes,
+< 		  void* const *restrict output_arrays,
+---
+> 		  const CCTK_INT output_array_type_codes[],
+> 		  void* const output_arrays[],
+33,34c33,34
+< 		  const CCTK_INT *restrict operand_indices,
+< 		  const CCTK_INT *restrict operation_codes,
+---
+> 		  const CCTK_INT operand_indices[],
+> 		  const CCTK_INT operation_codes[],
+41,42c41,42
+< 		  CCTK_INT *restrict const *restrict molecule_positions,
+< 		  struct Jacobian_info *restrict Jacobian_info);
+---
+> 		  CCTK_INT* const molecule_positions[],
+> 		  struct Jacobian_info* Jacobian_info);
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/AEIThorns/AEILocalInterp/src/util.c /home/jhar131/TESTING/einsteintoolkit/2012-05-18-020002/Cactus/arrangements/AEIThorns/AEILocalInterp/src/util.c
+10c10
+<    @version   $Id: util.c 55 2012-05-06 22:14:23Z schnetter $
+---
+>    @version   $Id: util.c 56 2012-05-18 01:18:57Z schnetter $
+112a113
+> CCTK_INT data_type;
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/Carpet/CarpetReduce/src/reduce.cc /home/jhar131/TESTING/einsteintoolkit/2012-05-18-020002/Cactus/arrangements/Carpet/CarpetReduce/src/reduce.cc
+1148c1148
+<           CCTK_VWarn (CCTK_WARN_PICKY, __LINE__, __FILE__, CCTK_THORNSTRING,
+---
+>           CCTK_VWarn (CCTK_WARN_DEBUG, __LINE__, __FILE__, CCTK_THORNSTRING,
+1286c1286
+<           CCTK_VWarn (CCTK_WARN_PICKY, __LINE__, __FILE__, CCTK_THORNSTRING,
+---
+>           CCTK_VWarn (CCTK_WARN_DEBUG, __LINE__, __FILE__, CCTK_THORNSTRING,
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/doc/documentation.tex /home/jhar131/TESTING/einsteintoolkit/2012-05-18-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/doc/documentation.tex
+311,312c311,312
+< The five conserved variables are labeled $D$, $S^i$, and $\tau$, where
+< $D$ is the generalized particle number density, $S^i$ are the generalized
+---
+> The five conserved variables are labeled $D$, $S_i$, and $\tau$, where
+> $D$ is the generalized particle number density, $S_i$ are the generalized
+337c337
+<    S^i &=& \sqrt{\gamma} \rho h W^2 v^i \nonumber \\
+---
+>    S_i &=& \sqrt{\gamma} \rho h W^2 v_i \nonumber \\
+1799c1799
+<   to zero, and $P$, $\epsilon$, $S^i$ and $\tau$ are reset to be
+---
+>   to zero, and $P$, $\epsilon$, $S_i$ and $\tau$ are reset to be
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/param.ccl /home/jhar131/TESTING/einsteintoolkit/2012-05-18-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/param.ccl
+532,533c532,533
+<   0:* :: "Any non-negative value, but 1/144 to 1 seems preferred"
+< } 1.0
+---
+>   0:* :: "Any non-negative value, but 1.0 to 10.0 seems preferred"
+> } 10.0
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_Con2PrimM_polytype_pt.c /home/jhar131/TESTING/einsteintoolkit/2012-05-18-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_Con2PrimM_polytype_pt.c
+209c209
+<   CCTK_REAL rho0,u,p,w,gammasq,gamma,gtmp,W_last,W,vsq;
+---
+>   CCTK_REAL rho0,u,p,w,gammasq,gamma,W_last,W,vsq;
+216c216
+<   CCTK_INT i,j, i_increase,ntries ;
+---
+>   CCTK_INT  i_increase,ntries ;
+495,496c495
+<   CCTK_INT    n_iter, id, jd, i_extra, doing_extra;
+<   CCTK_REAL dW,W,W_old;
+---
+>   CCTK_INT    n_iter, i_extra, doing_extra;
+498c497
+<   CCTK_INT   keep_iterating, i_increase;
+---
+>   CCTK_INT   keep_iterating;
+508,509d506
+<   W = W_old = 0.;
+< 
+593c590
+<   return(0);
+---
+>   
+699,700c696,697
+<   CCTK_INT    n_iter, id,jd, i_extra, doing_extra;
+<   CCTK_REAL dW,W,W_old;
+---
+>   CCTK_INT    n_iter, i_extra, doing_extra;
+>   
+779c776
+<   return(0);
+---
+>   
+805c802
+<   CCTK_REAL A, B, C, rho, W, B0;
+---
+>   CCTK_REAL rho, W;
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_Con2PrimM_pt.c /home/jhar131/TESTING/einsteintoolkit/2012-05-18-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_Con2PrimM_pt.c
+219c219
+<   CCTK_INT i,j, i_increase;
+---
+>   CCTK_INT  i_increase;
+461c461
+<   CCTK_REAL x1,vsq;
+---
+>   CCTK_REAL vsq;
+512,513c512,513
+<   CCTK_INT    n_iter, id, jd, i_extra, doing_extra;
+<   CCTK_REAL dW,dvsq,vsq_old,vsq,W,W_old;
+---
+>   CCTK_INT    n_iter, i_extra, doing_extra;
+>   CCTK_REAL vsq,W,W_old;
+526c526
+<   vsq_old = vsq = W = W_old = 0.;
+---
+>   vsq = W = W_old = 0.;
+601c601
+<   return(0);
+---
+>   
+629,630c629,630
+<   CCTK_REAL  W, vsq, Wsq, p_tmp, dPdvsq, dPdW;
+<   CCTK_REAL t11, t16,t18,t2,t21,   t23,   t24,   t25,   t3,   t35,   t36,   t4,   t40;
+---
+>   CCTK_REAL  W, vsq, p_tmp, dPdvsq, dPdW;
+>   CCTK_REAL t11, t16,t18,t2,t21,   t23,   t24,   t25,   t3,   t35,  t4,   t40;
+635,636d634
+<   
+<   Wsq = W*W;
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_Jacobian_state.c /home/jhar131/TESTING/einsteintoolkit/2012-05-18-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_Jacobian_state.c
+19d18
+<   int ierr;
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus: cactusjar.git
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus: exe
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus: log
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/repos/carpet/.hg/cache/branchheads /home/jhar131/TESTING/einsteintoolkit/2012-05-18-020002/Cactus/repos/carpet/.hg/cache/branchheads
+1c1
+< 3563e3d9fb8d45041150fd885bdab00d703c43ac 3554
+---
+> 12ee1105096abb118355da698da7a0039edcd6df 3555
+4c4
+< 3563e3d9fb8d45041150fd885bdab00d703c43ac default
+---
+> 12ee1105096abb118355da698da7a0039edcd6df default
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/repos/carpet/.hg/cache/tags /home/jhar131/TESTING/einsteintoolkit/2012-05-18-020002/Cactus/repos/carpet/.hg/cache/tags
+1c1
+< 3554 3563e3d9fb8d45041150fd885bdab00d703c43ac
+---
+> 3555 12ee1105096abb118355da698da7a0039edcd6df
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/repos/carpet/.hg/dirstate and /home/jhar131/TESTING/einsteintoolkit/2012-05-18-020002/Cactus/repos/carpet/.hg/dirstate differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/repos/carpet/.hg/store/00changelog.d and /home/jhar131/TESTING/einsteintoolkit/2012-05-18-020002/Cactus/repos/carpet/.hg/store/00changelog.d differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/repos/carpet/.hg/store/00changelog.i and /home/jhar131/TESTING/einsteintoolkit/2012-05-18-020002/Cactus/repos/carpet/.hg/store/00changelog.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/repos/carpet/.hg/store/00manifest.d and /home/jhar131/TESTING/einsteintoolkit/2012-05-18-020002/Cactus/repos/carpet/.hg/store/00manifest.d differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/repos/carpet/.hg/store/00manifest.i and /home/jhar131/TESTING/einsteintoolkit/2012-05-18-020002/Cactus/repos/carpet/.hg/store/00manifest.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_reduce/src/reduce.cc.i and /home/jhar131/TESTING/einsteintoolkit/2012-05-18-020002/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_reduce/src/reduce.cc.i differ
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/repos/carpet/Carpet/CarpetReduce/src/reduce.cc /home/jhar131/TESTING/einsteintoolkit/2012-05-18-020002/Cactus/repos/carpet/Carpet/CarpetReduce/src/reduce.cc
+1148c1148
+<           CCTK_VWarn (CCTK_WARN_PICKY, __LINE__, __FILE__, CCTK_THORNSTRING,
+---
+>           CCTK_VWarn (CCTK_WARN_DEBUG, __LINE__, __FILE__, CCTK_THORNSTRING,
+1286c1286
+<           CCTK_VWarn (CCTK_WARN_PICKY, __LINE__, __FILE__, CCTK_THORNSTRING,
+---
+>           CCTK_VWarn (CCTK_WARN_DEBUG, __LINE__, __FILE__, CCTK_THORNSTRING,
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/simfactory/etc/defs.ini /home/jhar131/TESTING/einsteintoolkit/2012-05-18-020002/Cactus/simfactory/etc/defs.ini
+13d12
+< doc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/simfactory/lib/archive: __init__.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/simfactory/lib/archive: petashare.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/simfactory/lib/archive: uberftp.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/simfactory/lib: libutil.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/simfactory/lib: pyini.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/simfactory/lib: restartlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/simfactory/lib: sim-build.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/simfactory/lib: sim-info.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/simfactory/lib: sim-manage.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/simfactory/lib: sim-sync.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/simfactory/lib: sim-util.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/simfactory/lib: simarchive.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/simfactory/lib: simdb.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/simfactory/lib: simdt.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/simfactory/lib: simenv.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/simfactory/lib: simlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/simfactory/lib: simopts.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/simfactory/lib: simproperties.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/simfactory/lib: simremote.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/simfactory/lib: simrestart.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/simfactory/lib: simsubs.pyc

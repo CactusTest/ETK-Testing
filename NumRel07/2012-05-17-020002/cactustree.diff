@@ -1,0 +1,397 @@
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/.crl/component_list.crl /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/.crl/component_list.crl
+95a96,97
+> #CactusExamples/WaveToyOpenCL
+> 
+143a146
+> #CactusUtils/Accelerator
+147a151
+> #CactusUtils/OpenCLRunTime
+239a244,256
+> !TARGET   = $ARR
+> !TYPE     = git
+> !AUTH_URL = git@github.com:barrywardell/EinsteinExact
+> !URL      = git://github.com/barrywardell/EinsteinExact
+> !REPO_PATH= $2
+> !CHECKOUT = EinsteinExact/doc EinsteinExact/m EinsteinExact/tests
+> EinsteinExact/EinsteinExact_Test
+> EinsteinExact/GaugeWave
+> EinsteinExact/KerrSchild
+> EinsteinExact/Minkowski
+> EinsteinExact/ModifiedSchwarzschildBL
+> EinsteinExact/ShiftedGaugeWave
+> EinsteinExact/Vaidya2
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus: TEST.1
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus: TEST.2
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/arrangements/CactusNumerical/Noise/doc/documentation.tex /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/CactusNumerical/Noise/doc/documentation.tex
+13,32c13
+< \newif\ifpdf
+< \ifx\pdfoutput\undefined
+< \pdffalse % we are not running PDFLaTeX
+< \else
+< \pdfoutput=1 % we are running PDFLaTeX
+< \pdftrue
+< \fi
+< 
+< \ifpdf
+< \usepackage[pdftex]{graphicx}
+< \else
+< \usepackage{graphicx}
+< \fi
+< 
+< \parskip = 0 pt
+< \parindent = 0pt
+< \oddsidemargin = 0 cm
+< \textwidth = 16 cm
+< \topmargin = -1 cm
+< \textheight = 24 cm
+---
+> \usepackage{../../../../doc/latex/cactus}
+40a22,25
+> % Do not delete next line
+> % START CACTUS THORNGUIDE
+> 
+> \begin{abstract}
+44a30
+> \end{abstract}
+82c68,71
+< \end{document}
+\ No newline at end of file
+---
+> % Do not delete next line
+> % END CACTUS THORNGUIDE
+> 
+> \end{document}
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/arrangements/CactusUtils/TimerReport/src/Output.c /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/CactusUtils/TimerReport/src/Output.c
+449a450
+>     free(filename_tsv);
+459a461
+>   free (timers.names);
+536a539
+>   free (timers.names);
+630a634
+>   free (timers.names);
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/test: Kerr-Cartoon-EE
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/test: Kerr-Cartoon-EE.par
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/test: Kerr-EE
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/test: Kerr-EE.par
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/test: Kerr-definition-expansion-EE
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/test: Kerr-definition-expansion-EE.par
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/test: Kerr-definition-expansion-product-EE
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/test: Kerr-definition-expansion-product-EE.par
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/test: Kerr-definition-inner-expansion-EE
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/test: Kerr-definition-inner-expansion-EE.par
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/test: Kerr-definition-mean-curvature-EE
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/test: Kerr-definition-mean-curvature-EE.par
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/test: Kerr-modification-radius-EE
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/test: Kerr-modification-radius-EE.par
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/test: Kerr-rotating-180-EE
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/test: Kerr-rotating-180-EE.par
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/test: Kerr-rotating-90-EE
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/test: Kerr-rotating-90-EE.par
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/test: Kerr-selection-areal-radius-EE
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/test: Kerr-selection-areal-radius-EE.par
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/test: Kerr-selection-areal-radius-definition-expansion-product-EE
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/test: Kerr-selection-areal-radius-definition-expansion-product-EE.par
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/test: Kerr-selection-mean-coordinate-radius-EE
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/test: Kerr-selection-mean-coordinate-radius-EE.par
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/test: checkpointML-EE
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/test: checkpointML-EE.par
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/test: recoverML-EE
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/test: recoverML-EE.par
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/test/test.ccl /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinAnalysis/AHFinderDirect/test/test.ccl
+18a19,28
+> TEST recoverML-EE
+> {
+>   NPROCS 1
+> }
+> 
+> TEST checkpointML-EE
+> {
+>   NPROCS 1
+> }
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/arrangements/EinsteinEOS/EOS_Omni/src/nuc_eos/readtable.c /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinEOS/EOS_Omni/src/nuc_eos/readtable.c
+26,27c26,27
+< int file_is_readable(const char* filename);
+< int file_is_readable(const char* filename)
+---
+> static int file_is_readable(const char* filename);
+> static int file_is_readable(const char* filename)
+41d40
+< void EOS_OMNI_ReadTable(CCTK_ARGUMENTS);
+134c133,134
+<   H5Fclose(file);
+---
+>   HDF5_ERROR(H5Sclose(mem3));
+>   HDF5_ERROR(H5Fclose(file));
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/param.ccl /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/param.ccl
+551a552,555
+> BOOLEAN decouple_normal_Bfield "when using divergence cleaning properly decouple Bx,psidc subsystem"
+> {
+> } yes
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_HLLEM.F90 /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_HLLEM.F90
+444a445,450
+>              if(decouple_normal_Bfield .ne. 0) then ! same expression for HLLE and LLF
+>                !!$ B^i field decouples from the others and has same propagation
+>                !!$ speed as divergence
+>                f1(5+flux_direction) = 0.5d0 * (1.d0 * fplus(5+flux_direction) - (-1.d0) * fminus(5+flux_direction) + &
+>                     1.d0 * (-1.d0) * qdiff(5+flux_direction)) 
+>              end if
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements: EinsteinExact
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/arrangements/EinsteinInitialData/IDConstraintViolate/doc/documentation.tex /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/arrangements/EinsteinInitialData/IDConstraintViolate/doc/documentation.tex
+13,32c13
+< \newif\ifpdf
+< \ifx\pdfoutput\undefined
+< \pdffalse % we are not running PDFLaTeX
+< \else
+< \pdfoutput=1 % we are running PDFLaTeX
+< \pdftrue
+< \fi
+< 
+< \ifpdf
+< \usepackage[pdftex]{graphicx}
+< \else
+< \usepackage{graphicx}
+< \fi
+< 
+< \parskip = 0 pt
+< \parindent = 0pt
+< \oddsidemargin = 0 cm
+< \textwidth = 16 cm
+< \topmargin = -1 cm
+< \textheight = 24 cm
+---
+> \usepackage{../../../../doc/latex/cactus}
+37c18
+< \date{$Date: 2002-05-20 11:22:09 -0500 (Mon, 20 May 2002) $}
+---
+> \date{$Date: 2012-05-16 11:10:47 -0500 (Wed, 16 May 2012) $}
+41c22,26
+< \abstract{The \texttt{IDConstraintViolate} thorn creates initial data
+---
+> % Do not delete next line
+> % START CACTUS THORNGUIDE
+> 
+> \begin{abstract}
+> The \texttt{IDConstraintViolate} thorn creates initial data
+43c28
+< }
+---
+> \end{abstract}
+58a44,46
+> 
+> % Do not delete next line
+> % END CACTUS THORNGUIDE
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus: cactusjar.git
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/doc/UsersGuide/Appendices.tex /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/doc/UsersGuide/Appendices.tex
+11c11
+< \begin{cactuspart}{Appendices}{}{$Revision: 4782 $}
+---
+> \begin{cactuspart}{Appendices}{}{$Revision: 4825 $}
+861a862,863
+>   [OPTIONS:       <\var{option}>,<\var{option}>...]
+>   [TAGS:          <\var{keyword=value}>,<\var{keyword=value}>...]
+862a865,866
+>   [READS:         <\var{group}>,<\var{group}>...]
+>   [WRITES:        <\var{group}>,<\var{group}>...]
+915a920,948
+>   \item[\texttt{OPTIONS}] Schedule options are used for mesh
+>     refinement and multi-block simulations, and they determine
+>     ``where'' a routine executes. Possible options are:
+>     \begin{description}
+>     \item[\texttt{meta}]
+>     \item[\texttt{meta\_early}]
+>     \item[\texttt{meta\_late}]
+>     \item[\texttt{global}]
+>     \item[\texttt{global\_early}]
+>     \item[\texttt{global\_late}]
+>     \item[\texttt{level}]
+>     \item[\texttt{singlemap}]
+>     \item[\texttt{local}] (default, may be omitted)
+>     \end{description}
+>     (Only one of these options may be used.)
+>     These options can be combined with the following:
+>     \begin{description}
+>     \item[\texttt{loop\_meta}]
+>     \item[\texttt{loop\_global}]
+>     \item[\texttt{loop\_level}]
+>     \item[\texttt{loop\_singlemap}]
+>     \item[\texttt{loop\_local}]
+>     \end{description}
+>     (At most one of the \texttt{loop\_...} options may be used.)
+> 
+>   \item[\texttt{TAGS}] Schedule tags. These tags must have the form
+>     \texttt{keyword=value}, and must be in a syntax accepted by
+>     \texttt{Util\_TableCreateFromString}.
+> 
+926a960,973
+> 
+> \item[\texttt{READS}] \texttt{READS} is used to declare which grid
+>   variables are read by the routine. This information is used e.g.\ to
+>   determine which variables need to be copied between host and device
+>   for OpenCL or CUDA kernel. This information can also be used to
+>   ensure that all variables that are read have previously been written
+>   by another routine.
+> 
+> \item[\texttt{WRITES}] \texttt{WRITES} is used to declare which grid
+>   variables are written by the routine. This information is used e.g.\ to
+>   determine which variables need to be copied between host and device
+>   for OpenCL or CUDA kernel. This information can also be used to
+>   ensure that all variables that are read have previously been written
+>   by another routine.
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/doc/UsersGuide/ApplicationThorns.tex /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/doc/UsersGuide/ApplicationThorns.tex
+453a454,455
+>   OPTIONS:  [\var{list of options}]
+>   TAGS:     [\var{list of keyword=value definitions}]
+454a457,458
+>   READS:    [\var{group list}]
+>   WRITES:   [\var{group list}]
+511a516,528
+> \item[\texttt{OPTIONS}] Schedule options are used for mesh refinement
+>   and multi-block simulations, and they determine ``where'' a routine
+>   executes. Often used schedule options are \texttt{local} (also the
+>   default, may be omitted), \texttt{level}, or \texttt{global}.
+>   Routines scheduled in \emph{local mode} can access individual grid
+>   points, routines scheduled in \emph{level mode} are used e.g.\ to
+>   select boundary conditions, and routines schedule in \emph{global
+>     mode} are e.g.\ used to calculate reductions (norms).
+> 
+> \item[\texttt{TAGS}] Schedule tags, e.g.\ \texttt{Device=1} to specify
+>   that a routine executes on an OpenCL or CUDA device instead of on
+>   the host.
+> 
+529a547,560
+> \item[\texttt{READS}] \texttt{READS} is used to declare which grid
+>   variables are read by the routine. This information is used e.g.\ to
+>   determine which variables need to be copied between host and device
+>   for OpenCL or CUDA kernel. This information can also be used to
+>   ensure that all variables that are read have previously been written
+>   by another routine.
+> 
+> \item[\texttt{WRITES}] \texttt{WRITES} is used to declare which grid
+>   variables are written by the routine. This information is used e.g.\ to
+>   determine which variables need to be copied between host and device
+>   for OpenCL or CUDA kernel. This information can also be used to
+>   ensure that all variables that are read have previously been written
+>   by another routine.
+> 
+544a576,577
+> 
+> 
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/doc/UsersGuide.pdf and /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/doc/UsersGuide.pdf differ
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/einsteintoolkit.th /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/einsteintoolkit.th
+94a95,96
+> #CactusExamples/WaveToyOpenCL
+> 
+142a145
+> #CactusUtils/Accelerator
+146a150
+> #CactusUtils/OpenCLRunTime
+238a243,255
+> !TARGET   = $ARR
+> !TYPE     = git
+> !AUTH_URL = git@github.com:barrywardell/EinsteinExact
+> !URL      = git://github.com/barrywardell/EinsteinExact
+> !REPO_PATH= $2
+> !CHECKOUT = EinsteinExact/doc EinsteinExact/m EinsteinExact/tests
+> EinsteinExact/EinsteinExact_Test
+> EinsteinExact/GaugeWave
+> EinsteinExact/KerrSchild
+> EinsteinExact/Minkowski
+> EinsteinExact/ModifiedSchwarzschildBL
+> EinsteinExact/ShiftedGaugeWave
+> EinsteinExact/Vaidya2
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus: exe
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/lib/sbin/ArrangementDoc /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/lib/sbin/ArrangementDoc
+15c15
+<         if test -z "$selection" || test "$arr" == "$selection"; then
+---
+>         if test -z "$selection" || test "$arr" = "$selection"; then
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/lib/sbin/ThornDoc /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/lib/sbin/ThornDoc
+17c17
+<                 if test -z "$selection" || test "$th" == "$selection"; then
+---
+>                 if test -z "$selection" || test "$th" = "$selection"; then
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus: log
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/manifest/einsteintoolkit.th /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/manifest/einsteintoolkit.th
+2,3c2,3
+< # $Revision: 180 $
+< # $Date: 2012-05-14 09:05:23 -0500 (Mon, 14 May 2012) $
+---
+> # $Revision: 182 $
+> # $Date: 2012-05-16 21:56:10 -0500 (Wed, 16 May 2012) $
+94a95,96
+> #CactusExamples/WaveToyOpenCL
+> 
+142a145
+> #CactusUtils/Accelerator
+146a150
+> #CactusUtils/OpenCLRunTime
+238a243,255
+> !TARGET   = $ARR
+> !TYPE     = git
+> !AUTH_URL = git@github.com:barrywardell/EinsteinExact
+> !URL      = git://github.com/barrywardell/EinsteinExact
+> !REPO_PATH= $2
+> !CHECKOUT = EinsteinExact/doc EinsteinExact/m EinsteinExact/tests
+> EinsteinExact/EinsteinExact_Test
+> EinsteinExact/GaugeWave
+> EinsteinExact/KerrSchild
+> EinsteinExact/Minkowski
+> EinsteinExact/ModifiedSchwarzschildBL
+> EinsteinExact/ShiftedGaugeWave
+> EinsteinExact/Vaidya2
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/repos: EinsteinExact
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/repos/carpet/.hg/dirstate and /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/repos/carpet/.hg/dirstate differ
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/simfactory/lib/archive: __init__.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/simfactory/lib/archive: petashare.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/simfactory/lib/archive: uberftp.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/simfactory/lib: libutil.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/simfactory/lib: pyini.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/simfactory/lib: restartlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/simfactory/lib: sim-build.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/simfactory/lib: sim-info.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/simfactory/lib: sim-manage.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/simfactory/lib: sim-sync.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/simfactory/lib: sim-util.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/simfactory/lib: simarchive.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/simfactory/lib: simdb.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/simfactory/lib: simdt.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/simfactory/lib: simenv.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/simfactory/lib: simlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/simfactory/lib: simopts.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/simfactory/lib: simproperties.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/simfactory/lib: simremote.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/simfactory/lib: simrestart.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/simfactory/lib: simsubs.pyc
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/simfactory/mdb/machines/nvidia.ini /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/simfactory/mdb/machines/nvidia.ini
+23a24,29
+> enabled-thorns = <<EOT
+>     ExternalLibraries/OpenCL
+>         CactusExamples/WaveToyOpenCL
+>         CactusUtils/Accelerator
+>         CactusUtils/OpenCLRunTime
+> EOT
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-16-020001/Cactus/thornlists/einsteintoolkit.th /home/jhar131/TESTING/einsteintoolkit/2012-05-17-020002/Cactus/thornlists/einsteintoolkit.th
+95a96,97
+> #CactusExamples/WaveToyOpenCL
+> 
+143a146
+> #CactusUtils/Accelerator
+147a151
+> #CactusUtils/OpenCLRunTime
+239a244,256
+> !TARGET   = $ARR
+> !TYPE     = git
+> !AUTH_URL = git@github.com:barrywardell/EinsteinExact
+> !URL      = git://github.com/barrywardell/EinsteinExact
+> !REPO_PATH= $2
+> !CHECKOUT = EinsteinExact/doc EinsteinExact/m EinsteinExact/tests
+> EinsteinExact/EinsteinExact_Test
+> EinsteinExact/GaugeWave
+> EinsteinExact/KerrSchild
+> EinsteinExact/Minkowski
+> EinsteinExact/ModifiedSchwarzschildBL
+> EinsteinExact/ShiftedGaugeWave
+> EinsteinExact/Vaidya2

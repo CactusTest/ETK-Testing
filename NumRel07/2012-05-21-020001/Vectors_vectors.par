@@ -1,0 +1,13 @@
+# Activate thorn Vectors to run its self-tests
+ActiveThorns = "Vectors"
+
+Vectors::verbose = yes
+
+# Activate some other thorns to generate one (meaningless) output file
+ActiveThorns = "CartGrid3D CoordBase IOASCII IOUtil PUGH PUGHSlab"
+
+IO::out_dir       = $parfile
+IO::out_fileinfo = "none"
+
+IOASCII::out1D_every = 1
+IOASCII::out1D_vars = "grid::r"

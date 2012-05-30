@@ -1,0 +1,40 @@
+!DESC "Wavetoy scalarfield evolution with rotating binary sources (C)"
+ActiveThorns = "time wavetoyc pugh pughslab pughreduce CartGrid3D CoordBase SymBase boundary ioutil ioascii iobasic idscalarwaveC wavebinarysource localreduce"
+
+time::dtfac = 0.25
+
+wavebinarysource::binary_omega  = 26 
+wavebinarysource::binary_charge = 0.00001
+wavebinarysource::binary_radius = 0.07
+wavebinarysource::binary_size   = 0.04
+
+wavetoy::bound         = "radiation"
+
+grid::type   = "BySpacing"
+grid::domain = "full"
+grid::dxyz   = 0.01
+
+driver::global_nx = 20
+driver::global_ny = 20
+driver::global_nz = 20
+
+cactus::cctk_itlast = 5
+
+IOBasic::outScalar_reductions = "norm1 norm2 minimum maximum norm_inf"
+IOBasic::outScalar_every = 1
+IOBasic::outScalar_vars  = "wavetoy::phi"
+IOBasic::outScalar_style = "gnuplot"
+
+IOBasic::outInfo_every = 1
+IOBasic::outInfo_vars  = "wavetoy::phi"
+
+IO::out_dir       = "test_binary_1"
+IO::out_fileinfo = "none"
+
+# temporarily initialize all allocated memory to zero
+# until the boundary conditions are fixed
+PUGH::initialize_memory = "zero"
+
+IOASCII::out1D_style = "gnuplot f(x)"
+IOASCII::out1D_every = 1
+IOASCII::out1D_vars  = "wavetoy::phi"

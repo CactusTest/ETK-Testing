@@ -1,0 +1,826 @@
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/.crl/component_list.crl /home/jhar131/TESTING/einsteintoolkit/2012-05-22-020001/Cactus/.crl/component_list.crl
+13,18d12
+< # Thorns using OpenCL (ExternalLibraries/OpenCL) are working and are
+< # part of the Einstein Toolkit. However, these thorns are currently
+< # commented out here because most machines don't support OpenCL yet,
+< # and there is no good, free OpenCL implementation yet which could be
+< # shipped with Cactus. Thus, not commenting them out would break
+< # compilating on most machines.
+20,21c14,41
+< # If you want to use these thorns and do have a working OpenCL
+< # environment, you have to uncomment these thorns in this thorn list.
+---
+> 
+> # A note on OpenCL:
+> 
+> # The thorns supporting and using OpenCL are working and are part of
+> # the Einstein Toolkit. However, these thorns are currently commented
+> # out in this thorn list because most machines do not have OpenCL
+> # libraries installed, and there is no good, free OpenCL
+> # implementation yet which could be shipped with Cactus.
+> 
+> # If you want to experiment with OpenCL and use these thorns (or look
+> # at their documentation), then uncomment these thorns in this thorn
+> # list, and use GetComponents to download these thorns.
+> 
+> # You have to uncomment these thorns (not here, but further below):
+> #   - CactusExamples/WaveToyOpenCL
+> #   - CactusUtils/OpenCLRunTime
+> #   - CactusUtils/Accelerator
+> #   - ExternalLibraries/OpenCL
+> #   - McLachlan/ML_WaveToy_CL
+> 
+> # To download these thorns via GetComponents, use then the following
+> # command (on the same system where you originally used
+> # GetComponents):
+> 
+> #   cd Cactus (or whatever your source tree is called)
+> #   bin/GetComponents --update --root=. manifest/einsteintoolkit.th
+> 
+> 
+332a353,354
+> McLachlan/ML_WaveToy
+> #McLachlan/ML_WaveToy_CL
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus: TEST.1
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus: TEST.2
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/arrangements/ExternalLibraries/OpenSSL/OpenSSL.sh /home/jhar131/TESTING/einsteintoolkit/2012-05-22-020001/Cactus/arrangements/ExternalLibraries/OpenSSL/OpenSSL.sh
+18d17
+< 
+68d66
+< exit
+83c81
+<     NAME=openssl-1.0.0i
+---
+>     NAME=openssl-1.0.0j
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/arrangements/ExternalLibraries/OpenSSL/dist/darwin.patch /home/jhar131/TESTING/einsteintoolkit/2012-05-22-020001/Cactus/arrangements/ExternalLibraries/OpenSSL/dist/darwin.patch
+1,3c1,3
+< diff -ru openssl-1.0.0i.orig/Configure openssl-1.0.0i/Configure
+< --- openssl-1.0.0i.orig/Configure	2012-03-03 07:48:21.000000000 -0600
+< +++ openssl-1.0.0i/Configure	2012-03-30 12:50:43.000000000 -0500
+---
+> diff -ru openssl-1.0.0j.orig/Configure openssl-1.0.0j/Configure
+> --- openssl-1.0.0j.orig/Configure	2012-03-03 07:48:21.000000000 -0600
+> +++ openssl-1.0.0j/Configure	2012-03-30 12:50:43.000000000 -0500
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/arrangements/ExternalLibraries/OpenSSL/dist: openssl-1.0.0i.tar.gz
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-22-020001/Cactus/arrangements/ExternalLibraries/OpenSSL/dist: openssl-1.0.0j.tar.gz
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-22-020001/Cactus/arrangements/McLachlan: ML_WaveToy
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/arrangements/McLachlan/m/Makefile /home/jhar131/TESTING/einsteintoolkit/2012-05-22-020001/Cactus/arrangements/McLachlan/m/Makefile
+39c39
+< 	rm -rf ML_WaveToy
+---
+> 	rm -rf ML_WaveToy ML_WaveToy_CL
+41c41
+< 	for thorn in ML_WaveToy; do				\
+---
+> 	for thorn in ML_WaveToy ML_WaveToy_CL; do		\
+61c61
+< 	rm -rf ML_WaveToy ML_WaveToyFO
+---
+> 	rm -rf ML_WaveToy ML_WaveToy_CL ML_WaveToyFO
+67c67,68
+< 	rm -f WaveToy*.out WaveToy*.err
+---
+> 	rm -f WaveToy.out WaveToy.err
+> 	rm -f WaveToyFO.out WaveToyFO.err
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/arrangements/McLachlan/m/WaveToy.m /home/jhar131/TESTING/einsteintoolkit/2012-05-22-020001/Cactus/arrangements/McLachlan/m/WaveToy.m
+12,34c12,18
+< {
+<   PDstandardNth[i_]     -> StandardCenteredDifferenceOperator[1,derivOrder/2,i],
+<   PDstandardNth[i_, i_] -> StandardCenteredDifferenceOperator[2,derivOrder/2,i],
+<   PDstandardNth[i_, j_] -> StandardCenteredDifferenceOperator[1,derivOrder/2,i]
+<                            StandardCenteredDifferenceOperator[1,derivOrder/2,j]
+< (*
+<   PDstandardNth[i_, i_, i_] ->
+<     StandardCenteredDifferenceOperator[3,derivOrder/2,i],
+<   PDstandardNth[i_, i_, j_] ->
+<     StandardCenteredDifferenceOperator[2,derivOrder/2,i]
+<     StandardCenteredDifferenceOperator[1,derivOrder/2,j],
+<   PDstandardNth[i_, j_, i_] ->
+<     StandardCenteredDifferenceOperator[2,derivOrder/2,i]
+<     StandardCenteredDifferenceOperator[1,derivOrder/2,j],
+<   PDstandardNth[j_, i_, i_] ->
+<     StandardCenteredDifferenceOperator[2,derivOrder/2,i]
+<     StandardCenteredDifferenceOperator[1,derivOrder/2,j],
+<   PDstandardNth[i_, j_, k_] ->
+<     StandardCenteredDifferenceOperator[1,derivOrder/2,i]
+<     StandardCenteredDifferenceOperator[1,derivOrder/2,j]
+<     StandardCenteredDifferenceOperator[1,derivOrder/2,k]
+< *)
+< };
+---
+>   {PDstandardNth[i_]     ->
+>    StandardCenteredDifferenceOperator[1,derivOrder/2,i],
+>    PDstandardNth[i_, i_] ->
+>    StandardCenteredDifferenceOperator[2,derivOrder/2,i],
+>    PDstandardNth[i_, j_] ->
+>    StandardCenteredDifferenceOperator[1,derivOrder/2,i]
+>    StandardCenteredDifferenceOperator[1,derivOrder/2,j]};
+40d23
+< (* timelevels *)
+50c33
+< Map [DefineTensor, {u, rho, v, w}];
+---
+> Map[DefineTensor, {u, rho, eps}];
+57,59c40,43
+<   {SetGroupName [CreateGroupFromTensor [u  ], "WT_u"  ],
+<    SetGroupName [CreateGroupFromTensor [rho], "WT_rho"]};
+< evaluatedGroups = {};
+---
+>   {SetGroupName[CreateGroupFromTensor[u  ], "WT_u"  ],
+>    SetGroupName[CreateGroupFromTensor[rho], "WT_rho"]};
+> evaluatedGroups =
+>   {SetGroupName[CreateGroupFromTensor[eps], "WT_eps"]};
+61,62c45,49
+< declaredGroups = Join [evolvedGroups, evaluatedGroups];
+< declaredGroupNames = Map [First, declaredGroups];
+---
+> declaredGroups = Join[evolvedGroups, evaluatedGroups];
+> declaredGroupNames = Map[First, declaredGroups];
+> 
+> extraGroups =
+>   {{"grid::coordinates", {x, y, z, r}}};
+70,81c57,74
+< initialCalc =
+< {
+<   Name -> "WT_Gaussian",
+<   Schedule -> {"AT initial"},
+<   (* Where -> Boundary, *)
+<   (* Where -> Interior, *)
+<   Equations -> 
+<   {
+<     u -> 0,
+<     rho -> 0
+<   }
+< };
+---
+> initialCalcGaussian =
+>   {Name                 -> "WT_Gaussian",
+>    Schedule             -> {"AT initial"},
+>    ConditionalOnKeyword -> {"initial_data", "Gaussian"},
+>    Equations            -> 
+>    {u   -> amplitude Exp[-(1/2) (r/width)^2],
+>     rho -> 0}};
+> 
+> initialCalcStanding =
+>   {Name                 -> "WT_Standing",
+>    Schedule             -> {"AT initial"},
+>    ConditionalOnKeyword -> {"initial_data", "Standing"},
+>    Shorthands           -> {k, omega},
+>    Equations            -> 
+>    {k     -> Pi / width,
+>     omega -> Sqrt[3 k^2],
+>     u     -> amplitude Cos[k x] Cos[k y] Cos[k z] Cos[omega t],
+>     rho   -> amplitude Cos[k x] Cos[k y] Cos[k z] Sin[omega t] (-omega)}};
+88,97c81,133
+< {
+<   Name -> "WT_RHS",
+<   Schedule -> {"IN MoL_CalcRHS", "AT analysis"},
+<   Where -> Interior,
+<   Equations -> 
+<   {
+<     dot[u] -> rho,
+<     dot[rho] -> KD[ua,ub] PD[u,la,lb]
+<   }
+< };
+---
+>   {Name      -> "WT_RHS",
+>    Schedule  -> {"IN MoL_CalcRHS" (*"AT analysis"*)},
+>    Where     -> Interior,
+>    Equations -> 
+>    {dot[u]   -> rho,
+>     dot[rho] -> KD[ua,ub] PD[u,la,lb]}};
+> 
+> (******************************************************************************)
+> (* Boundary conditions *)
+> (******************************************************************************)
+> 
+> boundaryCalc =
+>   {Name      -> "WT_Dirichlet",
+>    Schedule  -> {"IN MoL_CalcRHS", "AT analysis"},
+>    Where     -> Boundary,
+>    Equations -> 
+>    {dot[u]   -> 0,
+>     dot[rho] -> 0}};
+> 
+> (******************************************************************************)
+> (* Energy *)
+> (******************************************************************************)
+> 
+> energyCalc =
+>   {Name      -> "WT_Energy",
+>    Schedule  -> {"AT analysis"},
+>    Where     -> Interior,
+>    Equations -> 
+>    {eps -> 1/2 (rho^2 + KD[ua,ub] PD[u,la] PD[u,lb])}};
+> 
+> energyBoundaryCalc =
+>   {Name      -> "WT_EnergyBoundary",
+>    Schedule  -> {"AT analysis"},
+>    Where     -> Boundary,
+>    Equations -> 
+>    {eps -> 0}};
+> 
+> (******************************************************************************)
+> (* Parameters *)
+> (******************************************************************************)
+> 
+> keywordParameters =
+>   {{Name          -> "initial_data",
+>     AllowedValues -> {"Gaussian", "Standing"},
+>     Default       -> "Gaussian"}};
+> 
+> realParameters =
+>   {{Name        -> amplitude,
+>     Description -> "Amplitude of initial Gaussian",
+>     Default     -> 1},
+>    {Name        -> width,
+>     Description -> "Width of initial Gaussian",
+>     Default     -> 1}};
+104,115c140,173
+< {
+<   initialCalc,
+<   evolCalc
+< };
+< 
+< CreateKrancThornTT [groups, ".", "ML_WaveToy",
+<   Calculations -> calculations,
+<   DeclaredGroups -> declaredGroupNames,
+<   PartialDerivatives -> derivatives,
+<   UseLoopControl -> True,
+<   EvolutionTimelevels -> evolutionTimelevels
+< ];
+---
+>   {initialCalcGaussian, initialCalcStanding,
+>    evolCalc, boundaryCalc,
+>    energyCalc, energyBoundaryCalc};
+> 
+> CreateKrancThornTT[
+>   groups, ".", "ML_WaveToy",
+>   Calculations        -> calculations,
+>   DeclaredGroups      -> declaredGroupNames,
+>   PartialDerivatives  -> derivatives,
+>   UseLoopControl      -> True,
+>   UseVectors          -> True,
+>   EvolutionTimelevels -> evolutionTimelevels,
+>   KeywordParameters   -> keywordParameters,
+>   RealParameters      -> realParameters];
+> 
+> renameCalc[calc_, oldprefix_, newprefix_] := Module[
+>   {name, newname, newcalc},
+>   name = lookup[calc, Name];
+>   newname = StringReplace[name,
+>                           RegularExpression["^" <> oldprefix] -> newprefix];
+>   newcalc = mapReplace[calc, Name, newname];
+>   newcalc];
+> 
+> CreateKrancThornTT[
+>   groups, ".", "ML_WaveToy_CL",
+>   Calculations        -> Map[renameCalc[#, "WT_", "WT_CL_"]&, calculations],
+>   DeclaredGroups      -> declaredGroupNames,
+>   PartialDerivatives  -> derivatives,
+>   UseLoopControl      -> True,
+>   UseOpenCL           -> True,
+>   UseVectors          -> True,
+>   EvolutionTimelevels -> evolutionTimelevels,
+>   KeywordParameters   -> keywordParameters,
+>   RealParameters      -> realParameters];
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus: cactusjar.git
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/doc/UsersGuide/Appendices.tex /home/jhar131/TESTING/einsteintoolkit/2012-05-22-020001/Cactus/doc/UsersGuide/Appendices.tex
+11c11
+< \begin{cactuspart}{Appendices}{}{$Revision: 4825 $}
+---
+> \begin{cactuspart}{Appendices}{}{$Revision: 4826 $}
+1311,1312c1311,1312
+< Values are 1-dimensional arrays of any of the usual Cactus data types
+< described in Section~\ref{sect-ThornWriting/DataTypes}.
+---
+> Values are 1-dimensional arrays of any of the usual Cactus data types.
+> %described in Section~\ref{sect-ThornWriting/DataTypes}.
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/einsteintoolkit.th /home/jhar131/TESTING/einsteintoolkit/2012-05-22-020001/Cactus/einsteintoolkit.th
+12,17d11
+< # Thorns using OpenCL (ExternalLibraries/OpenCL) are working and are
+< # part of the Einstein Toolkit. However, these thorns are currently
+< # commented out here because most machines don't support OpenCL yet,
+< # and there is no good, free OpenCL implementation yet which could be
+< # shipped with Cactus. Thus, not commenting them out would break
+< # compilating on most machines.
+19,20c13,40
+< # If you want to use these thorns and do have a working OpenCL
+< # environment, you have to uncomment these thorns in this thorn list.
+---
+> 
+> # A note on OpenCL:
+> 
+> # The thorns supporting and using OpenCL are working and are part of
+> # the Einstein Toolkit. However, these thorns are currently commented
+> # out in this thorn list because most machines do not have OpenCL
+> # libraries installed, and there is no good, free OpenCL
+> # implementation yet which could be shipped with Cactus.
+> 
+> # If you want to experiment with OpenCL and use these thorns (or look
+> # at their documentation), then uncomment these thorns in this thorn
+> # list, and use GetComponents to download these thorns.
+> 
+> # You have to uncomment these thorns (not here, but further below):
+> #   - CactusExamples/WaveToyOpenCL
+> #   - CactusUtils/OpenCLRunTime
+> #   - CactusUtils/Accelerator
+> #   - ExternalLibraries/OpenCL
+> #   - McLachlan/ML_WaveToy_CL
+> 
+> # To download these thorns via GetComponents, use then the following
+> # command (on the same system where you originally used
+> # GetComponents):
+> 
+> #   cd Cactus (or whatever your source tree is called)
+> #   bin/GetComponents --update --root=. manifest/einsteintoolkit.th
+> 
+> 
+331a352,353
+> McLachlan/ML_WaveToy
+> #McLachlan/ML_WaveToy_CL
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus: exe
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus: log
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/manifest/einsteintoolkit.th /home/jhar131/TESTING/einsteintoolkit/2012-05-22-020001/Cactus/manifest/einsteintoolkit.th
+2,3c2,3
+< # $Revision: 182 $
+< # $Date: 2012-05-16 21:56:10 -0500 (Wed, 16 May 2012) $
+---
+> # $Revision: 184 $
+> # $Date: 2012-05-21 21:55:49 -0500 (Mon, 21 May 2012) $
+12,17d11
+< # Thorns using OpenCL (ExternalLibraries/OpenCL) are working and are
+< # part of the Einstein Toolkit. However, these thorns are currently
+< # commented out here because most machines don't support OpenCL yet,
+< # and there is no good, free OpenCL implementation yet which could be
+< # shipped with Cactus. Thus, not commenting them out would break
+< # compilating on most machines.
+19,20c13,40
+< # If you want to use these thorns and do have a working OpenCL
+< # environment, you have to uncomment these thorns in this thorn list.
+---
+> 
+> # A note on OpenCL:
+> 
+> # The thorns supporting and using OpenCL are working and are part of
+> # the Einstein Toolkit. However, these thorns are currently commented
+> # out in this thorn list because most machines do not have OpenCL
+> # libraries installed, and there is no good, free OpenCL
+> # implementation yet which could be shipped with Cactus.
+> 
+> # If you want to experiment with OpenCL and use these thorns (or look
+> # at their documentation), then uncomment these thorns in this thorn
+> # list, and use GetComponents to download these thorns.
+> 
+> # You have to uncomment these thorns (not here, but further below):
+> #   - CactusExamples/WaveToyOpenCL
+> #   - CactusUtils/OpenCLRunTime
+> #   - CactusUtils/Accelerator
+> #   - ExternalLibraries/OpenCL
+> #   - McLachlan/ML_WaveToy_CL
+> 
+> # To download these thorns via GetComponents, use then the following
+> # command (on the same system where you originally used
+> # GetComponents):
+> 
+> #   cd Cactus (or whatever your source tree is called)
+> #   bin/GetComponents --update --root=. manifest/einsteintoolkit.th
+> 
+> 
+331a352,353
+> McLachlan/ML_WaveToy
+> #McLachlan/ML_WaveToy_CL
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-22-020001/Cactus/repos/McLachlan: ML_WaveToy
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-22-020001/Cactus/repos/McLachlan: ML_WaveToy_CL
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/repos/McLachlan/m/Makefile /home/jhar131/TESTING/einsteintoolkit/2012-05-22-020001/Cactus/repos/McLachlan/m/Makefile
+39c39
+< 	rm -rf ML_WaveToy
+---
+> 	rm -rf ML_WaveToy ML_WaveToy_CL
+41c41
+< 	for thorn in ML_WaveToy; do				\
+---
+> 	for thorn in ML_WaveToy ML_WaveToy_CL; do		\
+61c61
+< 	rm -rf ML_WaveToy ML_WaveToyFO
+---
+> 	rm -rf ML_WaveToy ML_WaveToy_CL ML_WaveToyFO
+67c67,68
+< 	rm -f WaveToy*.out WaveToy*.err
+---
+> 	rm -f WaveToy.out WaveToy.err
+> 	rm -f WaveToyFO.out WaveToyFO.err
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/repos/McLachlan/m/WaveToy.m /home/jhar131/TESTING/einsteintoolkit/2012-05-22-020001/Cactus/repos/McLachlan/m/WaveToy.m
+12,34c12,18
+< {
+<   PDstandardNth[i_]     -> StandardCenteredDifferenceOperator[1,derivOrder/2,i],
+<   PDstandardNth[i_, i_] -> StandardCenteredDifferenceOperator[2,derivOrder/2,i],
+<   PDstandardNth[i_, j_] -> StandardCenteredDifferenceOperator[1,derivOrder/2,i]
+<                            StandardCenteredDifferenceOperator[1,derivOrder/2,j]
+< (*
+<   PDstandardNth[i_, i_, i_] ->
+<     StandardCenteredDifferenceOperator[3,derivOrder/2,i],
+<   PDstandardNth[i_, i_, j_] ->
+<     StandardCenteredDifferenceOperator[2,derivOrder/2,i]
+<     StandardCenteredDifferenceOperator[1,derivOrder/2,j],
+<   PDstandardNth[i_, j_, i_] ->
+<     StandardCenteredDifferenceOperator[2,derivOrder/2,i]
+<     StandardCenteredDifferenceOperator[1,derivOrder/2,j],
+<   PDstandardNth[j_, i_, i_] ->
+<     StandardCenteredDifferenceOperator[2,derivOrder/2,i]
+<     StandardCenteredDifferenceOperator[1,derivOrder/2,j],
+<   PDstandardNth[i_, j_, k_] ->
+<     StandardCenteredDifferenceOperator[1,derivOrder/2,i]
+<     StandardCenteredDifferenceOperator[1,derivOrder/2,j]
+<     StandardCenteredDifferenceOperator[1,derivOrder/2,k]
+< *)
+< };
+---
+>   {PDstandardNth[i_]     ->
+>    StandardCenteredDifferenceOperator[1,derivOrder/2,i],
+>    PDstandardNth[i_, i_] ->
+>    StandardCenteredDifferenceOperator[2,derivOrder/2,i],
+>    PDstandardNth[i_, j_] ->
+>    StandardCenteredDifferenceOperator[1,derivOrder/2,i]
+>    StandardCenteredDifferenceOperator[1,derivOrder/2,j]};
+40d23
+< (* timelevels *)
+50c33
+< Map [DefineTensor, {u, rho, v, w}];
+---
+> Map[DefineTensor, {u, rho, eps}];
+57,59c40,43
+<   {SetGroupName [CreateGroupFromTensor [u  ], "WT_u"  ],
+<    SetGroupName [CreateGroupFromTensor [rho], "WT_rho"]};
+< evaluatedGroups = {};
+---
+>   {SetGroupName[CreateGroupFromTensor[u  ], "WT_u"  ],
+>    SetGroupName[CreateGroupFromTensor[rho], "WT_rho"]};
+> evaluatedGroups =
+>   {SetGroupName[CreateGroupFromTensor[eps], "WT_eps"]};
+61,62c45,49
+< declaredGroups = Join [evolvedGroups, evaluatedGroups];
+< declaredGroupNames = Map [First, declaredGroups];
+---
+> declaredGroups = Join[evolvedGroups, evaluatedGroups];
+> declaredGroupNames = Map[First, declaredGroups];
+> 
+> extraGroups =
+>   {{"grid::coordinates", {x, y, z, r}}};
+70,81c57,74
+< initialCalc =
+< {
+<   Name -> "WT_Gaussian",
+<   Schedule -> {"AT initial"},
+<   (* Where -> Boundary, *)
+<   (* Where -> Interior, *)
+<   Equations -> 
+<   {
+<     u -> 0,
+<     rho -> 0
+<   }
+< };
+---
+> initialCalcGaussian =
+>   {Name                 -> "WT_Gaussian",
+>    Schedule             -> {"AT initial"},
+>    ConditionalOnKeyword -> {"initial_data", "Gaussian"},
+>    Equations            -> 
+>    {u   -> amplitude Exp[-(1/2) (r/width)^2],
+>     rho -> 0}};
+> 
+> initialCalcStanding =
+>   {Name                 -> "WT_Standing",
+>    Schedule             -> {"AT initial"},
+>    ConditionalOnKeyword -> {"initial_data", "Standing"},
+>    Shorthands           -> {k, omega},
+>    Equations            -> 
+>    {k     -> Pi / width,
+>     omega -> Sqrt[3 k^2],
+>     u     -> amplitude Cos[k x] Cos[k y] Cos[k z] Cos[omega t],
+>     rho   -> amplitude Cos[k x] Cos[k y] Cos[k z] Sin[omega t] (-omega)}};
+88,97c81,133
+< {
+<   Name -> "WT_RHS",
+<   Schedule -> {"IN MoL_CalcRHS", "AT analysis"},
+<   Where -> Interior,
+<   Equations -> 
+<   {
+<     dot[u] -> rho,
+<     dot[rho] -> KD[ua,ub] PD[u,la,lb]
+<   }
+< };
+---
+>   {Name      -> "WT_RHS",
+>    Schedule  -> {"IN MoL_CalcRHS" (*"AT analysis"*)},
+>    Where     -> Interior,
+>    Equations -> 
+>    {dot[u]   -> rho,
+>     dot[rho] -> KD[ua,ub] PD[u,la,lb]}};
+> 
+> (******************************************************************************)
+> (* Boundary conditions *)
+> (******************************************************************************)
+> 
+> boundaryCalc =
+>   {Name      -> "WT_Dirichlet",
+>    Schedule  -> {"IN MoL_CalcRHS", "AT analysis"},
+>    Where     -> Boundary,
+>    Equations -> 
+>    {dot[u]   -> 0,
+>     dot[rho] -> 0}};
+> 
+> (******************************************************************************)
+> (* Energy *)
+> (******************************************************************************)
+> 
+> energyCalc =
+>   {Name      -> "WT_Energy",
+>    Schedule  -> {"AT analysis"},
+>    Where     -> Interior,
+>    Equations -> 
+>    {eps -> 1/2 (rho^2 + KD[ua,ub] PD[u,la] PD[u,lb])}};
+> 
+> energyBoundaryCalc =
+>   {Name      -> "WT_EnergyBoundary",
+>    Schedule  -> {"AT analysis"},
+>    Where     -> Boundary,
+>    Equations -> 
+>    {eps -> 0}};
+> 
+> (******************************************************************************)
+> (* Parameters *)
+> (******************************************************************************)
+> 
+> keywordParameters =
+>   {{Name          -> "initial_data",
+>     AllowedValues -> {"Gaussian", "Standing"},
+>     Default       -> "Gaussian"}};
+> 
+> realParameters =
+>   {{Name        -> amplitude,
+>     Description -> "Amplitude of initial Gaussian",
+>     Default     -> 1},
+>    {Name        -> width,
+>     Description -> "Width of initial Gaussian",
+>     Default     -> 1}};
+104,115c140,173
+< {
+<   initialCalc,
+<   evolCalc
+< };
+< 
+< CreateKrancThornTT [groups, ".", "ML_WaveToy",
+<   Calculations -> calculations,
+<   DeclaredGroups -> declaredGroupNames,
+<   PartialDerivatives -> derivatives,
+<   UseLoopControl -> True,
+<   EvolutionTimelevels -> evolutionTimelevels
+< ];
+---
+>   {initialCalcGaussian, initialCalcStanding,
+>    evolCalc, boundaryCalc,
+>    energyCalc, energyBoundaryCalc};
+> 
+> CreateKrancThornTT[
+>   groups, ".", "ML_WaveToy",
+>   Calculations        -> calculations,
+>   DeclaredGroups      -> declaredGroupNames,
+>   PartialDerivatives  -> derivatives,
+>   UseLoopControl      -> True,
+>   UseVectors          -> True,
+>   EvolutionTimelevels -> evolutionTimelevels,
+>   KeywordParameters   -> keywordParameters,
+>   RealParameters      -> realParameters];
+> 
+> renameCalc[calc_, oldprefix_, newprefix_] := Module[
+>   {name, newname, newcalc},
+>   name = lookup[calc, Name];
+>   newname = StringReplace[name,
+>                           RegularExpression["^" <> oldprefix] -> newprefix];
+>   newcalc = mapReplace[calc, Name, newname];
+>   newcalc];
+> 
+> CreateKrancThornTT[
+>   groups, ".", "ML_WaveToy_CL",
+>   Calculations        -> Map[renameCalc[#, "WT_", "WT_CL_"]&, calculations],
+>   DeclaredGroups      -> declaredGroupNames,
+>   PartialDerivatives  -> derivatives,
+>   UseLoopControl      -> True,
+>   UseOpenCL           -> True,
+>   UseVectors          -> True,
+>   EvolutionTimelevels -> evolutionTimelevels,
+>   KeywordParameters   -> keywordParameters,
+>   RealParameters      -> realParameters];
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/repos/carpet/.hg/dirstate and /home/jhar131/TESTING/einsteintoolkit/2012-05-22-020001/Cactus/repos/carpet/.hg/dirstate differ
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/simfactory/lib/archive: __init__.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/simfactory/lib/archive: petashare.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/simfactory/lib/archive: uberftp.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/simfactory/lib: libutil.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/simfactory/lib: pyini.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/simfactory/lib: restartlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/simfactory/lib: sim-build.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/simfactory/lib: sim-info.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/simfactory/lib: sim-manage.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/simfactory/lib: sim-sync.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/simfactory/lib: sim-util.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/simfactory/lib: simarchive.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/simfactory/lib: simdb.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/simfactory/lib: simdt.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/simfactory/lib: simenv.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/simfactory/lib: simlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/simfactory/lib: simopts.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/simfactory/lib: simproperties.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/simfactory/lib: simremote.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/simfactory/lib: simrestart.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/simfactory/lib: simsubs.pyc
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/simfactory/mdb/machines/forge.ini /home/jhar131/TESTING/einsteintoolkit/2012-05-22-020001/Cactus/simfactory/mdb/machines/forge.ini
+20a21,24
+>     ExternalLibraries/curl
+>         ExternalLibraries/flickcurl
+>         LSUThorns/Flickr
+>         LSUThorns/Twitter
+28a33,39
+> enabled-thorns = <<EOF
+>     ExternalLibraries/OpenCL
+>         CactusExamples/WaveToyOpenCL
+>         CactusUtils/Accelerator
+>         CactusUtils/OpenCLRunTime
+>         McLachlan/ML_WaveToy_CL
+> EOF
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/simfactory/mdb/machines/lonestar.ini /home/jhar131/TESTING/einsteintoolkit/2012-05-22-020001/Cactus/simfactory/mdb/machines/lonestar.ini
+27a28,32
+>     ExternalLibraries/OpenCL
+>         CactusExamples/WaveToyOpenCL
+>         CactusUtils/OpenCLRunTime
+>         CactusUtils/Accelerator
+>         McLachlan/ML_WaveToy_CL
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/simfactory/mdb/machines/nvidia.ini /home/jhar131/TESTING/einsteintoolkit/2012-05-22-020001/Cactus/simfactory/mdb/machines/nvidia.ini
+12,13c12
+< # Mars has a different sourcebasedir
+< #iomachine       = mars
+---
+> iomachine       = mars
+28a28
+>         McLachlan/ML_WaveToy_CL
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/simfactory/mdb/optionlists/forge.cfg /home/jhar131/TESTING/einsteintoolkit/2012-05-22-020001/Cactus/simfactory/mdb/optionlists/forge.cfg
+10d9
+< LD                  =  /usr/bin/g++
+11a11
+> CUCC                =  /usr/local/cuda_4.1.28/cuda/bin/nvcc
+14c14
+< CUCC                =  /usr/local/cuda_4.1.28/cuda/bin/nvcc
+---
+> LD                  =  /usr/bin/g++
+16c16
+< CFLAGS              =  -g -std=gnu99
+---
+> CFLAGS              =  -std=gnu99
+21a22,29
+> DEBUG               = no
+> CPP_DEBUG_FLAGS     = -g -DCARPET_DEBUG
+> C_DEBUG_FLAGS       = -g
+> CXX_DEBUG_FLAGS     = -g
+> CUCC_DEBUG_FLAGS    = -g
+> F77_DEBUG_FLAGS     = -g
+> F90_DEBUG_FLAGS     = -g
+> 
+23,26c31,34
+< C_OPTIMISE_FLAGS    = -pipe -O2 -finline-functions
+< CXX_OPTIMISE_FLAGS  = -pipe -O2 -finline-functions
+< F77_OPTIMISE_FLAGS  = -pipe -O2 -finline-functions
+< F90_OPTIMISE_FLAGS  = -pipe -O2 -finline-functions
+---
+> C_OPTIMISE_FLAGS    = -O2 -finline-functions
+> CXX_OPTIMISE_FLAGS  = -O2 -finline-functions
+> F77_OPTIMISE_FLAGS  = -O2 -finline-functions
+> F90_OPTIMISE_FLAGS  = -O2 -finline-functions
+29,41c37,49
+< WARN                = yes
+< C_WARN_FLAGS        = 
+< CXX_WARN_FLAGS      = -Wno-unused-variable 
+< F77_WARN_FLAGS      = 
+< F90_WARN_FLAGS      = 
+< 
+< DEBUG               = no
+< C_DEBUG_FLAGS       = -O0
+< CPP_DEBUG_FLAGS     = -DCARPET_DEBUG
+< CXX_DEBUG_FLAGS     = -O0
+< F77_DEBUG_FLAGS     = -O0
+< F90_DEBUG_FLAGS     = -O0
+< CUCC_DEBUG_FLAGS    =  
+---
+> C_NOOPTIMISE_FLAGS    = -O0
+> CXX_NOOPTIMISE_FLAGS  = -O0
+> F77_NOOPTIMISE_FLAGS  = -O0
+> F90_NOOPTIMISE_FLAGS  = -O0
+> CUCC_NOOPTIMISE_FLAGS =
+> 
+> PROFILE           = no
+> CPP_PROFILE_FLAGS =
+> FPP_PROFILE_FLAGS =
+> C_PROFILE_FLAGS   = -pg
+> CXX_PROFILE_FLAGS = -pg
+> F77_PROFILE_FLAGS = -pg
+> F90_PROFILE_FLAGS = -pg
+50a59,66
+> WARN                = yes
+> C_WARN_FLAGS        = 
+> CXX_WARN_FLAGS      = -Wno-unused-variable 
+> F77_WARN_FLAGS      = 
+> F90_WARN_FLAGS      = 
+> 
+> 
+> 
+53a70,71
+> 
+> OPENCL_DIR          = /usr/local/cuda_4.1.28/cuda
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/simfactory/mdb/optionlists/lonestar-openmpi.cfg /home/jhar131/TESTING/einsteintoolkit/2012-05-22-020001/Cactus/simfactory/mdb/optionlists/lonestar-openmpi.cfg
+15c15
+< CPPFLAGS =
+---
+> CPPFLAGS = -gcc-sys
+17,18c17,18
+< CFLAGS   = -g -traceback -debug all -xSSE4.2 -align -std=c99 -ansi_alias -U__STRICT_ANSI__ -rdynamic
+< CXXFLAGS = -g -traceback -debug all -xSSE4.2 -align -restrict
+---
+> CFLAGS   = -g -traceback -debug all -xSSE4.2 -align -std=c99 -ansi_alias -U__STRICT_ANSI__
+> CXXFLAGS = -g -traceback -debug all -xSSE4.2 -align -restrict -D__builtin_signbit=::signbit -D_intel_fast_memcpy=memcpy -D_intel_fast_memset=memset
+22,30c22
+< CUCC                = /opt/apps/intel/11.1/bin/intel64/icpc
+< CUCCFLAGS           = -x c++ -DMPICH_IGNORE_CXX_SEEK -g -traceback -debug all -xSSE4.2 -align -std=c99 -restrict -openmp
+< CUCC_DEBUG_FLAGS    = -DCARPET_DEBUG -O0
+< CUCC_OPTIMISE_FLAGS = -O2 -override-limits
+< CUCC_WARN_FLAGS     =
+< 
+< CU_DEPEND = /opt/apps/intel/11.1/bin/intel64/icpc -M -x c++ -DMPICH_IGNORE_CXX_SEEK -openmp
+< 
+< LDFLAGS = -rdynamic
+---
+> LDFLAGS = -rdynamic -Wl,-rpath,/opt/apps/intel/11.1/mkl/lib/em64t
+36c28
+< VECTORISE_ALIGNED_ARRAYS = no
+---
+> VECTORISE_ALIGNED_ARRAYS = yes
+95,97d86
+< MPI         = OpenMPI
+< OPENMPI_DIR = /opt/apps/intel11_1/openmpi/1.4.3
+< 
+100,101c89,93
+< OPENCL_LIB_DIRS = /opt/apps/cuda_SDK/4.0/OpenCL/common/lib
+< OPENCL_LIBS     = oclUtil_x86_64
+---
+> OPENCL_LIB_DIRS = /home1/00507/eschnett/lib64 /opt/apps/cuda_SDK/4.0/OpenCL/common/lib
+> OPENCL_LIBS     = oclUtil_x86_64 OpenCL
+> 
+> MPI         = OpenMPI
+> OPENMPI_DIR = /opt/apps/intel11_1/openmpi/1.4.3
+110,112c102
+< PETSC_MPI_INC_DIR           = /opt/apps/intel11_1/openmpi/1.4.3/include
+< PETSC_MPI_LIB_DIRS          = /opt/apps/intel11_1/openmpi/1.4.3/lib
+< PETSC_MPI_LIBS              = mpi_cxx mpi open-rte open-pal dl   pthread
+---
+> PETSC_MPI_EXTRA_LIBS        = mpi_cxx mpi open-rte open-pal dl   pthread
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/thornlists/einsteintoolkit.th /home/jhar131/TESTING/einsteintoolkit/2012-05-22-020001/Cactus/thornlists/einsteintoolkit.th
+13,18d12
+< # Thorns using OpenCL (ExternalLibraries/OpenCL) are working and are
+< # part of the Einstein Toolkit. However, these thorns are currently
+< # commented out here because most machines don't support OpenCL yet,
+< # and there is no good, free OpenCL implementation yet which could be
+< # shipped with Cactus. Thus, not commenting them out would break
+< # compilating on most machines.
+20,21c14,41
+< # If you want to use these thorns and do have a working OpenCL
+< # environment, you have to uncomment these thorns in this thorn list.
+---
+> 
+> # A note on OpenCL:
+> 
+> # The thorns supporting and using OpenCL are working and are part of
+> # the Einstein Toolkit. However, these thorns are currently commented
+> # out in this thorn list because most machines do not have OpenCL
+> # libraries installed, and there is no good, free OpenCL
+> # implementation yet which could be shipped with Cactus.
+> 
+> # If you want to experiment with OpenCL and use these thorns (or look
+> # at their documentation), then uncomment these thorns in this thorn
+> # list, and use GetComponents to download these thorns.
+> 
+> # You have to uncomment these thorns (not here, but further below):
+> #   - CactusExamples/WaveToyOpenCL
+> #   - CactusUtils/OpenCLRunTime
+> #   - CactusUtils/Accelerator
+> #   - ExternalLibraries/OpenCL
+> #   - McLachlan/ML_WaveToy_CL
+> 
+> # To download these thorns via GetComponents, use then the following
+> # command (on the same system where you originally used
+> # GetComponents):
+> 
+> #   cd Cactus (or whatever your source tree is called)
+> #   bin/GetComponents --update --root=. manifest/einsteintoolkit.th
+> 
+> 
+332a353,354
+> McLachlan/ML_WaveToy
+> #McLachlan/ML_WaveToy_CL

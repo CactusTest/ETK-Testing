@@ -1,0 +1,137 @@
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus: TEST.1
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus: TEST.2
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus/arrangements/EinsteinBase/ADMBase/param.ccl /home/jhar131/TESTING/einsteintoolkit/2012-05-29-020001/Cactus/arrangements/EinsteinBase/ADMBase/param.ccl
+94c94
+< INT lapse_timelevels "Number of time levels for the lapse"
+---
+> INT lapse_timelevels "Number of time levels for the lapse" STEERABLE=recover
+99c99
+< INT shift_timelevels "Number of time levels for the shift"
+---
+> INT shift_timelevels "Number of time levels for the shift" STEERABLE=recover
+104c104
+< INT metric_timelevels "Number of time levels for the metric and extrinsic curvature"
+---
+> INT metric_timelevels "Number of time levels for the metric and extrinsic curvature" STEERABLE=recover
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus/arrangements/EinsteinBase/HydroBase/param.ccl /home/jhar131/TESTING/einsteintoolkit/2012-05-29-020001/Cactus/arrangements/EinsteinBase/HydroBase/param.ccl
+19c19
+< INT timelevels "Number of time levels in evolution scheme"
+---
+> INT timelevels "Number of time levels in evolution scheme" STEERABLE=recover
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus/arrangements/EinsteinBase/TmunuBase/param.ccl /home/jhar131/TESTING/einsteintoolkit/2012-05-29-020001/Cactus/arrangements/EinsteinBase/TmunuBase/param.ccl
+19c19
+< INT timelevels "Number of time levels"
+---
+> INT timelevels "Number of time levels" STEERABLE=recover
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-29-020001/Cactus/arrangements/EinsteinInitialData/Exact/test: test.ccl
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus: cactusjar.git
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus: exe
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus: log
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus/repos/carpet/.hg/cache/branchheads /home/jhar131/TESTING/einsteintoolkit/2012-05-29-020001/Cactus/repos/carpet/.hg/cache/branchheads
+1c1
+< 12ee1105096abb118355da698da7a0039edcd6df 3555
+---
+> b657ed971e6447be46e4e831ed559f921374bd5c 3556
+4a5
+> b657ed971e6447be46e4e831ed559f921374bd5c ET_2012_05
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus/repos/carpet/.hg/cache/tags /home/jhar131/TESTING/einsteintoolkit/2012-05-29-020001/Cactus/repos/carpet/.hg/cache/tags
+1c1
+< 3555 12ee1105096abb118355da698da7a0039edcd6df
+---
+> 3556 b657ed971e6447be46e4e831ed559f921374bd5c
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus/repos/carpet/.hg/dirstate and /home/jhar131/TESTING/einsteintoolkit/2012-05-29-020001/Cactus/repos/carpet/.hg/dirstate differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus/repos/carpet/.hg/store/00changelog.d and /home/jhar131/TESTING/einsteintoolkit/2012-05-29-020001/Cactus/repos/carpet/.hg/store/00changelog.d differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus/repos/carpet/.hg/store/00changelog.i and /home/jhar131/TESTING/einsteintoolkit/2012-05-29-020001/Cactus/repos/carpet/.hg/store/00changelog.i differ
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus/simfactory/lib/archive: __init__.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus/simfactory/lib/archive: petashare.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus/simfactory/lib/archive: uberftp.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus/simfactory/lib: libutil.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus/simfactory/lib: pyini.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus/simfactory/lib: restartlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus/simfactory/lib: sim-build.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus/simfactory/lib: sim-info.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus/simfactory/lib: sim-manage.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus/simfactory/lib: sim-sync.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus/simfactory/lib: sim-util.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus/simfactory/lib: simarchive.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus/simfactory/lib: simdb.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus/simfactory/lib: simdt.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus/simfactory/lib: simenv.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus/simfactory/lib: simlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus/simfactory/lib: simopts.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus/simfactory/lib: simproperties.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus/simfactory/lib: simremote.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus/simfactory/lib: simrestart.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus/simfactory/lib: simsubs.pyc
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus/simfactory/mdb/machines/tezpur.ini /home/jhar131/TESTING/einsteintoolkit/2012-05-29-020001/Cactus/simfactory/mdb/machines/tezpur.ini
+30,33c30
+< # Don't build on Tezpur; there is a serious problem with "rm -rf", and
+< # Cactus builds can crash the machine
+< #make            = make -j4
+< make            = false
+---
+> make            = make -j4
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus/simfactory/mdb/optionlists/tezpur-mvapich2.cfg /home/jhar131/TESTING/einsteintoolkit/2012-05-29-020001/Cactus/simfactory/mdb/optionlists/tezpur-mvapich2.cfg
+9,12c9,12
+< CC  = /usr/local/compilers/Intel/intel_cc_10.1/bin/icc
+< CXX = /usr/local/compilers/Intel/intel_cc_10.1/bin/icpc
+< F77 = /usr/local/compilers/Intel/intel_fc_10.1/bin/ifort
+< F90 = /usr/local/compilers/Intel/intel_fc_10.1/bin/ifort
+---
+> CC  = /usr/local/compilers/Intel/intel_cc_11.1/bin/intel64/icc
+> CXX = /usr/local/compilers/Intel/intel_cc_11.1/bin/intel64/icpc
+> F77 = /usr/local/compilers/Intel/intel_fc_11.1/bin/intel64/ifort
+> F90 = /usr/local/compilers/Intel/intel_fc_11.1/bin/intel64/ifort
+14,15c14,15
+< CPPFLAGS = -DMPICH_IGNORE_CXX_SEEK
+< FPPFLAGS = -traditional
+---
+> CPPFLAGS = -DMPICH_IGNORE_CXX_SEEK -DCARPET_OPTIMISE -DNDEBUG
+> FPPFLAGS = -traditional -DCARPET_OPTIMISE -DNDEBUG
+17,21c17,21
+< CFLAGS   = -g -traceback -debug all -inline-debug-info -align -std=gnu99 -ansi_alias -rdynamic
+< CXXFLAGS = -g -traceback -debug all -inline-debug-info -align -std=gnu99 -restrict -rdynamic
+< F77FLAGS = -g -traceback -debug all -inline-debug-info -align -pad -w95 -cm
+< F90FLAGS = -g -traceback -debug all -inline-debug-info -align -pad -w95 -cm
+< LDFLAGS  = -Wl,-rpath,/usr/local/packages/fftw-3.1.2-intel10.1/lib -Wl,-rpath,/usr/local/packages/gsl-1.9-intel9.1/lib -Wl,-rpath,/usr/local/packages/papi-3.5.0/lib64 -Wl,-rpath,/usr/local/compilers/Intel/intel_cc_10.1/lib -Wl,-rpath,/usr/local/compilers/Intel/intel_fc_10.1/lib
+---
+> CFLAGS   = -align -std=c99 -U__STRICT_ANSI__ -g
+> CXXFLAGS = -align -std=c99 -U__STRICT_ANSI__ -g 
+> F77FLAGS = -g -align -pad -w95 -cm
+> F90FLAGS = -g -align -pad -w95 -cm
+> LDFLAGS  = -Wl,-rpath,/usr/local/packages/fftw/3.2/intel-11.1-mvapich2-1.4/lib -Wl,-rpath,/usr/local/packages/gsl/1.9/intel-11.1-mvapich2-1.4/lib -Wl,-rpath,/usr/local/packages/papi-3.5.0/lib64 -Wl,-rpath,/usr/local/compilers/Intel/intel_cc_11.1/lib/intel64 -Wl,-rpath,/usr/local/compilers/Intel/intel_fc_11.1/lib/intel64
+23c23
+< LIBDIRS = /usr/X11R6/lib64 /usr/local/ofed/lib64 /usr/local/compilers/Intel/intel_fc_10.1/lib
+---
+> LIBDIRS = /usr/X11R6/lib64 /usr/local/ofed/lib64 /usr/local/compilers/Intel/intel_fc_11.1/lib/intel64
+84,85c84,85
+< BLAS_DIR  = /usr/local/compilers/Intel/mkl-10.0/lib/em64t
+< BLAS_LIBS = -Bstatic mkl_em64t guide -Bdynamic   pthread
+---
+> BLAS_DIR  = /usr/local/compilers/Intel/mkl-10.2/lib/em64t
+> BLAS_LIBS = -Bstatic mkl_intel_lp64 mkl_core mkl_intel_thread -Bdynamic
+87c87
+< FFTW3_DIR = /usr/local/packages/fftw-3.1.2-intel10.1
+---
+> FFTW3_DIR = /usr/local/packages/fftw/3.2/intel-11.1-mvapich2-1.4
+89c89
+< GSL_DIR = /usr/local/packages/gsl-1.9-intel9.1
+---
+> GSL_DIR = /usr/local/packages/gsl/1.9/intel-11.1-mvapich2-1.4
+93,94c93,94
+< LAPACK_DIR  = /usr/local/compilers/Intel/mkl-10.0/lib/em64t
+< LAPACK_LIBS = -Bstatic mkl_lapack mkl_core -lmkl_em64t -Bdynamic
+---
+> LAPACK_DIR  = /usr/local/compilers/Intel/mkl-10.2/lib/em64t
+> LAPACK_LIBS = -Bstatic mkl_intel_lp64 mkl_core mkl_intel_thread -Bdynamic
+100,101c100,101
+< MPI_INC_DIRS = /usr/local/packages/mvapich2-1.2rc2-intel10.1/include
+< MPI_LIB_DIRS = /usr/local/packages/mvapich2-1.2rc2-intel10.1/lib /usr/local/ofed/lib64
+---
+> MPI_INC_DIRS = /usr/local/packages/mvapich2/1.6rc1/intel-11.1/include
+> MPI_LIB_DIRS = /usr/local/packages/mvapich2/1.6rc1/intel-11.1/lib /usr/local/ofed/lib64
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-28-020001/Cactus/simfactory/mdb/runscripts/tezpur-mvapich2.run /home/jhar131/TESTING/einsteintoolkit/2012-05-29-020001/Cactus/simfactory/mdb/runscripts/tezpur-mvapich2.run
+18c18
+< export MPICHDIR=/usr/local/packages/mvapich2/1.4/intel-11.1
+---
+> export MPICHDIR=/usr/local/packages/mvapich2/1.6rc1/intel-11.1

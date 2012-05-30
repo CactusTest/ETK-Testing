@@ -1,0 +1,423 @@
+/home/jhar131/TESTING/einsteintoolkit/2012-05-18-020002/Cactus/TEST/sim/IDAxiOddBrillBH
+--------------------------------------------------------------------------------
+
+       10                                  
+  1   0101       ************************  
+  01  1010 10      The Cactus Code V4.0    
+ 1010 1101 011      www.cactuscode.org     
+  1001 100101    ************************  
+    00010101                               
+     100011     (c) Copyright The Authors  
+      0100      GNU Licensed. No Warranty  
+      0101                                 
+
+--------------------------------------------------------------------------------
+
+Cactus version:    4.0.1
+Compile date:      May 18 2012 (02:47:46)
+Run date:          May 18 2012 (03:33:20-0500)
+Run host:          numrel07.cct.lsu.edu (pid=18925)
+Working directory: /home/jhar131/TESTING/einsteintoolkit/2012-05-18-020002/Cactus/TEST/sim/IDAxiOddBrillBH
+Executable:        /home/jhar131/TESTING/einsteintoolkit/2012-05-18-020002/Cactus/exe/cactus_sim
+Parameter file:    /home/jhar131/TESTING/einsteintoolkit/2012-05-18-020002/Cactus/arrangements/EinsteinInitialData/IDAxiOddBrillBH/test/test_axioddbh.par
+--------------------------------------------------------------------------------
+
+Activating thorn Cactus...Success -> active implementation Cactus
+Activation requested for 
+---> IDAxiOddBrillBH adm coordbase coordgauge staticconformal spacemask admbase admcoupling admmacros admanalysis ellbase cartgrid3d time pugh pughreduce pughslab ioascii ioutil iobasic adm admconstraints boundary pughinterp LocalInterp nanchecker LocalInterp LocalReduce SymBase<---
+Warning: thorn adm already scheduled for activation
+Warning: thorn LocalInterp already scheduled for activation
+Activating thorn adm...Success -> active implementation adm
+Activating thorn admanalysis...Success -> active implementation ADMAnalysis
+Activating thorn admbase...Success -> active implementation ADMBase
+Activating thorn admconstraints...Success -> active implementation admconstraints
+Activating thorn admcoupling...Success -> active implementation ADMCoupling
+Activating thorn admmacros...Success -> active implementation ADMMacros
+Activating thorn boundary...Success -> active implementation boundary
+Activating thorn cartgrid3d...Success -> active implementation grid
+Activating thorn coordbase...Success -> active implementation CoordBase
+Activating thorn coordgauge...Success -> active implementation CoordGauge
+Activating thorn ellbase...Success -> active implementation ellbase
+Activating thorn IDAxiOddBrillBH...Success -> active implementation axiodd
+Activating thorn ioascii...Success -> active implementation IOASCII
+Activating thorn iobasic...Success -> active implementation IOBasic
+Activating thorn ioutil...Success -> active implementation IO
+Activating thorn LocalInterp...Success -> active implementation LocalInterp
+Activating thorn LocalReduce...Success -> active implementation LocalReduce
+Activating thorn nanchecker...Success -> active implementation NaNChecker
+Activating thorn pugh...Success -> active implementation Driver
+Activating thorn pughinterp...Success -> active implementation Interp
+Activating thorn pughreduce...Success -> active implementation Reduce
+Activating thorn pughslab...Success -> active implementation Hyperslab
+Activating thorn spacemask...Success -> active implementation SpaceMask
+Activating thorn staticconformal...Success -> active implementation StaticConformal
+Activating thorn SymBase...Success -> active implementation SymBase
+Activating thorn time...Success -> active implementation time
+--------------------------------------------------------------------------------
+  if (recover initial data)
+    Recover parameters
+  endif
+
+  Startup routines
+    [CCTK_STARTUP]
+      ADM::ADMRegisterSlicing: [global] Register slicings
+      CartGrid3D::SymmetryStartup: Register GH Extension for GridSymmetry
+      CoordBase::CoordBase_Startup: Register a GH extension to store the coordinate system handles
+      EllBase::Ell_RegisterBaseEqTypes: Register the standard elliptic classes
+      PUGH::Driver_Startup: Startup routine
+      IOUtil::IOUtil_Startup: Startup routine
+      IOASCII::IOASCII_Startup: Startup routine
+      LocalInterp::LocalInterp_Startup: register LocalInterp's interpolation operators
+      LocalReduce::LocalReduce_Startup: Startup routine
+      IOBasic::IOBasic_Startup: Startup routine
+      PUGH::PUGH_RegisterPUGHP2LRoutines: Register Physical to Logical process mapping routines
+      PUGH::PUGH_RegisterPUGHTopologyRoutines: Register topology generation routines routines
+      PUGHInterp::PUGHInterp_Startup: PUGHInterp startup routine
+      PUGHReduce::PUGHReduce_Startup: Startup routine
+      SymBase::SymBase_Startup: Register GH Extension for SymBase
+
+  Startup routines which need an existing grid hierarchy
+    [CCTK_WRAGH]
+      ADM::ADMSetSym: [global] Set grid function symmetries
+      ADMAnalysis::ADMAnalysis_RegisterSymmetry: [global] Register symmetry of Ricci tensor and scalar
+      ADMBase::Einstein_InitSymBound: [global] Set up GF symmetries
+      ADMConstraints::ADMConstraint_InitSymBound: [global] Register GF symmetries for ADM Constraints
+      Boundary::Boundary_RegisterBCs: [global] Register boundary conditions that this thorn provides
+      CartGrid3D::RegisterCartGrid3DCoords: [meta] Register coordinates for the Cartesian grid
+      CoordGauge::Einstein_ActivateSlicing: Initialize slicing, setup priorities for mixed slicings
+      CoordGauge::Einstein_SetNextSlicing: Identify the slicing for the next iteration
+      GROUP SymBase_Wrapper: Wrapper group for SymBase
+        GROUP SymmetryRegister: Register your symmetries here
+          CartGrid3D::RegisterSymmetryBoundaries: [meta] Register symmetry boundaries
+        SymBase::SymBase_Statistics: Print symmetry boundary face descriptions
+  Parameter checking routines
+    [CCTK_PARAMCHECK]
+      ADM::ADM_ParamCheck: [global] Check parameters
+      ADMAnalysis::ADMAnalysis_ParamCheck: [global] Check that the metric_type is recognised
+      ADMBase::ADMBase_ParamCheck: [global] Check consistency of parameters
+      ADMConstraints::ADMConstraints_ParamCheck: [global] Check that we can deal with this metric_type and have enough conformal derivatives
+      Boundary::Boundary_Check: Check dimension of grid variables
+      CartGrid3D::ParamCheck_CartGrid3D: Check coordinates for CartGrid3D
+      IDAxiOddBrillBH::IDAxiOddBrillBH_ParamCheck: Check Parameters
+
+  Initialisation
+    if (NOT (recover initial data AND recovery_mode is 'strict'))
+      [CCTK_PREREGRIDINITIAL]
+      Set up grid hierarchy
+      [CCTK_POSTREGRIDINITIAL]
+        CartGrid3D::SpatialCoordinates: Set Coordinates after regridding
+      [CCTK_BASEGRID]
+        ADMBase::ADMBase_SetShiftStateOn: Set the shift_state variable to 1
+        ADMBase::ADMBase_SetDtLapseStateOff: Set the dtlapse_state variable to 0
+        ADMBase::ADMBase_SetDtShiftStateOff: Set the dtshift_state variable to 0
+        ADMMacros::ADMMacros_SetLocalSpatialOrder: Initialize the local_spatial_order
+        CartGrid3D::CartGrid3D_SetRanges: Set up ranges for spatial 3D Cartesian coordinates (on all grids)
+        CartGrid3D::SpatialCoordinates: Set up spatial 3D Cartesian coordinates on the GH
+        IOASCII::IOASCII_Choose1D: Choose 1D output lines
+        IOASCII::IOASCII_Choose2D: Choose 2D output planes
+        NaNChecker::NaNChecker_ResetCounter: [global] Reset the NaNChecker::NaNsFound counter
+        PUGH::PUGH_Report: Report on PUGH set up
+        SymBase::SymBase_Check: Check whether the driver set up the grid consistently
+        Time::Time_Initialise: [global] Initialise Time variables
+        Time::Time_Simple: [singlemap] Set timestep based on Courant condition (courant_static)
+      [CCTK_INITIAL]
+        StaticConformal::StaticConformal_InitialiseState: Set the conformal_state variable to 0
+        GROUP ADMBase_InitialData: Schedule group for calculating ADM initial data
+          IDAxiOddBrillBH::IDAxiOddBrillBH: Construct IDAxiOddBrillBH
+        GROUP ADMBase_InitialGauge: Schedule group for the ADM initial gauge condition
+          ADMBase::ADMBase_LapseOne: Set the lapse to 1 at all points
+          ADMBase::ADMBase_ShiftZero: Set the shift to 0 at all points
+        IOBasic::IOBasic_Init: Initialisation routine
+        GROUP ADMBase_PostInitial: Schedule group for modifying the ADM initial data, such as e.g. adding noise
+      [CCTK_POSTINITIAL]
+        ADM::ADM_ConformalCheck: Set conformal_state to 0 for physical, or check that it is at least 3
+        ADMConstraints::ADMConstraints_ConformalCheck: Set conformal_state to 0 for physical, or check that it is at least 3
+      Initialise finer grids recursively
+      Restrict from finer grids
+      [CCTK_POSTRESTRICTINITIAL]
+      [CCTK_POSTPOSTINITIAL]
+      [CCTK_POSTSTEP]
+        GROUP zzz_NaNChecker_NaNCheck: Check for NaNs and count them in NaNChecker::NaNsFound
+          NaNChecker::NaNChecker_NaNCheck_Prepare: [level] Prepare data structures to check for NaNs
+          NaNChecker::NaNChecker_NaNCheck_Check: [local] Check for NaNs
+          NaNChecker::NaNChecker_NaNCheck_Finish: [level] Count NaNs in NaNChecker::NaNsFound
+        NaNChecker::NaNChecker_TakeAction: [global] [loop-level] Output NaNChecker::NaNmask and take action according to NaNChecker::action_if_found
+    endif
+    if (recover initial data)
+      [CCTK_BASEGRID]
+        ADMBase::ADMBase_SetShiftStateOn: Set the shift_state variable to 1
+        ADMBase::ADMBase_SetDtLapseStateOff: Set the dtlapse_state variable to 0
+        ADMBase::ADMBase_SetDtShiftStateOff: Set the dtshift_state variable to 0
+        ADMMacros::ADMMacros_SetLocalSpatialOrder: Initialize the local_spatial_order
+        CartGrid3D::CartGrid3D_SetRanges: Set up ranges for spatial 3D Cartesian coordinates (on all grids)
+        CartGrid3D::SpatialCoordinates: Set up spatial 3D Cartesian coordinates on the GH
+        IOASCII::IOASCII_Choose1D: Choose 1D output lines
+        IOASCII::IOASCII_Choose2D: Choose 2D output planes
+        NaNChecker::NaNChecker_ResetCounter: [global] Reset the NaNChecker::NaNsFound counter
+        PUGH::PUGH_Report: Report on PUGH set up
+        SymBase::SymBase_Check: Check whether the driver set up the grid consistently
+        Time::Time_Initialise: [global] Initialise Time variables
+        Time::Time_Simple: [singlemap] Set timestep based on Courant condition (courant_static)
+      [CCTK_RECOVER_VARIABLES]
+      [CCTK_POST_RECOVER_VARIABLES]
+        GROUP zzz_NaNChecker_NaNCheck: Check for NaNs and count them in NaNChecker::NaNsFound
+          NaNChecker::NaNChecker_NaNCheck_Prepare: [level] Prepare data structures to check for NaNs
+          NaNChecker::NaNChecker_NaNCheck_Check: [local] Check for NaNs
+          NaNChecker::NaNChecker_NaNCheck_Finish: [level] Count NaNs in NaNChecker::NaNsFound
+        NaNChecker::NaNChecker_TakeAction: [global] [loop-level] Output NaNChecker::NaNmask and take action according to NaNChecker::action_if_found
+    endif
+    if (checkpoint initial data)
+      [CCTK_CPINITIAL]
+    endif
+    if (analysis)
+      [CCTK_ANALYSIS]
+        ADMAnalysis::ADMAnalysis_EvaltrK: Compute the trace of the extrinsic curvature and the determinant of the metric
+        ADMAnalysis::ADMAnalysis_MetricCartToSphere: Calculate the spherical metric in r,theta(q), phi(p)
+        ADMAnalysis::ADMAnalysis_CurvCartToSphere: Calculate the spherical ex. curvature in r, theta(q), phi(p)
+        GROUP RicciGroup: Calculate Ricci tensor, with boundary conditions
+          ADMAnalysis::ADMAnalysis_Ricci: Calculate Ricci tensor, with boundary conditions
+          GROUP RicciBoundariesGroup: Set Ricci tensor on the boundary
+            ADMAnalysis::ADMAnalysis_Ricci_Boundaries: [level] Select boundary conditions for the Ricci tensor
+            GROUP ADMAnalysis_ApplyBCs: Apply boundary conditions to the Ricci tensor
+              GROUP BoundaryConditions: Execute all boundary conditions
+                Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+                CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+              Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+        GROUP ADMConstraintsGroup: Evaluate ADM constraints, and perform symmetry boundary conditions
+          ADMConstraints::ADMConstraints: Evaluate ADM constraints
+          GROUP ADMConstraintsBoundariesGroup: Set ADM constraints on the boundary
+            ADMConstraints::ADMConstraints_Boundaries: [level] Select boundary conditions for the ADM constraints
+            GROUP ADMConstraints_ApplyBCs: Apply boundary conditions to the ADM constraints
+              GROUP BoundaryConditions: Execute all boundary conditions
+                Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+                CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+              Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+  endif
+  Output grid variables
+
+  do loop over timesteps
+    [CCTK_PREREGRID]
+    Change grid hierarchy
+    [CCTK_POSTREGRID]
+      CartGrid3D::SpatialCoordinates: Set Coordinates after regridding
+    Rotate timelevels
+    iteration = iteration+1
+    t = t+dt
+    [CCTK_PRESTEP]
+      ADMBase::ADMBase_ShiftStatic: Copy the shift to the current time level
+      CoordGauge::Einstein_SetNextSlicing: Identify the slicing for the next iteration
+      NaNChecker::NaNChecker_ResetCounter: [global] Reset the NaNChecker::NaNsFound counter
+    [CCTK_EVOL]
+      ADM::ADM_Setup: Setup coefficients and internal slicing flags
+      ADM::ADM_StaggeredLeapfrog1: Evolve using Staggered Leapfrog (step 1)
+      ADM::ADM_StaggeredLeapfrog2: Evolve using Staggered Leapfrog (step 2)
+    Evolve finer grids recursively
+    Restrict from finer grids
+    [CCTK_POSTRESTRICT]
+    [CCTK_POSTSTEP]
+      GROUP zzz_NaNChecker_NaNCheck: Check for NaNs and count them in NaNChecker::NaNsFound
+        NaNChecker::NaNChecker_NaNCheck_Prepare: [level] Prepare data structures to check for NaNs
+        NaNChecker::NaNChecker_NaNCheck_Check: [local] Check for NaNs
+        NaNChecker::NaNChecker_NaNCheck_Finish: [level] Count NaNs in NaNChecker::NaNsFound
+      NaNChecker::NaNChecker_TakeAction: [global] [loop-level] Output NaNChecker::NaNmask and take action according to NaNChecker::action_if_found
+  if (checkpoint)
+    [CCTK_CHECKPOINT]
+  endif
+  if (analysis)
+    [CCTK_ANALYSIS]
+      ADMAnalysis::ADMAnalysis_EvaltrK: Compute the trace of the extrinsic curvature and the determinant of the metric
+      ADMAnalysis::ADMAnalysis_MetricCartToSphere: Calculate the spherical metric in r,theta(q), phi(p)
+      ADMAnalysis::ADMAnalysis_CurvCartToSphere: Calculate the spherical ex. curvature in r, theta(q), phi(p)
+      GROUP RicciGroup: Calculate Ricci tensor, with boundary conditions
+        ADMAnalysis::ADMAnalysis_Ricci: Calculate Ricci tensor, with boundary conditions
+        GROUP RicciBoundariesGroup: Set Ricci tensor on the boundary
+          ADMAnalysis::ADMAnalysis_Ricci_Boundaries: [level] Select boundary conditions for the Ricci tensor
+          GROUP ADMAnalysis_ApplyBCs: Apply boundary conditions to the Ricci tensor
+            GROUP BoundaryConditions: Execute all boundary conditions
+              Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+              CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+            Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+      GROUP ADMConstraintsGroup: Evaluate ADM constraints, and perform symmetry boundary conditions
+        ADMConstraints::ADMConstraints: Evaluate ADM constraints
+        GROUP ADMConstraintsBoundariesGroup: Set ADM constraints on the boundary
+          ADMConstraints::ADMConstraints_Boundaries: [level] Select boundary conditions for the ADM constraints
+          GROUP ADMConstraints_ApplyBCs: Apply boundary conditions to the ADM constraints
+            GROUP BoundaryConditions: Execute all boundary conditions
+              Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+              CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+            Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+  endif
+  Output grid variables
+  enddo
+
+  Termination routines
+    [CCTK_TERMINATE]
+      PUGH::Driver_Terminate: Termination routine
+
+  Shutdown routines
+    [CCTK_SHUTDOWN]
+
+  Routines run after changing the grid hierarchy:
+    [CCTK_POSTREGRID]
+      CartGrid3D::SpatialCoordinates: Set Coordinates after regridding
+--------------------------------------------------------------------------------
+INFO (PUGH): Using physical to logical mappings: direct
+INFO (PUGH): Using topology generator: automatic
+--------------------------------------------------------------------------------
+Driver provided by PUGH
+--------------------------------------------------------------------------------
+
+INFO (PUGH): Not setting up a topology for 1 dimensions
+INFO (PUGH): Not setting up a topology for 2 dimensions
+INFO (PUGH): Setting up a topology for 3 dimensions
+INFO (IOASCII): I/O Method 'IOASCII_1D' registered: output of 1D lines of grid functions/arrays to ASCII files
+INFO (IOASCII): Periodic 1D output every 10 iterations
+INFO (IOASCII): Periodic 1D output requested for 'ADMBASE::gxx', 'ADMBASE::gxy', 'ADMBASE::gxz', 'ADMBASE::gyy', 'ADMBASE::gyz', 'ADMBASE::gzz', 'ADMBASE::kxx', 'ADMBASE::kxy', 'ADMBASE::kxz', 'ADMBASE::kyy', 'ADMBASE::kyz', 'ADMBASE::kzz', 'ADMBASE::alp', 'ADMBASE::betax', 'ADMBASE::betay', 'ADMBASE::betaz', 'ADMCONSTRAINTS::ham', 'ADMCONSTRAINTS::momy'
+INFO (IOASCII): I/O Method 'IOASCII_2D' registered: output of 2D planes of grid functions/arrays to ASCII files
+INFO (IOASCII): Periodic 2D output turned off
+INFO (IOASCII): I/O Method 'IOASCII_3D' registered: output of 3D grid functions/arrays to ASCII files
+INFO (IOASCII): Periodic 3D output turned off
+INFO (IOBasic): I/O Method 'Scalar' registered: output of scalar quantities (grid scalars, reductions) to ASCII files
+INFO (IOBasic): I/O Method 'Info' registered: output of scalar quantities (grid scalars, reductions) to screen
+INFO (ADM): Evolve using the ADM system
+INFO (ADM):   with staggered leapfrog
+INFO (ADMMacros): Spatial finite differencing order: 2
+INFO (CartGrid3D): Grid Spacings:
+INFO (CartGrid3D): dx=>1.0000000e-01  dy=>1.0000000e-01  dz=>1.0000000e-01
+INFO (CartGrid3D): Computational Coordinates:
+INFO (CartGrid3D): x=>[-1.450, 1.450]  y=>[-1.450, 1.450]  z=>[-1.450, 1.450]
+INFO (CartGrid3D): Indices of Physical Coordinates:
+INFO (CartGrid3D): x=>[0,29]  y=>[0,29]  z=>[0,29]
+INFO (PUGH): MPI Evolution on 2 processors
+INFO (PUGH): 3-dimensional grid functions
+INFO (PUGH):   Size: 30 30 30
+INFO (PUGH):   Processor topology: 2 x 1 x 1
+INFO (PUGH):   Local load: 15300   [17 x 30 x 30]
+INFO (PUGH):   Maximum load skew: 0.000000
+INFO (Time): Timestep set to 0.025 (courant_static)
+ Brill Wave: amplitude for K :   1.0000000000000000     
+ Brill Wave: center for K:   0.0000000000000000     
+ Brill Wave: sigma for K:   1.0000000000000000     
+ Bowen & York Momenta:  :   0.0000000000000000     
+ Brill Wave: sin^n theta for K:           5
+ Brill Wave: amplitude for g :   0.0000000000000000     
+ Brill Wave: center for g:   0.0000000000000000     
+ Brill Wave: sigma for g:   1.0000000000000000     
+ Brill Wave: sin^n theta for g:           3
+ -----------Retry           1
+ residual =   376.40820312500000     
+ --------------------------------------------------
+ -----------Retry           2
+ residual =   147.90021527461127     
+ --------------------------------------------------
+ -----------Retry           3
+ residual =   58.134378465453018     
+ --------------------------------------------------
+ -----------Retry           4
+ residual =   22.682763659668669     
+ --------------------------------------------------
+ -----------Retry           5
+ residual =   8.0412654185548149     
+ --------------------------------------------------
+ -----------Retry           6
+ residual =   1.9499000237904132     
+ --------------------------------------------------
+ -----------Retry           7
+ residual =  0.29333458267570034     
+ --------------------------------------------------
+ -----------Retry           8
+ residual =  4.61988651307247977E-002
+ --------------------------------------------------
+ -----------Retry           9
+ residual =  2.26962635300932761E-002
+ --------------------------------------------------
+ -----------Retry          10
+ residual =  1.32859135080976454E-002
+ --------------------------------------------------
+ -----------Retry          11
+ residual =  7.99198123326570753E-003
+ --------------------------------------------------
+ -----------Retry          12
+ residual =  4.86738633866958675E-003
+ --------------------------------------------------
+ -----------Retry          13
+ residual =  2.97844247580078721E-003
+ --------------------------------------------------
+ -----------Retry          14
+ residual =  1.82463719940213331E-003
+ --------------------------------------------------
+ -----------Retry          15
+ residual =  1.11757129754163167E-003
+ --------------------------------------------------
+ -----------Retry          16
+ residual =  6.84185917354214424E-004
+ --------------------------------------------------
+ -----------Retry          17
+ residual =  4.18618831231835149E-004
+ --------------------------------------------------
+ -----------Retry          18
+ residual =  2.56045867994101391E-004
+ --------------------------------------------------
+ -----------Retry          19
+ residual =  1.56552734715450061E-004
+ --------------------------------------------------
+ -----------Retry          20
+ residual =  9.56994200766463532E-005
+ --------------------------------------------------
+ -----------Retry          21
+ residual =  5.84925236344706312E-005
+ --------------------------------------------------
+ -----------Retry          22
+ residual =  3.57474427712388645E-005
+ --------------------------------------------------
+ -----------Retry          23
+ residual =  2.18469880553422019E-005
+ --------------------------------------------------
+ -----------Retry          24
+ residual =  1.33511895801273227E-005
+ --------------------------------------------------
+ -----------Retry          25
+ residual =  8.15874560638660952E-006
+ --------------------------------------------------
+ -----------Retry          26
+ residual =  4.98612353043729687E-006
+ --------------------------------------------------
+ -----------Retry          27
+ residual =  3.04803089843207822E-006
+ --------------------------------------------------
+ -----------Retry          28
+ residual =  1.86281039577949064E-006
+ --------------------------------------------------
+ -----------Retry          29
+ residual =  1.13824490484918929E-006
+ --------------------------------------------------
+ -----------Retry          30
+ residual =  6.96340325443031545E-007
+ --------------------------------------------------
+ -----------Retry          31
+ residual =  4.25637135939857410E-007
+ --------------------------------------------------
+ -----------Retry          32
+ residual =  2.60593240980922208E-007
+ --------------------------------------------------
+ -----------Retry          33
+ residual =  1.58696740282033799E-007
+ --------------------------------------------------
+ -----------Retry          34
+ residual =  9.73713248490271436E-008
+ --------------------------------------------------
+ --------------------------------------------------
+ Converge at Residual =   9.73713248490271436E-008
+ ADM mass:    6.6056094477204166     
+ Angular momentum parameter: a/m =    0.0000000000000000     
+INFO (IOBasic): Periodic scalar output requested for 'ADMBASE::gxx', 'ADMBASE::gxy', 'ADMBASE::gxz', 'ADMBASE::gyy', 'ADMBASE::gyz', 'ADMBASE::gzz', 'ADMBASE::kxx', 'ADMBASE::kxy', 'ADMBASE::kxz', 'ADMBASE::kyy', 'ADMBASE::kyz', 'ADMBASE::kzz', 'ADMBASE::alp', 'ADMBASE::betax', 'ADMBASE::betay', 'ADMBASE::betaz', 'ADMCONSTRAINTS::ham', 'ADMCONSTRAINTS::momy'
+INFO (IOBasic): Periodic info output requested for 'ADMBASE::alp', 'ADMCONSTRAINTS::ham'
+-------------------------------------------------------------------------------
+   it  |          | ADMBASE::alp                | ADMCONSTRAINTS::ham         |
+       |    t     | minimum      | maximum      | minimum      | maximum      |
+-------------------------------------------------------------------------------
+     0 |    0.000 |   1.00000000 |   1.00000000 |  -0.00484457 |   0.00484268 |
+INFO (ADM): Geodesic slicing (lapse set to unity)
+INFO (ADM):   geodesic lapse will not be evolved in ADM routines
+--------------------------------------------------------------------------------
+Done.

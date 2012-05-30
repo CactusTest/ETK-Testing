@@ -1,0 +1,61 @@
+!DESC "AHFinder on schwarzschild BH, mass=2, minimization using the default interpolation operator"
+
+# Active thorns.
+
+ActiveThorns = "Time CartGrid3D CoordBase SymBase ADMBase StaticConformal SpaceMask CoordGauge ADMMacros Boundary ADM IDAnalyticBH IOUtil PUGH PUGHSlab PUGHreduce LocalInterp LocalReduce PUGHInterp AHFinder"
+
+# Grid.
+
+grid::type   = "byspacing"
+grid::dxyz   =  0.2
+grid::domain = "octant"
+
+driver::global_nx = 25
+driver::global_ny = 25
+driver::global_nz = 25
+
+cactus::cctk_itlast = 0
+
+# conformal state
+
+ADMBase::metric_type = "static conformal"
+
+# Initial data.
+
+ADMBase::initial_data = "schwarzschild"
+
+IDAnalyticBH::mass = 2.0
+
+# Evolution.
+
+ADMBase::evolution_method = "ADM"
+
+adm::bound   = "flat"
+adm::verbose = "yes"
+
+# Gauge.
+
+ADMBase::initial_lapse = "one"
+ADMBase::lapse_evolution_method = "geodesic"
+
+# AHFinder.
+
+AHFinder::ahf_active   = "yes"
+AHFinder::ahf_gaussout = "yes"
+
+AHFinder::ahf_phi    = "no"
+AHFinder::ahf_octant = "high"
+
+AHFinder::ahf_lmax   = 0
+
+# Interpolation.
+
+AHFinder::interpolation_order = 1
+
+# Output.
+
+IO::out_dir   = "test_AHF_1"
+IO::out_every = 1
+
+# do not use the new scheme for names of output files
+IO::new_filename_scheme = "no"

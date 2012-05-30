@@ -1,0 +1,66 @@
+ActiveThorns = "time MoL pugh pughreduce pughslab coordbase symbase cartgrid3d ioutil ioascii iobasic boundary admbase staticconformal spacemask admcoupling coordgauge admmacros hydrobase grhydro grhydro_initdata tovsolver nanchecker eos_omni admconstraints constants LocalReduce TmunuBase InitBase"
+
+TmunuBase::stress_energy_storage	=	yes
+TmunuBase::stress_energy_at_RHS		=	yes
+
+time::dtfac = 0.375
+
+ADMConstraints::constraints_persist	= yes
+admconstraints::bound     = "static"
+
+boundary::radpower        = 2
+
+SpaceMask::use_mask = "yes"
+
+grid::type            = "byrange"
+grid::domain          = "full"
+grid::xyzmin          = -30.0
+grid::xyzmax          =  30.001
+driver::ghost_size    =   3
+driver::global_nsize  =  33
+
+cactus::cctk_itlast   =       0
+
+methodoflines::ode_method        = "icn"
+
+hydrobase::timelevels             = 2
+hydrobase::evolution_method       = "GRHydro"
+
+GRHydro::riemann_solver            = "Marquina"
+GRHydro::GRHydro_eos_type           = "Polytype"
+GRHydro::GRHydro_eos_table          = "2D_Polytrope"
+GRHydro::recon_method              = "ppm"
+GRHydro::GRHydro_stencil            = 3
+GRHydro::bound                     = "none"
+GRHydro::tvd_limiter               = "VanLeerMC2"
+GRHydro::rho_abs_min               = 1.e-7
+GRHydro::initial_atmosphere_factor = 0.999
+
+ADMBase::initial_data  = "tov"
+ADMBase::initial_lapse = "tov"
+ADMBase::initial_shift = "tov"
+
+tovsolver::TOV_Num_TOVs       = 2
+tovsolver::TOV_Num_Radial     = 200000
+tovsolver::TOV_Combine_Method = "maximum"
+
+tovsolver::TOV_Rho_Central[0] = 0.16e-3
+tovsolver::TOV_Gamma[0]       = 2.0
+tovsolver::TOV_K[0]           = 100.0
+tovsolver::TOV_Position_x[0]  = -15.0
+
+tovsolver::TOV_Rho_Central[1] = 0.32e-3
+tovsolver::TOV_Gamma[1]       = 2.0
+tovsolver::TOV_K[1]           = 100.0
+tovsolver::TOV_Position_x[1]  = 15.0
+
+IO::out_fileinfo="none"
+IO::out_dir			= $parfile
+
+IOBasic::outScalar_every = 1
+IOBasic::outScalar_vars  = "HydroBase::w_lorentz hydrobase::rho hydrobase::press hydrobase::eps HydroBase::vel GRHydro::dens GRHydro::tau GRHydro::scon admbase::lapse admbase::metric admbase::curv admconstraints::ham admconstraints::momentum"
+
+IOASCII::out1D_every     = 1
+IOASCII::out1D_vars      = "HydroBase::w_lorentz hydrobase::rho hydrobase::press hydrobase::eps HydroBase::vel GRHydro::dens GRHydro::tau GRHydro::scon admbase::lapse admbase::metric admbase::curv admconstraints::ham admconstraints::momentum"
+IOASCII::out_format      = ".10e"
+

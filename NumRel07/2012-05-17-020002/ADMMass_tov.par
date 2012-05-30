@@ -1,0 +1,55 @@
+ActiveThorns = "time MoL pugh pughreduce pughslab coordbase symbase cartgrid3d ioutil ioascii iobasic boundary admbase staticconformal spacemask admcoupling coordgauge admmacros hydrobase grhydro grhydro_initdata tovsolver nanchecker eos_omni admconstraints Constants LocalReduce TmunuBase InitBase"
+
+TmunuBase::stress_energy_storage	=	yes
+TmunuBase::stress_energy_at_RHS		=	yes
+
+time::dtfac = 0.375
+
+ADMConstraints::constraints_persist	= yes
+admconstraints::bound     = "static"
+
+boundary::radpower        = 2
+
+SpaceMask::use_mask = "yes"
+
+grid::type            = "byrange"
+grid::domain          = "full"
+grid::xyzmin          = -15.0
+grid::xyzmax          =  15.001
+driver::ghost_size    =   3
+driver::global_nsize  =  33
+
+cactus::cctk_itlast   =       0
+
+hydrobase::timelevels = 2
+hydrobase::evolution_method       = "grhydro"
+
+grhydro::riemann_solver            = "Marquina"
+grhydro::grhydro_eos_type           = "Polytype"
+grhydro::grhydro_eos_table          = "2D_Polytrope"
+grhydro::recon_method              = "ppm"
+grhydro::grhydro_stencil            = 3
+grhydro::bound                     = "none"
+grhydro::tvd_limiter               = "VanLeerMC2"
+grhydro::rho_abs_min               = 1.e-7
+grhydro::initial_atmosphere_factor = 0.999
+
+ADMBase::initial_data  = "tov"
+ADMBase::initial_lapse = "tov"
+ADMBase::initial_shift = "tov"
+
+tovsolver::TOV_Rho_Central[0] = 1.28e-3
+tovsolver::TOV_Gamma[0]       = 2.0
+tovsolver::TOV_K[0]           = 100.0
+tovsolver::TOV_Combine_Method = "maximum"
+
+ActiveThorns = "ADMMass"
+
+ADMMass::ADMMass_surface_distance[0] = 12
+
+IO::out_dir = $parfile
+IO::out_fileinfo="none"
+
+IOBasic::outScalar_every = 1
+IOBasic::outScalar_vars  = "ADMMass::ADMMass_Masses"
+IOBasic::outScalar_style = "gnuplot"

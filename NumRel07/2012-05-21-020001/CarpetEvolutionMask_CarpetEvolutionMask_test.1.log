@@ -1,0 +1,1174 @@
+/home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/TEST/sim/CarpetEvolutionMask
+--------------------------------------------------------------------------------
+
+       10                                  
+  1   0101       ************************  
+  01  1010 10      The Cactus Code V4.0    
+ 1010 1101 011      www.cactuscode.org     
+  1001 100101    ************************  
+    00010101                               
+     100011     (c) Copyright The Authors  
+      0100      GNU Licensed. No Warranty  
+      0101                                 
+
+--------------------------------------------------------------------------------
+
+Cactus version:    4.0.1
+Compile date:      May 21 2012 (02:47:45)
+Run date:          May 21 2012 (03:12:42-0500)
+Run host:          numrel07.cct.lsu.edu (pid=4386)
+Working directory: /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/TEST/sim/CarpetEvolutionMask
+Executable:        /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/exe/cactus_sim
+Parameter file:    /home/jhar131/TESTING/einsteintoolkit/2012-05-21-020001/Cactus/arrangements/Carpet/CarpetEvolutionMask/test/CarpetEvolutionMask_test.par
+--------------------------------------------------------------------------------
+
+Activating thorn Cactus...Success -> active implementation Cactus
+Activation requested for 
+--->CoordBase SymBase InitBase time carpet carpetlib carpetregrid GSL LoopControl carpetreduce carpetslab boundary cartgrid3d ml_bssn ml_bssn_helper genericfd NewRad TmunuBase mol nanchecker idanalyticbh carpetioascii ioutil carpetiobasic carpetioscalar admcoupling admbase admmacros coordgauge spacemask staticconformal carpetevolutionmask ReflectionSymmetry<---
+Activating thorn admbase...Success -> active implementation ADMBase
+Activating thorn admcoupling...Success -> active implementation ADMCoupling
+Activating thorn admmacros...Success -> active implementation ADMMacros
+Activating thorn boundary...Success -> active implementation boundary
+Activating thorn carpet...Success -> active implementation Driver
+Activating thorn carpetevolutionmask...Success -> active implementation CarpetEvolutionMask
+Activating thorn carpetioascii...Success -> active implementation IOASCII
+Activating thorn carpetiobasic...Success -> active implementation IOBasic
+Activating thorn carpetioscalar...Success -> active implementation IOScalar
+Activating thorn carpetlib...Success -> active implementation CarpetLib
+Activating thorn carpetreduce...Success -> active implementation reduce
+Activating thorn carpetregrid...Success -> active implementation CarpetRegrid
+Activating thorn carpetslab...Success -> active implementation Hyperslab
+Activating thorn cartgrid3d...Success -> active implementation grid
+Activating thorn CoordBase...Success -> active implementation CoordBase
+Activating thorn coordgauge...Success -> active implementation CoordGauge
+Activating thorn genericfd...Success -> active implementation GenericFD
+Activating thorn GSL...Success -> active implementation GSL
+Activating thorn idanalyticbh...Success -> active implementation idanalyticbh
+Activating thorn InitBase...Success -> active implementation InitBase
+Activating thorn ioutil...Success -> active implementation IO
+Activating thorn LoopControl...Success -> active implementation LoopControl
+Activating thorn ml_bssn...Success -> active implementation ML_BSSN
+Activating thorn ml_bssn_helper...Success -> active implementation ML_BSSN_Helper
+Activating thorn mol...Success -> active implementation MethodOfLines
+Activating thorn nanchecker...Success -> active implementation NaNChecker
+Activating thorn NewRad...Success -> active implementation NewRad
+Activating thorn ReflectionSymmetry...Success -> active implementation ReflectionSymmetry
+Activating thorn spacemask...Success -> active implementation SpaceMask
+Activating thorn staticconformal...Success -> active implementation StaticConformal
+Activating thorn SymBase...Success -> active implementation SymBase
+Activating thorn time...Success -> active implementation time
+Activating thorn TmunuBase...Success -> active implementation TmunuBase
+--------------------------------------------------------------------------------
+  if (recover initial data)
+    Recover parameters
+  endif
+
+  Startup routines
+    [CCTK_STARTUP]
+      Carpet::MultiModel_Startup: Multi-model Startup routine
+      CarpetLib::CarpetLib_registercycleclock: [global] Register cycle based timer
+      ML_BSSN_Helper::ML_BSSN_SetGroupTags: [meta] Set checkpointing and prolongation group tags
+      Carpet::Driver_Startup: Startup routine
+      IOUtil::IOUtil_Startup: Startup routine
+      CarpetIOBasic::CarpetIOBasicStartup: [global] Startup routine
+      CarpetReduce::CarpetReduceStartup: Startup routine
+      CartGrid3D::SymmetryStartup: Register GH Extension for GridSymmetry
+      CoordBase::CoordBase_Startup: Register a GH extension to store the coordinate system handles
+      CarpetIOASCII::CarpetIOASCIIStartup: [global] Startup routine
+      LoopControl::lc_check_type_sizes: [meta] Check that sizes of control structures are identical in C and Fortran
+      ML_BSSN::ML_BSSN_Startup: [meta] create banner
+      ML_BSSN_Helper::ML_BSSN_RegisterSlicing: [meta] Register slicing
+      CarpetIOScalar::CarpetIOScalarStartup: [global] Startup routine
+      MoL::MoL_Startup: Startup banner
+      SymBase::SymBase_Startup: Register GH Extension for SymBase
+
+  Startup routines which need an existing grid hierarchy
+    [CCTK_WRAGH]
+      ADMBase::Einstein_InitSymBound: [global] Set up GF symmetries
+      Boundary::Boundary_RegisterBCs: [global] Register boundary conditions that this thorn provides
+      CartGrid3D::RegisterCartGrid3DCoords: [meta] Register coordinates for the Cartesian grid
+      CoordGauge::Einstein_ActivateSlicing: Initialize slicing, setup priorities for mixed slicings
+      CoordGauge::Einstein_SetNextSlicing: Identify the slicing for the next iteration
+      MoL::MoL_SetupIndexArrays: Set up the MoL bookkeeping index arrays
+      MoL::MoL_SetScheduleStatus: [global] Set the flag so it is ok to register with MoL
+      GROUP MoL_Register: The group where physics thorns register variables with MoL
+        ML_BSSN::ML_BSSN_RegisterVars: [meta] Register Variables for MoL
+        ML_BSSN_Helper::ML_BSSN_RegisterConstrained: [meta] Register ADMBase variables as constrained
+      MoL::MoL_ReportNumberVariables: [meta] Report how many of each type of variable there are
+      GROUP SymBase_Wrapper: Wrapper group for SymBase
+        GROUP SymmetryRegister: Register your symmetries here
+          CartGrid3D::RegisterSymmetryBoundaries: [meta] Register symmetry boundaries
+          ML_BSSN::ML_BSSN_RegisterSymmetries: [meta] register symmetries
+          ReflectionSymmetry::ReflectionSymmetry_Register: Register reflection symmetry boundaries
+        SymBase::SymBase_Statistics: Print symmetry boundary face descriptions
+  Parameter checking routines
+    [CCTK_PARAMCHECK]
+      ADMBase::ADMBase_ParamCheck: [global] Check consistency of parameters
+      Boundary::Boundary_Check: Check dimension of grid variables
+      Carpet::CarpetParamCheck: Parameter checking routine
+      CarpetLib::CarpetLib_test_prolongate_3d_rf2: [global] Test prolongation operators
+      CarpetRegrid::CarpetRegridParamcheck: [global] Check Parameters
+      CartGrid3D::ParamCheck_CartGrid3D: Check coordinates for CartGrid3D
+      IDAnalyticBH::IDAnalyticBH_ParamChecker: [global] Construct parameters for analytic black hole solutions
+      MoL::MoL_ParamCheck: Basic parameter checking
+
+  Initialisation
+    if (NOT (recover initial data AND recovery_mode is 'strict'))
+      [CCTK_PREREGRIDINITIAL]
+      Set up grid hierarchy
+      [CCTK_POSTREGRIDINITIAL]
+        GROUP EvolutionMaskBase_SetupEvolutionMask: Set up the mask function
+          CarpetEvolutionMask::EvolutionMaskBase_InitEvolutionMask: [global] [loop-local] Initialise the mask function
+          GROUP SetupEvolutionMask: Set up the weight function (schedule other routines in here)
+            CarpetEvolutionMask::CarpetEvolutionMaskSetup: [global] [loop-singlemap] Set up the mask function for the restriction regions
+        CartGrid3D::SpatialCoordinates: Set Coordinates after regridding
+        GROUP MaskBase_SetupMask: Set up the weight function
+          GROUP MaskBase_SetupMaskAll: Set up the weight function
+            CarpetReduce::MaskBase_AllocateMask: [global] Allocate the weight function
+            CarpetReduce::MaskBase_InitMask: [global] [loop-local] Initialise the weight function
+            GROUP SetupIMaskInternal: Set up the integer weight function (schedule other routines in here)
+              CarpetReduce::CoordBase_SetupMask: [global] [loop-local] Set up the outer boundaries of the weight function
+              CarpetReduce::CarpetMaskSetup: [global] [loop-singlemap] Set up the weight function for the restriction regions
+            GROUP SetupIMask: Set up the integer weight function (schedule other routines in here)
+            CarpetReduce::MaskBase_SetMask: [global] [loop-local] Set the weight function
+            GROUP SetupMask: Set up the real weight function (schedule other routines in here)
+            CarpetReduce::MaskBase_TestMask: [global] Test the weight function
+        GROUP MoL_PseudoEvolutionBoundaries: Apply boundary conditions to pseudo-evolved quantities
+          GROUP ML_BSSN_constraints1_bc_group: ML_BSSN_constraints1
+            ML_BSSN::ML_BSSN_constraints1_SelectBCs: [level] ML_BSSN_constraints1_SelectBCs
+            GROUP ML_BSSN_constraints1_ApplyBCs: Apply BCs for groups set in ML_BSSN_constraints1
+              GROUP BoundaryConditions: Execute all boundary conditions
+                Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+                CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+                ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+              Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+          GROUP ML_BSSN_constraints2_bc_group: ML_BSSN_constraints2
+            ML_BSSN::ML_BSSN_constraints2_SelectBCs: [level] ML_BSSN_constraints2_SelectBCs
+            GROUP ML_BSSN_constraints2_ApplyBCs: Apply BCs for groups set in ML_BSSN_constraints2
+              GROUP BoundaryConditions: Execute all boundary conditions
+                Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+                CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+                ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+              Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+      [CCTK_BASEGRID]
+        ADMBase::ADMBase_SetShiftStateOn: Set the shift_state variable to 1
+        ADMBase::ADMBase_SetDtLapseStateOff: Set the dtlapse_state variable to 0
+        ADMBase::ADMBase_SetDtShiftStateOff: Set the dtshift_state variable to 0
+        ADMMacros::ADMMacros_SetLocalSpatialOrder: Initialize the local_spatial_order
+        GROUP EvolutionMaskBase_SetupEvolutionMask: Set up the mask function
+          CarpetEvolutionMask::EvolutionMaskBase_InitEvolutionMask: [global] [loop-local] Initialise the mask function
+          GROUP SetupEvolutionMask: Set up the weight function (schedule other routines in here)
+            CarpetEvolutionMask::CarpetEvolutionMaskSetup: [global] [loop-singlemap] Set up the mask function for the restriction regions
+        CarpetIOASCII::CarpetIOASCIIInit: [global] Initialisation routine
+        CarpetIOBasic::CarpetIOBasicInit: [global] Initialisation routine
+        CarpetIOScalar::CarpetIOScalarInit: [global] Initialisation routine
+        CartGrid3D::CartGrid3D_SetRanges: Set up ranges for spatial 3D Cartesian coordinates (on all grids)
+        CartGrid3D::SpatialCoordinates: Set up spatial 3D Cartesian coordinates on the GH
+        GROUP MaskBase_SetupMask: Set up the weight function
+          GROUP MaskBase_SetupMaskAll: Set up the weight function
+            CarpetReduce::MaskBase_AllocateMask: [global] Allocate the weight function
+            CarpetReduce::MaskBase_InitMask: [global] [loop-local] Initialise the weight function
+            GROUP SetupIMaskInternal: Set up the integer weight function (schedule other routines in here)
+              CarpetReduce::CoordBase_SetupMask: [global] [loop-local] Set up the outer boundaries of the weight function
+              CarpetReduce::CarpetMaskSetup: [global] [loop-singlemap] Set up the weight function for the restriction regions
+            GROUP SetupIMask: Set up the integer weight function (schedule other routines in here)
+            CarpetReduce::MaskBase_SetMask: [global] [loop-local] Set the weight function
+            GROUP SetupMask: Set up the real weight function (schedule other routines in here)
+            CarpetReduce::MaskBase_TestMask: [global] Test the weight function
+        ML_BSSN::ML_BSSN_CheckBoundaries: [meta] check boundaries treatment
+        SymBase::SymBase_Check: Check whether the driver set up the grid consistently
+        Time::Time_Initialise: [global] Initialise Time variables
+        Time::Time_Simple: [singlemap] Set timestep based on Courant condition (courant_static)
+        TmunuBase::TmunuBase_SetStressEnergyState: [global] Set the stress_energy_state variable
+      [CCTK_INITIAL]
+        StaticConformal::StaticConformal_InitialiseState: Set the conformal_state variable to 0
+        GROUP ADMBase_InitialData: Schedule group for calculating ADM initial data
+          IDAnalyticBH::Schwarzschild: Construct initial data for a single Schwarzschild black hole
+        GROUP ADMBase_InitialGauge: Schedule group for the ADM initial gauge condition
+          ADMBase::ADMBase_LapseOne: Set the lapse to 1 at all points
+          ADMBase::ADMBase_ShiftZero: Set the shift to 0 at all points
+        GROUP ADMBase_PostInitial: Schedule group for modifying the ADM initial data, such as e.g. adding noise
+        ML_BSSN::ML_BSSN_InitGamma: ML_BSSN_InitGamma
+        ML_BSSN::ML_BSSN_convertFromADMBase: ML_BSSN_convertFromADMBase
+        ML_BSSN::ML_BSSN_convertFromADMBaseGamma: ML_BSSN_convertFromADMBaseGamma
+        MoL::MoL_StartLoop: [level] Initialise the step size control
+        ML_BSSN_Helper::ML_BSSN_ExtrapolateGammas: Extrapolate Gammas and time derivatives of lapse and shift
+      [CCTK_POSTINITIAL]
+        GROUP MoL_PostStepModify: The group for physics thorns to schedule enforcing constraints
+          ML_BSSN::ML_BSSN_enforce: ML_BSSN_enforce
+        GROUP MoL_PostStep: Ensure that everything is correct after the initial data have been set up
+          ADMBase::ADMBase_Boundaries: [level] Select ADMBase boundary conditions - may be required for mesh refinement
+          GROUP ADMBase_ApplyBCs: Apply the boundary conditions of ADMBase
+            GROUP BoundaryConditions: Execute all boundary conditions
+              Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+              CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+              ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+            Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+          ML_BSSN::ML_BSSN_SelectBoundConds: [level] select boundary conditions
+          GROUP ML_BSSN_ApplyBCs: Apply boundary conditions controlled by thorn Boundary
+            GROUP BoundaryConditions: Execute all boundary conditions
+              Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+              CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+              ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+            Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+          GROUP ML_BSSN_convertToADMBaseGroupWrapper: Calculate ADM variables
+            GROUP ML_BSSN_convertToADMBaseGroup: Calculate ADM variables
+              ML_BSSN::ML_BSSN_convertToADMBase: ML_BSSN_convertToADMBase
+              ML_BSSN::ML_BSSN_convertToADMBaseDtLapseShift: ML_BSSN_convertToADMBaseDtLapseShift
+              ML_BSSN::ML_BSSN_convertToADMBaseDtLapseShiftBoundary: ML_BSSN_convertToADMBaseDtLapseShiftBoundary
+            ML_BSSN_Helper::ML_BSSN_SelectBCsADMBase: [level] Select boundary conditions for ADMBase variables
+            GROUP ML_BSSN_ApplyBCsADMBase: Apply boundary conditions to ADMBase variables
+              GROUP BoundaryConditions: Execute all boundary conditions
+                Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+                CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+                ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+              Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+          GROUP ADMBase_SetADMVars: Set the ADM variables before this group, and use them afterwards
+        GROUP MoL_PseudoEvolution: Calculate pseudo-evolved quantities
+          GROUP ADMBase_SetADMVars: Set the ADM variables before this group, and use them afterwards
+          GROUP ML_BSSN_constraints1_group: ML_BSSN_constraints1
+            ML_BSSN::ML_BSSN_constraints1: ML_BSSN_constraints1
+            GROUP ML_BSSN_constraints1_bc_group: ML_BSSN_constraints1
+              ML_BSSN::ML_BSSN_constraints1_SelectBCs: [level] ML_BSSN_constraints1_SelectBCs
+              GROUP ML_BSSN_constraints1_ApplyBCs: Apply BCs for groups set in ML_BSSN_constraints1
+                GROUP BoundaryConditions: Execute all boundary conditions
+                  Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+                  CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+                  ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+                Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+          GROUP ML_BSSN_constraints2_group: ML_BSSN_constraints2
+            ML_BSSN::ML_BSSN_constraints2: ML_BSSN_constraints2
+            GROUP ML_BSSN_constraints2_bc_group: ML_BSSN_constraints2
+              ML_BSSN::ML_BSSN_constraints2_SelectBCs: [level] ML_BSSN_constraints2_SelectBCs
+              GROUP ML_BSSN_constraints2_ApplyBCs: Apply BCs for groups set in ML_BSSN_constraints2
+                GROUP BoundaryConditions: Execute all boundary conditions
+                  Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+                  CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+                  ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+                Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+      Initialise finer grids recursively
+      Restrict from finer grids
+      [CCTK_POSTRESTRICTINITIAL]
+        GROUP MoL_PostStep: Ensure that everything is correct after restriction
+          ADMBase::ADMBase_Boundaries: [level] Select ADMBase boundary conditions - may be required for mesh refinement
+          GROUP ADMBase_ApplyBCs: Apply the boundary conditions of ADMBase
+            GROUP BoundaryConditions: Execute all boundary conditions
+              Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+              CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+              ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+            Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+          ML_BSSN::ML_BSSN_SelectBoundConds: [level] select boundary conditions
+          GROUP ML_BSSN_ApplyBCs: Apply boundary conditions controlled by thorn Boundary
+            GROUP BoundaryConditions: Execute all boundary conditions
+              Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+              CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+              ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+            Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+          GROUP ML_BSSN_convertToADMBaseGroupWrapper: Calculate ADM variables
+            GROUP ML_BSSN_convertToADMBaseGroup: Calculate ADM variables
+              ML_BSSN::ML_BSSN_convertToADMBase: ML_BSSN_convertToADMBase
+              ML_BSSN::ML_BSSN_convertToADMBaseDtLapseShift: ML_BSSN_convertToADMBaseDtLapseShift
+              ML_BSSN::ML_BSSN_convertToADMBaseDtLapseShiftBoundary: ML_BSSN_convertToADMBaseDtLapseShiftBoundary
+            ML_BSSN_Helper::ML_BSSN_SelectBCsADMBase: [level] Select boundary conditions for ADMBase variables
+            GROUP ML_BSSN_ApplyBCsADMBase: Apply boundary conditions to ADMBase variables
+              GROUP BoundaryConditions: Execute all boundary conditions
+                Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+                CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+                ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+              Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+          GROUP ADMBase_SetADMVars: Set the ADM variables before this group, and use them afterwards
+        GROUP MoL_PseudoEvolutionBoundaries: Apply boundary conditions to pseudo-evolved quantities
+          GROUP ML_BSSN_constraints1_bc_group: ML_BSSN_constraints1
+            ML_BSSN::ML_BSSN_constraints1_SelectBCs: [level] ML_BSSN_constraints1_SelectBCs
+            GROUP ML_BSSN_constraints1_ApplyBCs: Apply BCs for groups set in ML_BSSN_constraints1
+              GROUP BoundaryConditions: Execute all boundary conditions
+                Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+                CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+                ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+              Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+          GROUP ML_BSSN_constraints2_bc_group: ML_BSSN_constraints2
+            ML_BSSN::ML_BSSN_constraints2_SelectBCs: [level] ML_BSSN_constraints2_SelectBCs
+            GROUP ML_BSSN_constraints2_ApplyBCs: Apply BCs for groups set in ML_BSSN_constraints2
+              GROUP BoundaryConditions: Execute all boundary conditions
+                Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+                CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+                ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+              Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+      [CCTK_POSTPOSTINITIAL]
+      [CCTK_POSTSTEP]
+    endif
+    if (recover initial data)
+      [CCTK_BASEGRID]
+        ADMBase::ADMBase_SetShiftStateOn: Set the shift_state variable to 1
+        ADMBase::ADMBase_SetDtLapseStateOff: Set the dtlapse_state variable to 0
+        ADMBase::ADMBase_SetDtShiftStateOff: Set the dtshift_state variable to 0
+        ADMMacros::ADMMacros_SetLocalSpatialOrder: Initialize the local_spatial_order
+        GROUP EvolutionMaskBase_SetupEvolutionMask: Set up the mask function
+          CarpetEvolutionMask::EvolutionMaskBase_InitEvolutionMask: [global] [loop-local] Initialise the mask function
+          GROUP SetupEvolutionMask: Set up the weight function (schedule other routines in here)
+            CarpetEvolutionMask::CarpetEvolutionMaskSetup: [global] [loop-singlemap] Set up the mask function for the restriction regions
+        CarpetIOASCII::CarpetIOASCIIInit: [global] Initialisation routine
+        CarpetIOBasic::CarpetIOBasicInit: [global] Initialisation routine
+        CarpetIOScalar::CarpetIOScalarInit: [global] Initialisation routine
+        CartGrid3D::CartGrid3D_SetRanges: Set up ranges for spatial 3D Cartesian coordinates (on all grids)
+        CartGrid3D::SpatialCoordinates: Set up spatial 3D Cartesian coordinates on the GH
+        GROUP MaskBase_SetupMask: Set up the weight function
+          GROUP MaskBase_SetupMaskAll: Set up the weight function
+            CarpetReduce::MaskBase_AllocateMask: [global] Allocate the weight function
+            CarpetReduce::MaskBase_InitMask: [global] [loop-local] Initialise the weight function
+            GROUP SetupIMaskInternal: Set up the integer weight function (schedule other routines in here)
+              CarpetReduce::CoordBase_SetupMask: [global] [loop-local] Set up the outer boundaries of the weight function
+              CarpetReduce::CarpetMaskSetup: [global] [loop-singlemap] Set up the weight function for the restriction regions
+            GROUP SetupIMask: Set up the integer weight function (schedule other routines in here)
+            CarpetReduce::MaskBase_SetMask: [global] [loop-local] Set the weight function
+            GROUP SetupMask: Set up the real weight function (schedule other routines in here)
+            CarpetReduce::MaskBase_TestMask: [global] Test the weight function
+        ML_BSSN::ML_BSSN_CheckBoundaries: [meta] check boundaries treatment
+        SymBase::SymBase_Check: Check whether the driver set up the grid consistently
+        Time::Time_Initialise: [global] Initialise Time variables
+        Time::Time_Simple: [singlemap] Set timestep based on Courant condition (courant_static)
+        TmunuBase::TmunuBase_SetStressEnergyState: [global] Set the stress_energy_state variable
+      [CCTK_RECOVER_VARIABLES]
+      [CCTK_POST_RECOVER_VARIABLES]
+        GROUP MaskBase_SetupMask: Set up the weight function
+          GROUP MaskBase_SetupMaskAll: Set up the weight function
+            CarpetReduce::MaskBase_AllocateMask: [global] Allocate the weight function
+            CarpetReduce::MaskBase_InitMask: [global] [loop-local] Initialise the weight function
+            GROUP SetupIMaskInternal: Set up the integer weight function (schedule other routines in here)
+              CarpetReduce::CoordBase_SetupMask: [global] [loop-local] Set up the outer boundaries of the weight function
+              CarpetReduce::CarpetMaskSetup: [global] [loop-singlemap] Set up the weight function for the restriction regions
+            GROUP SetupIMask: Set up the integer weight function (schedule other routines in here)
+            CarpetReduce::MaskBase_SetMask: [global] [loop-local] Set the weight function
+            GROUP SetupMask: Set up the real weight function (schedule other routines in here)
+            CarpetReduce::MaskBase_TestMask: [global] Test the weight function
+        GROUP MoL_PostStep: Ensure that everything is correct after recovery
+          ADMBase::ADMBase_Boundaries: [level] Select ADMBase boundary conditions - may be required for mesh refinement
+          GROUP ADMBase_ApplyBCs: Apply the boundary conditions of ADMBase
+            GROUP BoundaryConditions: Execute all boundary conditions
+              Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+              CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+              ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+            Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+          ML_BSSN::ML_BSSN_SelectBoundConds: [level] select boundary conditions
+          GROUP ML_BSSN_ApplyBCs: Apply boundary conditions controlled by thorn Boundary
+            GROUP BoundaryConditions: Execute all boundary conditions
+              Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+              CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+              ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+            Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+          GROUP ML_BSSN_convertToADMBaseGroupWrapper: Calculate ADM variables
+            GROUP ML_BSSN_convertToADMBaseGroup: Calculate ADM variables
+              ML_BSSN::ML_BSSN_convertToADMBase: ML_BSSN_convertToADMBase
+              ML_BSSN::ML_BSSN_convertToADMBaseDtLapseShift: ML_BSSN_convertToADMBaseDtLapseShift
+              ML_BSSN::ML_BSSN_convertToADMBaseDtLapseShiftBoundary: ML_BSSN_convertToADMBaseDtLapseShiftBoundary
+            ML_BSSN_Helper::ML_BSSN_SelectBCsADMBase: [level] Select boundary conditions for ADMBase variables
+            GROUP ML_BSSN_ApplyBCsADMBase: Apply boundary conditions to ADMBase variables
+              GROUP BoundaryConditions: Execute all boundary conditions
+                Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+                CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+                ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+              Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+          GROUP ADMBase_SetADMVars: Set the ADM variables before this group, and use them afterwards
+    endif
+    if (checkpoint initial data)
+      [CCTK_CPINITIAL]
+    endif
+    if (analysis)
+      [CCTK_ANALYSIS]
+        CarpetLib::CarpetLib_printtimestats: [global] Print timing statistics if desired
+        CarpetLib::CarpetLib_printmemstats: [global] Print memory statistics if desired
+        LoopControl::lc_printstats_analysis: [meta] Output loop control statistics
+        ML_BSSN::ML_BSSN_InitRHS: ML_BSSN_InitRHS
+        GROUP ML_BSSN_evolCalcGroup: Calculate BSSN RHS
+          ML_BSSN::ML_BSSN_RHS1: ML_BSSN_RHS1
+          ML_BSSN::ML_BSSN_RHS2: ML_BSSN_RHS2
+          ML_BSSN::ML_BSSN_Dissipation: ML_BSSN_Dissipation
+          ML_BSSN::ML_BSSN_Advect: ML_BSSN_Advect
+  endif
+  Output grid variables
+
+  do loop over timesteps
+    [CCTK_PREREGRID]
+    Change grid hierarchy
+    [CCTK_POSTREGRID]
+      GROUP EvolutionMaskBase_SetupEvolutionMask: Set up the mask function
+        CarpetEvolutionMask::EvolutionMaskBase_InitEvolutionMask: [global] [loop-local] Initialise the mask function
+        GROUP SetupEvolutionMask: Set up the weight function (schedule other routines in here)
+          CarpetEvolutionMask::CarpetEvolutionMaskSetup: [global] [loop-singlemap] Set up the mask function for the restriction regions
+      CartGrid3D::SpatialCoordinates: Set Coordinates after regridding
+      GROUP MaskBase_SetupMask: Set up the weight function
+        GROUP MaskBase_SetupMaskAll: Set up the weight function
+          CarpetReduce::MaskBase_AllocateMask: [global] Allocate the weight function
+          CarpetReduce::MaskBase_InitMask: [global] [loop-local] Initialise the weight function
+          GROUP SetupIMaskInternal: Set up the integer weight function (schedule other routines in here)
+            CarpetReduce::CoordBase_SetupMask: [global] [loop-local] Set up the outer boundaries of the weight function
+            CarpetReduce::CarpetMaskSetup: [global] [loop-singlemap] Set up the weight function for the restriction regions
+          GROUP SetupIMask: Set up the integer weight function (schedule other routines in here)
+          CarpetReduce::MaskBase_SetMask: [global] [loop-local] Set the weight function
+          GROUP SetupMask: Set up the real weight function (schedule other routines in here)
+          CarpetReduce::MaskBase_TestMask: [global] Test the weight function
+      GROUP MoL_PostStep: Ensure that everything is correct after regridding
+        ADMBase::ADMBase_Boundaries: [level] Select ADMBase boundary conditions - may be required for mesh refinement
+        GROUP ADMBase_ApplyBCs: Apply the boundary conditions of ADMBase
+          GROUP BoundaryConditions: Execute all boundary conditions
+            Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+            CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+            ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+          Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+        ML_BSSN::ML_BSSN_SelectBoundConds: [level] select boundary conditions
+        GROUP ML_BSSN_ApplyBCs: Apply boundary conditions controlled by thorn Boundary
+          GROUP BoundaryConditions: Execute all boundary conditions
+            Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+            CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+            ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+          Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+        GROUP ML_BSSN_convertToADMBaseGroupWrapper: Calculate ADM variables
+          GROUP ML_BSSN_convertToADMBaseGroup: Calculate ADM variables
+            ML_BSSN::ML_BSSN_convertToADMBase: ML_BSSN_convertToADMBase
+            ML_BSSN::ML_BSSN_convertToADMBaseDtLapseShift: ML_BSSN_convertToADMBaseDtLapseShift
+            ML_BSSN::ML_BSSN_convertToADMBaseDtLapseShiftBoundary: ML_BSSN_convertToADMBaseDtLapseShiftBoundary
+          ML_BSSN_Helper::ML_BSSN_SelectBCsADMBase: [level] Select boundary conditions for ADMBase variables
+          GROUP ML_BSSN_ApplyBCsADMBase: Apply boundary conditions to ADMBase variables
+            GROUP BoundaryConditions: Execute all boundary conditions
+              Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+              CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+              ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+            Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+        GROUP ADMBase_SetADMVars: Set the ADM variables before this group, and use them afterwards
+      GROUP MoL_PseudoEvolutionBoundaries: Apply boundary conditions to pseudo-evolved quantities
+        GROUP ML_BSSN_constraints1_bc_group: ML_BSSN_constraints1
+          ML_BSSN::ML_BSSN_constraints1_SelectBCs: [level] ML_BSSN_constraints1_SelectBCs
+          GROUP ML_BSSN_constraints1_ApplyBCs: Apply BCs for groups set in ML_BSSN_constraints1
+            GROUP BoundaryConditions: Execute all boundary conditions
+              Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+              CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+              ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+            Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+        GROUP ML_BSSN_constraints2_bc_group: ML_BSSN_constraints2
+          ML_BSSN::ML_BSSN_constraints2_SelectBCs: [level] ML_BSSN_constraints2_SelectBCs
+          GROUP ML_BSSN_constraints2_ApplyBCs: Apply BCs for groups set in ML_BSSN_constraints2
+            GROUP BoundaryConditions: Execute all boundary conditions
+              Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+              CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+              ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+            Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+    Rotate timelevels
+    iteration = iteration+1
+    t = t+dt
+    [CCTK_PRESTEP]
+      ADMBase::ADMBase_ShiftStatic: Copy the shift to the current time level
+      CoordGauge::Einstein_SetNextSlicing: Identify the slicing for the next iteration
+    [CCTK_EVOL]
+      MoL::MoL_StartLoop: [level] Initialise the step size control
+      while (MoL::MoL_Stepsize_Bad)
+        GROUP MoL_Evolution: A single Cactus evolution step using MoL
+          GROUP MoL_StartStep: MoL internal setup for the evolution step
+            MoL::MoL_SetCounter: [level] Set the counter for the ODE method to loop over
+            MoL::MoL_SetTime: [level] Ensure the correct time and timestep are used
+          GROUP MoL_PreStep: Physics thorns can schedule preloop setup routines in here
+          MoL::MoL_InitialCopy: Ensure the data is in the correct timelevel
+          while (MoL::MoL_Intermediate_Step)
+            GROUP MoL_Step: The loop over the intermediate steps for the ODE integrator
+              MoL::MoL_InitRHS: Initialise the RHS functions
+              GROUP MoL_CalcRHS: Physics thorns schedule the calculation of the discrete spatial operator in here
+                GROUP ML_BSSN_evolCalcGroup: Calculate BSSN RHS
+                  ML_BSSN::ML_BSSN_RHS1: ML_BSSN_RHS1
+                  ML_BSSN::ML_BSSN_RHS2: ML_BSSN_RHS2
+                  ML_BSSN::ML_BSSN_Dissipation: ML_BSSN_Dissipation
+                  ML_BSSN::ML_BSSN_Advect: ML_BSSN_Advect
+              GROUP MoL_PostRHS: Modify RHS functions
+                CarpetEvolutionMask::enforce_evolution_mask: Enforce Evolution Mask
+              GROUP MoL_RHSBoundaries: Any 'final' modifications to the RHS functions (boundaries etc.)
+              MoL::MoL_Add: Updates calculated with the efficient ICN method
+              MoL::MoL_DecrementCounter: [level] Alter the counter number
+              MoL::MoL_ResetTime: [level] If necessary, change the time
+              GROUP MoL_PostStepModify: The group for physics thorns to schedule enforcing constraints
+                ML_BSSN::ML_BSSN_enforce: ML_BSSN_enforce
+              GROUP MoL_PostStep: The group for physics thorns to schedule boundary calls etc.
+                ADMBase::ADMBase_Boundaries: [level] Select ADMBase boundary conditions - may be required for mesh refinement
+                GROUP ADMBase_ApplyBCs: Apply the boundary conditions of ADMBase
+                  GROUP BoundaryConditions: Execute all boundary conditions
+                    Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+                    CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+                    ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+                  Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+                ML_BSSN::ML_BSSN_SelectBoundConds: [level] select boundary conditions
+                GROUP ML_BSSN_ApplyBCs: Apply boundary conditions controlled by thorn Boundary
+                  GROUP BoundaryConditions: Execute all boundary conditions
+                    Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+                    CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+                    ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+                  Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+                GROUP ML_BSSN_convertToADMBaseGroupWrapper: Calculate ADM variables
+                  GROUP ML_BSSN_convertToADMBaseGroup: Calculate ADM variables
+                    ML_BSSN::ML_BSSN_convertToADMBase: ML_BSSN_convertToADMBase
+                    ML_BSSN::ML_BSSN_convertToADMBaseDtLapseShift: ML_BSSN_convertToADMBaseDtLapseShift
+                    ML_BSSN::ML_BSSN_convertToADMBaseDtLapseShiftBoundary: ML_BSSN_convertToADMBaseDtLapseShiftBoundary
+                  ML_BSSN_Helper::ML_BSSN_SelectBCsADMBase: [level] Select boundary conditions for ADMBase variables
+                  GROUP ML_BSSN_ApplyBCsADMBase: Apply boundary conditions to ADMBase variables
+                    GROUP BoundaryConditions: Execute all boundary conditions
+                      Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+                      CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+                      ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+                    Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+                GROUP ADMBase_SetADMVars: Set the ADM variables before this group, and use them afterwards
+              MoL::MoL_ResetDeltaTime: [level] If necessary, change the timestep
+          end while
+          MoL::MoL_FinishLoop: [level] Control the step size
+          MoL::MoL_RestoreSandR: Restoring the Save and Restore variables to the original state
+      end while
+      GROUP MoL_PseudoEvolution: Calculate pseudo-evolved quantities
+        GROUP ADMBase_SetADMVars: Set the ADM variables before this group, and use them afterwards
+        GROUP ML_BSSN_constraints1_group: ML_BSSN_constraints1
+          ML_BSSN::ML_BSSN_constraints1: ML_BSSN_constraints1
+          GROUP ML_BSSN_constraints1_bc_group: ML_BSSN_constraints1
+            ML_BSSN::ML_BSSN_constraints1_SelectBCs: [level] ML_BSSN_constraints1_SelectBCs
+            GROUP ML_BSSN_constraints1_ApplyBCs: Apply BCs for groups set in ML_BSSN_constraints1
+              GROUP BoundaryConditions: Execute all boundary conditions
+                Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+                CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+                ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+              Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+        GROUP ML_BSSN_constraints2_group: ML_BSSN_constraints2
+          ML_BSSN::ML_BSSN_constraints2: ML_BSSN_constraints2
+          GROUP ML_BSSN_constraints2_bc_group: ML_BSSN_constraints2
+            ML_BSSN::ML_BSSN_constraints2_SelectBCs: [level] ML_BSSN_constraints2_SelectBCs
+            GROUP ML_BSSN_constraints2_ApplyBCs: Apply BCs for groups set in ML_BSSN_constraints2
+              GROUP BoundaryConditions: Execute all boundary conditions
+                Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+                CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+                ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+              Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+    Evolve finer grids recursively
+    Restrict from finer grids
+    [CCTK_POSTRESTRICT]
+      GROUP MoL_PostStep: Ensure that everything is correct after restriction
+        ADMBase::ADMBase_Boundaries: [level] Select ADMBase boundary conditions - may be required for mesh refinement
+        GROUP ADMBase_ApplyBCs: Apply the boundary conditions of ADMBase
+          GROUP BoundaryConditions: Execute all boundary conditions
+            Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+            CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+            ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+          Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+        ML_BSSN::ML_BSSN_SelectBoundConds: [level] select boundary conditions
+        GROUP ML_BSSN_ApplyBCs: Apply boundary conditions controlled by thorn Boundary
+          GROUP BoundaryConditions: Execute all boundary conditions
+            Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+            CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+            ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+          Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+        GROUP ML_BSSN_convertToADMBaseGroupWrapper: Calculate ADM variables
+          GROUP ML_BSSN_convertToADMBaseGroup: Calculate ADM variables
+            ML_BSSN::ML_BSSN_convertToADMBase: ML_BSSN_convertToADMBase
+            ML_BSSN::ML_BSSN_convertToADMBaseDtLapseShift: ML_BSSN_convertToADMBaseDtLapseShift
+            ML_BSSN::ML_BSSN_convertToADMBaseDtLapseShiftBoundary: ML_BSSN_convertToADMBaseDtLapseShiftBoundary
+          ML_BSSN_Helper::ML_BSSN_SelectBCsADMBase: [level] Select boundary conditions for ADMBase variables
+          GROUP ML_BSSN_ApplyBCsADMBase: Apply boundary conditions to ADMBase variables
+            GROUP BoundaryConditions: Execute all boundary conditions
+              Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+              CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+              ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+            Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+        GROUP ADMBase_SetADMVars: Set the ADM variables before this group, and use them afterwards
+      GROUP MoL_PseudoEvolutionBoundaries: Apply boundary conditions to pseudo-evolved quantities
+        GROUP ML_BSSN_constraints1_bc_group: ML_BSSN_constraints1
+          ML_BSSN::ML_BSSN_constraints1_SelectBCs: [level] ML_BSSN_constraints1_SelectBCs
+          GROUP ML_BSSN_constraints1_ApplyBCs: Apply BCs for groups set in ML_BSSN_constraints1
+            GROUP BoundaryConditions: Execute all boundary conditions
+              Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+              CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+              ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+            Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+        GROUP ML_BSSN_constraints2_bc_group: ML_BSSN_constraints2
+          ML_BSSN::ML_BSSN_constraints2_SelectBCs: [level] ML_BSSN_constraints2_SelectBCs
+          GROUP ML_BSSN_constraints2_ApplyBCs: Apply BCs for groups set in ML_BSSN_constraints2
+            GROUP BoundaryConditions: Execute all boundary conditions
+              Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+              CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+              ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+            Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+    [CCTK_POSTSTEP]
+  if (checkpoint)
+    [CCTK_CHECKPOINT]
+  endif
+  if (analysis)
+    [CCTK_ANALYSIS]
+      CarpetLib::CarpetLib_printtimestats: [global] Print timing statistics if desired
+      CarpetLib::CarpetLib_printmemstats: [global] Print memory statistics if desired
+      LoopControl::lc_printstats_analysis: [meta] Output loop control statistics
+      ML_BSSN::ML_BSSN_InitRHS: ML_BSSN_InitRHS
+      GROUP ML_BSSN_evolCalcGroup: Calculate BSSN RHS
+        ML_BSSN::ML_BSSN_RHS1: ML_BSSN_RHS1
+        ML_BSSN::ML_BSSN_RHS2: ML_BSSN_RHS2
+        ML_BSSN::ML_BSSN_Dissipation: ML_BSSN_Dissipation
+        ML_BSSN::ML_BSSN_Advect: ML_BSSN_Advect
+  endif
+  Output grid variables
+  enddo
+
+  Termination routines
+    [CCTK_TERMINATE]
+      LoopControl::lc_printstats_terminate: [meta] Output loop control statistics
+      MoL::MoL_FreeIndexArrays: Free the MoL bookkeeping index arrays
+
+  Shutdown routines
+    [CCTK_SHUTDOWN]
+
+  Routines run after changing the grid hierarchy:
+    [CCTK_POSTREGRID]
+      GROUP EvolutionMaskBase_SetupEvolutionMask: Set up the mask function
+        CarpetEvolutionMask::EvolutionMaskBase_InitEvolutionMask: [global] [loop-local] Initialise the mask function
+        GROUP SetupEvolutionMask: Set up the weight function (schedule other routines in here)
+          CarpetEvolutionMask::CarpetEvolutionMaskSetup: [global] [loop-singlemap] Set up the mask function for the restriction regions
+      CartGrid3D::SpatialCoordinates: Set Coordinates after regridding
+      GROUP MaskBase_SetupMask: Set up the weight function
+        GROUP MaskBase_SetupMaskAll: Set up the weight function
+          CarpetReduce::MaskBase_AllocateMask: [global] Allocate the weight function
+          CarpetReduce::MaskBase_InitMask: [global] [loop-local] Initialise the weight function
+          GROUP SetupIMaskInternal: Set up the integer weight function (schedule other routines in here)
+            CarpetReduce::CoordBase_SetupMask: [global] [loop-local] Set up the outer boundaries of the weight function
+            CarpetReduce::CarpetMaskSetup: [global] [loop-singlemap] Set up the weight function for the restriction regions
+          GROUP SetupIMask: Set up the integer weight function (schedule other routines in here)
+          CarpetReduce::MaskBase_SetMask: [global] [loop-local] Set the weight function
+          GROUP SetupMask: Set up the real weight function (schedule other routines in here)
+          CarpetReduce::MaskBase_TestMask: [global] Test the weight function
+      GROUP MoL_PostStep: Ensure that everything is correct after regridding
+        ADMBase::ADMBase_Boundaries: [level] Select ADMBase boundary conditions - may be required for mesh refinement
+        GROUP ADMBase_ApplyBCs: Apply the boundary conditions of ADMBase
+          GROUP BoundaryConditions: Execute all boundary conditions
+            Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+            CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+            ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+          Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+        ML_BSSN::ML_BSSN_SelectBoundConds: [level] select boundary conditions
+        GROUP ML_BSSN_ApplyBCs: Apply boundary conditions controlled by thorn Boundary
+          GROUP BoundaryConditions: Execute all boundary conditions
+            Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+            CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+            ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+          Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+        GROUP ML_BSSN_convertToADMBaseGroupWrapper: Calculate ADM variables
+          GROUP ML_BSSN_convertToADMBaseGroup: Calculate ADM variables
+            ML_BSSN::ML_BSSN_convertToADMBase: ML_BSSN_convertToADMBase
+            ML_BSSN::ML_BSSN_convertToADMBaseDtLapseShift: ML_BSSN_convertToADMBaseDtLapseShift
+            ML_BSSN::ML_BSSN_convertToADMBaseDtLapseShiftBoundary: ML_BSSN_convertToADMBaseDtLapseShiftBoundary
+          ML_BSSN_Helper::ML_BSSN_SelectBCsADMBase: [level] Select boundary conditions for ADMBase variables
+          GROUP ML_BSSN_ApplyBCsADMBase: Apply boundary conditions to ADMBase variables
+            GROUP BoundaryConditions: Execute all boundary conditions
+              Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+              CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+              ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+            Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+        GROUP ADMBase_SetADMVars: Set the ADM variables before this group, and use them afterwards
+      GROUP MoL_PseudoEvolutionBoundaries: Apply boundary conditions to pseudo-evolved quantities
+        GROUP ML_BSSN_constraints1_bc_group: ML_BSSN_constraints1
+          ML_BSSN::ML_BSSN_constraints1_SelectBCs: [level] ML_BSSN_constraints1_SelectBCs
+          GROUP ML_BSSN_constraints1_ApplyBCs: Apply BCs for groups set in ML_BSSN_constraints1
+            GROUP BoundaryConditions: Execute all boundary conditions
+              Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+              CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+              ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+            Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+        GROUP ML_BSSN_constraints2_bc_group: ML_BSSN_constraints2
+          ML_BSSN::ML_BSSN_constraints2_SelectBCs: [level] ML_BSSN_constraints2_SelectBCs
+          GROUP ML_BSSN_constraints2_ApplyBCs: Apply BCs for groups set in ML_BSSN_constraints2
+            GROUP BoundaryConditions: Execute all boundary conditions
+              Boundary::Boundary_ApplyPhysicalBCs: Apply all requested local physical boundary conditions
+              CartGrid3D::CartGrid3D_ApplyBC: Apply symmetry boundary conditions
+              ReflectionSymmetry::ReflectionSymmetry_Apply: Apply reflection symmetries
+            Boundary::Boundary_ClearSelection: [level] Unselect all grid variables for boundary conditions
+--------------------------------------------------------------------------------
+INFO (Carpet): Multi-Model listing:
+   model 0: "world"
+INFO (Carpet): Multi-Model process distribution:
+   process 0: model 0 "world"
+INFO (Carpet): Multi-Model: This is process 0, model 0 "world"
+Current core file size limit: hard=[unlimited], soft=0 MB
+Current memory size limit: hard=[unlimited], soft=[unlimited]
+--------------------------------------------------------------------------------
+AMR driver provided by Carpet
+--------------------------------------------------------------------------------
+AMR info I/O provided by CarpetIOBasic
+--------------------------------------------------------------------------------
+AMR 0D ASCII I/O provided by CarpetIOASCII
+--------------------------------------------------------------------------------
+AMR 1D ASCII I/O provided by CarpetIOASCII
+--------------------------------------------------------------------------------
+AMR 2D ASCII I/O provided by CarpetIOASCII
+--------------------------------------------------------------------------------
+AMR 3D ASCII I/O provided by CarpetIOASCII
+--------------------------------------------------------------------------------
+ML_BSSN
+--------------------------------------------------------------------------------
+AMR scalar I/O provided by CarpetIOScalar
+--------------------------------------------------------------------------------
+MoL: Generalized time integration.
+--------------------------------------------------------------------------------
+
+INFO (Carpet): MPI is enabled
+INFO (Carpet): Carpet is running on 1 processes
+INFO (Carpet): This is process 0
+INFO (Carpet): OpenMP is enabled
+INFO (Carpet): This process contains 4 threads, this is thread 0
+INFO (Carpet): There are 4 threads in total
+INFO (Carpet): There are 4 threads per process
+INFO (Carpet): Host listing:
+   host 0: "numrel07.cct.lsu.edu"
+INFO (Carpet): Host/process mapping:
+   process 0: host 0 "numrel07.cct.lsu.edu"
+INFO (Carpet): Host mapping: This is process 0, host 0 "numrel07.cct.lsu.edu"
+INFO (Carpet): This process runs on host numrel07.cct.lsu.edu, pid=4386
+INFO (Carpet): This process runs on 4 cores: 0-3
+INFO (Carpet): This simulation is running in 3 dimensions
+INFO (Carpet): [tl=0] Boundary specification for map 0:
+   nboundaryzones: [[2,2,2],[2,2,2]]
+   is_internal   : [[0,0,0],[0,0,0]]
+   is_staggered  : [[0,0,0],[0,0,0]]
+   shiftout      : [[1,1,1],[0,0,0]]
+INFO (Carpet): [tl=0] CoordBase domain specification for map 0:
+   physical extent: [0,0,0] : [6.4,6.4,6.4]   ([6.4,6.4,6.4])
+   interior extent: [0,0,0] : [6.2,6.2,6.2]   ([6.2,6.2,6.2])
+   exterior extent: [-0.4,-0.4,-0.4] : [6.6,6.6,6.6]   ([7,7,7])
+   base_spacing   : [0.2,0.2,0.2]
+INFO (Carpet): [tl=0] Adapted domain specification for map 0:
+   convergence factor: 2
+   convergence level : 0
+   physical extent   : [0,0,0] : [6.4,6.4,6.4]   ([6.4,6.4,6.4])
+   interior extent   : [0,0,0] : [6.2,6.2,6.2]   ([6.2,6.2,6.2])
+   exterior extent   : [-0.4,-0.4,-0.4] : [6.6,6.6,6.6]   ([7,7,7])
+   spacing           : [0.2,0.2,0.2]
+INFO (Carpet): [tl=0] Base grid specification for map 0:
+   number of grid points             : [36,36,36]
+   number of coarse grid ghost points: [[2,2,2],[2,2,2]]
+INFO (Carpet): Buffer zone counts (excluding ghosts):
+   [0]: [[0,0,0],[0,0,0]]
+   [1]: [[4,4,4],[4,4,4]]
+INFO (Carpet): Overlap zone counts:
+   [0]: [[0,0,0],[0,0,0]]
+   [1]: [[4,4,4],[4,4,4]]
+INFO (Carpet): Group and variable statistics:
+INFO (Carpet):    There are 334 grid functions in 53 groups
+INFO (Carpet):    There are 70 grid scalars in 26 groups
+INFO (Carpet):    There are 7 1-dimensional grid arrays in 3 groups
+INFO (Carpet):    There are 1 2-dimensional grid arrays in 1 groups
+INFO (Carpet):    There are 0 3-dimensional grid arrays in 0 groups
+INFO (Carpet):    (The number of variables counts all time levels)
+INFO (CarpetIOASCII): I/O Method 'IOASCII_0D' registered: 0D AMR output of grid variables to ASCII files
+INFO (CarpetIOASCII): I/O Method 'IOASCII_1D' registered: 1D AMR output of grid variables to ASCII files
+INFO (CarpetIOASCII): Periodic 1D AMR output requested for:
+   CARPETEVOLUTIONMASK::evolution_mask
+   ML_BSSN::gt11
+INFO (CarpetIOASCII): I/O Method 'IOASCII_2D' registered: 2D AMR output of grid variables to ASCII files
+INFO (CarpetIOASCII): Periodic 2D AMR output requested for:
+   CARPETEVOLUTIONMASK::evolution_mask
+   ML_BSSN::gt11
+INFO (CarpetIOASCII): I/O Method 'IOASCII_3D' registered: 3D AMR output of grid variables to ASCII files
+INFO (CarpetIOASCII): Periodic 3D AMR output requested for:
+   CARPETEVOLUTIONMASK::evolution_mask
+   ML_BSSN::gt11
+INFO (CarpetIOScalar): Periodic scalar output requested for:
+   ADMBASE::gxx
+   ADMBASE::kxx
+   ADMBASE::alp
+   ML_BSSN::At11
+   ML_BSSN::Xt1
+   ML_BSSN::phi
+   ML_BSSN::gt11
+   ML_BSSN::trK
+INFO (MoL): Using Iterative Crank Nicholson with 3 iterations as the time integrator.
+INFO (MoL): The maximum number of evolved variables is 25. 25 are registered.
+INFO (MoL): The maximum number of constrained variables is 20. 20 are registered.
+INFO (MoL): The maximum number of SandR variables is 0. 0 are registered.
+INFO (MoL): The maximum number of evolved complex variables is 0. 0 are registered.
+INFO (MoL): The maximum number of constrained complex variables is 0. 0 are registered.
+INFO (MoL): The maximum number of SandR complex variables is 0. 0 are registered.
+INFO (MoL): The maximum number of evolved array variables is 0. 0 are registered.
+INFO (MoL): The maximum number of constrained array variables is 0. 0 are registered.
+INFO (MoL): The maximum number of SandR array variables is 0. 0 are registered.
+INFO (MoL): The maximum number of evolved complex array variables is 0. 0 are registered.
+INFO (MoL): The maximum number of constrained complex array variables is 0. 0 are registered.
+INFO (MoL): The maximum number of SandR complex array variables is 0. 0 are registered.
+INFO (MoL): The maximum size of any array variables is 0.
+INFO (SymBase): Symmetry on lower x-face: reflection_symmetry
+INFO (SymBase): Symmetry on lower y-face: reflection_symmetry
+INFO (SymBase): Symmetry on lower z-face: reflection_symmetry
+INFO (IDAnalyticBH): Schwarzschild black hole
+INFO (IDAnalyticBH):   throat at 1.000000
+INFO (IDAnalyticBH): Implements non-conformal metric
+INFO (IDAnalyticBH):   (Not usually a good idea!)
+INFO (Carpet): Grid structure (superregions, grid points):
+   [0][0][0]   exterior: [0,0,0] : [35,35,35]   ([36,36,36] + PADDING) 46656
+   [1][0][0]   exterior: [2,2,2] : [36,36,38]   ([35,35,37] + PADDING) 45325
+INFO (Carpet): Grid structure (superregions, coordinates):
+   [0][0][0]   exterior: [-0.400000000000000,-0.400000000000000,-0.400000000000000] : [6.600000000000001,6.600000000000001,6.600000000000001] : [0.200000000000000,0.200000000000000,0.200000000000000]
+   [1][0][0]   exterior: [-0.200000000000000,-0.200000000000000,-0.200000000000000] : [3.200000000000001,3.200000000000001,3.400000000000001] : [0.100000000000000,0.100000000000000,0.100000000000000]
+INFO (Carpet): Global grid structure statistics:
+INFO (Carpet): GF: rhs: 28k active, 36k owned (+28%), 51k total (+41%), 3 steps/time
+INFO (Carpet): GF: vars: 176, pts: 10M active, 12M owned (+20%), 18M total (+41%), 1.0 comp/proc
+INFO (Carpet): GA: vars: 72, pts: 0M active, 0M total (+0%)
+INFO (Carpet): Total required memory: 0.140 GByte (for GAs and currently active GFs)
+INFO (Carpet): Load balance:  min     avg     max     sdv      max/avg-1
+INFO (Carpet): Level  0:       6M      6M      6M      0M active      0%
+INFO (Carpet): Level  1:       5M      5M      5M      0M active      0%
+INFO (ADMMacros): Spatial finite differencing order: 2
+INFO (CarpetEvolutionMask): Initialising the mask to 1
+INFO (CarpetEvolutionMask): Initialising the mask to 1
+INFO (CarpetEvolutionMask): Setting restricted region on level 0 to weight 0: [0,0,0]:[7,7,8]
+INFO (CartGrid3D): Grid Spacings:
+INFO (CartGrid3D): dx=>2.0000000e-01  dy=>2.0000000e-01  dz=>2.0000000e-01
+INFO (CartGrid3D): Computational Coordinates:
+INFO (CartGrid3D): x=>[-0.400, 6.600]  y=>[-0.400, 6.600]  z=>[-0.400, 6.600]
+INFO (CartGrid3D): Indices of Physical Coordinates:
+INFO (CartGrid3D): x=>[0,35]  y=>[0,35]  z=>[0,35]
+INFO (Time): Timestep set to 0.05 (courant_static)
+INFO (IDAnalyticBH): setting up Schwarzschild initial
+INFO (IDAnalyticBH): setting up Schwarzschild initial
+INFO (IDAnalyticBH): setting up Schwarzschild initial
+INFO (ADMMacros): Spatial finite differencing order: 2
+INFO (Time): Timestep set to 0.025 (courant_static)
+INFO (IDAnalyticBH): setting up Schwarzschild initial
+INFO (IDAnalyticBH): setting up Schwarzschild initial
+INFO (IDAnalyticBH): setting up Schwarzschild initial
+-----------------------------------------------
+Iteration      Time |              ADMBASE::gxx
+                    |      minimum      maximum
+-----------------------------------------------
+        0     0.000 |    1.4126748 1.000000e+64
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+        1     0.025 |    1.4126748 1.000000e+64
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+        2     0.050 |    1.4126748 1.000000e+64
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+        3     0.075 |    1.4126748 1.000000e+64
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+        4     0.100 |    1.4126748 1.000000e+64
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+        5     0.125 |    1.4126748 1.000000e+64
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+        6     0.150 |    1.4126748 1.000000e+64
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+        7     0.175 |    1.4126748 1.000000e+64
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+        8     0.200 |    1.4126748 1.000000e+64
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+        9     0.225 |    1.4126748 1.000000e+64
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+       10     0.250 |    1.4126748 1.000000e+64
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+       11     0.275 |    1.4126748 1.000000e+64
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+       12     0.300 |    1.4126748 1.000000e+64
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+       13     0.325 |    1.4126748 1.000000e+64
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+       14     0.350 |    1.4126748 1.000000e+64
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+       15     0.375 |    1.4126748 1.000000e+64
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+       16     0.400 |    1.4126748 1.000000e+64
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+       17     0.425 |    1.4126748 1.000000e+64
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+       18     0.450 |    1.4126748 1.000000e+64
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+       19     0.475 |    1.4126748 1.000000e+64
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::gt11" (RHS "ML_BSSN::gt11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::At11" (RHS "ML_BSSN::At11rhs")
+INFO (CarpetEvolutionMask): Enforcing evolution mask on "ML_BSSN::phi" (RHS "ML_BSSN::phirhs")
+-----------------------------------------------
+Iteration      Time |              ADMBASE::gxx
+                    |      minimum      maximum
+-----------------------------------------------
+       20     0.500 |    1.4126748 1.000000e+64
+LoopControl timing statistics:
+Loop #0 "ML_BSSN_Advect":
+   total count: 360   total setup: 0.0228607   total calc: 16.5026
+   avg calc: 0.0458407   avg first calc: 0.0458769
+   avg improvement: 0%   saved: 0.0130499 seconds
+Loop #1 "ML_BSSN_Dissipation":
+   total count: 360   total setup: 0.0188853   total calc: 15.5035
+   avg calc: 0.0430652   avg first calc: 0.0430877
+   avg improvement: 0%   saved: 0.0080957 seconds
+Loop #2 "ML_BSSN_RHS2":
+   total count: 360   total setup: 0.00919012   total calc: 5.72917
+   avg calc: 0.0159144   avg first calc: 0.0159534
+   avg improvement: 0%   saved: 0.014053 seconds
+Loop #3 "ML_BSSN_RHS1":
+   total count: 360   total setup: 0.0666961   total calc: 7.42837
+   avg calc: 0.0206344   avg first calc: 0.0206241
+   avg improvement: -0%   saved: -0.00368345 seconds
+Loop #4 "ML_BSSN_InitRHS":
+   total count: 128   total setup: 0.00249532   total calc: 3.24025
+   avg calc: 0.0253145   avg first calc: 0.0253038
+   avg improvement: 0%   saved: -0.00136675 seconds
+Loop #5 "ML_BSSN_constraints2":
+   total count: 144   total setup: 0.00307138   total calc: 1.42001
+   avg calc: 0.00986118   avg first calc: 0.00987573
+   avg improvement: 0%   saved: 0.00209548 seconds
+Loop #6 "ML_BSSN_constraints1":
+   total count: 144   total setup: 0.00348148   total calc: 1.547
+   avg calc: 0.0107431   avg first calc: 0.0107811
+   avg improvement: 0%   saved: 0.005475 seconds
+Loop #7 "ML_BSSN_convertToADMBaseDtLapseShift":
+   total count: 472   total setup: 0.0111292   total calc: 3.15608
+   avg calc: 0.0066866   avg first calc: 0.0067033
+   avg improvement: 0%   saved: 0.00788424 seconds
+Loop #8 "ML_BSSN_convertToADMBase":
+   total count: 472   total setup: 0.0218094   total calc: 8.75118
+   avg calc: 0.0185406   avg first calc: 0.0185406
+   avg improvement: 0%   saved: -9.10644e-06 seconds
+Loop #9 "ML_BSSN_enforce":
+   total count: 384   total setup: 0.029998   total calc: 4.79423
+   avg calc: 0.012485   avg first calc: 0.0124767
+   avg improvement: -0%   saved: -0.00317753 seconds
+Total calculation time: 69.6872 seconds; total saved time: 0.0424165 seconds
+--------------------------------------------------------------------------------
+Done.
