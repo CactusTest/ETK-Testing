@@ -1,0 +1,54 @@
+!DESC "Extract waveforms from BH"
+
+
+ActiveThorns = "Boundary CartGrid3D CoordBase SymBase Time IOUtil IOASCII PUGH PUGHSlab PUGHInterp LocalInterp Extract ADMBase StaticConformal IDAnalyticBH ADM ADMMacros CoordGauge localreduce"
+
+
+driver::global_nx = 15
+driver::global_ny = 15
+driver::global_nz = 15
+
+grid::type   = "bySpacing"
+grid::domain = "octant"
+grid::dxyz   = 0.3
+
+time::dtfac = 0.2
+
+cactus::cctk_itlast = 5
+IO::out_every       = 1
+
+admbase::evolution_method ="adm"
+admbase::initial_data     = "schwarzschild"
+admbase::metric_type = "static conformal"
+admbase::lapse_evolution_method          = "geodesic"
+idanalyticbh::mass   = 1
+
+IO::out_dir          = "test_extract"
+io::out_fileinfo    = "none"
+ioascii::out1d_vars = "admbase::alp"
+
+### Extraction parameters
+
+extract::interpolation_order = 1
+extract::num_detectors = 2
+extract::itout         = 1
+
+extract::Nt        = 50
+extract::Np        = 50
+extract::origin_x  = 0.
+extract::origin_y  = 0.
+extract::origin_z  = 0.
+
+extract::all_modes  = "yes"
+extract::l_mode     = 4
+extract::m_mode     = 0
+
+extract::detector1 = 2.5
+extract::detector2 = 3.0
+
+extract::doADMmass = "yes"
+extract::do_momentum = "yes"
+extract::do_spin = "yes"
+
+# do not use the new scheme for names of output files
+IO::new_filename_scheme = "no"

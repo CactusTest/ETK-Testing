@@ -1,0 +1,106 @@
+#---------------------------------------
+# PARAM FILE FOR THE DYNAMIC MINKOWSKY
+#---------------------------------------
+
+ActiveThorns = "Fortran MoL SymBase CoordBase CartGrid3D Time"
+ActiveThorns = "IOASCII IOBasic IOUtil"
+ActiveThorns = "Boundary LocalReduce  SpaceMask"
+ActiveThorns = "Pugh PughReduce PughSlab PUGHInterp"
+ActiveThorns = "AEILocalInterp NullGrid NullInterp NullVars"
+ActiveThorns = "NullEvolve NullDecomp NullSHRExtract SphericalHarmonicRecon"
+ActiveThorns = "NullNews NullConstr"
+ActiveThorns = "LocalInterp  HDF5 IOHDF5 IOHDF5Util"
+
+#Time------------------------------
+cactus::cctk_initial_time		= 0.0
+cactus::cctk_final_time			= .1
+cactus::terminate			= "time"
+#time::dtfac				= 1
+
+#Null Time-----------------------------
+Time::timestep_method = "given" 
+Time::timestep = 0.05
+
+#Initial data----------------------
+NullEvolve::boundary_data = "SHRE"
+NullEvolve::initial_J_data = "smooth_J"
+NullEvolve::first_order_scheme = "yes"
+
+#Extraction radius---------------
+SphericalHarmonicRecon::r_extract=20.0 #50.0 #100.0
+NullSHRExtract::cr = 20.0 #50.0 #100.0
+NullGrid::null_rwt = 20.0 #50.0 #100.0
+
+#Override extraction parameters---------------
+SphericalHarmonicRecon::time_derivative_in_file = "yes" 
+SphericalHarmonicRecon::metric_data_filename = "../../../arrangements/PITTNullCode/SphericalHarmonicRecon/test/metric_test_case.h5"
+#SphericalHarmonicRecon::metric_data_filename = "metric_test_case.h5"
+
+
+#Extraction data------------------------
+NullSHRExtract::mass = 1
+NullSHRExtract::WT_metric = "Full"
+NullSHRExtract::l_max = 6
+
+#Null Grid ---------------------------
+NullGrid::null_xin = 0.45
+NullGrid::N_ang_ghost_pts = 3
+NullGrid::N_ang_stencil_size = 3
+NullGrid::N_ang_ev_outside_eq = 10
+NullGrid::N_ang_pts_inside_eq =21
+NullGrid::N_radial_pts =31
+
+#DEBUG:
+#NullEvolve::Diagnostics_Coord_x = 0.8 # 0.50877754829751409
+
+#Interpolation--------------------------
+NullInterp::interpolation_order = 4
+NullInterp::stereo_patch_type = "circle"
+NullInterp::deriv_accuracy = 4
+
+#Dissipation------------------------------------------------------------------
+#NullEvolve::dissip_W = 0.000001 
+#NullEvolve::dissip_Q = 0.000001
+NullEvolve::dissip_J = 0.0001
+NullEvolve::dissip_Jx = 0.001
+NullEvolve::dissip_mask_type = "zero at rD0, one at rD1"  #0r01r1 
+NullEvolve::N_dissip_zero_outside_eq = 11 
+NullEvolve::N_dissip_one_outside_eq = 10 
+
+#Nan check--------------------------------
+ActiveThorns = "NaNChecker"
+NaNChecker::action_if_found = "terminate"
+NaNChecker::check_every = 1
+NaNChecker::check_vars = "nullvars::realcharfuncs"
+NaNChecker::report_max = 1
+
+#Output data and specifications-----------
+IO::out_dir				= $parfile
+IOBasic::outScalar_every		= 2
+IOBasic::outScalar_vars	                = "NullNews::NewsB[0]"
+IOBasic::outScalar_reductions		= "norm2"
+IOBasic::out_format			= ".16E"
+IOASCII::out2D_every			= 2
+IOASCII::out2D_vars	        	= "NullNews::NewsB[0]"
+IOASCII::out2D_style			= "gnuplot f(x,y)"
+IOASCII::out_format			= ".16E"
+
+#Worltube Spherical Harmonics profiling---------------------------
+NullDecomp::use_rsYlm = no
+NullDecomp::l_max = 4
+NullSHRExtract::WT_spherical_harmonics = no
+
+#News profiling---------------------------
+NullNews::write_spherical_harmonics = no
+NullNews::debug_output = no
+NullNews::interp_to_constant_uBondi = no
+NullNews::news_interp_order = 4
+NullNews::mask_Psi4 = yes
+NullNews::mask_NewsB = yes
+
+#Cactus::terminate          = time 
+#
+#Cactus::cctk_final_time    = 0.0
+IO::checkpoint_on_terminate = yes
+IO::checkpoint_ID          = no
+

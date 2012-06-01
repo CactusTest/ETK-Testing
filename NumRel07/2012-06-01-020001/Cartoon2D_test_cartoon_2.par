@@ -1,0 +1,116 @@
+#==============================================================================
+# Cartoon2D, using a full grid, and ML_BSSN
+#==============================================================================
+
+ActiveThorns = "cartoon2d idanalyticbh admbase admcoupling admmacros coordgauge spacemask staticconformal admanalysis ml_bssn ml_bssn_helper newrad genericfd tmunubase loopcontrol mol nanchecker admconstraints pughinterp boundary time pugh pughreduce pughslab cartgrid3d ioascii ioutil iobasic localinterp localreduce coordbase initbase symbase"
+## ahfinder
+
+#------------------------------------------------------------------------------
+# Run parameters for Cartoon
+#------------------------------------------------------------------------------
+
+# Cartoon
+cartoon2d::cartoon_active		= "yes"
+cartoon2d::verbose              	= "yes"
+cartoon2d::stencil              	= "yes"
+cartoon2d::order                	= 3
+
+# This is for 2 processors, you have to
+# change manually by processor numbers.
+
+#driver::processor_topology       	= "manual"
+#driver::processor_topology_3d_x  	= 1
+#driver::processor_topology_3d_y  	= 1
+#driver::processor_topology_3d_z  	= 2
+
+# Grid
+
+driver::global_nx                       = 19
+driver::global_ny                       = 5
+driver::global_nz                       = 34
+
+driver::ghost_size_x                    = 2
+driver::ghost_size_y                    = 2
+driver::ghost_size_z                    = 2
+
+coordbase::boundary_size_x_upper        = 2
+coordbase::boundary_size_y_upper        = 2
+coordbase::boundary_size_z_upper        = 2
+coordbase::boundary_size_x_lower        = 2
+coordbase::boundary_size_y_lower        = 2
+coordbase::boundary_size_z_lower        = 2
+
+grid::avoid_originy                     = "no"
+
+grid::type                              = "byrange"
+grid::domain				= "full"
+grid::xmin                              = -0.3
+grid::xmax                              = +3.3
+grid::ymin                              = -0.4
+grid::ymax                              = +0.4
+grid::zmin                              = -3.3
+grid::zmax                              = +3.3
+
+time::dtfac                             = 0.25
+
+cactus::cctk_itlast                     = 1
+
+# MODEL 
+
+admbase::initial_data                   = "schwarzschild"
+admbase::metric_type			= "physical"
+idanalyticbh::epsilon                   = 1e-1
+
+#--- Evolution
+admbase::evolution_method 		= "ml_bssn"
+methodoflines::ode_method 		= "icn"
+ml_bssn::fdOrder                        = 2
+ml_bssn::my_initial_boundary_condition  = "extrapolate-gammas"
+ml_bssn::ml_log_confac_bound            = "flat"
+ml_bssn::ml_metric_bound                = "flat"
+ml_bssn::ml_gamma_bound                 = "flat"
+ml_bssn::ml_trace_curv_bound            = "flat"
+ml_bssn::ml_curv_bound                  = "flat"
+ml_bssn::ml_lapse_bound                 = "flat"
+ml_bssn::ml_dtlapse_bound               = "flat"
+ml_bssn::ml_shift_bound                 = "flat"
+ml_bssn::ml_dtshift_bound               = "flat"
+admconstraints::cartoon		        = "yes"
+
+#--- gauge
+admbase::lapse_evolution_method         = "ML_BSSN"
+admbase::dtlapse_evolution_method       = "ML_BSSN"
+ml_bssn::alphadriver                   = 1
+ml_bssn::lapseadvectioncoeff           = 0
+ml_bssn::harmonicf                     = 2.0
+
+## #--- AHFinder.
+## 
+## ahfinder::ahf_active   			= "yes"
+## ahfinder::ahf_cartoon			= "yes"
+## 
+## ahfinder::ahf_phi    			= "no"
+## ahfinder::ahf_octant 			= "high"
+## 
+## ahfinder::ahf_lmax   			= 0
+## 
+## # Interpolation.
+## 
+## ahfinder::interpolation_order 		= 1
+
+#------------------------------------------------------------------------------
+# Output
+#------------------------------------------------------------------------------
+IO::out_dir                             = "test_cartoon_2"
+IO::out_fileinfo   			= "none"
+
+IOBasic::outScalar_every                = 1
+IOBasic::outScalar_vars                 = "admconstraints::hamiltonian admconstraints::momentum admbase::alp admanalysis::grr admbase::metric admanalysis::trK ml_bssn::gt11 ml_bssn::phi ml_bssn::trK ml_bssn::ML_Gamma"
+
+IOASCII::out1D_every                    = 1
+IOASCII::out1D_vars                     = "admconstraints::hamiltonian admconstraints::momentum admbase::alp admanalysis::grr admbase::metric admanalysis::trK ml_bssn::gt11 ml_bssn::phi ml_bssn::trK ml_bssn::Ml_Gamma"
+
+IOBasic::outInfo_every                  = 1
+IOBasic::outInfo_vars                   = "admbase::alp admbase::dtalp"
+#==============================================================================
+
