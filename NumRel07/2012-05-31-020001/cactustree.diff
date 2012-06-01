@@ -1,0 +1,372 @@
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus: TEST.1
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus: TEST.2
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus/arrangements/CactusArchive/ADM/src/DoubleLeap.F /home/jhar131/TESTING/einsteintoolkit/2012-05-31-020001/Cactus/arrangements/CactusArchive/ADM/src/DoubleLeap.F
+297,299c297,299
+<             do k=1,nz
+<                do j=1,ny
+<                   do i=1,nx
+---
+>             do k=2,nz-1
+>                do j=2,ny-1
+>                   do i=2,nx-1
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus/arrangements/CactusNumerical/InterpToArray/interface.ccl /home/jhar131/TESTING/einsteintoolkit/2012-05-31-020001/Cactus/arrangements/CactusNumerical/InterpToArray/interface.ccl
+4a5,17
+> CCTK_INT FUNCTION                                      \
+>     InterpGridArrays                                   \
+>         (CCTK_POINTER_TO_CONST IN cctkGH,              \
+>          CCTK_INT              IN N_dims,              \
+>          CCTK_INT              IN order,               \
+>          CCTK_INT              IN N_interp_points,     \
+>          CCTK_POINTER_TO_CONST IN interp_coords,       \
+>          CCTK_INT              IN N_input_arrays,      \
+>          CCTK_INT        ARRAY IN input_array_indices, \
+>          CCTK_INT              IN N_output_arrays,     \
+>          CCTK_POINTER          IN output_arrays)
+> USES FUNCTION InterpGridArrays
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus/arrangements/CactusNumerical/InterpToArray/param.ccl /home/jhar131/TESTING/einsteintoolkit/2012-05-31-020001/Cactus/arrangements/CactusNumerical/InterpToArray/param.ccl
+4a5,6
+> # CCTK_InterpGridArrays parameters
+> 
+19a22,32
+> # InterpGridArrays ie. CarpetInterp2 parameters
+> 
+> BOOLEAN use_carpetinterp2 "Use InterpGridArrays rather than CCTK_InterpGridArrays" STEERABLE=always
+> {
+> } "no"
+> 
+> INT carpetinterp2_interpolator_order "Order of interpolation for CarpetInterp2" STEERABLE=always
+> {
+>   0:* :: "any order supported by CarpetInterp2"
+> } 2
+> 
+20a34
+> # Common parameters
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus/arrangements/CactusNumerical/InterpToArray/src/interp.c /home/jhar131/TESTING/einsteintoolkit/2012-05-31-020001/Cactus/arrangements/CactusNumerical/InterpToArray/src/interp.c
+20,24c20,24
+<   int const interpolator = CCTK_InterpHandle (interpolator_name);
+<   assert (interpolator >= 0);
+<   
+<   int const options_table = Util_TableCreateFromString (interpolator_options);
+<   assert (options_table >= 0);
+---
+>   int interpolator = -1;
+>   if (!use_carpetinterp2) {
+>     interpolator = CCTK_InterpHandle (interpolator_name);
+>     assert (interpolator >= 0);
+>   }
+26,27c26,30
+<   int const coord_handle = CCTK_CoordSystemHandle (interpolator_coordinates);
+<   assert (coord_handle >= 0);
+---
+>   int options_table = -1;
+>   if (!use_carpetinterp2) {
+>     options_table = Util_TableCreateFromString (interpolator_options);
+>     assert (options_table >= 0);
+>   }
+28a32,36
+>   int coord_handle = -1;
+>   if (!use_carpetinterp2) {
+>     coord_handle = CCTK_CoordSystemHandle (interpolator_coordinates);
+>     assert (coord_handle >= 0);
+>   }
+30a39
+> 
+83a93,102
+>       if (use_carpetinterp2)
+>       {
+>         int const ierr = InterpGridArrays
+>           (cctkGH, 3, carpetinterp2_interpolator_order,
+>            npoints, coords,
+>            nvars, inputs,
+>            nvars, outputs);
+>         assert (! ierr);
+>       }
+>       else
+187a207,216
+>       if (use_carpetinterp2)
+>       {
+>         int const ierr = InterpGridArrays
+>           (cctkGH, 3, carpetinterp2_interpolator_order,
+>            npoints, coords,
+>            nvars, inputs,
+>            nvars, outputs);
+>         assert (! ierr);
+>       }
+>       else
+277a307,316
+>       if (use_carpetinterp2)
+>       {
+>         int const ierr = InterpGridArrays
+>           (cctkGH, 3, carpetinterp2_interpolator_order,
+>            npoints, coords,
+>            nvars, inputs,
+>            nvars, outputs);
+>         assert (! ierr);
+>       }
+>       else
+357a397,406
+>       if (use_carpetinterp2)
+>       {
+>         int const ierr = InterpGridArrays
+>           (cctkGH, 3, carpetinterp2_interpolator_order,
+>            npoints, coords,
+>            nvars, inputs,
+>            nvars, outputs);
+>         assert (! ierr);
+>       }
+>       else
+472a522,531
+>       if (use_carpetinterp2)
+>       {
+>         int const ierr = InterpGridArrays
+>           (cctkGH, 3, carpetinterp2_interpolator_order,
+>            npoints, coords,
+>            nvars, inputs,
+>            nvars, outputs);
+>         assert (! ierr);
+>       }
+>       else
+576a636,645
+>       if (use_carpetinterp2)
+>       {
+>         int const ierr = InterpGridArrays
+>           (cctkGH, 3, carpetinterp2_interpolator_order,
+>            npoints, coords,
+>            nvars, inputs,
+>            nvars, outputs);
+>         assert (! ierr);
+>       }
+>       else
+672a742,751
+>       if (use_carpetinterp2)
+>       {
+>         int const ierr = InterpGridArrays
+>           (cctkGH, 3, carpetinterp2_interpolator_order,
+>            npoints, coords,
+>            nvars, inputs,
+>            nvars, outputs);
+>         assert (! ierr);
+>       }
+>       else
+692a772
+>   if (options_table >= 0)
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-31-020001/Cactus/arrangements/CactusNumerical/InterpToArray/test: test.ccl
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-31-020001/Cactus/arrangements/CactusNumerical/InterpToArray/test: wavetoy2
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-31-020001/Cactus/arrangements/CactusNumerical/InterpToArray/test: wavetoy2.par
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus: cactusjar.git
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus: exe
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus: log
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus/repos/Kranc/Tools/CodeGen/CodeGenCactus.m /home/jhar131/TESTING/einsteintoolkit/2012-05-31-020001/Cactus/repos/Kranc/Tools/CodeGen/CodeGenCactus.m
+515a516,532
+>     (* Remove SQR etc. *)
+>     expr = expr //. {
+>       SQR[x_] -> x^2,
+>       CUB[x_] -> x^3,
+>       QAD[x_] -> x^4,
+>       INV[x_] -> 1/x};
+>     expr = expr //. Power[x_,y_] -> pow[x,y];
+>     
+>     (* Handle division *)
+>     expr = expr //. pow[x_,n_Integer] /; n<0 :> kdiv[1,pow[x,-n]];
+>     (* Implement integer powers efficiently *)
+>     expr = expr //. {
+>       pow[x_,0] -> 1,
+>       pow[x_,1] -> x,
+>       pow[x_,n_Integer] /; n>1 && Mod[n,2]==0 :> kmul[pow[x,n/2],pow[x,n/2]],
+>       pow[x_,n_Integer] /; n>1 && Mod[n,2]==1 :> kmul[x,pow[x,n-1]]};
+>     
+522a540,542
+>     ToRealQ[expr_] := Head[expr] == ToReal;
+>     notToRealQ[expr_] := Head[expr] != ToReal;
+>     
+525,530c545
+<       -x_                 -> kneg[x],
+<       kmul[-1,x_]         -> kneg[x],
+<       kmul[x_,-1]         -> kneg[x],
+<       kmul[ToReal[-1],x_] -> kneg[x],
+<       kmul[x_,ToReal[-1]] -> kneg[x],
+<       kneg[kneg[x_]]      -> x,
+---
+>       -x_ -> kneg[x],
+532,539c547,548
+<       x_ + y_           -> kadd[x,y],
+<       x_ - y_           -> ksub[x,y],
+<       kadd[kneg[x_],y_] -> ksub[y,x],
+<       ksub[kneg[x_],y_] -> kneg[kadd[x,y]],
+<       kadd[x_,kneg[y_]] -> ksub[x,y],
+<       ksub[x_,kneg[y_]] -> kadd[x,y],
+<       kneg[ksub[x_,y_]] -> ksub[y,x],
+<       ksub[x_,x_]       -> ToReal[0],
+---
+>       x_ + y_ -> kadd[x,y],
+>       x_ - y_ -> ksub[x,y],
+541,549c550,551
+<       x_ * y_              -> kmul[x,y],
+<       x_ / y_              -> kdiv[x,y],
+<       kdiv[x_,kdiv[y_,z_]] -> kdiv[kmul[x,z],y],
+<       kdiv[kdiv[x_,y_],z_] -> kdiv[x,kmul[y,z]],
+<       kmul[kneg[x_],y_]    -> kneg[kmul[x,y]],
+<       kmul[x_,kneg[y_]]    -> kneg[kmul[x,y]],
+<       kdiv[kneg[x_],y_]    -> kneg[kdiv[x,y]],
+<       kdiv[x_,kneg[y_]]    -> kneg[kdiv[x,y]],
+<       kdiv[x_,x_]          -> ToReal[1],
+---
+>       x_ * y_ -> kmul[x,y],
+>       x_ / y_ -> kdiv[x,y],
+551,563c553,564
+<       Abs[x_] -> kfabs[x],
+<       acos[xx_]     -> kacos[xx],
+<       acosh[xx_]    -> kacosh[xx],
+<       asin[xx_]     -> kasin[xx],
+<       asinh[xx_]    -> kasinh[xx],
+<       atan[xx_]     -> katan[xx],
+<       atanh[xx_]    -> katanh[xx],
+<       cos[xx_]      -> kcos[xx],
+<       cosh[xx_]     -> kcosh[xx],
+<       sin[xx_]      -> ksin[xx],
+<       sinh[xx_]     -> ksinh[xx],
+<       tan[xx_]      -> ktan[xx],
+<       tanh[xx_]     -> ktanh[xx],
+---
+>       acos[xx_]  -> kacos[xx],
+>       acosh[xx_] -> kacosh[xx],
+>       asin[xx_]  -> kasin[xx],
+>       asinh[xx_] -> kasinh[xx],
+>       atan[xx_]  -> katan[xx],
+>       atanh[xx_] -> katanh[xx],
+>       cos[xx_]   -> kcos[xx],
+>       cosh[xx_]  -> kcosh[xx],
+>       sin[xx_]   -> ksin[xx],
+>       sinh[xx_]  -> ksinh[xx],
+>       tan[xx_]   -> ktan[xx],
+>       tanh[xx_]  -> ktanh[xx],
+571,573c572,625
+<       sqrt[x_]    -> ksqrt[x],
+<       (* acos[kneg[xx_]]           -> kacos[kneg[xx]], *)
+<       (* acosh[kneg[xx_]]          -> kacosh[kneg[xx]], *)
+---
+>       sqrt[x_]    -> ksqrt[x]};
+> 
+>     (* Optimise *)
+>     expr = expr //. {
+>       kneg[ToReal[a_]]    -> ToReal[-a],
+>       kmul[ToReal[-1],x_] -> kneg[x],
+>       kmul[x_,ToReal[-1]] -> kneg[x],
+>       kneg[kneg[x_]]      -> x,
+>       
+>       kadd[ToReal[0],x_]             -> x,
+>       kadd[x_,ToReal[0]]             -> x,
+>       ksub[ToReal[0],x_]             -> kneg[x],
+>       ksub[x_,ToReal[0]]             -> x,
+>       kadd[kneg[x_],y_]              -> ksub[y,x],
+>       ksub[kneg[x_],y_]              -> kneg[kadd[x,y]],
+>       kadd[x_,kneg[y_]]              -> ksub[x,y],
+>       ksub[x_,kneg[y_]]              -> kadd[x,y],
+>       kneg[ksub[x_,y_]]              -> ksub[y,x],
+>       kadd[x_,x_]                    -> kmul[ToReal[2],x],
+>       ksub[x_,x_]                    -> ToReal[0],
+>       kadd[ToReal[a_],ToReal[b_]]    -> ToReal[kadd[a,b]],
+>       ksub[ToReal[a_],ToReal[b_]]    -> ToReal[ksub[a,b]],
+>       kadd[x_?notToRealQ,ToReal[a_]] -> kadd[ToReal[a],x],
+>       kadd[kadd[ToReal[a_],x_],y_]   -> kadd[ToReal[a],kadd[x,y]],
+>       kadd[kadd[ToReal[a_],x_],
+>            kadd[ToReal[b_],y_]]      -> kadd[ToReal[kadd[a,b]],kadd[x,y]],
+>       kadd[x_?notToRealQ,
+>            kadd[ToReal[a_],y_]]      -> kadd[ToReal[a],kadd[x,y]],
+>       
+>       kmul[ToReal[0],x_]             -> ToReal[0],
+>       kmul[x_,ToReal[0]]             -> ToReal[0],
+>       kmul[ToReal[+1],x_]            -> x,
+>       kmul[x_,ToReal[+1]]            -> x,
+>       kdiv[ToReal[0],x_]             -> ToReal[0],
+>       (* kdiv[x_,ToReal[0]]           -> ToReal[nan], *)
+>       kdiv[x_,ToReal[+1]]            -> x,
+>       kdiv[x_,kdiv[y_,z_]]           -> kdiv[kmul[x,z],y],
+>       kdiv[kdiv[x_,y_],z_]           -> kdiv[x,kmul[y,z]],
+>       kmul[x_,kdiv[y_,z_]]           -> kdiv[kmul[x,y],z],
+>       kmul[kdiv[x_,y_],z_]           -> kdiv[kmul[x,z],y],
+>       kmul[kneg[x_],y_]              -> kneg[kmul[x,y]],
+>       kmul[x_,kneg[y_]]              -> kneg[kmul[x,y]],
+>       kdiv[kneg[x_],y_]              -> kneg[kdiv[x,y]],
+>       kdiv[x_,kneg[y_]]              -> kneg[kdiv[x,y]],
+>       kdiv[x_,x_]                    -> ToReal[1],
+>       kmul[ToReal[a_],ToReal[b_]]    -> ToReal[kmul[a,b]],
+>       kdiv[x_,ToReal[y_]]            -> kmul[x,ToReal[kdiv[1,y]]],
+>       kmul[x_?notToRealQ,ToReal[a_]] -> kmul[ToReal[a],x],
+>       kmul[kmul[ToReal[a_],x_],y_]   -> kmul[ToReal[a],kmul[x,y]],
+>       kmul[kmul[ToReal[a_],x_],
+>            kmul[ToReal[b_],y_]]      -> kmul[ToReal[kmul[a,b]],kmul[x,y]],
+>       kmul[x_?notToRealQ,
+>            kmul[ToReal[a_],y_]]      -> kmul[ToReal[a],kmul[x,y]],
+>       
+589,590c641
+<       kneg[kfnabs[xx_]]          -> kfabs[xx],
+<       kneg[kneg[xx_]]            -> xx};
+---
+>       kneg[kfnabs[xx_]]          -> kfabs[xx]};
+620c671,678
+<       kdiv[x_,y_] -> x/y};
+---
+>       kdiv[x_,y_] -> x/y,
+>       
+>       x_^2 -> ScalarSQR[x],
+>       x_^3 -> ScalarCUB[x],
+>       x_^4 -> ScalarQAD[x],
+>       x_^-2 -> 1/ScalarSQR[x],
+>       x_^-3 -> 1/ScalarCUB[x],
+>       x_^-4 -> 1/ScalarQAD[x]};
+683,684c741,742
+<         rhs = rhs /. IfThen[xx_?IntegerQ, aa_, bb_] /; xx!=0 :> aa;
+<         rhs = rhs /. IfThen[xx_?IntegerQ, aa_, bb_] /; xx==0 :> bb;
+---
+>         rhs = rhs /. IfThen[xx_Integer, aa_, bb_] /; xx!=0 :> aa;
+>         rhs = rhs /. IfThen[xx_Integer, aa_, bb_] /; xx==0 :> bb;
+707c765
+<         rhs = rhs //. Power[x_, power_] :> pow[x,power];
+---
+>         rhs = rhs //. Power[x_, power_] -> pow[x,power];
+779c837,841
+<            {"INV(x) (kdiv(ToReal(1.0),x))",
+---
+>            {"ScalarINV(x) ((CCTK_REAL)1.0 / (x))",
+>             "ScalarSQR(x) ((x) * (x))",
+>             "ScalarCUB(x) ((x) * ScalarSQR(x))",
+>             "ScalarQAD(x) (ScalarSQR(ScalarSQR(x)))",
+>             "INV(x) (kdiv(ToReal(1.0),x))",
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus/repos/Kranc/Tools/CodeGen/Kranc.m /home/jhar131/TESTING/einsteintoolkit/2012-05-31-020001/Cactus/repos/Kranc/Tools/CodeGen/Kranc.m
+25c25,26
+< {INV, SQR, CUB, QAD, IfThen, Parenthesis, Scalar, ToReal,
+---
+> {INV, SQR, CUB, QAD, ScalarINV, ScalarSQR, ScalarCUB, ScalarQAD,
+>  IfThen, Parenthesis, Scalar, ToReal,
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus/repos/carpet/.hg/dirstate and /home/jhar131/TESTING/einsteintoolkit/2012-05-31-020001/Cactus/repos/carpet/.hg/dirstate differ
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus/simfactory/lib/archive: __init__.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus/simfactory/lib/archive: petashare.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus/simfactory/lib/archive: uberftp.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus/simfactory/lib: libutil.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus/simfactory/lib: pyini.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus/simfactory/lib: restartlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus/simfactory/lib: sim-build.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus/simfactory/lib: sim-info.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus/simfactory/lib: sim-manage.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus/simfactory/lib: sim-sync.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus/simfactory/lib: sim-util.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus/simfactory/lib: simarchive.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus/simfactory/lib: simdb.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus/simfactory/lib: simdt.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus/simfactory/lib: simenv.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus/simfactory/lib: simlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus/simfactory/lib: simopts.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus/simfactory/lib: simproperties.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus/simfactory/lib: simremote.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus/simfactory/lib: simrestart.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus/simfactory/lib: simsubs.pyc
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-05-30-020001/Cactus/simfactory/mdb/optionlists/forge.cfg /home/jhar131/TESTING/einsteintoolkit/2012-05-31-020001/Cactus/simfactory/mdb/optionlists/forge.cfg
+21a22,27
+> VECTORISE                = yes
+> VECTORISE_INLINE         = no
+> VECTORISE_ALIGNED_ARRAYS = no
+> 
+> 
+> 
