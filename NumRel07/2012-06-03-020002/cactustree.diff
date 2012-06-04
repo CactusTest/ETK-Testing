@@ -1,0 +1,60 @@
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus: TEST.1
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus: TEST.2
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus/arrangements/Carpet/CarpetInterp/src/interp.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-03-020002/Cactus/arrangements/Carpet/CarpetInterp/src/interp.cc
+1699c1699,1700
+<           int const active_tl = CCTK_ActiveTimeLevelsVI (cctkGH, vi);
+---
+>           int const gi = CCTK_GroupIndexFromVarI (vi);
+>           int const active_tl = groupdata.AT(gi).activetimelevels.AT(m).AT(rl);
+1708d1708
+<           int const gi = CCTK_GroupIndexFromVarI (vi);
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus: cactusjar.git
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus: exe
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus: log
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus/repos/carpet/.hg/cache/branchheads /home/jhar131/TESTING/einsteintoolkit/2012-06-03-020002/Cactus/repos/carpet/.hg/cache/branchheads
+1c1
+< b657ed971e6447be46e4e831ed559f921374bd5c 3556
+---
+> 60493275159604c81d10098c149d5eb992f1e71e 3557
+4c4
+< 12ee1105096abb118355da698da7a0039edcd6df default
+---
+> 60493275159604c81d10098c149d5eb992f1e71e default
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus/repos/carpet/.hg/cache/tags /home/jhar131/TESTING/einsteintoolkit/2012-06-03-020002/Cactus/repos/carpet/.hg/cache/tags
+0a1
+> 3557 60493275159604c81d10098c149d5eb992f1e71e
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus/repos/carpet/.hg/dirstate and /home/jhar131/TESTING/einsteintoolkit/2012-06-03-020002/Cactus/repos/carpet/.hg/dirstate differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus/repos/carpet/.hg/store/00changelog.d and /home/jhar131/TESTING/einsteintoolkit/2012-06-03-020002/Cactus/repos/carpet/.hg/store/00changelog.d differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus/repos/carpet/.hg/store/00changelog.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-03-020002/Cactus/repos/carpet/.hg/store/00changelog.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus/repos/carpet/.hg/store/00manifest.d and /home/jhar131/TESTING/einsteintoolkit/2012-06-03-020002/Cactus/repos/carpet/.hg/store/00manifest.d differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus/repos/carpet/.hg/store/00manifest.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-03-020002/Cactus/repos/carpet/.hg/store/00manifest.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_interp/src/interp.cc.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-03-020002/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_interp/src/interp.cc.i differ
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus/repos/carpet/Carpet/CarpetInterp/src/interp.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-03-020002/Cactus/repos/carpet/Carpet/CarpetInterp/src/interp.cc
+1699c1699,1700
+<           int const active_tl = CCTK_ActiveTimeLevelsVI (cctkGH, vi);
+---
+>           int const gi = CCTK_GroupIndexFromVarI (vi);
+>           int const active_tl = groupdata.AT(gi).activetimelevels.AT(m).AT(rl);
+1708d1708
+<           int const gi = CCTK_GroupIndexFromVarI (vi);
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus/simfactory/lib/archive: __init__.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus/simfactory/lib/archive: petashare.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus/simfactory/lib/archive: uberftp.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus/simfactory/lib: libutil.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus/simfactory/lib: pyini.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus/simfactory/lib: restartlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus/simfactory/lib: sim-build.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus/simfactory/lib: sim-info.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus/simfactory/lib: sim-manage.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus/simfactory/lib: sim-sync.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus/simfactory/lib: sim-util.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus/simfactory/lib: simarchive.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus/simfactory/lib: simdb.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus/simfactory/lib: simdt.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus/simfactory/lib: simenv.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus/simfactory/lib: simlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus/simfactory/lib: simopts.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus/simfactory/lib: simproperties.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus/simfactory/lib: simremote.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus/simfactory/lib: simrestart.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-02-020002/Cactus/simfactory/lib: simsubs.pyc

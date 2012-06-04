@@ -1,0 +1,47 @@
+!DESC "Octant evolution with robin boundaries"
+# $Id: test_rob.par 125 2006-01-25 16:11:37Z yye00 $
+#
+# /*@@
+#   @file      test_rad.par
+#   @date      Saturday 18 Sept 1999
+#   @author    Gabrielle Allen
+#   @desc
+#   Wavetoy parameter file demonstrating radiation boundaries in Octant
+#   @enddesc
+# @@*/          
+
+ActiveThorns = "boundary iobasic idscalarwave time wavetoyf77 pugh pughslab pughreduce CartGrid3D CoordBase SymBase ioutil ioascii localreduce"
+ 
+time::dtfac = 0.5
+
+idscalarwave::initial_data = "gaussian"
+idscalarwave::sigma = 2.8
+idscalarwave::radius = 5
+
+wavetoyf77::bound = "robin"
+
+grid::type = "BySpacing"
+grid::domain = "octant"
+grid::dxyz = 0.6
+
+driver::global_nx = 10
+driver::global_ny = 10
+driver::global_nz = 10
+
+cactus::cctk_itlast = 4
+
+IOBasic::outScalar_reductions = "norm1 norm2 minimum maximum norm_inf"
+IOBASIC::outScalar_every = 1
+IOBASIC::outScalar_vars = "wavetoy::phi"
+
+IOASCII::out1D_every = 1
+IOASCII::out1D_z = "no"
+IOASCII::out1D_y = "no"
+IOASCII::out1D_d = "no"
+IOASCII::out1D_vars = "wavetoy::phi "
+
+IO::out_dir       = "test_rob"
+IO::out_fileinfo = "none"
+
+# do not use the new scheme for names of output files
+IO::new_filename_scheme = "no"
