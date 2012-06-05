@@ -1,0 +1,1011 @@
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus: TEST.1
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus: TEST.2
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/arrangements/Carpet/Carpet/param.ccl /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/Carpet/Carpet/param.ccl
+22a23,28
+> shares: CarpetLib
+> 
+> USES BOOLEAN use_higher_order_restriction
+> USES INT restriction_order_space
+> 
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/arrangements/Carpet/Carpet/src/SetupGH.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/Carpet/Carpet/src/SetupGH.cc
+2685a2686,2687
+>       int const min_nghosts_restrict =
+>         restriction_order_space / 2;
+2689a2692,2697
+>       }
+>       if (use_higher_order_restriction and 
+>           any (any (ghosts.AT(rl) < i2vect (min_nghosts_restrict)))) {
+>         CCTK_VWarn (0, __LINE__, __FILE__, CCTK_THORNSTRING,
+>                     "There are not enough ghost zones for the desired restriction order on map %d, refinement level %d.  With a restriction order of %d, you need at least %d ghost zones.",
+>                     m, rl, restriction_order_space, min_nghosts_restrict);
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/arrangements/Carpet/CarpetInterp/src/interp.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/Carpet/CarpetInterp/src/interp.cc
+1700c1700
+<           int const active_tl = groupdata.AT(gi).activetimelevels.AT(m).AT(rl);
+---
+>           int const active_tl = groupdata.AT(gi).activetimelevels.AT(mglevel).AT(rl);
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/arrangements/Carpet/CarpetLib/param.ccl /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/Carpet/CarpetLib/param.ccl
+35a36,52
+> restricted:
+> 
+> BOOLEAN use_higher_order_restriction "Use third order cell centered restriction operators instead of first order"
+> {
+> } "no"
+> 
+> INT restriction_order_space "Order of restriction operator to use with use_higher_order_restriction"
+> {
+>   1 :: "linear interpolation, this is Carpet's original implementation"
+>   3 :: "third order accurate restriction for grid functions where prolongation is not (W)ENO"
+>   5 :: "fifth order accurate restriction for grid functions where prolongation is not (W)ENO"
+> } 3
+> 
+> 
+> 
+> private:
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/arrangements/Carpet/CarpetLib/src/data.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/Carpet/CarpetLib/src/data.cc
+1143a1144,1184
+>         if (use_higher_order_restriction and
+>             transport_operator != op_WENO and 
+>             transport_operator != op_ENO) { // HACK
+> 	  switch (restriction_order_space) {
+> 	    case 1:
+>             // Don't use call_operator, because we parallelise ourselves
+>             restrict_3d_cc_rf2(static_cast <T const *> (src->storage()),
+>                                src->shape(),
+>                                static_cast <T *> (this->storage()),
+>                                this->shape(),
+>                                srcbox,
+>                                dstbox,
+>                                srcregbox, dstregbox, NULL);
+> 	    break;
+> 	    case 3:
+>             // Don't use call_operator, because we parallelise ourselves
+>             restrict_3d_cc_o3_rf2(static_cast <T const *> (src->storage()),
+>                                src->shape(),
+>                                static_cast <T *> (this->storage()),
+>                                this->shape(),
+>                                srcbox,
+>                                dstbox,
+>                                srcregbox, dstregbox, NULL);
+> 	    break;
+> 	    case 5:
+>             // Don't use call_operator, because we parallelise ourselves
+>             restrict_3d_cc_o5_rf2(static_cast <T const *> (src->storage()),
+>                                src->shape(),
+>                                static_cast <T *> (this->storage()),
+>                                this->shape(),
+>                                srcbox,
+>                                dstbox,
+>                                srcregbox, dstregbox, NULL);
+> 	    break;
+> 	    default:
+> 	    CCTK_VWarn (CCTK_WARN_ABORT, __LINE__, __FILE__, CCTK_THORNSTRING,
+> 			"There is no restriction stencil with restriction_order_space==%d", restriction_order_space);
+> 	    break;
+> 	  }
+>           break;
+>         }
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/arrangements/Carpet/CarpetLib/src/dh.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/Carpet/CarpetLib/src/dh.cc
+1036a1037,1041
+>           if(use_higher_order_restriction) {
+>             // NOTE: change in behaviour (affects only outer boundaries I think)!!!!
+>             // NOTE: b/c of this we need a low-level sync after the restrict
+>             needrecv = allrestricted & obox.interior;
+>           }
+1043,1044c1048,1055
+<             ibbox const contracted_exterior =
+<               box.exterior.contracted_for(odomext);
+---
+>             // If we make a mistake expanding the domain of dependence here, it
+>             // _should_ be caught be by the expand()ed is_contained_in(srcbbox)
+>             // test in the actual operator. 
+>             int const shrink_by =
+>               use_higher_order_restriction and (h.refcent == cell_centered) ?
+>               restriction_order_space/2  : 0;
+>             ibbox const contracted_exterior = 
+>               box.exterior.expand(ivect(-shrink_by)).contracted_for(odomext);
+1053a1065,1068
+>               if(use_higher_order_restriction) {
+>                 ASSERT_c (send <= box.interior.expand(ivect(int(h.refcent==cell_centered))),
+>                           "Refinement restriction: Send region must be contained in interior");
+>               }
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/arrangements/Carpet/CarpetLib/src/make.code.defn /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/Carpet/CarpetLib/src/make.code.defn
+36a37,38
+> 	restrict_3d_cc_o3_rf2.cc		\
+> 	restrict_3d_cc_o5_rf2.cc		\
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/arrangements/Carpet/CarpetLib/src/operator_prototypes_3d.hh /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/Carpet/CarpetLib/src/operator_prototypes_3d.hh
+37a38,47
+>   static inline
+>   size_t
+>   offset3 (size_t const i, size_t const j, size_t const k,
+>           size_t const exti, size_t const extj, size_t const extk)
+>   {
+>     return i + exti * (j + extj * k);
+>   }
+>   
+>   
+>   
+371a382,409
+>   
+>   
+>   
+>   template <typename T>
+>   void
+>   restrict_3d_cc_o3_rf2 (T const * restrict const src,
+>                          ivect3 const & restrict srcext,
+>                          T * restrict const dst,
+>                          ivect3 const & restrict dstext,
+>                          ibbox3 const & restrict srcbbox,
+>                          ibbox3 const & restrict dstbbox,
+>                          ibbox3 const & restrict srcregbbox,
+>                          ibbox3 const & restrict dstregbbox,
+>                          void * extraargs);
+>   
+>   
+>   
+>   template <typename T>
+>   void
+>   restrict_3d_cc_o5_rf2 (T const * restrict const src,
+>                          ivect3 const & restrict srcext,
+>                          T * restrict const dst,
+>                          ivect3 const & restrict dstext,
+>                          ibbox3 const & restrict srcbbox,
+>                          ibbox3 const & restrict dstbbox,
+>                          ibbox3 const & restrict srcregbbox,
+>                          ibbox3 const & restrict dstregbbox,
+>                          void * extraargs);
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/arrangements/Carpet/CarpetLib/src/prolongate_3d_cc_eno_rf2.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/Carpet/CarpetLib/src/prolongate_3d_cc_eno_rf2.cc
+49a50,51
+> #define SRCOFF3(i,j,k) offset3 (i, j, k, srciext, srcjext, srckext)
+> #define DSTOFF3(i,j,k) offset3 (i, j, k, dstiext, dstjext, dstkext)
+1072c1074
+<     // size_t const srcdi = SRCIND3(1,0,0) - SRCIND3(0,0,0);
+---
+>     // size_t const srcdi = SRCOFF3(1,0,0) - SRCOFF3(0,0,0);
+1074,1076c1076,1078
+<     assert (srcdi == SRCIND3(1,0,0) - SRCIND3(0,0,0));
+<     size_t const srcdj = SRCIND3(0,1,0) - SRCIND3(0,0,0);
+<     size_t const srcdk = SRCIND3(0,0,1) - SRCIND3(0,0,0);
+---
+>     assert (srcdi == SRCOFF3(1,0,0) - SRCOFF3(0,0,0));
+>     size_t const srcdj = SRCOFF3(0,1,0) - SRCOFF3(0,0,0);
+>     size_t const srcdk = SRCOFF3(0,0,1) - SRCOFF3(0,0,0);
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/arrangements/Carpet/CarpetLib/src/prolongate_3d_cc_rf2.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/Carpet/CarpetLib/src/prolongate_3d_cc_rf2.cc
+49a50,51
+> #define SRCOFF3(i,j,k) offset3 (i, j, k, srciext, srcjext, srckext)
+> #define DSTOFF3(i,j,k) offset3 (i, j, k, dstiext, dstjext, dstkext)
+446c448
+<     // size_t const srcdi = SRCIND3(1,0,0) - SRCIND3(0,0,0);
+---
+>     // size_t const srcdi = SRCOFF3(1,0,0) - SRCOFF3(0,0,0);
+448,450c450,452
+<     assert (srcdi == SRCIND3(1,0,0) - SRCIND3(0,0,0));
+<     size_t const srcdj = SRCIND3(0,1,0) - SRCIND3(0,0,0);
+<     size_t const srcdk = SRCIND3(0,0,1) - SRCIND3(0,0,0);
+---
+>     assert (srcdi == SRCOFF3(1,0,0) - SRCOFF3(0,0,0));
+>     size_t const srcdj = SRCOFF3(0,1,0) - SRCOFF3(0,0,0);
+>     size_t const srcdk = SRCOFF3(0,0,1) - SRCOFF3(0,0,0);
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/arrangements/Carpet/CarpetLib/src/prolongate_3d_dgfe_rf2.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/Carpet/CarpetLib/src/prolongate_3d_dgfe_rf2.cc
+24a25,26
+> #define SRCOFF3(i,j,k) ptrdiff_t(offset3(i, j, k, srciext, srcjext, srckext))
+> #define DSTOFF3(i,j,k) ptrdiff_t(offset3(i, j, k, dstiext, dstjext, dstkext))
+132,133c134,135
+<       int const srcdj = SRCIND3(0,1,0) - SRCIND3(0,0,0);
+<       int const srcdk = SRCIND3(0,0,1) - SRCIND3(0,0,0);
+---
+>       int const srcdj = SRCOFF3(0,1,0) - SRCOFF3(0,0,0);
+>       int const srcdk = SRCOFF3(0,0,1) - SRCOFF3(0,0,0);
+135,136c137,138
+<       int const dstdj = DSTIND3(0,1,0) - DSTIND3(0,0,0);
+<       int const dstdk = DSTIND3(0,0,1) - DSTIND3(0,0,0);
+---
+>       int const dstdj = DSTOFF3(0,1,0) - DSTOFF3(0,0,0);
+>       int const dstdk = DSTOFF3(0,0,1) - DSTOFF3(0,0,0);
+166c168
+<       // int const srcdi = SRCIND3(1,0,0) - SRCIND3(0,0,0);
+---
+>       // int const srcdi = SRCOFF3(1,0,0) - SRCOFF3(0,0,0);
+168c170
+<       assert(srcdi == SRCIND3(1,0,0) - SRCIND3(0,0,0));
+---
+>       assert(srcdi == SRCOFF3(1,0,0) - SRCOFF3(0,0,0));
+170,171c172,173
+<       int const srcdk = SRCIND3(0,0,1) - SRCIND3(0,0,0);
+<       // int const dstdi = DSTIND3(1,0,0) - DSTIND3(0,0,0);
+---
+>       int const srcdk = SRCOFF3(0,0,1) - SRCOFF3(0,0,0);
+>       // int const dstdi = DSTOFF3(1,0,0) - DSTOFF3(0,0,0);
+173c175
+<       assert(dstdi == DSTIND3(1,0,0) - DSTIND3(0,0,0));
+---
+>       assert(dstdi == DSTOFF3(1,0,0) - DSTOFF3(0,0,0));
+175c177
+<       int const dstdk = DSTIND3(0,0,1) - DSTIND3(0,0,0);
+---
+>       int const dstdk = DSTOFF3(0,0,1) - DSTOFF3(0,0,0);
+205c207
+<       // int const srcdi = SRCIND3(1,0,0) - SRCIND3(0,0,0);
+---
+>       // int const srcdi = SRCOFF3(1,0,0) - SRCOFF3(0,0,0);
+207,208c209,210
+<       assert(srcdi == SRCIND3(1,0,0) - SRCIND3(0,0,0));
+<       int const srcdj = SRCIND3(0,1,0) - SRCIND3(0,0,0);
+---
+>       assert(srcdi == SRCOFF3(1,0,0) - SRCOFF3(0,0,0));
+>       int const srcdj = SRCOFF3(0,1,0) - SRCOFF3(0,0,0);
+210c212
+<       // int const dstdi = DSTIND3(1,0,0) - DSTIND3(0,0,0);
+---
+>       // int const dstdi = DSTOFF3(1,0,0) - DSTOFF3(0,0,0);
+212,213c214,215
+<       assert(dstdi == DSTIND3(1,0,0) - DSTIND3(0,0,0));
+<       int const dstdj = DSTIND3(0,1,0) - DSTIND3(0,0,0);
+---
+>       assert(dstdi == DSTOFF3(1,0,0) - DSTOFF3(0,0,0));
+>       int const dstdj = DSTOFF3(0,1,0) - DSTOFF3(0,0,0);
+242c244
+<       // int const srcdi = SRCIND3(1,0,0) - SRCIND3(0,0,0);
+---
+>       // int const srcdi = SRCOFF3(1,0,0) - SRCOFF3(0,0,0);
+244,247c246,249
+<       assert(srcdi == SRCIND3(1,0,0) - SRCIND3(0,0,0));
+<       int const srcdj = SRCIND3(0,1,0) - SRCIND3(0,0,0);
+<       int const srcdk = SRCIND3(0,0,1) - SRCIND3(0,0,0);
+<       // int const dstdi = DSTIND3(1,0,0) - DSTIND3(0,0,0);
+---
+>       assert(srcdi == SRCOFF3(1,0,0) - SRCOFF3(0,0,0));
+>       int const srcdj = SRCOFF3(0,1,0) - SRCOFF3(0,0,0);
+>       int const srcdk = SRCOFF3(0,0,1) - SRCOFF3(0,0,0);
+>       // int const dstdi = DSTOFF3(1,0,0) - DSTOFF3(0,0,0);
+249,251c251,253
+<       assert(dstdi == DSTIND3(1,0,0) - DSTIND3(0,0,0));
+<       int const dstdj = DSTIND3(0,1,0) - DSTIND3(0,0,0);
+<       int const dstdk = DSTIND3(0,0,1) - DSTIND3(0,0,0);
+---
+>       assert(dstdi == DSTOFF3(1,0,0) - DSTOFF3(0,0,0));
+>       int const dstdj = DSTOFF3(0,1,0) - DSTOFF3(0,0,0);
+>       int const dstdk = DSTOFF3(0,0,1) - DSTOFF3(0,0,0);
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/arrangements/Carpet/CarpetLib/src/prolongate_3d_rf2.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/Carpet/CarpetLib/src/prolongate_3d_rf2.cc
+25a26,27
+> #define SRCOFF3(i,j,k) offset3 (i, j, k, srciext, srcjext, srckext)
+> #define DSTOFF3(i,j,k) offset3 (i, j, k, dstiext, dstjext, dstkext)
+591c593
+<     // size_t const srcdi = SRCIND3(1,0,0) - SRCIND3(0,0,0);
+---
+>     // size_t const srcdi = SRCOFF3(1,0,0) - SRCOFF3(0,0,0);
+593,595c595,597
+<     assert (srcdi == SRCIND3(1,0,0) - SRCIND3(0,0,0));
+<     size_t const srcdj = SRCIND3(0,1,0) - SRCIND3(0,0,0);
+<     size_t const srcdk = SRCIND3(0,0,1) - SRCIND3(0,0,0);
+---
+>     assert (srcdi == SRCOFF3(1,0,0) - SRCOFF3(0,0,0));
+>     size_t const srcdj = SRCOFF3(0,1,0) - SRCOFF3(0,0,0);
+>     size_t const srcdk = SRCOFF3(0,0,1) - SRCOFF3(0,0,0);
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/Carpet/CarpetLib/src: restrict_3d_cc_o3_rf2.cc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/Carpet/CarpetLib/src: restrict_3d_cc_o5_rf2.cc
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/arrangements/Carpet/CarpetLib/src/restrict_3d_dgfe_rf2.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/Carpet/CarpetLib/src/restrict_3d_dgfe_rf2.cc
+24a25,26
+> #define SRCOFF3(i,j,k) ptrdiff_t(offset3(i, j, k, srciext, srcjext, srckext))
+> #define DSTOFF3(i,j,k) ptrdiff_t(offset3(i, j, k, dstiext, dstjext, dstkext))
+105c107
+<     // int const srcdi = SRCIND3(1,0,0) - SRCIND3(0,0,0);
+---
+>     // int const srcdi = SRCOFF3(1,0,0) - SRCOFF3(0,0,0);
+107,109c109,111
+<     assert(srcdi == SRCIND3(1,0,0) - SRCIND3(0,0,0));
+<     int const srcdj = SRCIND3(0,1,0) - SRCIND3(0,0,0);
+<     int const srcdk = SRCIND3(0,0,1) - SRCIND3(0,0,0);
+---
+>     assert(srcdi == SRCOFF3(1,0,0) - SRCOFF3(0,0,0));
+>     int const srcdj = SRCOFF3(0,1,0) - SRCOFF3(0,0,0);
+>     int const srcdk = SRCOFF3(0,0,1) - SRCOFF3(0,0,0);
+111c113
+<     // int const dstdi = DSTIND3(1,0,0) - DSTIND3(0,0,0);
+---
+>     // int const dstdi = DSTOFF3(1,0,0) - DSTOFF3(0,0,0);
+113,115c115,117
+<     assert(dstdi == DSTIND3(1,0,0) - DSTIND3(0,0,0));
+<     int const dstdj = DSTIND3(0,1,0) - DSTIND3(0,0,0);
+<     int const dstdk = DSTIND3(0,0,1) - DSTIND3(0,0,0);
+---
+>     assert(dstdi == DSTOFF3(1,0,0) - DSTOFF3(0,0,0));
+>     int const dstdj = DSTOFF3(0,1,0) - DSTOFF3(0,0,0);
+>     int const dstdk = DSTOFF3(0,0,1) - DSTOFF3(0,0,0);
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/arrangements/Carpet/CarpetLib/src/restrict_3d_vc_rf2.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/Carpet/CarpetLib/src/restrict_3d_vc_rf2.cc
+25a26,31
+> #define SRCOFF3(i,j,k)                                  \
+>   offset3 (srcioff + (i), srcjoff + (j), srckoff + (k),  \
+>           srciext, srcjext, srckext)
+> #define DSTOFF3(i,j,k)                                  \
+>   offset3 (dstioff + (i), dstjoff + (j), dstkoff + (k),  \
+>           dstiext, dstjext, dstkext)
+226c232
+<     // size_t const srcdi == SRCIND3(1,0,0) - SRCIND3(0,0,0);
+---
+>     // size_t const srcdi == SRCOFF3(1,0,0) - SRCOFF3(0,0,0);
+228,231c234,236
+<     assert (srcdi == SRCIND3(1,0,0) - SRCIND3(0,0,0));
+<     size_t const srcdj = SRCIND3(0,1,0) - SRCIND3(0,0,0);
+<     size_t const srcdk = SRCIND3(0,0,1) - SRCIND3(0,0,0);
+<     
+---
+>     assert (srcdi == SRCOFF3(1,0,0) - SRCOFF3(0,0,0));
+>     size_t const srcdj = SRCOFF3(0,1,0) - SRCOFF3(0,0,0);
+>     size_t const srcdk = SRCOFF3(0,0,1) - SRCOFF3(0,0,0);
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/arrangements/Carpet/CarpetRegrid2/src/property.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/Carpet/CarpetRegrid2/src/property.cc
+800a801,805
+>     // TODO: baseextent is the exterior of the domain (i.e. it
+>     // includes the boundary); we need to use the interior of the
+>     // domain here (i.e. baseextent minus the boundary). Such a
+>     // calculation is already performed in the beginning of dh.cc's
+>     // regrid.
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/arrangements/Carpet/CarpetRegrid2/src/regrid.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/Carpet/CarpetRegrid2/src/regrid.cc
+345a346,349
+>     // TODO: Check that the coarse grid contains all finer grids. To
+>     // do this, apply proper_nesting to the coarse grid, and then
+>     // check whether it grew -- if so, this is an error.
+>     
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/arrangements/EinsteinEOS/EOS_Omni/src/nuc_eos/eosmodule.F90 /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/EinsteinEOS/EOS_Omni/src/nuc_eos/eosmodule.F90
+27c27
+<    real*8,allocatable :: alltables(:,:,:,:)
+---
+>    real*8,pointer :: alltables(:,:,:,:)
+49,51c49,51
+<    real*8,allocatable,save :: logrho(:)
+<    real*8,allocatable,save :: logtemp(:)
+<    real*8,allocatable,save :: ye(:)
+---
+>    real*8,pointer :: logrho(:)
+>    real*8,pointer :: logtemp(:)
+>    real*8,pointer :: ye(:)
+68,71c68,70
+< ! It copies the values of the arrays given as parameters into arrays
+< ! of the eos module, until I can find out how I can use those arrays
+< ! directly.
+< subroutine allocate_eosmodule(nrho_, ntemp_, nye_, alltables_, logrho_, logtemp_, ye_, energy_shift_)
+---
+> ! It creates pointers to the arrays given as parameters into arrays
+> ! of the eos module.
+> subroutine setup_eosmodule(nrho_, ntemp_, nye_, alltables_, logrho_, logtemp_, ye_, energy_shift_)
+76,79c75,78
+<  CCTK_REAL :: alltables_(nrho_, ntemp_, nye_, 19)
+<  CCTK_REAL :: logrho_(nrho_)
+<  CCTK_REAL :: logtemp_(ntemp_)
+<  CCTK_REAL :: ye_(nye_)
+---
+>  CCTK_REAL, TARGET :: alltables_(nrho_, ntemp_, nye_, 19)
+>  CCTK_REAL, TARGET :: logrho_(nrho_)
+>  CCTK_REAL, TARGET :: logtemp_(ntemp_)
+>  CCTK_REAL, TARGET :: ye_(nye_)
+86,94c85,88
+<  allocate(alltables(nrho,ntemp,nye,nvars))
+<  allocate(logrho(nrho))
+<  allocate(logtemp(ntemp))
+<  allocate(ye(nye))
+< 
+<  alltables = alltables_
+<  logrho    = logrho_
+<  logtemp   = logtemp_
+<  ye        = ye_
+---
+>  alltables => alltables_
+>  logrho    => logrho_
+>  logtemp   => logtemp_
+>  ye        => ye_
+112c106
+< end subroutine allocate_eosmodule
+---
+> end subroutine setup_eosmodule
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/arrangements/EinsteinEOS/EOS_Omni/src/nuc_eos/readtable.c /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/EinsteinEOS/EOS_Omni/src/nuc_eos/readtable.c
+12c12
+< void CCTK_FNAME(allocate_eosmodule)
+---
+> void CCTK_FNAME(setup_eosmodule)
+136,138c136,138
+<   // Give all values to fortran - which will copy them until I can find out how
+<   // I can tell Fortran to use those pointers inside the module
+<   CCTK_FNAME(allocate_eosmodule)
+---
+>   // Give all values to fortran - which will store pointers to them, so don't
+>   // free these arrays.
+>   CCTK_FNAME(setup_eosmodule)
+140,146d139
+< 
+< 
+<   // Free the memory again because fortran copied the whole thing now
+<   free(ye);
+<   free(logtemp);
+<   free(logrho);
+<   free(alltables);
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus: cactusjar.git
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/doc/ReferenceManual/CCTKReference.tex /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/doc/ReferenceManual/CCTKReference.tex
+24c24
+< \begin{cactuspart}{\code{CCTK\_*} Functions Reference}{}{$Revision: 4805 $}
+---
+> \begin{cactuspart}{\code{CCTK\_*} Functions Reference}{}{$Revision: 4831 $}
+661a662,664
+> \item[\code{CCTK\_RegexMatch}] [\pageref{CCTK-RegexMatch}]
+>   Perform a regular expression match of string against pattern
+> 
+10644a10648,10713
+> \end{verbatim}
+> \end{Example}
+> \end{ExampleSection}
+> \end{FunctionDescription}
+> 
+> % Misc.c
+> \begin{FunctionDescription}{CCTK\_RegexMatch}{Perform a regular expression match of string against pattern}
+> \label{CCTK-RegexMatch}
+> \begin{SynopsisSection}
+> \begin{Synopsis}{C}
+> \begin{verbatim}success = CCTK_RegexMatch( const char *string, const char *pattern,
+>                           const int nmatch, regmatch_t *pmatch)\end{verbatim}
+> \end{Synopsis}
+> \end{SynopsisSection}
+> \begin{ParameterSection}
+> \begin{Parameter}{string}
+> String to match against
+> \end{Parameter}
+> \begin{Parameter}{pattern}
+> Regex pattern
+> \end{Parameter}
+> \begin{Parameter}{nmatch}
+> The size of the pmatch array
+> \end{Parameter}
+> \begin{Parameter}{pmatch}
+> Array in which to place the matches
+> \end{Parameter}
+> \end{ParameterSection}
+> \begin{ResultSection}
+> \begin{Result}{0} pattern does not match\end{Result}
+> \begin{Result}{1} pattern matches\end{Result}
+> \begin{Result}{< 0} indicates an error condition (pattern did not compile as a
+>     regular expression) \end{Result}
+> \end{ResultSection}
+> \begin{Discussion}
+> Perform a regular expression match of string against pattern.
+> Also returns the specified number of matched substrings as
+> give by regexec.
+> This is a modified form of the example routine given in the SGI
+> man page for regcomp.
+> \end{Discussion}
+> \begin{ExampleSection}
+> \begin{Example}{C}
+> \begin{verbatim}
+> #define R_BEGIN "(\\[|\\()?"
+> #define R_VALUE "([^]):]*)"
+> #define R_SEP   ":"
+> #define R_END   "(\\]|\\))?"
+> #define R_MAYBE(x) "(" x ")?"
+> 
+>   int matched;
+>   const char pattern[] =
+>     R_BEGIN
+>     R_VALUE
+>     R_MAYBE(R_SEP R_VALUE R_MAYBE(R_SEP R_VALUE))
+>     R_END;
+> 
+>   if( (matched = CCTK_RegexMatch(range, pattern, 8, pmatch)) > 0) {
+>       CCTK_VInfo(CCTK_THORNSTRING, "'%s' is a valid range specifier",
+>                  range);
+>   } else if(!matched) {
+>       CCTK_VInfo(CCTK_THORNSTRING, "'%s' is not a valid range specifier",
+>                  range);
+>   } else {
+>       CCTK_VInfo(CCTK_THORNSTRING, "invalid pattern '%s'", pattern);
+>   }
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/doc/ReferenceManual.pdf and /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/doc/ReferenceManual.pdf differ
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus: exe
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus: log
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/.hg/cache/branchheads /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/.hg/cache/branchheads
+1c1
+< 60493275159604c81d10098c149d5eb992f1e71e 3557
+---
+> 88990f0ba28ef934a071598a29a8872dfd2adf76 3567
+4c4
+< 60493275159604c81d10098c149d5eb992f1e71e default
+---
+> 88990f0ba28ef934a071598a29a8872dfd2adf76 default
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/.hg/cache/tags /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/.hg/cache/tags
+1c1
+< 3557 60493275159604c81d10098c149d5eb992f1e71e
+---
+> 3567 88990f0ba28ef934a071598a29a8872dfd2adf76
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/.hg/dirstate and /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/.hg/dirstate differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/.hg/store/00changelog.d and /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/.hg/store/00changelog.d differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/.hg/store/00changelog.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/.hg/store/00changelog.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/.hg/store/00manifest.d and /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/.hg/store/00manifest.d differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/.hg/store/00manifest.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/.hg/store/00manifest.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet/param.ccl.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet/param.ccl.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet/src/_setup_g_h.cc.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet/src/_setup_g_h.cc.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_interp/src/interp.cc.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_interp/src/interp.cc.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/param.ccl.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/param.ccl.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/src/data.cc.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/src/data.cc.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/src/dh.cc.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/src/dh.cc.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/src/make.code.defn.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/src/make.code.defn.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/src/operator__prototypes__3d.hh.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/src/operator__prototypes__3d.hh.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/src/prolongate__3d__cc__eno__rf2.cc.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/src/prolongate__3d__cc__eno__rf2.cc.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/src/prolongate__3d__cc__rf2.cc.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/src/prolongate__3d__cc__rf2.cc.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/src/prolongate__3d__dgfe__rf2.cc.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/src/prolongate__3d__dgfe__rf2.cc.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/src/prolongate__3d__rf2.cc.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/src/prolongate__3d__rf2.cc.i differ
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/src: restrict__3d__cc__o3__rf2.cc.i
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/src: restrict__3d__cc__o5__rf2.cc.i
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/src/restrict__3d__dgfe__rf2.cc.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/src/restrict__3d__dgfe__rf2.cc.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/src/restrict__3d__vc__rf2.cc.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/src/restrict__3d__vc__rf2.cc.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_regrid2/src/property.cc.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_regrid2/src/property.cc.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_regrid2/src/regrid.cc.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_regrid2/src/regrid.cc.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/.hg/store/data/_carpet_dev/_carpet_adaptive_regrid/src/test/cctk.f.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/.hg/store/data/_carpet_dev/_carpet_adaptive_regrid/src/test/cctk.f.i differ
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/.hg/store/fncache /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/.hg/store/fncache
+1229a1230
+> data/CarpetAttic/Cart3dTest/test/symmetric-x/txz.xl.i
+2749a2751
+> data/Carpet/CarpetLib/src/restrict_3d_cc_o3_rf2.cc.i
+4528c4530
+< data/CarpetAttic/Cart3dTest/test/symmetric-x/txz.xl.i
+---
+> data/Carpet/CarpetLib/src/restrict_3d_cc_o5_rf2.cc.i
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/.hg/store/undo and /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/.hg/store/undo differ
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/Carpet/Carpet/param.ccl /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/Carpet/Carpet/param.ccl
+22a23,28
+> shares: CarpetLib
+> 
+> USES BOOLEAN use_higher_order_restriction
+> USES INT restriction_order_space
+> 
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/Carpet/Carpet/src/SetupGH.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/Carpet/Carpet/src/SetupGH.cc
+2685a2686,2687
+>       int const min_nghosts_restrict =
+>         restriction_order_space / 2;
+2689a2692,2697
+>       }
+>       if (use_higher_order_restriction and 
+>           any (any (ghosts.AT(rl) < i2vect (min_nghosts_restrict)))) {
+>         CCTK_VWarn (0, __LINE__, __FILE__, CCTK_THORNSTRING,
+>                     "There are not enough ghost zones for the desired restriction order on map %d, refinement level %d.  With a restriction order of %d, you need at least %d ghost zones.",
+>                     m, rl, restriction_order_space, min_nghosts_restrict);
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/Carpet/CarpetInterp/src/interp.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/Carpet/CarpetInterp/src/interp.cc
+1700c1700
+<           int const active_tl = groupdata.AT(gi).activetimelevels.AT(m).AT(rl);
+---
+>           int const active_tl = groupdata.AT(gi).activetimelevels.AT(mglevel).AT(rl);
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/Carpet/CarpetLib/param.ccl /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/Carpet/CarpetLib/param.ccl
+35a36,52
+> restricted:
+> 
+> BOOLEAN use_higher_order_restriction "Use third order cell centered restriction operators instead of first order"
+> {
+> } "no"
+> 
+> INT restriction_order_space "Order of restriction operator to use with use_higher_order_restriction"
+> {
+>   1 :: "linear interpolation, this is Carpet's original implementation"
+>   3 :: "third order accurate restriction for grid functions where prolongation is not (W)ENO"
+>   5 :: "fifth order accurate restriction for grid functions where prolongation is not (W)ENO"
+> } 3
+> 
+> 
+> 
+> private:
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/Carpet/CarpetLib/src/data.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/Carpet/CarpetLib/src/data.cc
+1143a1144,1184
+>         if (use_higher_order_restriction and
+>             transport_operator != op_WENO and 
+>             transport_operator != op_ENO) { // HACK
+> 	  switch (restriction_order_space) {
+> 	    case 1:
+>             // Don't use call_operator, because we parallelise ourselves
+>             restrict_3d_cc_rf2(static_cast <T const *> (src->storage()),
+>                                src->shape(),
+>                                static_cast <T *> (this->storage()),
+>                                this->shape(),
+>                                srcbox,
+>                                dstbox,
+>                                srcregbox, dstregbox, NULL);
+> 	    break;
+> 	    case 3:
+>             // Don't use call_operator, because we parallelise ourselves
+>             restrict_3d_cc_o3_rf2(static_cast <T const *> (src->storage()),
+>                                src->shape(),
+>                                static_cast <T *> (this->storage()),
+>                                this->shape(),
+>                                srcbox,
+>                                dstbox,
+>                                srcregbox, dstregbox, NULL);
+> 	    break;
+> 	    case 5:
+>             // Don't use call_operator, because we parallelise ourselves
+>             restrict_3d_cc_o5_rf2(static_cast <T const *> (src->storage()),
+>                                src->shape(),
+>                                static_cast <T *> (this->storage()),
+>                                this->shape(),
+>                                srcbox,
+>                                dstbox,
+>                                srcregbox, dstregbox, NULL);
+> 	    break;
+> 	    default:
+> 	    CCTK_VWarn (CCTK_WARN_ABORT, __LINE__, __FILE__, CCTK_THORNSTRING,
+> 			"There is no restriction stencil with restriction_order_space==%d", restriction_order_space);
+> 	    break;
+> 	  }
+>           break;
+>         }
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/Carpet/CarpetLib/src/dh.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/Carpet/CarpetLib/src/dh.cc
+1036a1037,1041
+>           if(use_higher_order_restriction) {
+>             // NOTE: change in behaviour (affects only outer boundaries I think)!!!!
+>             // NOTE: b/c of this we need a low-level sync after the restrict
+>             needrecv = allrestricted & obox.interior;
+>           }
+1043,1044c1048,1055
+<             ibbox const contracted_exterior =
+<               box.exterior.contracted_for(odomext);
+---
+>             // If we make a mistake expanding the domain of dependence here, it
+>             // _should_ be caught be by the expand()ed is_contained_in(srcbbox)
+>             // test in the actual operator. 
+>             int const shrink_by =
+>               use_higher_order_restriction and (h.refcent == cell_centered) ?
+>               restriction_order_space/2  : 0;
+>             ibbox const contracted_exterior = 
+>               box.exterior.expand(ivect(-shrink_by)).contracted_for(odomext);
+1053a1065,1068
+>               if(use_higher_order_restriction) {
+>                 ASSERT_c (send <= box.interior.expand(ivect(int(h.refcent==cell_centered))),
+>                           "Refinement restriction: Send region must be contained in interior");
+>               }
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/Carpet/CarpetLib/src/make.code.defn /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/Carpet/CarpetLib/src/make.code.defn
+36a37,38
+> 	restrict_3d_cc_o3_rf2.cc		\
+> 	restrict_3d_cc_o5_rf2.cc		\
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/Carpet/CarpetLib/src/operator_prototypes_3d.hh /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/Carpet/CarpetLib/src/operator_prototypes_3d.hh
+37a38,47
+>   static inline
+>   size_t
+>   offset3 (size_t const i, size_t const j, size_t const k,
+>           size_t const exti, size_t const extj, size_t const extk)
+>   {
+>     return i + exti * (j + extj * k);
+>   }
+>   
+>   
+>   
+371a382,409
+>   
+>   
+>   
+>   template <typename T>
+>   void
+>   restrict_3d_cc_o3_rf2 (T const * restrict const src,
+>                          ivect3 const & restrict srcext,
+>                          T * restrict const dst,
+>                          ivect3 const & restrict dstext,
+>                          ibbox3 const & restrict srcbbox,
+>                          ibbox3 const & restrict dstbbox,
+>                          ibbox3 const & restrict srcregbbox,
+>                          ibbox3 const & restrict dstregbbox,
+>                          void * extraargs);
+>   
+>   
+>   
+>   template <typename T>
+>   void
+>   restrict_3d_cc_o5_rf2 (T const * restrict const src,
+>                          ivect3 const & restrict srcext,
+>                          T * restrict const dst,
+>                          ivect3 const & restrict dstext,
+>                          ibbox3 const & restrict srcbbox,
+>                          ibbox3 const & restrict dstbbox,
+>                          ibbox3 const & restrict srcregbbox,
+>                          ibbox3 const & restrict dstregbbox,
+>                          void * extraargs);
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/Carpet/CarpetLib/src/prolongate_3d_cc_eno_rf2.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/Carpet/CarpetLib/src/prolongate_3d_cc_eno_rf2.cc
+49a50,51
+> #define SRCOFF3(i,j,k) offset3 (i, j, k, srciext, srcjext, srckext)
+> #define DSTOFF3(i,j,k) offset3 (i, j, k, dstiext, dstjext, dstkext)
+1072c1074
+<     // size_t const srcdi = SRCIND3(1,0,0) - SRCIND3(0,0,0);
+---
+>     // size_t const srcdi = SRCOFF3(1,0,0) - SRCOFF3(0,0,0);
+1074,1076c1076,1078
+<     assert (srcdi == SRCIND3(1,0,0) - SRCIND3(0,0,0));
+<     size_t const srcdj = SRCIND3(0,1,0) - SRCIND3(0,0,0);
+<     size_t const srcdk = SRCIND3(0,0,1) - SRCIND3(0,0,0);
+---
+>     assert (srcdi == SRCOFF3(1,0,0) - SRCOFF3(0,0,0));
+>     size_t const srcdj = SRCOFF3(0,1,0) - SRCOFF3(0,0,0);
+>     size_t const srcdk = SRCOFF3(0,0,1) - SRCOFF3(0,0,0);
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/Carpet/CarpetLib/src/prolongate_3d_cc_rf2.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/Carpet/CarpetLib/src/prolongate_3d_cc_rf2.cc
+49a50,51
+> #define SRCOFF3(i,j,k) offset3 (i, j, k, srciext, srcjext, srckext)
+> #define DSTOFF3(i,j,k) offset3 (i, j, k, dstiext, dstjext, dstkext)
+446c448
+<     // size_t const srcdi = SRCIND3(1,0,0) - SRCIND3(0,0,0);
+---
+>     // size_t const srcdi = SRCOFF3(1,0,0) - SRCOFF3(0,0,0);
+448,450c450,452
+<     assert (srcdi == SRCIND3(1,0,0) - SRCIND3(0,0,0));
+<     size_t const srcdj = SRCIND3(0,1,0) - SRCIND3(0,0,0);
+<     size_t const srcdk = SRCIND3(0,0,1) - SRCIND3(0,0,0);
+---
+>     assert (srcdi == SRCOFF3(1,0,0) - SRCOFF3(0,0,0));
+>     size_t const srcdj = SRCOFF3(0,1,0) - SRCOFF3(0,0,0);
+>     size_t const srcdk = SRCOFF3(0,0,1) - SRCOFF3(0,0,0);
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/Carpet/CarpetLib/src/prolongate_3d_dgfe_rf2.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/Carpet/CarpetLib/src/prolongate_3d_dgfe_rf2.cc
+24a25,26
+> #define SRCOFF3(i,j,k) ptrdiff_t(offset3(i, j, k, srciext, srcjext, srckext))
+> #define DSTOFF3(i,j,k) ptrdiff_t(offset3(i, j, k, dstiext, dstjext, dstkext))
+132,133c134,135
+<       int const srcdj = SRCIND3(0,1,0) - SRCIND3(0,0,0);
+<       int const srcdk = SRCIND3(0,0,1) - SRCIND3(0,0,0);
+---
+>       int const srcdj = SRCOFF3(0,1,0) - SRCOFF3(0,0,0);
+>       int const srcdk = SRCOFF3(0,0,1) - SRCOFF3(0,0,0);
+135,136c137,138
+<       int const dstdj = DSTIND3(0,1,0) - DSTIND3(0,0,0);
+<       int const dstdk = DSTIND3(0,0,1) - DSTIND3(0,0,0);
+---
+>       int const dstdj = DSTOFF3(0,1,0) - DSTOFF3(0,0,0);
+>       int const dstdk = DSTOFF3(0,0,1) - DSTOFF3(0,0,0);
+166c168
+<       // int const srcdi = SRCIND3(1,0,0) - SRCIND3(0,0,0);
+---
+>       // int const srcdi = SRCOFF3(1,0,0) - SRCOFF3(0,0,0);
+168c170
+<       assert(srcdi == SRCIND3(1,0,0) - SRCIND3(0,0,0));
+---
+>       assert(srcdi == SRCOFF3(1,0,0) - SRCOFF3(0,0,0));
+170,171c172,173
+<       int const srcdk = SRCIND3(0,0,1) - SRCIND3(0,0,0);
+<       // int const dstdi = DSTIND3(1,0,0) - DSTIND3(0,0,0);
+---
+>       int const srcdk = SRCOFF3(0,0,1) - SRCOFF3(0,0,0);
+>       // int const dstdi = DSTOFF3(1,0,0) - DSTOFF3(0,0,0);
+173c175
+<       assert(dstdi == DSTIND3(1,0,0) - DSTIND3(0,0,0));
+---
+>       assert(dstdi == DSTOFF3(1,0,0) - DSTOFF3(0,0,0));
+175c177
+<       int const dstdk = DSTIND3(0,0,1) - DSTIND3(0,0,0);
+---
+>       int const dstdk = DSTOFF3(0,0,1) - DSTOFF3(0,0,0);
+205c207
+<       // int const srcdi = SRCIND3(1,0,0) - SRCIND3(0,0,0);
+---
+>       // int const srcdi = SRCOFF3(1,0,0) - SRCOFF3(0,0,0);
+207,208c209,210
+<       assert(srcdi == SRCIND3(1,0,0) - SRCIND3(0,0,0));
+<       int const srcdj = SRCIND3(0,1,0) - SRCIND3(0,0,0);
+---
+>       assert(srcdi == SRCOFF3(1,0,0) - SRCOFF3(0,0,0));
+>       int const srcdj = SRCOFF3(0,1,0) - SRCOFF3(0,0,0);
+210c212
+<       // int const dstdi = DSTIND3(1,0,0) - DSTIND3(0,0,0);
+---
+>       // int const dstdi = DSTOFF3(1,0,0) - DSTOFF3(0,0,0);
+212,213c214,215
+<       assert(dstdi == DSTIND3(1,0,0) - DSTIND3(0,0,0));
+<       int const dstdj = DSTIND3(0,1,0) - DSTIND3(0,0,0);
+---
+>       assert(dstdi == DSTOFF3(1,0,0) - DSTOFF3(0,0,0));
+>       int const dstdj = DSTOFF3(0,1,0) - DSTOFF3(0,0,0);
+242c244
+<       // int const srcdi = SRCIND3(1,0,0) - SRCIND3(0,0,0);
+---
+>       // int const srcdi = SRCOFF3(1,0,0) - SRCOFF3(0,0,0);
+244,247c246,249
+<       assert(srcdi == SRCIND3(1,0,0) - SRCIND3(0,0,0));
+<       int const srcdj = SRCIND3(0,1,0) - SRCIND3(0,0,0);
+<       int const srcdk = SRCIND3(0,0,1) - SRCIND3(0,0,0);
+<       // int const dstdi = DSTIND3(1,0,0) - DSTIND3(0,0,0);
+---
+>       assert(srcdi == SRCOFF3(1,0,0) - SRCOFF3(0,0,0));
+>       int const srcdj = SRCOFF3(0,1,0) - SRCOFF3(0,0,0);
+>       int const srcdk = SRCOFF3(0,0,1) - SRCOFF3(0,0,0);
+>       // int const dstdi = DSTOFF3(1,0,0) - DSTOFF3(0,0,0);
+249,251c251,253
+<       assert(dstdi == DSTIND3(1,0,0) - DSTIND3(0,0,0));
+<       int const dstdj = DSTIND3(0,1,0) - DSTIND3(0,0,0);
+<       int const dstdk = DSTIND3(0,0,1) - DSTIND3(0,0,0);
+---
+>       assert(dstdi == DSTOFF3(1,0,0) - DSTOFF3(0,0,0));
+>       int const dstdj = DSTOFF3(0,1,0) - DSTOFF3(0,0,0);
+>       int const dstdk = DSTOFF3(0,0,1) - DSTOFF3(0,0,0);
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/Carpet/CarpetLib/src/prolongate_3d_rf2.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/Carpet/CarpetLib/src/prolongate_3d_rf2.cc
+25a26,27
+> #define SRCOFF3(i,j,k) offset3 (i, j, k, srciext, srcjext, srckext)
+> #define DSTOFF3(i,j,k) offset3 (i, j, k, dstiext, dstjext, dstkext)
+591c593
+<     // size_t const srcdi = SRCIND3(1,0,0) - SRCIND3(0,0,0);
+---
+>     // size_t const srcdi = SRCOFF3(1,0,0) - SRCOFF3(0,0,0);
+593,595c595,597
+<     assert (srcdi == SRCIND3(1,0,0) - SRCIND3(0,0,0));
+<     size_t const srcdj = SRCIND3(0,1,0) - SRCIND3(0,0,0);
+<     size_t const srcdk = SRCIND3(0,0,1) - SRCIND3(0,0,0);
+---
+>     assert (srcdi == SRCOFF3(1,0,0) - SRCOFF3(0,0,0));
+>     size_t const srcdj = SRCOFF3(0,1,0) - SRCOFF3(0,0,0);
+>     size_t const srcdk = SRCOFF3(0,0,1) - SRCOFF3(0,0,0);
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/Carpet/CarpetLib/src: restrict_3d_cc_o3_rf2.cc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/Carpet/CarpetLib/src: restrict_3d_cc_o5_rf2.cc
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/Carpet/CarpetLib/src/restrict_3d_dgfe_rf2.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/Carpet/CarpetLib/src/restrict_3d_dgfe_rf2.cc
+24a25,26
+> #define SRCOFF3(i,j,k) ptrdiff_t(offset3(i, j, k, srciext, srcjext, srckext))
+> #define DSTOFF3(i,j,k) ptrdiff_t(offset3(i, j, k, dstiext, dstjext, dstkext))
+105c107
+<     // int const srcdi = SRCIND3(1,0,0) - SRCIND3(0,0,0);
+---
+>     // int const srcdi = SRCOFF3(1,0,0) - SRCOFF3(0,0,0);
+107,109c109,111
+<     assert(srcdi == SRCIND3(1,0,0) - SRCIND3(0,0,0));
+<     int const srcdj = SRCIND3(0,1,0) - SRCIND3(0,0,0);
+<     int const srcdk = SRCIND3(0,0,1) - SRCIND3(0,0,0);
+---
+>     assert(srcdi == SRCOFF3(1,0,0) - SRCOFF3(0,0,0));
+>     int const srcdj = SRCOFF3(0,1,0) - SRCOFF3(0,0,0);
+>     int const srcdk = SRCOFF3(0,0,1) - SRCOFF3(0,0,0);
+111c113
+<     // int const dstdi = DSTIND3(1,0,0) - DSTIND3(0,0,0);
+---
+>     // int const dstdi = DSTOFF3(1,0,0) - DSTOFF3(0,0,0);
+113,115c115,117
+<     assert(dstdi == DSTIND3(1,0,0) - DSTIND3(0,0,0));
+<     int const dstdj = DSTIND3(0,1,0) - DSTIND3(0,0,0);
+<     int const dstdk = DSTIND3(0,0,1) - DSTIND3(0,0,0);
+---
+>     assert(dstdi == DSTOFF3(1,0,0) - DSTOFF3(0,0,0));
+>     int const dstdj = DSTOFF3(0,1,0) - DSTOFF3(0,0,0);
+>     int const dstdk = DSTOFF3(0,0,1) - DSTOFF3(0,0,0);
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/Carpet/CarpetLib/src/restrict_3d_vc_rf2.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/Carpet/CarpetLib/src/restrict_3d_vc_rf2.cc
+25a26,31
+> #define SRCOFF3(i,j,k)                                  \
+>   offset3 (srcioff + (i), srcjoff + (j), srckoff + (k),  \
+>           srciext, srcjext, srckext)
+> #define DSTOFF3(i,j,k)                                  \
+>   offset3 (dstioff + (i), dstjoff + (j), dstkoff + (k),  \
+>           dstiext, dstjext, dstkext)
+226c232
+<     // size_t const srcdi == SRCIND3(1,0,0) - SRCIND3(0,0,0);
+---
+>     // size_t const srcdi == SRCOFF3(1,0,0) - SRCOFF3(0,0,0);
+228,231c234,236
+<     assert (srcdi == SRCIND3(1,0,0) - SRCIND3(0,0,0));
+<     size_t const srcdj = SRCIND3(0,1,0) - SRCIND3(0,0,0);
+<     size_t const srcdk = SRCIND3(0,0,1) - SRCIND3(0,0,0);
+<     
+---
+>     assert (srcdi == SRCOFF3(1,0,0) - SRCOFF3(0,0,0));
+>     size_t const srcdj = SRCOFF3(0,1,0) - SRCOFF3(0,0,0);
+>     size_t const srcdk = SRCOFF3(0,0,1) - SRCOFF3(0,0,0);
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/Carpet/CarpetRegrid2/src/property.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/Carpet/CarpetRegrid2/src/property.cc
+800a801,805
+>     // TODO: baseextent is the exterior of the domain (i.e. it
+>     // includes the boundary); we need to use the interior of the
+>     // domain here (i.e. baseextent minus the boundary). Such a
+>     // calculation is already performed in the beginning of dh.cc's
+>     // regrid.
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/Carpet/CarpetRegrid2/src/regrid.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/Carpet/CarpetRegrid2/src/regrid.cc
+345a346,349
+>     // TODO: Check that the coarse grid contains all finer grids. To
+>     // do this, apply proper_nesting to the coarse grid, and then
+>     // check whether it grew -- if so, this is an error.
+>     
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/repos/carpet/CarpetDev/CarpetAdaptiveRegrid/src/test/cctk.f /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/CarpetDev/CarpetAdaptiveRegrid/src/test/cctk.f
+6c6
+<       character*100 b
+---
+>       character*(*) b
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/simfactory/lib/archive: __init__.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/simfactory/lib/archive: petashare.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/simfactory/lib/archive: uberftp.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/simfactory/lib: libutil.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/simfactory/lib: pyini.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/simfactory/lib: restartlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/simfactory/lib: sim-build.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/simfactory/lib: sim-info.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/simfactory/lib: sim-manage.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/simfactory/lib: sim-sync.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/simfactory/lib: sim-util.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/simfactory/lib: simarchive.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/simfactory/lib: simdb.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/simfactory/lib: simdt.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/simfactory/lib: simenv.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/simfactory/lib: simlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/simfactory/lib: simopts.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/simfactory/lib: simproperties.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/simfactory/lib: simremote.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/simfactory/lib: simrestart.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/simfactory/lib: simsubs.pyc
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/src/include/cctk_Misc.h /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/src/include/cctk_Misc.h
+15a16,17
+> #include "cctk_GNU.h"
+> 
+34a37,41
+> 
+> int CCTK_RegexMatch (const char *string,
+>                      const char *pattern,
+>                      const int nmatch,
+>                      regmatch_t *pmatch);
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/src/main/Parameters.c /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/src/main/Parameters.c
+8c8
+<    @version   $Id: Parameters.c 4804 2012-04-19 00:15:34Z rhaas $
+---
+>    @version   $Id: Parameters.c 4831 2012-06-05 01:21:05Z rhaas $
+206,210d205
+< int CCTK_RegexMatch (const char *string,
+<                      const char *pattern,
+<                      const int nmatch,
+<                      regmatch_t *pmatch);
+< 
+2110c2105,2106
+<       if (CCTK_RegexMatch (value, range->range, 0, NULL))
+---
+>       const int matched = CCTK_RegexMatch (value, range->range, 0, NULL);
+>       if (matched > 0)
+2116a2113,2118
+>       else if (matched < 0)
+>       {
+>         CCTK_VWarn(CCTK_WARN_ALERT, __LINE__, __FILE__, "Cactus",
+>                    "Invalid regular expression '%s' used as range for string %s::%s",
+>                    range->range, param->props->thorn, param->props->name);
+>       }
+2154c2156,2157
+<       if (CCTK_RegexMatch (value, range->range, 0, NULL))
+---
+>       const int matched = CCTK_RegexMatch (value, range->range, 0, NULL);
+>       if (matched > 0)
+2159a2163,2168
+>       }
+>       else if (matched < 0)
+>       {
+>         CCTK_VWarn(CCTK_WARN_ALERT, __LINE__, __FILE__, "Cactus",
+>                    "Invalid regular expression '%s' used as range for sequence %s::%s",
+>                    range->range, param->props->thorn, param->props->name);
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-04-020001/Cactus/src/util/Misc.c /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/src/util/Misc.c
+8c8
+<    @version   $Id: Misc.c 4504 2008-09-15 16:18:00Z tradke $
+---
+>    @version   $Id: Misc.c 4831 2012-06-05 01:21:05Z rhaas $
+22,23d21
+< #include "cctk_GNU.h"
+< 
+43,46d40
+< int CCTK_RegexMatch(const char *string,
+<                     const char *pattern,
+<                     const int nmatch,
+<                     regmatch_t *pmatch);
+369a364
+>   int matched;
+410c405,406
+<   if(CCTK_RegexMatch(range, pattern, 8, pmatch) != 0)
+---
+>   matched = CCTK_RegexMatch(range, pattern, 8, pmatch);
+>   if(matched > 0)
+531c527
+<   else
+---
+>   else if(!matched)
+534a531,535
+>   else
+>   {
+>     CCTK_VWarn(0, __LINE__, __FILE__, "Flesh",
+>                "Invalid patten '%s' used to parse range", pattern);
+>   }
+612c613
+<   if(CCTK_RegexMatch(range, pattern, 8, pmatch) != 0)
+---
+>   if(CCTK_RegexMatch(range, pattern, 8, pmatch) > 0)
+1173c1174
+<     if(CCTK_RegexMatch(value, element, 0, NULL))
+---
+>     if(CCTK_RegexMatch(value, element, 0, NULL) > 0)
+1314a1316
+>    <0 - pattern is invalid
+1350c1352
+<       retval = 0;
+---
+>       retval = -1;       /* repost error */
