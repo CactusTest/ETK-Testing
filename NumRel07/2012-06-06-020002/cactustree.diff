@@ -1,0 +1,854 @@
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus: TEST.1
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus: TEST.2
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/interface.ccl /home/jhar131/TESTING/einsteintoolkit/2012-06-06-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/interface.ccl
+478a479
+> int InLastMoLPostStep type = SCALAR tags='checkpoint="no"' "Flag to indicate if we are currently in the last MoL_PostStep"
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/param.ccl /home/jhar131/TESTING/einsteintoolkit/2012-06-06-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/param.ccl
+119d118
+<   "vanleerMC"	:: "Van Leer MC - Ian"
+121,122d119
+<   "minmod2"	:: "Minmod - Ian"
+<   "minmod3"	:: "Minmod - Luca (or vice versa). Expect I've made a typo"
+201c198
+< real enhanced_ppm_C2 "Parameter for enhancecd ppm limiter. Default from McCorquodale & Colella 2011"
+---
+> real enhanced_ppm_C2 "Parameter for enhancecd ppm limiter. Default from McCorquodale & Colella 2011" STEERABLE=ALWAYS
+206c203
+< real enhanced_ppm_C3 "Parameter for enhancecd ppm limiter. Default from McCorquodale & Colella 2011"
+---
+> real enhanced_ppm_C3 "Parameter for enhancecd ppm limiter. Default from McCorquodale & Colella 2011" STEERABLE=ALWAYS
+595,598c592,601
+< # The following parameter is to reduce the number of syncs/boundary calls done
+< # it will lead to correct results when set to yes ONLY when the simulation does not use 
+< # an atmosphere at all.
+< boolean disable_sync_and_tmunu_after_MoL "Do not sync/prolongate and reset Tmunu after MoL integration is done" STEERABLE=ALWAYS
+---
+> 
+> 
+> ############### Optimization options ###################################################
+> 
+> 
+> 
+> # This can improve the performance on many cores, but may be dangerous 
+> # (it seems to work in simple testcases, but morde complicated settings may fail)
+> # If you encounter strange behavior, switch this OFF
+> BOOLEAN sync_conserved_only "Only sync evolved conserved quantities during evolution."
+600c603,628
+< } "no"
+---
+> } no
+> 
+> 
+> 
+> 
+> BOOLEAN verbose "Some debug output"
+> {
+> } no
+> 
+> 
+> 
+> 
+> 
+> ############### Testing options ###################################################
+> 
+> 
+> # This constrains the flux velicity vectors to spherical symmetry.
+> # Only the radial contribution to the velocity vectors is considered.
+> # This is due to Kotake et al 2012.
+> BOOLEAN constrain_to_1D "Set fluid velocities to zero for non-radial motion"
+> {
+> } no
+> 
+> 
+> 
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/schedule.ccl /home/jhar131/TESTING/einsteintoolkit/2012-06-06-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/schedule.ccl
+69a70
+> STORAGE:InLastMoLPostStep
+1001c1002
+< schedule GRHydro_Boundaries IN HydroBase_Select_Boundaries AS GRHydro_Bound
+---
+> if (!sync_conserved_only)
+1003,1025c1004,1110
+<   LANG: Fortran
+<   OPTIONS: LEVEL
+<   SYNC: dens
+<   SYNC: tau
+<   SYNC: scon
+<   SYNC: HydroBase::w_lorentz
+<   SYNC: HydroBase::rho
+<   SYNC: HydroBase::press
+<   SYNC: HydroBase::eps
+<   SYNC: HydroBase::vel
+<   SYNC: Bcons
+<   SYNC: HydroBase::Bvec
+<   SYNC: psidc
+<   SYNC: GRHydro_cons_tracers
+<   SYNC: GRHydro_tracers
+<   SYNC: hydrobase::temperature
+<   SYNC: hydrobase::entropy
+<   SYNC: hydrobase::Y_e
+<   SYNC: Y_e_con
+<   SYNC: lvel
+<   SYNC: lBvec
+< } "Select GRHydro boundary conditions"
+<   
+---
+>    schedule GRHydro_Boundaries IN HydroBase_Select_Boundaries AS GRHydro_Bound
+>    {
+>       LANG: Fortran
+>       OPTIONS: LEVEL
+>       SYNC: dens
+>       SYNC: tau
+>       SYNC: scon
+>       SYNC: HydroBase::w_lorentz
+>       SYNC: HydroBase::rho
+>       SYNC: HydroBase::press
+>       SYNC: HydroBase::eps
+>       SYNC: HydroBase::vel
+>       SYNC: Bcons
+>       SYNC: HydroBase::Bvec
+>       SYNC: psidc
+>       SYNC: GRHydro_cons_tracers
+>       SYNC: GRHydro_tracers
+>       SYNC: hydrobase::temperature
+>       SYNC: hydrobase::entropy
+>       SYNC: hydrobase::Y_e
+>       SYNC: Y_e_con
+>       SYNC: lvel
+>       SYNC: lBvec
+>    } "Select GRHydro boundary conditions"
+> }
+> else
+> {
+>     schedule GRHydro_Boundaries IN HydroBase_Select_Boundaries AS GRHydro_Bound
+>     {
+>       LANG: Fortran
+>       OPTIONS: LEVEL
+>       SYNC: dens
+>       SYNC: tau
+>       SYNC: scon
+>       SYNC: Bcons
+>       SYNC: psidc
+>       SYNC: GRHydro_cons_tracers
+>       SYNC: Y_e_con
+>     } "Select GRHydro boundary conditions"
+> 
+>     # after a regrid Cactus relies on the boundary thorns to fill in the outer
+>     # and symmetry boundaries (we need valid data for the initial guess in Con2Prim)
+>     schedule group GRHydro_PrimitiveBoundaries IN CCTK_POSTREGRID BEFORE MoL_PostStep
+>     {
+>     } "Apply boundary conditions to primitives"
+>     schedule group GRHydro_PrimitiveBoundaries IN CCTK_POSTREGRIDINITIAL BEFORE MoL_PostStep
+>     {
+>     } "Apply boundary conditions to primitives"
+>     
+>     # This is necessary to provide initial guesses for Con2Prim after atmo reset (which happens only at last MoL post-step)!
+>     schedule group GRHydro_PrimitiveBoundaries IN HydroBase_PostStep BEFORE HydroBase_Boundaries IF GRHydro::InLastMoLPostStep
+>     {
+>     } "Apply boundary conditions to primitives"
+>     
+> 
+>     if(CCTK_IsImplementationActive("Coordinates")) {
+>     
+>       # With MP, we only need to sync primitives in LOCAL tensor base!!
+>       schedule GRHydro_SelectPrimitiveBoundaries IN GRHydro_PrimitiveBoundaries
+>       {
+> 	 LANG: Fortran
+> 	 OPTIONS: LEVEL
+> 	 # do a sync to be very sure we have proper initial guesses everywhere
+> #         SYNC: HydroBase::w_lorentz      # not used as initial guess and hence not needed!
+> #         SYNC: HydroBase::press          # not used as initial guess and hence not needed!
+> #         SYNC: HydroBase::vel
+> #         SYNC: HydroBase::Bvec
+> #         SYNC: hydrobase::entropy        # not used as initial guess and hence not needed!
+> #         SYNC: hydrobase::Y_e            # not used as initial guess and hence not needed!
+> #         SYNC: GRHydro_tracers           # not used as initial guess and hence not needed!
+>          SYNC: HydroBase::rho
+> 	 SYNC: HydroBase::eps
+> 	 SYNC: hydrobase::temperature
+> 	 SYNC: lvel
+> 	 SYNC: lBvec
+>       } "Select primitive variables for boudary conditions"
+>     }
+>     else
+>     {
+>       # Without MP, we only need to sync primitives in GLOBAL tensor base!!
+>       schedule GRHydro_SelectPrimitiveBoundaries IN GRHydro_PrimitiveBoundaries
+>       {
+> 	 LANG: Fortran
+> 	 OPTIONS: LEVEL
+> 	 # do a sync to be very sure we have proper initial guesses everywhere
+> #         SYNC: HydroBase::w_lorentz      # not used as initial guess and hence not needed!
+> #         SYNC: HydroBase::press          # not used as initial guess and hence not needed!
+> #         SYNC: hydrobase::entropy        # not used as initial guess and hence not needed!
+> #         SYNC: hydrobase::Y_e            # not used as initial guess and hence not needed!
+> #         SYNC: lvel
+> #         SYNC: lBvec
+> #         SYNC: GRHydro_tracers           # not used as initial guess and hence not needed!
+> 	 SYNC: HydroBase::rho
+> 	 SYNC: HydroBase::eps
+> 	 SYNC: HydroBase::vel
+> 	 SYNC: HydroBase::Bvec
+> 	 SYNC: hydrobase::temperature
+>       } "Select primitive variables for boudary conditions"
+>     
+>     }
+>     
+>     schedule group ApplyBCs AS GRHydro_ApplyPrimitiveBCs in GRHydro_PrimitiveBoundaries AFTER GRHydro_SelectPrimitiveBoundaries
+>     {
+>     } "Apply boundary conditions to primitive variables"
+> 
+> }  # sync_conserved_only
+> 
+1045a1131,1156
+> ### Some actions are only required in the very last MoL sub- ###
+> ### step but cannot be moved into PseudoEvolution since they ###
+> ### affect other routines in PostStep. A prime example is    ###
+> ### AmosphereReset which forms an operator split RHS.        ###
+> ################################################################
+> 
+> schedule GRHydro_SetLastMoLPostStep IN MoL_PostStep
+> {
+>   LANG: C
+>   OPTIONS: level
+> } "Set grid scalar InLastMoLPostStep if this is the last MoL PostStep call"
+> # there used to be a comment along the lines "You did not see this abuse of
+> # MoL. Nothing to see here. Move along." Consider such a comment to be present
+> # again.
+> schedule GRHydro_ClearLastMoLPostStep IN MoL_Step AFTER MoL_PostStep
+> {
+>   LANG: C
+>   OPTIONS: level
+> } "Reset InLastMoLPostStep to zero"
+> schedule GRHydro_ClearLastMoLPostStep IN CCTK_WRAGH
+> {
+>   LANG: C
+>   OPTIONS: global-early
+> } "Initialize InLastMoLPostStep to zero"
+> 
+> ################################################################
+1049,1052c1160
+< ### This is logically still part of the MoL evolution step   ###
+< ### since it is part of evolving the primitives. The final   ###
+< ### SetTmunu should be before PseudoEvolution so that eg.    ###
+< ### constraints use the correct stress energy tensor.        ###
+---
+> ### This is executed in the last MoL_PosStep                 ###
+1057c1165
+<   schedule GRHydro_AtmosphereResetM AT EVOL AFTER MoL_Evolution
+---
+>   schedule GRHydro_AtmosphereResetM IN MoL_PostStep AFTER ADMBase_SetADMVars AFTER GRHydro_SetLastMoLPostStep BEFORE HydroBase_PostStep IF GRHydro::InLastMoLPostStep
+1062c1170
+<   schedule GRHydro_AtmosphereReset AT EVOL AFTER MoL_Evolution
+---
+>   schedule GRHydro_AtmosphereReset IN MoL_PostStep AFTER ADMBase_SetADMVars BEFORE HydroBase_PostStep IF GRHydro::InLastMoLPostStep
+1068,1076d1175
+< if(!disable_sync_and_tmunu_after_MoL) {
+<   schedule group HydroBase_Boundaries AT EVOL AFTER MoL_Evolution AFTER (GRHydro_AtmosphereReset GRHydro_AtmosphereResetM)
+<   {
+<   } "HydroBase Boundary conditions group"
+<   
+<   schedule GROUP SetTmunu AT EVOL AFTER HydroBase_Boundaries BEFORE MoL_PseudoEvolution
+<   {
+<   } "Calculate the stress-energy tensor"
+< }
+1183a1283,1295
+> 
+> 
+> if (constrain_to_1D) {
+>   SCHEDULE ConstrainSconTo1D in MoL_PostStepModify
+>   {
+>     LANG: FORTRAN
+>     OPTION: LOCAL
+>   } "Constrain conserved fluid velocity to radial direction"
+> }
+> 
+> 
+> 
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_Boundaries.F90 /home/jhar131/TESTING/einsteintoolkit/2012-06-06-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_Boundaries.F90
+69,70c69,74
+<   call SetCartSymVN(ierr, cctkGH, sym, "HydroBase::rho")
+<   call SetCartSymVN(ierr, cctkGH, sym, "HydroBase::press")
+---
+>   !if (sync_conserved_only .eq. 0) then
+>    call SetCartSymVN(ierr, cctkGH, sym, "HydroBase::rho")
+>    call SetCartSymVN(ierr, cctkGH, sym, "HydroBase::press")
+>    call SetCartSymVN(ierr, cctkGH, sym, "HydroBase::w_lorentz")
+>    call SetCartSymVN(ierr, cctkGH, sym, "HydroBase::eps")
+>   !endif
+73,74d76
+<   call SetCartSymVN(ierr, cctkGH, sym, "HydroBase::w_lorentz")
+<   call SetCartSymVN(ierr, cctkGH, sym, "HydroBase::eps")
+86a89
+>    !if (sync_conserved_only .eq. 0) then
+87a91
+>    !endif
+92,93c96,99
+<      call SetCartSymGN(ierr, cctkGH, sym, "HydroBase::temperature")
+<      call SetCartSymGN(ierr, cctkGH, sym, "HydroBase::entropy")
+---
+>     !if (sync_conserved_only .eq. 0) then
+>       call SetCartSymGN(ierr, cctkGH, sym, "HydroBase::temperature")
+>       call SetCartSymGN(ierr, cctkGH, sym, "HydroBase::entropy")
+>     !endif
+100,104c106,112
+<   if (general_coordinates .ne. 0) then
+<      call SetCartSymVN(ierr, cctkGH, sym, "GRHydro::lvel[0]")
+<   else
+<      call SetCartSymVN(ierr, cctkGH, sym, "HydroBase::vel[0]")
+<   endif
+---
+>   !if (sync_conserved_only .eq. 0) then
+>       if (general_coordinates .ne. 0) then
+> 	 call SetCartSymVN(ierr, cctkGH, sym, "GRHydro::lvel[0]")
+>       else
+> 	 call SetCartSymVN(ierr, cctkGH, sym, "HydroBase::vel[0]")
+>       endif
+>   !endif
+107c115,117
+<      call SetCartSymVN(ierr, cctkGH, sym, "HydroBase::Bvec[0]")
+---
+>      !if (sync_conserved_only .eq. 0) then
+>       call SetCartSymVN(ierr, cctkGH, sym, "HydroBase::Bvec[0]")
+>      !endif
+115,119c125,131
+<   if (general_coordinates .ne. 0) then
+<      call SetCartSymVN(ierr, cctkGH, sym, "GRHydro::lvel[1]")
+<   else
+<      call SetCartSymVN(ierr, cctkGH, sym, "HydroBase::vel[1]")
+<   endif
+---
+>   !if (sync_conserved_only .eq. 0) then
+>       if (general_coordinates .ne. 0) then
+> 	 call SetCartSymVN(ierr, cctkGH, sym, "GRHydro::lvel[1]")
+>       else
+> 	 call SetCartSymVN(ierr, cctkGH, sym, "HydroBase::vel[1]")
+>       endif
+>   !endif
+122c134,136
+<      call SetCartSymVN(ierr, cctkGH, sym, "HydroBase::Bvec[1]")
+---
+>      !if (sync_conserved_only .eq. 0) then
+> 	 call SetCartSymVN(ierr, cctkGH, sym, "HydroBase::Bvec[1]")
+>      !endif
+130,134c144,150
+<   if (general_coordinates .ne. 0) then
+<      call SetCartSymVN(ierr, cctkGH, sym, "GRHydro::lvel[2]")
+<   else
+<      call SetCartSymVN(ierr, cctkGH, sym, "HydroBase::vel[2]")
+<   endif
+---
+>   !if (sync_conserved_only .eq. 0) then
+>       if (general_coordinates .ne. 0) then
+> 	 call SetCartSymVN(ierr, cctkGH, sym, "GRHydro::lvel[2]")
+>       else
+> 	 call SetCartSymVN(ierr, cctkGH, sym, "HydroBase::vel[2]")
+>       endif
+>   !endif
+137,138c153,156
+<      call SetCartSymVN(ierr, cctkGH, sym, "HydroBase::Bvec[2]")
+<      call SetCartSymVN(ierr, cctkGH, sym, "GRHydro::Bcons[2]")
+---
+>     !if (sync_conserved_only .eq. 0) then
+>       call SetCartSymVN(ierr, cctkGH, sym, "HydroBase::Bvec[2]")
+>     !endif 
+>     call SetCartSymVN(ierr, cctkGH, sym, "GRHydro::Bcons[2]")
+183a202,203
+>   if (verbose.eq.1) call CCTK_INFO("Selecting conserved BC (and primitive BC if selected)")
+> 
+193,206c213,228
+<     ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+<          "HydroBase::w_lorentz", "Flat")
+<     ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+<          "HydroBase::rho", "Flat")
+<     ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+<          "HydroBase::press", "Flat")
+<     ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+<          "HydroBase::eps", "Flat")
+<     if (general_coordinates .ne. 0) then
+<        ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+<             "GRHydro::lvel", "Flat")
+<     else
+<        ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+<             "HydroBase::vel", "Flat")
+---
+>     if (sync_conserved_only .eq. 0) then
+>       ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+> 	    "HydroBase::w_lorentz", "Flat")
+>       ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+> 	    "HydroBase::rho", "Flat")
+>       ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+> 	    "HydroBase::press", "Flat")
+>       ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+> 	    "HydroBase::eps", "Flat")
+>       if (general_coordinates .ne. 0) then
+> 	 ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+> 	       "GRHydro::lvel", "Flat")
+>       else
+> 	 ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+> 	       "HydroBase::vel", "Flat")
+>       endif
+209,214c231,238
+<        if (general_coordinates .ne. 0) then
+<           ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+<                "GRHydro::lBvec", "Flat")
+<        else
+<           ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+<                "HydroBase::Bvec", "Flat")
+---
+>        if (sync_conserved_only .eq. 0) then
+> 	 if (general_coordinates .ne. 0) then
+> 	    ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+> 		  "GRHydro::lBvec", "Flat")
+> 	 else
+> 	    ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+> 		  "HydroBase::Bvec", "Flat")
+> 	 endif
+225,226c249,252
+<       ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+<             "GRHydro::GRHydro_tracers", "Flat")
+---
+>       if (sync_conserved_only .eq. 0) then
+> 	 ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+> 	       "GRHydro::GRHydro_tracers", "Flat")
+>       endif
+232,233c258,261
+<       ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+<             "HydroBase::Y_e", "Flat")
+---
+>       if (sync_conserved_only .eq. 0) then
+> 	 ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+> 	       "HydroBase::Y_e", "Flat")
+>       endif
+239,242c267,272
+<       ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+<             "HydroBase::temperature", "Flat")
+<       ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+<             "HydroBase::entropy", "Flat")
+---
+>       if (sync_conserved_only .eq. 0) then
+> 	 ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+> 	       "HydroBase::temperature", "Flat")
+> 	 ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+> 	       "HydroBase::entropy", "Flat")
+>       endif
+255,268c285,301
+<     ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+<          "HydroBase::w_lorentz", "None")
+<     ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+<          "HydroBase::rho", "None")
+<     ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+<          "HydroBase::press", "None")
+<     ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+<          "HydroBase::eps", "None")
+<     if (general_coordinates .ne. 0) then
+<        ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+<              "GRHydro::lvel", "None")
+<     else
+<        ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+<              "HydroBase::vel", "None")
+---
+>     
+>     if (sync_conserved_only .eq. 0) then
+>       ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+> 	    "HydroBase::w_lorentz", "None")
+>       ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+> 	    "HydroBase::rho", "None")
+>       ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+> 	    "HydroBase::press", "None")
+>       ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+> 	    "HydroBase::eps", "None")
+>       if (general_coordinates .ne. 0) then
+> 	 ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+> 	       "GRHydro::lvel", "None")
+>       else
+> 	 ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+> 	       "HydroBase::vel", "None")
+>       endif
+272,277c305,312
+<        if (general_coordinates .ne. 0) then
+<           ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+<                "GRHydro::lBvec", "None")
+<        else
+<           ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+<                "HydroBase::Bvec", "None")
+---
+>        if (sync_conserved_only .eq. 0) then
+> 	 if (general_coordinates .ne. 0) then
+> 	    ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+> 		  "GRHydro::lBvec", "None")
+> 	 else
+> 	    ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+> 		  "HydroBase::Bvec", "None")
+> 	 endif
+288,289c323,326
+<       ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+<             "GRHydro::GRHydro_tracers", "None")
+---
+>       if (sync_conserved_only .eq. 0) then 
+> 	 ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+> 	       "GRHydro::GRHydro_tracers", "None")
+>       endif
+295,296c332,335
+<       ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+<             "HydroBase::Y_e", "None")
+---
+>       if (sync_conserved_only .eq. 0) then
+> 	 ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+> 	       "HydroBase::Y_e", "None")
+>       endif
+302,305c341,346
+<       ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+<             "HydroBase::temperature", "None")
+<       ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+<             "HydroBase::entropy", "None")
+---
+>       if (sync_conserved_only .eq. 0) then
+> 	 ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+> 	       "HydroBase::temperature", "None")
+> 	 ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+> 	       "HydroBase::entropy", "None")
+>       endif
+317a359,491
+> 
+> 
+> subroutine GRHydro_SelectPrimitiveBoundaries(CCTK_ARGUMENTS)
+>   
+>   implicit none
+>   
+>   DECLARE_CCTK_ARGUMENTS
+>   DECLARE_CCTK_PARAMETERS
+>   DECLARE_CCTK_FUNCTIONS
+>   
+>   integer, dimension(3) :: sw
+>   integer :: ierr = 0
+>   integer :: i,j,k
+>   CCTK_INT :: GRHydro_UseGeneralCoordinates, general_coordinates
+> 
+>   CCTK_INT, parameter :: faces=CCTK_ALL_FACES
+>   CCTK_INT, parameter :: ione=1
+>   
+>   sw = GRHydro_stencil
+> 
+>   general_coordinates = GRHydro_UseGeneralCoordinates(cctkGH)
+> 
+> !!$Flat boundaries if required  
+> 
+> ! The commented out code are those primitives which do not require and explicit
+> ! initial guess for Con2Prim. The guesses are either not needed or computed from other quantities!
+> 
+>   if (verbose.eq.1) call CCTK_INFO("Selecting primitive BC")
+> 
+> 
+>   if (CCTK_EQUALS(bound,"flat")) then
+>     
+>     !ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+>     !      "HydroBase::w_lorentz", "Flat")
+>     ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+>           "HydroBase::rho", "Flat")
+>     !ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+>     !      "HydroBase::press", "Flat")
+>     ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+>           "HydroBase::eps", "Flat")
+>     if (general_coordinates .ne. 0) then
+>        ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+>              "GRHydro::lvel", "Flat")
+>     else
+>        ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+>              "HydroBase::vel", "Flat")
+>     endif
+>     if(evolve_mhd.ne.0) then
+>       if (general_coordinates .ne. 0) then
+>          ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+>                "GRHydro::lBvec", "Flat")
+>       else
+>          ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+>                "HydroBase::Bvec", "Flat")
+>       endif
+>     endif
+> 
+>     !if(evolve_tracer.ne.0) then 
+>     !  ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+>     !         "GRHydro::GRHydro_tracers", "Flat")
+>     !endif
+> 
+>     !if(evolve_y_e.ne.0) then
+>     !  ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+>     !         "HydroBase::Y_e", "Flat")
+>     !endif
+> 
+>     if(evolve_temper.ne.0) then
+>        ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+>              "HydroBase::temperature", "Flat")
+>        !ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+>        !      "HydroBase::entropy", "Flat")
+>     endif
+> 
+> 
+>   endif
+> 
+>   if (CCTK_EQUALS(bound,"none")) then      
+>     !ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+>     !      "HydroBase::w_lorentz", "None")
+>     ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+>           "HydroBase::rho", "None")
+>     !ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+>     !      "HydroBase::press", "None")
+>     ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+>           "HydroBase::eps", "None")
+>     if (general_coordinates .ne. 0) then
+>        ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+>              "GRHydro::lvel", "None")
+>     else
+>        ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+>              "HydroBase::vel", "None")
+>     endif
+>     
+>     if(evolve_mhd.ne.0) then
+>       if (general_coordinates .ne. 0) then
+>         ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+> 	       "GRHydro::lBvec", "None")
+>       else
+>         ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+>                "HydroBase::Bvec", "None")
+>       endif
+>        
+>     endif
+> 
+>     !if(evolve_tracer.ne.0) then 
+>     !   ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+>     !         "GRHydro::GRHydro_tracers", "None")
+>     !  
+>     !endif
+> 
+>     !if(evolve_y_e.ne.0) then
+>     !   ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+>     !         "HydroBase::Y_e", "None")
+>     !  
+>     !endif
+> 
+>     if(evolve_temper.ne.0) then
+>        ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+>              "HydroBase::temperature", "None")
+>        !ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+>        !      "HydroBase::entropy", "None")
+>     endif
+> 
+>   end if
+> 
+>   if (CCTK_EQUALS(bound,"scalar")) then
+>     call CCTK_WARN(0, "Until somebody uses this I see no reason to support it")
+>   end if
+> 
+>   if (ierr < 0) call CCTK_WARN(0, "problems with applying the chosen boundary condition")
+> 
+> end subroutine GRHydro_SelectPrimitiveBoundaries
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_CalcUpdate.F90 /home/jhar131/TESTING/einsteintoolkit/2012-06-06-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_CalcUpdate.F90
+74a75
+>             
+262a264
+>           
+321a324,385
+> 
+> 
+> 
+> 
+>  /*@@
+>    @routine    ConstrainSconTo1D
+>    @date       Tue  24 14:12 2012
+>    @author     Christian Reisswig
+>    @desc 
+>    Constrains the conserved fluid velocity to radial direction
+>    @enddesc 
+>    @calls     
+>    @calledby   
+>    @history 
+>    @endhistory 
+> 
+> @@*/
+> 
+> 
+> subroutine ConstrainSconTo1D(CCTK_ARGUMENTS)
+>    implicit none
+> 
+>   DECLARE_CCTK_ARGUMENTS
+>   DECLARE_CCTK_PARAMETERS
+>   DECLARE_CCTK_FUNCTIONS
+> 
+>   CCTK_INT :: i,j,k
+>   CCTK_REAL :: rnorm, rnormI, scon_tmp1, scon_tmp2, scon_tmp3
+> 
+>       !$OMP PARALLEL DO PRIVATE(i,j,k,rnorm,rnormI,scon_tmp1,scon_tmp2,scon_tmp3)
+>       do k = GRHydro_stencil + 1 - transport_constraints, cctk_lsh(3) - GRHydro_stencil ! we need to compute Evec on all faces/edges where the fluxes are defined
+>         do j = GRHydro_stencil + 1 - transport_constraints, cctk_lsh(2) - GRHydro_stencil
+>           do i = GRHydro_stencil + 1 - transport_constraints, cctk_lsh(1) - GRHydro_stencil
+> 
+>             
+>             ! Eliminate non-radial fluid velocities to obtain pseudo 1D scheme
+>                rnorm = (x(i,j,k)**2 + y(i,j,k)**2 + z(i,j,k)**2)
+>                if (rnorm.eq.0) then
+>                   rnormI = 0
+>                else
+>                   rnormI = 1.0d0/rnorm
+>                endif
+>                
+>                scon_tmp1 = (x(i,j,k)*scon(i,j,k,1) &
+>                           + y(i,j,k)*scon(i,j,k,2) &
+>                           + z(i,j,k)*scon(i,j,k,3)) * rnormI * x(i,j,k)
+>                scon_tmp2 = (x(i,j,k)*scon(i,j,k,1) &
+>                           + y(i,j,k)*scon(i,j,k,2) &
+>                           + z(i,j,k)*scon(i,j,k,3)) * rnormI * y(i,j,k)
+>                scon_tmp3 = (x(i,j,k)*scon(i,j,k,1) &
+>                           + y(i,j,k)*scon(i,j,k,2) &
+>                           + z(i,j,k)*scon(i,j,k,3)) * rnormI * z(i,j,k)
+>                
+>                scon(i,j,k,1) = scon_tmp1
+>                scon(i,j,k,2) = scon_tmp2
+>                scon(i,j,k,3) = scon_tmp3
+>                
+>         end do
+>       end do
+>     end do
+> end subroutine ConstrainSconTo1D
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_Con2Prim.F90 /home/jhar131/TESTING/einsteintoolkit/2012-06-06-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_Con2Prim.F90
+477a478
+> 
+557a559
+>     
+664c666
+<                  write(warnline,"(A10,i5)") "reflevel, iteration: ", GRHydro_reflevel, cctk_iteration
+---
+>                  write(warnline,"(A10,i5,i5)") "reflevel, iteration: ", GRHydro_reflevel, cctk_iteration
+757c759
+<                  write(warnline,"(A10,i5)") "reflevel, iteration: ", GRHydro_reflevel, cctk_iteration
+---
+>                  write(warnline,"(A10,i5,i5)") "reflevel, iteration: ", GRHydro_reflevel, cctk_iteration
+868c870
+<                    write(warnline,"(A10,i5)") "reflevel, iteration: ", GRHydro_reflevel, cctk_iteration
+---
+>                    write(warnline,"(A10,i5,i5)") "reflevel, iteration: ", GRHydro_reflevel, cctk_iteration
+1983a1986,1988
+> 
+>   ! do not check if told not to
+>   if(GRHydro_reflevel .lt. GRHydro_c2p_warn_from_reflevel) return
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_ParamCheck.F90 /home/jhar131/TESTING/einsteintoolkit/2012-06-06-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_ParamCheck.F90
+114a115,118
+>   
+>   if (constrain_to_1D .eq. 1 .and. coordinates_is_active.eq.1) then
+>     call CCTK_WARN(0, "Constrain to 1D option does not work with other than Cartesian coordinates. Ask Christian R. to implement it if required!")
+>   endif
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_PreLoop.F90 /home/jhar131/TESTING/einsteintoolkit/2012-06-06-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_PreLoop.F90
+42,44d41
+<   MINMOD2 = .false.
+<   MINMOD3 = .false.
+<   MC1 = .false.
+52,57d48
+<   else if (CCTK_EQUALS(tvd_limiter,"minmod2")) then
+<     MINMOD2 = .true.
+<   else if (CCTK_EQUALS(tvd_limiter,"minmod3")) then
+<     MINMOD3 = .true.
+<   else if (CCTK_EQUALS(tvd_limiter,"vanleerMC")) then
+<     MC1 = .true.
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_RegisterVars.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-06-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_RegisterVars.cc
+61a62,64
+>   register_constrained("TmunuBase::stress_energy_scalar");
+>   register_constrained("TmunuBase::stress_energy_vector");
+>   register_constrained("TmunuBase::stress_energy_tensor");
+96,98c99,103
+<     register_saveandrestore("admbase::lapse");
+<     register_saveandrestore("admbase::metric");
+<     register_saveandrestore("admbase::curv");
+---
+>     if(GRHydro_MaxNumSandRVars != 0) { // hack to save some memory since we "know" that someone else will register these as constrained
+>       register_saveandrestore("admbase::lapse");
+>       register_saveandrestore("admbase::metric");
+>       register_saveandrestore("admbase::curv");
+>     }
+109c114,115
+<       else
+---
+>       else if(GRHydro_MaxNumSandRVars != 0) // hack to save some memory since we "know" that someone else will register these as constrained
+>       { 
+110a117
+>       }
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_Scalars.F90 /home/jhar131/TESTING/einsteintoolkit/2012-06-06-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_Scalars.F90
+19c19
+<    LOGICAL :: MINMOD, MINMOD2, MINMOD3, MC1, MC2, SUPERBEE, PPM3, PPM4
+---
+>    LOGICAL :: MINMOD, MC2, SUPERBEE, PPM3, PPM4
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_TVDReconstruct.F90 /home/jhar131/TESTING/einsteintoolkit/2012-06-06-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_TVDReconstruct.F90
+82c82
+<               delta = minmod_func(dupw,dloc)
+---
+>                delta = minmod_func(dupw,dloc)
+84,91c84,97
+< !!$            This is an alternative equivalent implementation 
+< !!$              of vanLeeer MC slopelimiter
+<               if (dupw*dloc < 0.d0) then
+<                 delta=0.d0
+<               else 
+<                 delta=sign(min(2.d0*abs(dupw),2.d0*abs(dloc),&
+<                      0.5d0*(abs(dupw)+abs(dloc))),dupw+dloc)
+<               end if
+---
+> !!$            This is the van Leer MC slope limiter
+>                if (dupw*dloc < 0.d0) then
+>                   delta=0.d0
+>                else 
+>                   delta=sign(min(2.d0*abs(dupw),2.d0*abs(dloc),&
+>                        0.5d0*(abs(dupw)+abs(dloc))),dupw+dloc)
+>                end if
+>             else if (SUPERBEE) then
+>                if (dupw*dloc < 0.d0) then
+>                   delta=0.d0
+>                else 
+>                   delta=sign(max(min(2.d0*abs(dupw),abs(dloc)),&
+>                        min(2.d0*abs(dloc),abs(dupw))),dupw+dloc)
+>                end if
+93,97c99,101
+<               delta = 0.5d0*(dupw + dloc)
+<               if (abs(dupw) < myfloor ) dupw = myfloor*sign(1.d0, dupw) 
+<               if (abs(dloc) < myfloor ) dloc = myfloor*sign(1.d0, dloc) 
+<               ratio = dupw / dloc
+<               call slopelimiter(ratio, delta)
+---
+>                call CCTK_WARN(0, "Type of limiter not recognized")
+>                ! NOTREACHED
+>                delta = 0d0 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_UpdateMask.F90 /home/jhar131/TESTING/einsteintoolkit/2012-06-06-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_UpdateMask.F90
+223a224,225
+>   if (verbose.eq.1) call CCTK_INFO("Entering AtmosphereReset.")
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/make.code.defn /home/jhar131/TESTING/einsteintoolkit/2012-06-06-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/src/make.code.defn
+38d37
+< 	GRHydro_SlopeLimiter.F90 \
+65a65
+> 	GRHydro_LastMoLPostStep.c\
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus: cactusjar.git
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus: exe
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus: log
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/repos/carpet/.hg/dirstate and /home/jhar131/TESTING/einsteintoolkit/2012-06-06-020002/Cactus/repos/carpet/.hg/dirstate differ
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/simfactory/lib/archive: __init__.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/simfactory/lib/archive: petashare.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/simfactory/lib/archive: uberftp.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/simfactory/lib: libutil.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/simfactory/lib: pyini.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/simfactory/lib: restartlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/simfactory/lib: sim-build.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/simfactory/lib: sim-info.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/simfactory/lib: sim-manage.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/simfactory/lib: sim-sync.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/simfactory/lib: sim-util.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/simfactory/lib: simarchive.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/simfactory/lib: simdb.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/simfactory/lib: simdt.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/simfactory/lib: simenv.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/simfactory/lib: simlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/simfactory/lib: simopts.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/simfactory/lib: simproperties.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/simfactory/lib: simremote.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/simfactory/lib: simrestart.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-05-020001/Cactus/simfactory/lib: simsubs.pyc
