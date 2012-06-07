@@ -1,0 +1,396 @@
+/home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/TEST/sim/EinsteinExact_Test
+--------------------------------------------------------------------------------
+
+       10                                  
+  1   0101       ************************  
+  01  1010 10      The Cactus Code V4.0    
+ 1010 1101 011      www.cactuscode.org     
+  1001 100101    ************************  
+    00010101                               
+     100011     (c) Copyright The Authors  
+      0100      GNU Licensed. No Warranty  
+      0101                                 
+
+--------------------------------------------------------------------------------
+
+Cactus version:    4.0.1
+Compile date:      Jun 07 2012 (02:49:27)
+Run date:          Jun 07 2012 (02:59:54-0500)
+Run host:          numrel07.cct.lsu.edu (pid=17066)
+Working directory: /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/TEST/sim/EinsteinExact_Test
+Executable:        /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/exe/cactus_sim
+Parameter file:    /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/arrangements/EinsteinExact/EinsteinExact_Test/test/KerrSchild.par
+--------------------------------------------------------------------------------
+
+Activating thorn Cactus...Success -> active implementation Cactus
+Activation requested for 
+--->
+  ADMBase
+  Boundary
+  Carpet
+  CarpetIOASCII
+  CarpetLib
+  CarpetReduce
+  CartGrid3d
+  CoordBase
+  GenericFD
+  IOUtil
+  KerrSchild
+  LoopControl
+  SymBase
+  TimerReport
+<---
+Activating thorn ADMBase...Success -> active implementation ADMBase
+Activating thorn Boundary...Success -> active implementation boundary
+Activating thorn Carpet...Success -> active implementation Driver
+Activating thorn CarpetIOASCII...Success -> active implementation IOASCII
+Activating thorn CarpetLib...Success -> active implementation CarpetLib
+Activating thorn CarpetReduce...Success -> active implementation reduce
+Activating thorn CartGrid3d...Success -> active implementation grid
+Activating thorn CoordBase...Success -> active implementation CoordBase
+Activating thorn GenericFD...Success -> active implementation GenericFD
+Activating thorn IOUtil...Success -> active implementation IO
+Activating thorn KerrSchild...Success -> active implementation KerrSchild
+Activating thorn LoopControl...Success -> active implementation LoopControl
+Activating thorn SymBase...Success -> active implementation SymBase
+Activating thorn TimerReport...Success -> active implementation timerreport
+--------------------------------------------------------------------------------
+  if (recover initial data)
+    Recover parameters
+  endif
+
+  Startup routines
+    [CCTK_STARTUP]
+      Carpet::MultiModel_Startup: Multi-model Startup routine
+      CarpetLib::CarpetLib_registercycleclock: [global] Register cycle based timer
+      Carpet::Driver_Startup: Startup routine
+      IOUtil::IOUtil_Startup: Startup routine
+      CarpetReduce::CarpetReduceStartup: Startup routine
+      CartGrid3D::SymmetryStartup: Register GH Extension for GridSymmetry
+      CoordBase::CoordBase_Startup: Register a GH extension to store the coordinate system handles
+      CarpetIOASCII::CarpetIOASCIIStartup: [global] Startup routine
+      KerrSchild::KerrSchild_Startup: [meta] create banner
+      LoopControl::lc_check_type_sizes: [meta] Check that sizes of control structures are identical in C and Fortran
+      SymBase::SymBase_Startup: Register GH Extension for SymBase
+
+  Startup routines which need an existing grid hierarchy
+    [CCTK_WRAGH]
+      ADMBase::Einstein_InitSymBound: [global] Set up GF symmetries
+      Boundary::Boundary_RegisterBCs: [global] Register boundary conditions that this thorn provides
+      CartGrid3D::RegisterCartGrid3DCoords: [meta] Register coordinates for the Cartesian grid
+      GROUP SymBase_Wrapper: Wrapper group for SymBase
+        GROUP SymmetryRegister: Register your symmetries here
+          CartGrid3D::RegisterSymmetryBoundaries: [meta] Register symmetry boundaries
+          KerrSchild::KerrSchild_RegisterSymmetries: [meta] register symmetries
+        SymBase::SymBase_Statistics: Print symmetry boundary face descriptions
+  Parameter checking routines
+    [CCTK_PARAMCHECK]
+      ADMBase::ADMBase_ParamCheck: [global] Check consistency of parameters
+      Boundary::Boundary_Check: Check dimension of grid variables
+      Carpet::CarpetParamCheck: Parameter checking routine
+      CarpetLib::CarpetLib_test_prolongate_3d_rf2: [global] Test prolongation operators
+      CartGrid3D::ParamCheck_CartGrid3D: Check coordinates for CartGrid3D
+
+  Initialisation
+    if (NOT (recover initial data AND recovery_mode is 'strict'))
+      [CCTK_PREREGRIDINITIAL]
+      Set up grid hierarchy
+      [CCTK_POSTREGRIDINITIAL]
+        CartGrid3D::SpatialCoordinates: Set Coordinates after regridding
+        GROUP MaskBase_SetupMask: Set up the weight function
+          GROUP MaskBase_SetupMaskAll: Set up the weight function
+            CarpetReduce::MaskBase_AllocateMask: [global] Allocate the weight function
+            CarpetReduce::MaskBase_InitMask: [global] [loop-local] Initialise the weight function
+            GROUP SetupIMaskInternal: Set up the integer weight function (schedule other routines in here)
+              CarpetReduce::CoordBase_SetupMask: [global] [loop-local] Set up the outer boundaries of the weight function
+              CarpetReduce::CarpetMaskSetup: [global] [loop-singlemap] Set up the weight function for the restriction regions
+            GROUP SetupIMask: Set up the integer weight function (schedule other routines in here)
+            CarpetReduce::MaskBase_SetMask: [global] [loop-local] Set the weight function
+            GROUP SetupMask: Set up the real weight function (schedule other routines in here)
+            CarpetReduce::MaskBase_TestMask: [global] Test the weight function
+      [CCTK_BASEGRID]
+        ADMBase::ADMBase_SetShiftStateOn: Set the shift_state variable to 1
+        ADMBase::ADMBase_SetDtLapseStateOn: Set the dtlapse_state variable to 1
+        ADMBase::ADMBase_SetDtShiftStateOn: Set the dtshift_state variable to 1
+        CarpetIOASCII::CarpetIOASCIIInit: [global] Initialisation routine
+        CartGrid3D::CartGrid3D_SetRanges: Set up ranges for spatial 3D Cartesian coordinates (on all grids)
+        CartGrid3D::SpatialCoordinates: Set up spatial 3D Cartesian coordinates on the GH
+        GROUP MaskBase_SetupMask: Set up the weight function
+          GROUP MaskBase_SetupMaskAll: Set up the weight function
+            CarpetReduce::MaskBase_AllocateMask: [global] Allocate the weight function
+            CarpetReduce::MaskBase_InitMask: [global] [loop-local] Initialise the weight function
+            GROUP SetupIMaskInternal: Set up the integer weight function (schedule other routines in here)
+              CarpetReduce::CoordBase_SetupMask: [global] [loop-local] Set up the outer boundaries of the weight function
+              CarpetReduce::CarpetMaskSetup: [global] [loop-singlemap] Set up the weight function for the restriction regions
+            GROUP SetupIMask: Set up the integer weight function (schedule other routines in here)
+            CarpetReduce::MaskBase_SetMask: [global] [loop-local] Set the weight function
+            GROUP SetupMask: Set up the real weight function (schedule other routines in here)
+            CarpetReduce::MaskBase_TestMask: [global] Test the weight function
+        KerrSchild::KerrSchild_CheckBoundaries: [meta] check boundaries treatment
+        SymBase::SymBase_Check: Check whether the driver set up the grid consistently
+      [CCTK_INITIAL]
+        GROUP ADMBase_InitialData: Schedule group for calculating ADM initial data
+          KerrSchild::KerrSchild_initial: KerrSchild_initial
+        GROUP ADMBase_InitialGauge: Schedule group for the ADM initial gauge condition
+        GROUP ADMBase_PostInitial: Schedule group for modifying the ADM initial data, such as e.g. adding noise
+      [CCTK_POSTINITIAL]
+      Initialise finer grids recursively
+      Restrict from finer grids
+      [CCTK_POSTRESTRICTINITIAL]
+      [CCTK_POSTPOSTINITIAL]
+      [CCTK_POSTSTEP]
+    endif
+    if (recover initial data)
+      [CCTK_BASEGRID]
+        ADMBase::ADMBase_SetShiftStateOn: Set the shift_state variable to 1
+        ADMBase::ADMBase_SetDtLapseStateOn: Set the dtlapse_state variable to 1
+        ADMBase::ADMBase_SetDtShiftStateOn: Set the dtshift_state variable to 1
+        CarpetIOASCII::CarpetIOASCIIInit: [global] Initialisation routine
+        CartGrid3D::CartGrid3D_SetRanges: Set up ranges for spatial 3D Cartesian coordinates (on all grids)
+        CartGrid3D::SpatialCoordinates: Set up spatial 3D Cartesian coordinates on the GH
+        GROUP MaskBase_SetupMask: Set up the weight function
+          GROUP MaskBase_SetupMaskAll: Set up the weight function
+            CarpetReduce::MaskBase_AllocateMask: [global] Allocate the weight function
+            CarpetReduce::MaskBase_InitMask: [global] [loop-local] Initialise the weight function
+            GROUP SetupIMaskInternal: Set up the integer weight function (schedule other routines in here)
+              CarpetReduce::CoordBase_SetupMask: [global] [loop-local] Set up the outer boundaries of the weight function
+              CarpetReduce::CarpetMaskSetup: [global] [loop-singlemap] Set up the weight function for the restriction regions
+            GROUP SetupIMask: Set up the integer weight function (schedule other routines in here)
+            CarpetReduce::MaskBase_SetMask: [global] [loop-local] Set the weight function
+            GROUP SetupMask: Set up the real weight function (schedule other routines in here)
+            CarpetReduce::MaskBase_TestMask: [global] Test the weight function
+        KerrSchild::KerrSchild_CheckBoundaries: [meta] check boundaries treatment
+        SymBase::SymBase_Check: Check whether the driver set up the grid consistently
+      [CCTK_RECOVER_VARIABLES]
+      [CCTK_POST_RECOVER_VARIABLES]
+        GROUP MaskBase_SetupMask: Set up the weight function
+          GROUP MaskBase_SetupMaskAll: Set up the weight function
+            CarpetReduce::MaskBase_AllocateMask: [global] Allocate the weight function
+            CarpetReduce::MaskBase_InitMask: [global] [loop-local] Initialise the weight function
+            GROUP SetupIMaskInternal: Set up the integer weight function (schedule other routines in here)
+              CarpetReduce::CoordBase_SetupMask: [global] [loop-local] Set up the outer boundaries of the weight function
+              CarpetReduce::CarpetMaskSetup: [global] [loop-singlemap] Set up the weight function for the restriction regions
+            GROUP SetupIMask: Set up the integer weight function (schedule other routines in here)
+            CarpetReduce::MaskBase_SetMask: [global] [loop-local] Set the weight function
+            GROUP SetupMask: Set up the real weight function (schedule other routines in here)
+            CarpetReduce::MaskBase_TestMask: [global] Test the weight function
+    endif
+    if (checkpoint initial data)
+      [CCTK_CPINITIAL]
+    endif
+    if (analysis)
+      [CCTK_ANALYSIS]
+        CarpetLib::CarpetLib_printtimestats: [global] Print timing statistics if desired
+        CarpetLib::CarpetLib_printmemstats: [global] Print memory statistics if desired
+        LoopControl::lc_printstats_analysis: [meta] Output loop control statistics
+        TimerReport::zzz_TimerReport_Output: [global] Print the timer report
+  endif
+  Output grid variables
+
+  do loop over timesteps
+    [CCTK_PREREGRID]
+    Change grid hierarchy
+    [CCTK_POSTREGRID]
+      CartGrid3D::SpatialCoordinates: Set Coordinates after regridding
+      GROUP MaskBase_SetupMask: Set up the weight function
+        GROUP MaskBase_SetupMaskAll: Set up the weight function
+          CarpetReduce::MaskBase_AllocateMask: [global] Allocate the weight function
+          CarpetReduce::MaskBase_InitMask: [global] [loop-local] Initialise the weight function
+          GROUP SetupIMaskInternal: Set up the integer weight function (schedule other routines in here)
+            CarpetReduce::CoordBase_SetupMask: [global] [loop-local] Set up the outer boundaries of the weight function
+            CarpetReduce::CarpetMaskSetup: [global] [loop-singlemap] Set up the weight function for the restriction regions
+          GROUP SetupIMask: Set up the integer weight function (schedule other routines in here)
+          CarpetReduce::MaskBase_SetMask: [global] [loop-local] Set the weight function
+          GROUP SetupMask: Set up the real weight function (schedule other routines in here)
+          CarpetReduce::MaskBase_TestMask: [global] Test the weight function
+    Rotate timelevels
+    iteration = iteration+1
+    t = t+dt
+    [CCTK_PRESTEP]
+      ADMBase::ADMBase_LapseStatic: Copy the lapse to the current time level
+      ADMBase::ADMBase_ShiftStatic: Copy the shift to the current time level
+      ADMBase::ADMBase_Static: Copy the metric and extrinsic curvature to the current time level
+    [CCTK_EVOL]
+    Evolve finer grids recursively
+    Restrict from finer grids
+    [CCTK_POSTRESTRICT]
+    [CCTK_POSTSTEP]
+  if (checkpoint)
+    [CCTK_CHECKPOINT]
+      TimerReport::zzz_TimerReport_Checkpoint: [global] Print the timer report
+  endif
+  if (analysis)
+    [CCTK_ANALYSIS]
+      CarpetLib::CarpetLib_printtimestats: [global] Print timing statistics if desired
+      CarpetLib::CarpetLib_printmemstats: [global] Print memory statistics if desired
+      LoopControl::lc_printstats_analysis: [meta] Output loop control statistics
+      TimerReport::zzz_TimerReport_Output: [global] Print the timer report
+  endif
+  Output grid variables
+  enddo
+
+  Termination routines
+    [CCTK_TERMINATE]
+      LoopControl::lc_printstats_terminate: [meta] Output loop control statistics
+      TimerReport::zzz_TimerReport_Output: [global] Print the timer report
+
+  Shutdown routines
+    [CCTK_SHUTDOWN]
+
+  Routines run after changing the grid hierarchy:
+    [CCTK_POSTREGRID]
+      CartGrid3D::SpatialCoordinates: Set Coordinates after regridding
+      GROUP MaskBase_SetupMask: Set up the weight function
+        GROUP MaskBase_SetupMaskAll: Set up the weight function
+          CarpetReduce::MaskBase_AllocateMask: [global] Allocate the weight function
+          CarpetReduce::MaskBase_InitMask: [global] [loop-local] Initialise the weight function
+          GROUP SetupIMaskInternal: Set up the integer weight function (schedule other routines in here)
+            CarpetReduce::CoordBase_SetupMask: [global] [loop-local] Set up the outer boundaries of the weight function
+            CarpetReduce::CarpetMaskSetup: [global] [loop-singlemap] Set up the weight function for the restriction regions
+          GROUP SetupIMask: Set up the integer weight function (schedule other routines in here)
+          CarpetReduce::MaskBase_SetMask: [global] [loop-local] Set the weight function
+          GROUP SetupMask: Set up the real weight function (schedule other routines in here)
+          CarpetReduce::MaskBase_TestMask: [global] Test the weight function
+--------------------------------------------------------------------------------
+INFO (Carpet): Multi-Model listing:
+   model 0: "world"
+INFO (Carpet): Multi-Model process distribution:
+   process 0: model 0 "world"
+INFO (Carpet): Multi-Model: This is process 0, model 0 "world"
+Current core file size limit: hard=[unlimited], soft=0 MB
+Current memory size limit: hard=[unlimited], soft=[unlimited]
+--------------------------------------------------------------------------------
+AMR driver provided by Carpet
+--------------------------------------------------------------------------------
+AMR 0D ASCII I/O provided by CarpetIOASCII
+--------------------------------------------------------------------------------
+AMR 1D ASCII I/O provided by CarpetIOASCII
+--------------------------------------------------------------------------------
+AMR 2D ASCII I/O provided by CarpetIOASCII
+--------------------------------------------------------------------------------
+AMR 3D ASCII I/O provided by CarpetIOASCII
+--------------------------------------------------------------------------------
+KerrSchild
+--------------------------------------------------------------------------------
+
+INFO (Carpet): MPI is enabled
+INFO (Carpet): Carpet is running on 1 processes
+INFO (Carpet): This is process 0
+INFO (Carpet): OpenMP is enabled
+INFO (Carpet): This process contains 4 threads, this is thread 0
+INFO (Carpet): There are 4 threads in total
+INFO (Carpet): There are 4 threads per process
+INFO (Carpet): Host listing:
+   host 0: "numrel07.cct.lsu.edu"
+INFO (Carpet): Host/process mapping:
+   process 0: host 0 "numrel07.cct.lsu.edu"
+INFO (Carpet): Host mapping: This is process 0, host 0 "numrel07.cct.lsu.edu"
+INFO (Carpet): This process runs on host numrel07.cct.lsu.edu, pid=17066
+INFO (Carpet): This process runs on 4 cores: 0-3
+INFO (Carpet): This simulation is running in 3 dimensions
+INFO (Carpet): [tl=0] Boundary specification for map 0:
+   nboundaryzones: [[1,1,1],[1,1,1]]
+   is_internal   : [[0,0,0],[0,0,0]]
+   is_staggered  : [[0,0,0],[0,0,0]]
+   shiftout      : [[0,0,0],[0,0,0]]
+INFO (Carpet): [tl=0] CoordBase domain specification for map 0:
+   physical extent: [1,0,0] : [10,10,10]   ([9,10,10])
+   interior extent: [2,1,1] : [9,9,9]   ([7,8,8])
+   exterior extent: [1,0,0] : [10,10,10]   ([9,10,10])
+   base_spacing   : [1,1,1]
+INFO (Carpet): [tl=0] Adapted domain specification for map 0:
+   convergence factor: 2
+   convergence level : 0
+   physical extent   : [1,0,0] : [10,10,10]   ([9,10,10])
+   interior extent   : [2,1,1] : [9,9,9]   ([7,8,8])
+   exterior extent   : [1,0,0] : [10,10,10]   ([9,10,10])
+   spacing           : [1,1,1]
+INFO (Carpet): [tl=0] Base grid specification for map 0:
+   number of grid points             : [10,11,11]
+   number of coarse grid ghost points: [[0,0,0],[0,0,0]]
+INFO (Carpet): Buffer zone counts (excluding ghosts):
+   [0]: [[0,0,0],[0,0,0]]
+INFO (Carpet): Overlap zone counts:
+   [0]: [[0,0,0],[0,0,0]]
+INFO (Carpet): Group and variable statistics:
+INFO (Carpet):    There are 96 grid functions in 14 groups
+INFO (Carpet):    There are 48 grid scalars in 9 groups
+INFO (Carpet):    There are 6 1-dimensional grid arrays in 2 groups
+INFO (Carpet):    There are 0 2-dimensional grid arrays in 0 groups
+INFO (Carpet):    There are 0 3-dimensional grid arrays in 0 groups
+INFO (Carpet):    (The number of variables counts all time levels)
+INFO (CarpetIOASCII): I/O Method 'IOASCII_0D' registered: 0D AMR output of grid variables to ASCII files
+INFO (CarpetIOASCII): I/O Method 'IOASCII_1D' registered: 1D AMR output of grid variables to ASCII files
+INFO (CarpetIOASCII): Periodic 1D AMR output requested for:
+   ADMBASE::gxx
+   ADMBASE::kxx
+   ADMBASE::alp
+   ADMBASE::betax
+   ADMBASE::dtalp
+   ADMBASE::dtbetax
+INFO (CarpetIOASCII): I/O Method 'IOASCII_2D' registered: 2D AMR output of grid variables to ASCII files
+INFO (CarpetIOASCII): I/O Method 'IOASCII_3D' registered: 3D AMR output of grid variables to ASCII files
+INFO (CartGrid3D): Grid Spacings:
+INFO (CartGrid3D): dx=>1.0000000e+00  dy=>1.0000000e+00  dz=>1.0000000e+00
+INFO (CartGrid3D): Computational Coordinates:
+INFO (CartGrid3D): x=>[ 1.000,10.000]  y=>[ 0.000,10.000]  z=>[ 0.000,10.000]
+INFO (CartGrid3D): Indices of Physical Coordinates:
+INFO (CartGrid3D): x=>[0,9]  y=>[0,10]  z=>[0,10]
+LoopControl timing statistics:
+Loop #0 "KerrSchild_initial":
+   total count: 4   total setup: 0   total calc: 0.0142511
+   avg calc: 0.00356278   avg first calc: 0.00356278
+   avg improvement: 0%   saved: 0 seconds
+Loop #1 "CoordBase_SetupMask_boundary2":
+   total count: 24   total setup: 0.000153653   total calc: 0.000362349
+   avg calc: 1.50979e-05   avg first calc: 1.58844e-05
+   avg improvement: 3%   saved: 1.88772e-05 seconds
+Total calculation time: 0.0150574 seconds; total saved time: 1.88772e-05 seconds
+INFO (TimerReport): Timer Report before terminating at iteration 0 time 0
+INFO (TimerReport): Top timers at iteration 0 time 0
+======================================================================
+    %    Time/s   Min/s   Max/s   Timer (gettimeofday)
+======================================================================
+100.0   1.00002 1.00002 1.00002   [0001] CarpetLib: CarpetLib_registercycleclock in CCTK_STARTUP
+  1.2   0.01213 0.01213 0.01213   main/Initialise
+  0.7   0.00657 0.00657 0.00657   main/Initialise/CallInitial
+  0.6   0.00610 0.00610 0.00610   main/CarpetStartup
+  0.4   0.00419 0.00419 0.00419   main/CarpetStartup/CarpetLib::gh::regrid
+  0.4   0.00404 0.00404 0.00404   main/CarpetStartup/CarpetLib::gh::regrid/CarpetLib::dh::regrid
+  0.4   0.00380 0.00380 0.00380   main/Initialise/CallInitial/CCTK_INITIAL
+  0.4   0.00378 0.00378 0.00378   [0036] KerrSchild: KerrSchild_initial in CCTK_INITIAL
+  0.4   0.00377 0.00377 0.00377   main/Initialise/CallInitial/CCTK_INITIAL/CallFunction
+  0.4   0.00374 0.00374 0.00374   main/Initialise/CallInitial/CCTK_INITIAL/CallFunction/thorns
+  0.4   0.00373 0.00373 0.00373   main/Initialise/CallInitial/CCTK_INITIAL/CallFunction/thorns/KerrSchild_initial
+  0.3   0.00279 0.00279 0.00279   main/Initialise/CallAnalysis
+  0.2   0.00235 0.00235 0.00235   main/Initialise/CallAnalysis/OutputGH
+  0.2   0.00234 0.00234 0.00234   main/Initialise/CallAnalysis/OutputGH/OutputGH
+  0.2   0.00225 0.00225 0.00225   main/Initialise/CallInitial/CCTK_BASEGRID
+  0.2   0.00195 0.00195 0.00195   main/Initialise/CallInitial/CCTK_BASEGRID/CallFunction
+  0.2   0.00176 0.00176 0.00176   main/Initialise/CallInitial/CCTK_BASEGRID/CallFunction/thorns
+  0.2   0.00171 0.00171 0.00171   main/Initialise/CallAnalysis/OutputGH/OutputGH/IOASCII::IOASCII_1D [1]
+  0.2   0.00169 0.00169 0.00169   main/Initialise/CallAnalysis/OutputGH/OutputGH/IOASCII::IOASCII_1D [1]/OutputGH<1>
+  0.2   0.00166 0.00166 0.00166   main/CarpetStartup/CarpetLib::gh::regrid/CarpetLib::dh::regrid/bcast_comm
+  0.1   0.00102 0.00102 0.00102   [0000] Carpet: MultiModel_Startup in CCTK_STARTUP
+  0.1   0.00086 0.00086 0.00086   main/Initialise/CallSetup
+  0.1   0.00056 0.00056 0.00056   [0030] CarpetReduce: CoordBase_SetupMask in CCTK_BASEGRID
+  0.1   0.00053 0.00053 0.00053   main/CarpetStartup/CarpetLib::gh::regrid/CarpetLib::dh::regrid/comm
+  0.1   0.00052 0.00052 0.00052   main/Initialise/CallInitial/CCTK_BASEGRID/CallFunction/thorns/CoordBase_SetupMask
+  0.0   0.00044 0.00044 0.00044   main/Initialise/CallSetup/CCTK_WRAGH
+  0.0   0.00036 0.00036 0.00036   main/CarpetStartup/CarpetLib::gh::regrid/CarpetLib::dh::regrid/bcast_comm/ref_prol
+  0.0   0.00035 0.00035 0.00035   [0026] CartGrid3D: CartGrid3D_SetRanges in CCTK_BASEGRID
+  0.0   0.00033 0.00033 0.00033   main/Initialise/CallSetup/CCTK_WRAGH/CallFunction
+  0.0   0.00032 0.00032 0.00032   main/CarpetStartup/CarpetLib::gh::regrid/CarpetLib::dh::regrid/buffers
+  0.0   0.00031 0.00031 0.00031   main/CarpetStartup/CarpetLib::gh::regrid/CarpetLib::dh::regrid/test
+  0.0   0.00031 0.00031 0.00031   main/Initialise/CallSetup/CCTK_PARAMCHECK
+  0.0   0.00031 0.00031 0.00031   [0029] CarpetReduce: MaskBase_InitMask in CCTK_BASEGRID
+  0.0   0.00030 0.00030 0.00030   main/Initialise/CallInitial/CCTK_BASEGRID/CallFunction/thorns/CartGrid3D_SetRanges
+  0.0   0.00027 0.00027 0.00027   main/CarpetStartup/CarpetLib::gh::regrid/CarpetLib::dh::regrid/bcast_comm/old2new_sync
+  0.0   0.00027 0.00027 0.00027   main/CarpetStartup/CarpetLib::gh::regrid/CarpetLib::dh::regrid/bcast_comm/sync
+  0.0   0.00027 0.00027 0.00027   main/Initialise/CallInitial/CCTK_BASEGRID/CallFunction/thorns/MaskBase_InitMask
+  0.0   0.00027 0.00027 0.00027   main/CarpetStartup/CarpetLib::gh::regrid/CarpetLib::dh::regrid/bcast_comm/old2new_ref_prol
+  0.0   0.00026 0.00026 0.00026   main/Initialise/CarpetLib::ggf::recompose_allocate
+  0.0   0.00026 0.00026 0.00026   main/CarpetStartup/CarpetLib::gh::regrid/CarpetLib::dh::regrid/bcast_comm/ref_bnd_prol
+======================================================================
+--------------------------------------------------------------------------------
+Done.

@@ -1,0 +1,85 @@
+!DESC "1D shocktube, RK2, Marquina, TVD-Minmod, Ideal Gas, x-Excision"
+
+ActiveThorns = "ADMMacros"
+ActiveThorns = "pugh pughreduce pughslab localreduce"
+
+cactus::cctk_itlast 			= 	60
+
+driver::ghost_size			=	   2
+driver::global_nx 			= 	40
+driver::global_ny 			= 	 5
+driver::global_nz 			= 	 5
+
+ActiveThorns = "coordbase symbase cartgrid3d boundary"
+
+grid::type 				= 	"BySpacing"
+grid::domain 			= 	"full"
+grid::dxyz 				= 	0.5
+
+ActiveThorns = "time"
+
+time::dtfac 				= 	0.25
+
+ActiveThorns = "ioutil ioascii iobasic"
+
+IO::out_dir = $parfile
+IO::out_fileinfo			=	"none"
+
+IOBasic::outInfo_every 			= 	1
+IOBasic::outScalar_style    = "gnuplot"
+IOBasic::outInfo_vars 			= 	"hydrobase::rho"
+
+ActiveThorns = "ADMConstraints admbase admcoupling spacemask staticconformal"
+
+ADMConstraints::constraints_persist	= yes
+
+IOBasic::outScalar_every                =       1
+IOBasic::outScalar_reductions = "minimum maximum"
+IOBasic::outScalar_vars  = "hydrobase::rho hydrobase::press hydrobase::eps hydrobase::vel GRHydro::dens GRHydro::tau GRHydro::scon HydroBase::w_lorentz"
+
+IOASCII::out1D_every                    =      10
+IOASCII::out1D_style                    = "gnuplot f(x)"
+IOASCII::out1D_vars      = "hydrobase::rho hydrobase::press hydrobase::eps hydrobase::vel GRHydro::dens GRHydro::tau GRHydro::scon HydroBase::w_lorentz"
+
+ActiveThorns = "nanchecker mol"
+
+MoL::ode_method				=	"rk2"
+MoL::MoL_Intermediate_Steps		=	2
+
+ActiveThorns = "ADMBase StaticConformal SpaceMask CoordGauge ADMMacros ADMCoupling"
+
+ADMBase::evolution_method		=	"none"
+ADMBase::initial_shift			=	"zero"
+ADMBase::metric_type			= 	"physical"
+SpaceMask::use_mask = "yes"
+
+ActiveThorns = "eos_omni"
+
+eos_omni::gl_gamma = 1.66666666666666
+eos_omni::gl_k     = 80.0
+eos_omni::poly_k   = 80.0
+
+ActiveThorns = "tmunubase hydrobase grhydro initbase"
+
+hydrobase::timelevels = 2
+hydrobase::evolution_method       = "GRHydro"
+
+GRHydro::riemann_solver			=	"Marquina"
+GRHydro::GRHydro_eos_type			=	"General"
+GRHydro::GRHydro_eos_table		=	"Ideal_Fluid"
+GRHydro::GRHydro_stencil			=	2
+GRHydro::recon_method			=	"tvd"
+GRHydro::tvd_limiter			=	"minmod"
+GRHydro::bound				=	"flat"
+
+ActiveThorns = "grhydro_initdata"
+
+hydrobase::initial_hydro	=	"shocktube"
+grhydro_initdata::shocktube_type	    =	"xshock"
+grhydro_initdata::shock_case          =	"Simple"
+
+ActiveThorns = "hydro_initexcision"
+
+hydro_initexcision::hydro_initexcision = "yes"
+hydro_initexcision::hydro_initexcision_type ="x-axis"
+hydro_initexcision::hydro_initexcision_fraction=0.25
