@@ -1,0 +1,406 @@
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus: TEST.1
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus: TEST.2
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/arrangements/Carpet/Carpet/src/Initialise.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/arrangements/Carpet/Carpet/src/Initialise.cc
+292d291
+< #if 0
+306,315d304
+< #else
+<           Waypoint ("Recovering II at iteration %d time %g%s%s",
+<                     cctkGH->cctk_iteration,
+<                     (double)cctkGH->cctk_time,
+<                     (do_global_mode ? " (global)" : ""),
+<                     (do_meta_mode ? " (meta)" : ""));
+<           
+<           // Post recover variables
+<           ScheduleTraverse (where, "CCTK_POST_RECOVER_VARIABLES", cctkGH);
+< #endif
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/arrangements/Carpet/Carpet/src/SetupGH.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/arrangements/Carpet/Carpet/src/SetupGH.cc
+397,410c397,417
+<         if (num_cores >= mynthreads * num_host_procs) {
+<           // It seems that all cores are available to all processes on
+<           // this host. Split the cores evenly across the processes.
+<           int skip_cores = 0;
+<           for (int i=0; i<num_host_procs; ++i) {
+<             int const p = host_procs.at(i);
+<             if (p == myproc) break;
+<             skip_cores += mynthreads;
+<           }
+<           for (int n=0; n<CPU_SETSIZE; ++n) {
+<             if (skip_cores == 0) break;
+<             if (mask.at(n)) {
+<               -- skip_cores;
+<               mask.at(n) = false;
+---
+>         if (num_cores == 0) {
+>           CCTK_WARN (CCTK_WARN_ALERT,
+>                      "Cannot select core set for this process (no cores seem available to this process)");
+>         } else {
+>           bool const other_procs_need_cores = 
+>             num_cores >= mynthreads * num_host_procs;
+>           int my_host_index = 0;
+>           if (other_procs_need_cores) {
+>             // It seems that all cores are available to all processes
+>             // on this host. Split the cores evenly across the
+>             // processes.
+>             for (int i=0; i<num_host_procs; ++i) {
+>               int const p = host_procs.at(i);
+>               if (p == myproc) {
+>                 my_host_index = i;
+>                 break;
+>               }
+>             }
+>             if (num_cores % num_host_procs != 0) {
+>               CCTK_WARN (CCTK_WARN_ALERT,
+>                          "The number of processes on this host does not evenly divide the number of cores on this host -- leaving some cores unassigned");
+411a419
+>             num_cores /= num_host_procs;
+413,419c421,423
+<         }
+<         // Choose cores for this process
+<         int n0 = -1;
+<         for (int n=0; n<CPU_SETSIZE; ++n) {
+<           if (mask.at(n)) {
+<             n0 = n;
+<             break;
+---
+>           if (num_cores % mynthreads != 0) {
+>             CCTK_WARN (CCTK_WARN_ALERT,
+>                        "The number of threads in this process does not evenly divide the number of cores for this process -- leaving some cores unassigned");
+421,422c425,433
+<         }
+<         if (n0 >= 0) {
+---
+>           int const num_cores_per_thread = num_cores / mynthreads;
+>           // Choose cores for this process
+>           int const first_core_index =
+>             my_host_index * mynthreads * num_cores_per_thread;
+>           vector<int> available_cores;
+>           for (int n=0; n<CPU_SETSIZE; ++n) {
+>             if (mask.at(n)) available_cores.push_back(n);
+>           }
+>           int const n0 = available_cores.at(first_core_index);
+424,425c435,436
+<                       "Selecting cores %d-%d for this process",
+<                       n0, n0+mynthreads-1);
+---
+>                       "Selecting cores %d (and following) for this process",
+>                       n0);
+430c441,445
+<             CPU_SET(n0 + dist::thread_num(), &cpumask);
+---
+>             int const i0 =
+>               first_core_index + dist::thread_num() * num_cores_per_thread;
+>             for (int i=0; i<num_cores_per_thread; ++i) {
+>               CPU_SET(available_cores[i0+i], &cpumask);
+>             }
+434,436d448
+<         } else {
+<           CCTK_WARN (CCTK_WARN_ALERT,
+<                      "Cannot select core set for this process (no cores seem available to this process)");
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/arrangements/Carpet/Carpet/src/TimerNode.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/arrangements/Carpet/Carpet/src/TimerNode.cc
+49c49
+<                                      d_running(false)
+---
+>                                      d_running(false), timer(0)
+51d50
+<     timer = 0;
+72a72,81
+>   void TimerNode::instantiate()
+>   {
+>     assert(!d_running);
+>     d_parent = d_current;
+>     d_current = this;
+>     if (timer == 0)
+>       timer = new CactusTimer(pathName());
+>     d_current = d_parent;
+>   }
+> 
+75c84
+<     if(!d_running)
+---
+>     if (!d_running)
+79c88
+<       d_current=this;
+---
+>       d_current = this;
+93c102
+<     if(d_running)
+---
+>     if (d_running)
+102,103c111,112
+<       d_running=false;
+<       d_current=d_parent;
+---
+>       d_running = false;
+>       d_current = d_parent;
+214a224,228
+> 
+>     if (level == 0)
+>     {
+>       out << "--------" << hyphens << "--------" << hyphens << "-------" << endl;
+>     }
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/arrangements/Carpet/Carpet/src/TimerNode.hh /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/arrangements/Carpet/Carpet/src/TimerNode.hh
+70a71
+>   void instantiate();
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/arrangements/Carpet/Carpet/src/Timers.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/arrangements/Carpet/Carpet/src/Timers.cc
+40a41,51
+>   /// Insert the timer into the tree of timers as a child of the most
+>   /// recently started timer that has not been stopped. Don't start
+>   /// the timer. This routine ensures a timer is created even if it is
+>   /// never started.
+>   void Timer::instantiate ()
+>   {
+>     TimerNode *current_timer = TimerNode::getCurrentTimer();
+>     assert(current_timer);
+>     current_timer->getChildTimer(name())->instantiate();
+>   }
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/arrangements/Carpet/Carpet/src/Timers.hh /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/arrangements/Carpet/Carpet/src/Timers.hh
+55a56
+>     void instantiate ();
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/arrangements/Carpet/CarpetLib/src/backtrace.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/arrangements/Carpet/CarpetLib/src/backtrace.cc
+502a503,506
+>     myfile << "\n"
+>            << "The hexadecimal addresses in this backtrace can also be interpreted\n"
+>            << "with a debugger (e.g. gdb), or with the 'addr2line' (or 'gaddr2line')\n"
+>            << "command line tool.\n";
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/arrangements/Carpet/CarpetLib/src/balance.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/arrangements/Carpet/CarpetLib/src/balance.cc
+367c367
+<         w->add_item (item_split (w->get_one_item(), ratio));
+---
+>         w->add_item (item_split (worker->get_one_item(), ratio));
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/arrangements/Carpet/CarpetLib/src/bbox.hh /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/arrangements/Carpet/CarpetLib/src/bbox.hh
+82a83,87
+>     if (not (all (stride() > T(0))) or
+>         not (all ((upper() - lower()) % stride() == T(0))))
+>     {
+>       cerr << "bbox: lower=" << lower() << " upper=" << upper() << " stride=" << stride() << "\n";
+>     }
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus: cactusjar.git
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus: exe
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus: log
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/repos/carpet/.hg/cache/branchheads /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/repos/carpet/.hg/cache/branchheads
+1c1
+< 88990f0ba28ef934a071598a29a8872dfd2adf76 3567
+---
+> 0fc51a62a32b737041c6489b06c7db58416d713d 3573
+4c4
+< 88990f0ba28ef934a071598a29a8872dfd2adf76 default
+---
+> 0fc51a62a32b737041c6489b06c7db58416d713d default
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/repos/carpet/.hg/cache/tags /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/repos/carpet/.hg/cache/tags
+1c1
+< 3567 88990f0ba28ef934a071598a29a8872dfd2adf76
+---
+> 3573 0fc51a62a32b737041c6489b06c7db58416d713d
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/repos/carpet/.hg/dirstate and /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/repos/carpet/.hg/dirstate differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/repos/carpet/.hg/store/00changelog.d and /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/repos/carpet/.hg/store/00changelog.d differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/repos/carpet/.hg/store/00changelog.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/repos/carpet/.hg/store/00changelog.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/repos/carpet/.hg/store/00manifest.d and /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/repos/carpet/.hg/store/00manifest.d differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/repos/carpet/.hg/store/00manifest.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/repos/carpet/.hg/store/00manifest.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet/src/_initialise.cc.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet/src/_initialise.cc.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet/src/_setup_g_h.cc.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet/src/_setup_g_h.cc.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet/src/_timer_node.cc.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet/src/_timer_node.cc.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet/src/_timer_node.hh.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet/src/_timer_node.hh.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet/src/_timers.cc.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet/src/_timers.cc.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet/src/_timers.hh.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet/src/_timers.hh.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/src/backtrace.cc.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/src/backtrace.cc.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/src/balance.cc.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/src/balance.cc.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/src/bbox.hh.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/src/bbox.hh.i differ
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/repos/carpet/Carpet/Carpet/src/Initialise.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/repos/carpet/Carpet/Carpet/src/Initialise.cc
+292d291
+< #if 0
+306,315d304
+< #else
+<           Waypoint ("Recovering II at iteration %d time %g%s%s",
+<                     cctkGH->cctk_iteration,
+<                     (double)cctkGH->cctk_time,
+<                     (do_global_mode ? " (global)" : ""),
+<                     (do_meta_mode ? " (meta)" : ""));
+<           
+<           // Post recover variables
+<           ScheduleTraverse (where, "CCTK_POST_RECOVER_VARIABLES", cctkGH);
+< #endif
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/repos/carpet/Carpet/Carpet/src/SetupGH.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/repos/carpet/Carpet/Carpet/src/SetupGH.cc
+397,410c397,417
+<         if (num_cores >= mynthreads * num_host_procs) {
+<           // It seems that all cores are available to all processes on
+<           // this host. Split the cores evenly across the processes.
+<           int skip_cores = 0;
+<           for (int i=0; i<num_host_procs; ++i) {
+<             int const p = host_procs.at(i);
+<             if (p == myproc) break;
+<             skip_cores += mynthreads;
+<           }
+<           for (int n=0; n<CPU_SETSIZE; ++n) {
+<             if (skip_cores == 0) break;
+<             if (mask.at(n)) {
+<               -- skip_cores;
+<               mask.at(n) = false;
+---
+>         if (num_cores == 0) {
+>           CCTK_WARN (CCTK_WARN_ALERT,
+>                      "Cannot select core set for this process (no cores seem available to this process)");
+>         } else {
+>           bool const other_procs_need_cores = 
+>             num_cores >= mynthreads * num_host_procs;
+>           int my_host_index = 0;
+>           if (other_procs_need_cores) {
+>             // It seems that all cores are available to all processes
+>             // on this host. Split the cores evenly across the
+>             // processes.
+>             for (int i=0; i<num_host_procs; ++i) {
+>               int const p = host_procs.at(i);
+>               if (p == myproc) {
+>                 my_host_index = i;
+>                 break;
+>               }
+>             }
+>             if (num_cores % num_host_procs != 0) {
+>               CCTK_WARN (CCTK_WARN_ALERT,
+>                          "The number of processes on this host does not evenly divide the number of cores on this host -- leaving some cores unassigned");
+411a419
+>             num_cores /= num_host_procs;
+413,419c421,423
+<         }
+<         // Choose cores for this process
+<         int n0 = -1;
+<         for (int n=0; n<CPU_SETSIZE; ++n) {
+<           if (mask.at(n)) {
+<             n0 = n;
+<             break;
+---
+>           if (num_cores % mynthreads != 0) {
+>             CCTK_WARN (CCTK_WARN_ALERT,
+>                        "The number of threads in this process does not evenly divide the number of cores for this process -- leaving some cores unassigned");
+421,422c425,433
+<         }
+<         if (n0 >= 0) {
+---
+>           int const num_cores_per_thread = num_cores / mynthreads;
+>           // Choose cores for this process
+>           int const first_core_index =
+>             my_host_index * mynthreads * num_cores_per_thread;
+>           vector<int> available_cores;
+>           for (int n=0; n<CPU_SETSIZE; ++n) {
+>             if (mask.at(n)) available_cores.push_back(n);
+>           }
+>           int const n0 = available_cores.at(first_core_index);
+424,425c435,436
+<                       "Selecting cores %d-%d for this process",
+<                       n0, n0+mynthreads-1);
+---
+>                       "Selecting cores %d (and following) for this process",
+>                       n0);
+430c441,445
+<             CPU_SET(n0 + dist::thread_num(), &cpumask);
+---
+>             int const i0 =
+>               first_core_index + dist::thread_num() * num_cores_per_thread;
+>             for (int i=0; i<num_cores_per_thread; ++i) {
+>               CPU_SET(available_cores[i0+i], &cpumask);
+>             }
+434,436d448
+<         } else {
+<           CCTK_WARN (CCTK_WARN_ALERT,
+<                      "Cannot select core set for this process (no cores seem available to this process)");
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/repos/carpet/Carpet/Carpet/src/TimerNode.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/repos/carpet/Carpet/Carpet/src/TimerNode.cc
+49c49
+<                                      d_running(false)
+---
+>                                      d_running(false), timer(0)
+51d50
+<     timer = 0;
+72a72,81
+>   void TimerNode::instantiate()
+>   {
+>     assert(!d_running);
+>     d_parent = d_current;
+>     d_current = this;
+>     if (timer == 0)
+>       timer = new CactusTimer(pathName());
+>     d_current = d_parent;
+>   }
+> 
+75c84
+<     if(!d_running)
+---
+>     if (!d_running)
+79c88
+<       d_current=this;
+---
+>       d_current = this;
+93c102
+<     if(d_running)
+---
+>     if (d_running)
+102,103c111,112
+<       d_running=false;
+<       d_current=d_parent;
+---
+>       d_running = false;
+>       d_current = d_parent;
+214a224,228
+> 
+>     if (level == 0)
+>     {
+>       out << "--------" << hyphens << "--------" << hyphens << "-------" << endl;
+>     }
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/repos/carpet/Carpet/Carpet/src/TimerNode.hh /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/repos/carpet/Carpet/Carpet/src/TimerNode.hh
+70a71
+>   void instantiate();
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/repos/carpet/Carpet/Carpet/src/Timers.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/repos/carpet/Carpet/Carpet/src/Timers.cc
+40a41,51
+>   /// Insert the timer into the tree of timers as a child of the most
+>   /// recently started timer that has not been stopped. Don't start
+>   /// the timer. This routine ensures a timer is created even if it is
+>   /// never started.
+>   void Timer::instantiate ()
+>   {
+>     TimerNode *current_timer = TimerNode::getCurrentTimer();
+>     assert(current_timer);
+>     current_timer->getChildTimer(name())->instantiate();
+>   }
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/repos/carpet/Carpet/Carpet/src/Timers.hh /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/repos/carpet/Carpet/Carpet/src/Timers.hh
+55a56
+>     void instantiate ();
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/repos/carpet/Carpet/CarpetLib/src/backtrace.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/repos/carpet/Carpet/CarpetLib/src/backtrace.cc
+502a503,506
+>     myfile << "\n"
+>            << "The hexadecimal addresses in this backtrace can also be interpreted\n"
+>            << "with a debugger (e.g. gdb), or with the 'addr2line' (or 'gaddr2line')\n"
+>            << "command line tool.\n";
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/repos/carpet/Carpet/CarpetLib/src/balance.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/repos/carpet/Carpet/CarpetLib/src/balance.cc
+367c367
+<         w->add_item (item_split (w->get_one_item(), ratio));
+---
+>         w->add_item (item_split (worker->get_one_item(), ratio));
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/repos/carpet/Carpet/CarpetLib/src/bbox.hh /home/jhar131/TESTING/einsteintoolkit/2012-06-08-020001/Cactus/repos/carpet/Carpet/CarpetLib/src/bbox.hh
+82a83,87
+>     if (not (all (stride() > T(0))) or
+>         not (all ((upper() - lower()) % stride() == T(0))))
+>     {
+>       cerr << "bbox: lower=" << lower() << " upper=" << upper() << " stride=" << stride() << "\n";
+>     }
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/simfactory/lib/archive: __init__.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/simfactory/lib/archive: petashare.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/simfactory/lib/archive: uberftp.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/simfactory/lib: libutil.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/simfactory/lib: pyini.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/simfactory/lib: restartlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/simfactory/lib: sim-build.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/simfactory/lib: sim-info.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/simfactory/lib: sim-manage.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/simfactory/lib: sim-sync.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/simfactory/lib: sim-util.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/simfactory/lib: simarchive.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/simfactory/lib: simdb.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/simfactory/lib: simdt.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/simfactory/lib: simenv.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/simfactory/lib: simlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/simfactory/lib: simopts.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/simfactory/lib: simproperties.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/simfactory/lib: simremote.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/simfactory/lib: simrestart.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-07-020001/Cactus/simfactory/lib: simsubs.pyc

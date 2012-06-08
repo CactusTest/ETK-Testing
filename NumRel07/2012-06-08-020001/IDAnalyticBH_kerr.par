@@ -1,0 +1,46 @@
+!DESC "1+log sliced Kerr black hole, ADM, double leapfrog"
+
+#Required thorns
+ActiveThorns = "Boundary Time CartGrid3D CoordBase SymBase pugh pughslab pughreduce IOUtil iobasic ioascii ADMBase ADM ADMMacros ADMAnalysis SpaceMask CoordGauge IDAnalyticBH StaticConformal localreduce"
+
+# GENERAL 
+ 
+driver::global_nx          = 20     
+driver::global_ny          = 20     
+driver::global_nz          = 20     
+
+grid::type                 = "byspacing"
+grid::dxyz                 =  0.8 
+grid::domain               = "full"
+
+time::dtfac                =  0.25 
+  
+admbase::metric_type      = "static conformal"
+admbase::evolution_method = "ADM"     
+admbase::lapse_evolution_method = "1+log"
+admbase::initial_data     = "kerr" 
+
+cactus::cctk_itlast        = 10      
+
+adm::bound                 = "flat"      
+adm::method                = "leapfrog"
+admanalysis::normalize_dtheta_dphi = "yes"
+
+IO::out_dir               = "kerr"
+IO::out_fileinfo         = "none"
+IOBasic::outInfo_every   = 1
+IOBasic::outInfo_vars    = "admbase::gxx admbase::kxx"
+
+IOASCII::out1d_every   = 5
+IOASCII::out1d_vars    = "staticconformal::confac staticconformal::confac_1derivs staticconformal::confac_2derivs admbase::alp admbase::metric admbase::curv admanalysis::spherical_metric admanalysis::spherical_curv admanalysis::trk admanalysis::detg"
+IOASCII::out1d_x = "no"
+IOASCII::out1d_y = "no"
+IOASCII::out1d_z = "no"
+
+IOBasic::outScalar_every = 2
+IOBasic::outScalar_vars  = "admanalysis::grr admanalysis::trk"
+
+##################################################################
+
+# do not use the new scheme for names of output files
+IO::new_filename_scheme = "no"

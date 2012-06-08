@@ -1,0 +1,67 @@
+!DESC "Carpet unigrid, one TOV" 
+ActiveThorns = "time MoL coordbase symbase cartgrid3d ioutil boundary admbase staticconformal spacemask admcoupling coordgauge admmacros hydrobase grhydro grhydro_initdata tovsolver eos_omni admconstraints Constants LocalReduce Carpet CarpetLib CarpetInterp CarpetReduce CarpetIOScalar CarpetIOBasic LoopControl TmunuBase InitBase"
+
+TmunuBase::stress_energy_storage	=	yes
+TmunuBase::stress_energy_at_RHS		=	yes
+
+time::dtfac = 0.375
+
+ADMConstraints::constraints_persist	= yes
+admconstraints::bound     = "static"
+
+boundary::radpower        = 2
+
+SpaceMask::use_mask = "yes"
+
+CartGrid3D::type = "coordbase"
+CoordBase::domainsize = minmax
+
+Carpet::domain_from_coordbase = "yes"
+CoordBase::spacing = "numcells"
+CoordBase::xmin =  -15.0
+CoordBase::ymin =  -15.0
+CoordBase::zmin =  -15.0
+CoordBase::xmax =   15.001
+CoordBase::ymax =   15.001
+CoordBase::zmax =   15.001
+CoordBase::ncells_x = 32
+CoordBase::ncells_y = 32
+CoordBase::ncells_z = 32
+
+driver::ghost_size   = 3
+
+cactus::cctk_itlast   =       0
+
+methodoflines::ode_method        = "icn"
+
+hydrobase::timelevels             = 2
+hydrobase::evolution_method       = "GRHydro"
+
+GRHydro::riemann_solver            = "Marquina"
+GRHydro::GRHydro_eos_type           = "Polytype"
+GRHydro::GRHydro_eos_table          = "2D_Polytrope"
+GRHydro::recon_method              = "ppm"
+GRHydro::GRHydro_stencil            = 3
+GRHydro::bound                     = "none"
+GRHydro::tvd_limiter               = "VanLeerMC2"
+GRHydro::rho_abs_min               = 1.e-7
+GRHydro::initial_atmosphere_factor = 0.999
+
+ADMBase::initial_data  = "tov"
+ADMBase::initial_lapse = "tov"
+ADMBase::initial_shift = "tov"
+
+tovsolver::TOV_Rho_Central[0] = 1.28e-3
+tovsolver::TOV_Gamma[0]       = 2.0
+tovsolver::TOV_K[0]           = 100.0
+tovsolver::TOV_Combine_Method = "maximum"
+
+Carpet::prolongation_order_space  = 3
+Carpet::prolongation_order_time   = 2
+
+IO::out_dir			= $parfile
+IO::out_fileinfo= "none"
+
+IOScalar::outScalar_every = 1
+IOScalar::outScalar_vars  = "hydrobase::rho hydrobase::press hydrobase::eps hydrobase::vel GRHydro::dens GRHydro::tau GRHydro::scon admbase::lapse admbase::metric admbase::curv admconstraints::ham admconstraints::momentum HydroBase::w_lorentz"
+IOScalar::outScalar_reductions  = "minimum maximum norm1 norm2"
