@@ -1,0 +1,436 @@
+   dens_3D_diagonal.asc: substantial differences
+      significant differences on 780 (out of 840) lines
+      maximum absolute difference in column 1 is 16.4544826719043
+      maximum absolute difference in column 2 is 9.9997756616973
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 2.73726082447713
+   dens_maximum.asc: substantial differences
+      significant differences on 200 (out of 201) lines
+      maximum absolute difference in column 1 is 25
+      maximum absolute difference in column 2 is 10.0531766712145
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 2.28858336827045
+   dens_minimum.asc: substantial differences
+      significant differences on 200 (out of 201) lines
+      maximum absolute difference in column 1 is 25
+      maximum absolute difference in column 2 is 1e-08
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1
+   dens_x_[19][19].asc: substantial differences
+      significant differences on 780 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 9.9997756616973
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 2.62125331693939
+   dens_y_[19][19].asc: substantial differences
+      significant differences on 780 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 3.8003029311952
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.05755627674529
+   dens_z_[19][19].asc: substantial differences
+      significant differences on 780 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 3.8003029311952
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.05755627674529
+   eps_3D_diagonal.asc: substantial differences
+      significant differences on 780 (out of 840) lines
+      maximum absolute difference in column 1 is 16.4544826719043
+      maximum absolute difference in column 2 is 1.9999440733517
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 2.42623305549449
+   eps_maximum.asc: substantial differences
+      significant differences on 200 (out of 201) lines
+      maximum absolute difference in column 1 is 25
+      maximum absolute difference in column 2 is 2
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.82311124921484
+   eps_minimum.asc: substantial differences
+      significant differences on 200 (out of 201) lines
+      maximum absolute difference in column 1 is 25
+      maximum absolute difference in column 2 is 8e-07
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1
+   eps_x_[19][19].asc: substantial differences
+      significant differences on 780 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 1.9999440733517
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 2.70270218388234
+   eps_y_[19][19].asc: substantial differences
+      significant differences on 780 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 0.8646186557408
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.08320033989666
+   eps_z_[19][19].asc: substantial differences
+      significant differences on 780 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 0.8646186557408
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.08320033989666
+   press_3D_diagonal.asc: substantial differences
+      significant differences on 760 (out of 840) lines
+      maximum absolute difference in column 1 is 16.4544826719043
+      maximum absolute difference in column 2 is 13.332661376791
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 9.48396461297406
+   press_maximum.asc: substantial differences
+      significant differences on 200 (out of 201) lines
+      maximum absolute difference in column 1 is 25
+      maximum absolute difference in column 2 is 13.3333333333332
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 5.01086664962601
+   press_minimum.asc: substantial differences
+      significant differences on 200 (out of 201) lines
+      maximum absolute difference in column 1 is 25
+      maximum relative difference in column 1 is 1
+   press_x_[19][19].asc: substantial differences
+      significant differences on 760 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 13.332661376791
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 8.61073429589069
+   press_y_[19][19].asc: substantial differences
+      significant differences on 760 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 1.4236526661405
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.04838402396359
+   press_z_[19][19].asc: substantial differences
+      significant differences on 760 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 1.4236526661405
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.04838402396359
+   rho_3D_diagonal.asc: substantial differences
+      significant differences on 780 (out of 840) lines
+      maximum absolute difference in column 1 is 16.4544826719043
+      maximum absolute difference in column 2 is 9.9997756595617
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 3.90892564566137
+   rho_maximum.asc: substantial differences
+      significant differences on 200 (out of 201) lines
+      maximum absolute difference in column 1 is 25
+      maximum absolute difference in column 2 is 10
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 2.71234969087853
+   rho_minimum.asc: substantial differences
+      significant differences on 200 (out of 201) lines
+      maximum absolute difference in column 1 is 25
+      maximum absolute difference in column 2 is 1e-08
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1
+   rho_x_[19][19].asc: substantial differences
+      significant differences on 780 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 9.9997756595617
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 3.18597230107012
+   rho_xy_[19].asc: substantial differences
+      significant differences on 12168 (out of 14058) lines
+   rho_xz_[19].asc: substantial differences
+      significant differences on 12168 (out of 14058) lines
+   rho_y_[19][19].asc: substantial differences
+      significant differences on 780 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 2.8799844398887
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.1285766098545
+   rho_yz_[19].asc: substantial differences
+      significant differences on 12168 (out of 14058) lines
+   rho_z_[19][19].asc: substantial differences
+      significant differences on 780 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 2.8799844398887
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.1285766098545
+   scon[0]_3D_diagonal.asc: substantial differences
+      significant differences on 760 (out of 840) lines
+      maximum absolute difference in column 1 is 16.4544826719043
+      maximum absolute difference in column 2 is 10.7494470513276
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.21587868402869
+   scon[0]_maximum.asc: substantial differences
+      significant differences on 200 (out of 201) lines
+      maximum absolute difference in column 1 is 25
+      maximum absolute difference in column 2 is 13.0164744264413
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.37287581891629
+   scon[0]_minimum.asc: substantial differences
+      significant differences on 200 (out of 201) lines
+      maximum absolute difference in column 1 is 25
+      maximum absolute difference in column 2 is 3.56558e-08
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 3.56558e-08
+   scon[0]_x_[19][19].asc: substantial differences
+      significant differences on 760 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 12.9137624209258
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 2.22850272574121
+   scon[0]_y_[19][19].asc: substantial differences
+      significant differences on 760 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 9.093003575922
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.09523430708183
+   scon[0]_z_[19][19].asc: substantial differences
+      significant differences on 760 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 9.093003575922
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.09523430708183
+   scon[1]_3D_diagonal.asc: substantial differences
+      significant differences on 760 (out of 840) lines
+      maximum absolute difference in column 1 is 16.4544826719043
+      maximum absolute difference in column 2 is 0.7588681445871
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 122.161191512246
+   scon[1]_maximum.asc: substantial differences
+      significant differences on 200 (out of 201) lines
+      maximum absolute difference in column 1 is 25
+      maximum absolute difference in column 2 is 2.924063163216
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.38557474589565
+   scon[1]_minimum.asc: substantial differences
+      significant differences on 200 (out of 201) lines
+      maximum absolute difference in column 1 is 25
+      maximum absolute difference in column 2 is 2.3539522278572
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.75421848060477
+   scon[1]_x_[19][19].asc: substantial differences
+      significant differences on 760 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 1.2121087913419
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.66103155601224
+   scon[1]_y_[19][19].asc: substantial differences
+      significant differences on 760 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 1.4300011055875
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 2099.20726424267
+   scon[1]_z_[19][19].asc: substantial differences
+      significant differences on 760 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 0.1295225722931
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 566.582950885334
+   scon[2]_3D_diagonal.asc: substantial differences
+      significant differences on 760 (out of 840) lines
+      maximum absolute difference in column 1 is 16.4544826719043
+      maximum absolute difference in column 2 is 0.7588681445871
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 122.161191512246
+   scon[2]_maximum.asc: substantial differences
+      significant differences on 200 (out of 201) lines
+      maximum absolute difference in column 1 is 25
+      maximum absolute difference in column 2 is 2.924063163216
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.38557474589565
+   scon[2]_minimum.asc: substantial differences
+      significant differences on 200 (out of 201) lines
+      maximum absolute difference in column 1 is 25
+      maximum absolute difference in column 2 is 2.3539522278572
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.75421848060477
+   scon[2]_x_[19][19].asc: substantial differences
+      significant differences on 760 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 1.2121087913419
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.66103155601224
+   scon[2]_y_[19][19].asc: substantial differences
+      significant differences on 760 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 0.1295225722931
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 566.582950885334
+   scon[2]_z_[19][19].asc: substantial differences
+      significant differences on 760 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 1.4300011055875
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 2099.20726424267
+   tau_3D_diagonal.asc: substantial differences
+      significant differences on 760 (out of 840) lines
+      maximum absolute difference in column 1 is 16.4544826719043
+      maximum absolute difference in column 2 is 19.9989920815591
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 2.73019493859766
+   tau_maximum.asc: substantial differences
+      significant differences on 200 (out of 201) lines
+      maximum absolute difference in column 1 is 25
+      maximum absolute difference in column 2 is 20
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 2.52059068977543
+   tau_minimum.asc: substantial differences
+      significant differences on 200 (out of 201) lines
+      maximum absolute difference in column 1 is 25
+      maximum relative difference in column 1 is 1
+   tau_x_[19][19].asc: substantial differences
+      significant differences on 760 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 19.9989920815591
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 4.00620568976812
+   tau_y_[19][19].asc: substantial differences
+      significant differences on 760 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 7.5223162623922
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.0996471733462
+   tau_z_[19][19].asc: substantial differences
+      significant differences on 760 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 7.5223162623922
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.0996471733462
+   vel[0]_3D_diagonal.asc: substantial differences
+      significant differences on 760 (out of 840) lines
+      maximum absolute difference in column 1 is 16.4544826719043
+      maximum absolute difference in column 2 is 0.7822087839713
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.0957017522694
+   vel[0]_maximum.asc: substantial differences
+      significant differences on 200 (out of 201) lines
+      maximum absolute difference in column 1 is 25
+      maximum absolute difference in column 2 is 0.8178445780473
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.01382316477748
+   vel[0]_minimum.asc: substantial differences
+      significant differences on 200 (out of 201) lines
+      maximum absolute difference in column 1 is 25
+      maximum absolute difference in column 2 is 3.56565e-08
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 3.56565e-08
+   vel[0]_x_[19][19].asc: substantial differences
+      significant differences on 760 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 0.7254826287026
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.29642843933792
+   vel[0]_y_[19][19].asc: substantial differences
+      significant differences on 760 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 0.8050921493581
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.14349959354813
+   vel[0]_z_[19][19].asc: substantial differences
+      significant differences on 760 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 0.8050921493581
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.14349959354813
+   vel[1]_3D_diagonal.asc: substantial differences
+      significant differences on 760 (out of 840) lines
+      maximum absolute difference in column 1 is 16.4544826719043
+      maximum absolute difference in column 2 is 0.1254944412182
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 250.182526590386
+   vel[1]_maximum.asc: substantial differences
+      significant differences on 200 (out of 201) lines
+      maximum absolute difference in column 1 is 25
+      maximum absolute difference in column 2 is 0.3702199176814
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.4659890914452
+   vel[1]_minimum.asc: substantial differences
+      significant differences on 200 (out of 201) lines
+      maximum absolute difference in column 1 is 25
+      maximum absolute difference in column 2 is 0.3387987875765
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.81102219349004
+   vel[1]_x_[19][19].asc: substantial differences
+      significant differences on 760 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 0.0971093230207
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.37802901751487
+   vel[1]_y_[19][19].asc: substantial differences
+      significant differences on 760 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 0.1590792287985
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 2753.7415029599
+   vel[1]_z_[19][19].asc: substantial differences
+      significant differences on 760 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 0.0112795618013
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 581.836571598873
+   vel[2]_3D_diagonal.asc: substantial differences
+      significant differences on 760 (out of 840) lines
+      maximum absolute difference in column 1 is 16.4544826719043
+      maximum absolute difference in column 2 is 0.1254944412182
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 250.182526590386
+   vel[2]_maximum.asc: substantial differences
+      significant differences on 200 (out of 201) lines
+      maximum absolute difference in column 1 is 25
+      maximum absolute difference in column 2 is 0.3702199176814
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.4659890914452
+   vel[2]_minimum.asc: substantial differences
+      significant differences on 200 (out of 201) lines
+      maximum absolute difference in column 1 is 25
+      maximum absolute difference in column 2 is 0.3387987875765
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.81102219349004
+   vel[2]_x_[19][19].asc: substantial differences
+      significant differences on 760 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 0.0971093230207
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.37802901751487
+   vel[2]_y_[19][19].asc: substantial differences
+      significant differences on 760 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 0.0112795618013
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 581.836571598873
+   vel[2]_z_[19][19].asc: substantial differences
+      significant differences on 760 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 0.1590792287985
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 2753.7415029599
+   w_lorentz_3D_diagonal.asc: substantial differences
+      significant differences on 780 (out of 840) lines
+      maximum absolute difference in column 1 is 16.4544826719043
+      maximum absolute difference in column 2 is 1.6189434106362
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.13367988438252
+   w_lorentz_maximum.asc: substantial differences
+      significant differences on 200 (out of 201) lines
+      maximum absolute difference in column 1 is 25
+      maximum absolute difference in column 2 is 1.934873205485
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.02250135742595
+   w_lorentz_minimum.asc: substantial differences
+      significant differences on 200 (out of 201) lines
+      maximum absolute difference in column 1 is 25
+      maximum absolute difference in column 2 is 1
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1
+   w_lorentz_x_[19][19].asc: substantial differences
+      significant differences on 780 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 1.4529805091076
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.19543725375576
+   w_lorentz_y_[19][19].asc: substantial differences
+      significant differences on 780 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 1.734848906884
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.23198671176583
+   w_lorentz_z_[19][19].asc: substantial differences
+      significant differences on 780 (out of 840) lines
+      maximum absolute difference in column 1 is 9.5
+      maximum absolute difference in column 2 is 1.734848906884
+      maximum relative difference in column 1 is 1
+      maximum relative difference in column 2 is 1.23198671176583
+
+
