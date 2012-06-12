@@ -1,0 +1,34 @@
++ '[' '!' -z 2012-06-10-020002 ']'
++ echo 'Previous is '
+Previous is 
++ prev_test_dir=/home/jhar131/TESTING/einsteintoolkit/2012-06-10-020002
++ web_dir=/home/jhar131/network/public_html/einsteintoolkit/2012-06-11-020001
++ mkdir -p /home/jhar131/network/public_html/einsteintoolkit/2012-06-11-020001
++ mkdir -p /home/jhar131/TESTING/einsteintoolkit/2012-06-11-020001/Cactus
++ [[ https://svn.einsteintoolkit.org/manifest/trunk/einsteintoolkit.th =~ ^http.* ]]
++ curl https://svn.einsteintoolkit.org/manifest/trunk/einsteintoolkit.th -o /home/jhar131/TESTING/einsteintoolkit/2012-06-11-020001/Cactus/einsteintoolkit.th
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  9383  100  9383    0     0  33397      0 --:--:-- --:--:-- --:--:-- 41334
++ cd /home/jhar131/TESTING/einsteintoolkit/2012-06-11-020001/Cactus
++ wget --no-check-certificate https://github.com/gridaphobe/CRL/raw/master/GetComponents
+--2012-06-11 02:00:02--  https://github.com/gridaphobe/CRL/raw/master/GetComponents
+Resolving github.com... 207.97.227.239
+Connecting to github.com|207.97.227.239|:443... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: https://raw.github.com/gridaphobe/CRL/master/GetComponents [following]
+--2012-06-11 02:00:02--  https://raw.github.com/gridaphobe/CRL/master/GetComponents
+Resolving raw.github.com... 207.97.227.243
+Connecting to raw.github.com|207.97.227.243|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 98779 (96K) [text/plain]
+Saving to: `GetComponents'
+
+     0K .......... .......... .......... .......... .......... 51%  647K 0s
+    50K .......... .......... .......... .......... ......    100%  644K=0.1s
+
+2012-06-11 02:00:03 (645 KB/s) - `GetComponents' saved [98779/98779]
+
++ chmod 755 GetComponents
++ checkout=0
++ update=
