@@ -1,0 +1,250 @@
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus: TEST.1
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus: TEST.2
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/CactusNumerical/MoL/param.ccl /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/CactusNumerical/MoL/param.ccl
+164a165,170
+> BOOLEAN init_RHS_zero "Initialise the RHS to zero" STEERABLE=recover
+> {
+> } "yes"
+> 
+> 
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/CactusNumerical/MoL/schedule.ccl /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/CactusNumerical/MoL/schedule.ccl
+487c487
+< schedule MoL_InitRHS IN MoL_Step BEFORE MoL_CalcRHS
+---
+> if (init_RHS_zero)
+489,490c489,493
+<   LANG: C
+< } "Initialise the RHS functions"
+---
+>   schedule MoL_InitRHS IN MoL_Step BEFORE MoL_CalcRHS
+>   {
+>     LANG: C
+>   } "Initialise the RHS functions"
+> }
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/test/diag_flip_pugh_eno.par /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/test/diag_flip_pugh_eno.par
+67a68,72
+> tmunubase::timelevels = 1
+> tmunubase::stress_energy_storage = yes
+> tmunubase::stress_energy_at_RHS  = yes
+> tmunubase::support_old_CalcTmunu_mechanism = no
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/test/diag_flip_pugh_ppm.par /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/test/diag_flip_pugh_ppm.par
+67a68,72
+> tmunubase::timelevels = 1
+> tmunubase::stress_energy_storage = yes
+> tmunubase::stress_energy_at_RHS  = yes
+> tmunubase::support_old_CalcTmunu_mechanism = no
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/test/diag_flip_pugh_tvd.par /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/test/diag_flip_pugh_tvd.par
+67a68,72
+> tmunubase::timelevels = 1
+> tmunubase::stress_energy_storage = yes
+> tmunubase::stress_energy_at_RHS  = yes
+> tmunubase::support_old_CalcTmunu_mechanism = no
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/test/diag_pugh_eno.par /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/test/diag_pugh_eno.par
+67a68,72
+> tmunubase::timelevels = 1
+> tmunubase::stress_energy_storage = yes
+> tmunubase::stress_energy_at_RHS  = yes
+> tmunubase::support_old_CalcTmunu_mechanism = no
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/test/diag_pugh_ppm.par /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/test/diag_pugh_ppm.par
+67a68,72
+> tmunubase::timelevels = 1
+> tmunubase::stress_energy_storage = yes
+> tmunubase::stress_energy_at_RHS  = yes
+> tmunubase::support_old_CalcTmunu_mechanism = no
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/test/diag_pugh_tvd.par /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/test/diag_pugh_tvd.par
+67a68,72
+> tmunubase::timelevels = 1
+> tmunubase::stress_energy_storage = yes
+> tmunubase::stress_energy_at_RHS  = yes
+> tmunubase::support_old_CalcTmunu_mechanism = no
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/test/halfsphere_pugh_ppm.par /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/test/halfsphere_pugh_ppm.par
+71a72,76
+> tmunubase::timelevels = 1
+> tmunubase::stress_energy_storage = yes
+> tmunubase::stress_energy_at_RHS  = yes
+> tmunubase::support_old_CalcTmunu_mechanism = no
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/test/halfsphere_pugh_tvd.par /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/test/halfsphere_pugh_tvd.par
+71a72,76
+> tmunubase::timelevels = 1
+> tmunubase::stress_energy_storage = yes
+> tmunubase::stress_energy_at_RHS  = yes
+> tmunubase::support_old_CalcTmunu_mechanism = no
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/test/sphere_pugh_ppm.par /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/test/sphere_pugh_ppm.par
+71a72,76
+> tmunubase::timelevels = 1
+> tmunubase::stress_energy_storage = yes
+> tmunubase::stress_energy_at_RHS  = yes
+> tmunubase::support_old_CalcTmunu_mechanism = no
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/test/sphere_pugh_tvd.par /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/test/sphere_pugh_tvd.par
+71a72,76
+> tmunubase::timelevels = 1
+> tmunubase::stress_energy_storage = yes
+> tmunubase::stress_energy_at_RHS  = yes
+> tmunubase::support_old_CalcTmunu_mechanism = no
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/test/x_flip_pugh_eno.par /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/test/x_flip_pugh_eno.par
+66a67,71
+> tmunubase::timelevels = 1
+> tmunubase::stress_energy_storage = yes
+> tmunubase::stress_energy_at_RHS  = yes
+> tmunubase::support_old_CalcTmunu_mechanism = no
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/test/x_flip_pugh_ppm.par /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/test/x_flip_pugh_ppm.par
+66a67,71
+> tmunubase::timelevels = 1
+> tmunubase::stress_energy_storage = yes
+> tmunubase::stress_energy_at_RHS  = yes
+> tmunubase::support_old_CalcTmunu_mechanism = no
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/test/x_flip_pugh_tvd.par /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/test/x_flip_pugh_tvd.par
+66a67,71
+> tmunubase::timelevels = 1
+> tmunubase::stress_energy_storage = yes
+> tmunubase::stress_energy_at_RHS  = yes
+> tmunubase::support_old_CalcTmunu_mechanism = no
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/test/x_pugh_eno.par /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/test/x_pugh_eno.par
+66a67,71
+> tmunubase::timelevels = 1
+> tmunubase::stress_energy_storage = yes
+> tmunubase::stress_energy_at_RHS  = yes
+> tmunubase::support_old_CalcTmunu_mechanism = no
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/test/x_pugh_ppm.par /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/test/x_pugh_ppm.par
+66a67,71
+> tmunubase::timelevels = 1
+> tmunubase::stress_energy_storage = yes
+> tmunubase::stress_energy_at_RHS  = yes
+> tmunubase::support_old_CalcTmunu_mechanism = no
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/test/x_pugh_tvd.par /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/test/x_pugh_tvd.par
+66a67,71
+> tmunubase::timelevels = 1
+> tmunubase::stress_energy_storage = yes
+> tmunubase::stress_energy_at_RHS  = yes
+> tmunubase::support_old_CalcTmunu_mechanism = no
+> 
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/ExternalLibraries/BLAS: BLAS.sh
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/ExternalLibraries/BLAS/configuration.ccl /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/ExternalLibraries/BLAS/configuration.ccl
+5c5
+<   SCRIPT BLAS.sh
+---
+>   SCRIPT configure.sh
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/ExternalLibraries/BLAS: configure.sh
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/ExternalLibraries/BLAS/dist: lapack-3.4.0.tgz
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/ExternalLibraries/BLAS/dist: lapack-3.4.1.tgz
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/ExternalLibraries/FFTW3: FFTW3.sh
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/ExternalLibraries/FFTW3/configuration.ccl /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/ExternalLibraries/FFTW3/configuration.ccl
+5c5
+<   SCRIPT FFTW3.sh
+---
+>   SCRIPT configure.sh
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/ExternalLibraries/FFTW3: configure.sh
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/ExternalLibraries/FFTW3/dist: fftw-3.2.2.tar.gz
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/ExternalLibraries/FFTW3/dist: fftw-3.3.tar.gz
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/ExternalLibraries/GSL: GSL.sh
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/ExternalLibraries/GSL/configuration.ccl /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/ExternalLibraries/GSL/configuration.ccl
+5c5
+<   SCRIPT GSL.sh
+---
+>   SCRIPT configure.sh
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/ExternalLibraries/GSL: configure.sh
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/ExternalLibraries/HDF5: HDF5.sh
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/ExternalLibraries/HDF5/configuration.ccl /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/ExternalLibraries/HDF5/configuration.ccl
+5c5
+<   SCRIPT HDF5.sh
+---
+>   SCRIPT configure.sh
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/ExternalLibraries/HDF5: configure.sh
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/ExternalLibraries/HDF5/dist: hdf5-1.8.8.tar.gz
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/ExternalLibraries/HDF5/dist: hdf5-1.8.9.tar.gz
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/ExternalLibraries/HDF5/src/make.configuration.defn /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/ExternalLibraries/HDF5/src/make.configuration.defn
+8c8
+< ALL_UTILS += h5check	
+---
+> ALL_UTILS += h5check
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/ExternalLibraries/LAPACK: LAPACK.sh
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/ExternalLibraries/LAPACK/configuration.ccl /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/ExternalLibraries/LAPACK/configuration.ccl
+5c5
+<   SCRIPT LAPACK.sh
+---
+>   SCRIPT configure.sh
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/ExternalLibraries/LAPACK: configure.sh
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/ExternalLibraries/LAPACK/dist: lapack-3.4.0.tgz
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/ExternalLibraries/LAPACK/dist: lapack-3.4.1.tgz
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/ExternalLibraries/LORENE: LORENE.sh
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/ExternalLibraries/LORENE/configuration.ccl /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/ExternalLibraries/LORENE/configuration.ccl
+5c5
+<   SCRIPT LORENE.sh
+---
+>   SCRIPT configure.sh
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/ExternalLibraries/LORENE: configure.sh
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/ExternalLibraries/OpenSSL: OpenSSL.sh
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/ExternalLibraries/OpenSSL/configuration.ccl /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/ExternalLibraries/OpenSSL/configuration.ccl
+5c5
+<   SCRIPT OpenSSL.sh
+---
+>   SCRIPT configure.sh
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/ExternalLibraries/OpenSSL: configure.sh
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/ExternalLibraries/hwloc/dist: hwloc-1.4.tar.gz
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/ExternalLibraries/libjpeg/README /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/ExternalLibraries/libjpeg/README
+16c16,18
+< IJG is an informal group that writes and distributes a widely used free library for JPEG image compression.
+---
+> IJG is an informal group that writes and distributes a widely used
+> free library for JPEG image compression. The first version was
+> released on 7-Oct-1991.
+18c20,21
+< The current version is release 8b of 16-May-2010. This is a stable and solid foundation for many application's JPEG support. 
+---
+> The current version is release 8b of 16-May-2010. This is a stable and
+> solid foundation for many application's JPEG support.
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/ExternalLibraries/libjpeg/configuration.ccl /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/ExternalLibraries/libjpeg/configuration.ccl
+5c5
+<   SCRIPT libjpeg.sh
+---
+>   SCRIPT configure.sh
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/ExternalLibraries/libjpeg: configure.sh
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/ExternalLibraries/libjpeg: libjpeg.sh
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/ExternalLibraries/zlib/configuration.ccl /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/ExternalLibraries/zlib/configuration.ccl
+5c5
+<   SCRIPT zlib.sh
+---
+>   SCRIPT configure.sh
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/ExternalLibraries/zlib: configure.sh
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/arrangements/ExternalLibraries/zlib: zlib.sh
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus: cactusjar.git
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus: exe
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus: log
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/repos/carpet/.hg/dirstate and /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/repos/carpet/.hg/dirstate differ
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/simfactory/lib/archive: __init__.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/simfactory/lib/archive: petashare.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/simfactory/lib/archive: uberftp.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/simfactory/lib: libutil.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/simfactory/lib: pyini.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/simfactory/lib: restartlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/simfactory/lib: sim-build.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/simfactory/lib: sim-info.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/simfactory/lib: sim-manage.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/simfactory/lib: sim-sync.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/simfactory/lib: sim-util.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/simfactory/lib: simarchive.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/simfactory/lib: simdb.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/simfactory/lib: simdt.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/simfactory/lib: simenv.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/simfactory/lib: simlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/simfactory/lib: simopts.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/simfactory/lib: simproperties.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/simfactory/lib: simremote.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/simfactory/lib: simrestart.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-12-020001/Cactus/simfactory/lib: simsubs.pyc

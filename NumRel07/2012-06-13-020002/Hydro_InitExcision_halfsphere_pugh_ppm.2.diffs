@@ -1,0 +1,18 @@
+   vel[1]_maximum.asc: substantial differences
+      significant differences on 7 (out of 101) lines
+      maximum absolute difference in column 2 is 0.0001087050845
+      maximum relative difference in column 2 is 0.0105359571810757
+   vel[1]_minimum.asc: substantial differences
+      significant differences on 7 (out of 101) lines
+      maximum absolute difference in column 2 is 0.0001086995972
+      maximum relative difference in column 2 is 0.0105374833254775
+   vel[2]_maximum.asc: substantial differences
+      significant differences on 7 (out of 101) lines
+      maximum absolute difference in column 2 is 0.0001087050845
+      maximum relative difference in column 2 is 0.0105359571810757
+   vel[2]_minimum.asc: substantial differences
+      significant differences on 7 (out of 101) lines
+      maximum absolute difference in column 2 is 0.0001086995973
+      maximum relative difference in column 2 is 0.0105374833351717
+
+

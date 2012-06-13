@@ -1,0 +1,38 @@
+
+!DESC "1+log sliced black hole, ADM,  iterative CN"
+
+ActiveThorns = "ADMCoupling Boundary Time ADMConstraints SpaceMask PUGH pughreduce CartGrid3D CoordBase SymBase ADMBase StaticConformal ADMAnalysis CoordGauge ADM IDAnalyticBH IOUtil IOBasic ADMMacros localreduce"
+
+admbase::evolution_method  = "ADM"     
+driver::global_nsize        = 20     
+
+grid::type                  = "bySpacing"
+grid::dxyz                  = 0.2  
+grid::domain                = "octant"
+
+time::dtfac                 = 0.25   
+cactus::cctk_initial_time   = 0.     
+
+cactus::cctk_itlast         = 10      
+
+adm::method                 = "icn" 
+adm::bound                  = "flat"      
+adm::ICN_itnum              = 3
+
+admbase::metric_type             =  "static conformal"
+admbase::initial_data            = "Schwarzschild"
+
+
+admbase::lapse_evolution_method  =  "coordgauge"
+coordgauge::lapse_list           = "1+log"
+
+iobasic::outScalar_every    = 2      
+IO::out_dir                  = "test_ADM_3"
+io::out_fileinfo            = "none"
+iobasic::outInfo_every      = 1
+iobasic::outInfo_vars       = "admbase::gxx admbase::kxx"
+iobasic::outScalar_vars     = "admbase::gxx admbase::kxx admconstraints::ham admconstraints::momx admconstraints::momy admconstraints::momz admanalysis::grr admbase::alp"
+
+
+# do not use the new scheme for names of output files
+IO::new_filename_scheme = "no"
