@@ -1,0 +1,11 @@
+   rho.x.asc: substantial differences
+      caught  190 NaNs in new rho.x.asc
+      significant differences on 308 (out of 334) lines
+   rho.y.asc: substantial differences
+      caught  116 NaNs in new rho.y.asc
+      significant differences on 313 (out of 343) lines
+   rho.z.asc: substantial differences
+      caught  116 NaNs in new rho.z.asc
+      significant differences on 313 (out of 343) lines
+
+

@@ -1,0 +1,73 @@
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus: TEST.1
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus: TEST.2
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/arrangements/ExternalLibraries/OpenSSL/configure.sh /home/jhar131/TESTING/einsteintoolkit/2012-06-14-020001/Cactus/arrangements/ExternalLibraries/OpenSSL/configure.sh
+29c29
+<             for libdir in lib64 lib; do
+---
+>             for libdir in lib64 lib/x86_64-linux-gnu lib/ia64-linux-gnu lib/i386-linux-gnu lib; do
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus: cactusjar.git
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus: exe
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus: log
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/repos/Kranc/Tools/CodeGen/CodeGenCactus.m /home/jhar131/TESTING/einsteintoolkit/2012-06-14-020001/Cactus/repos/Kranc/Tools/CodeGen/CodeGenCactus.m
+671c671,676
+<       kdiv[x_,y_] -> x/y,
+---
+>       kdiv[x_,y_] -> x*ScalarINV[y],
+>       
+>       kmadd[x_,y_,z_]  -> x*y+z,
+>       kmsub[x_,y_,z_]  -> x*y-z,
+>       knmadd[x_,y_,z_] -> -(x*y+z),
+>       knmsub[x_,y_,z_] -> -(x*y-z),
+676,678c681,684
+<       x_^-2 -> 1/ScalarSQR[x],
+<       x_^-3 -> 1/ScalarCUB[x],
+<       x_^-4 -> 1/ScalarQAD[x]};
+---
+>       x_^-1 -> ScalarINV[x],
+>       x_^-2 -> ScalarINV[ScalarSQR[x]],
+>       x_^-3 -> ScalarINV[ScalarCUB[x]],
+>       x_^-4 -> ScalarINV[ScalarQAD[x]]};
+834,835c840
+<          {"INITVALUE (42)",
+<           "QAD(x) (SQR(SQR(x)))"} ~Join~
+---
+>          {"INITVALUE (42)"} ~Join~
+843,844c848,850
+<             "CUB(x) (kmul(x,SQR(x)))"},
+<            {"INV(x) ((1.0) / (x))",
+---
+>             "CUB(x) (kmul(x,SQR(x)))",
+>             "QAD(x) (SQR(SQR(x)))"},
+>            {"INV(x) ((CCTK_REAL)1.0 / (x))",
+846c852,853
+<             "CUB(x) ((x) * (x) * (x))"}]
+---
+>             "CUB(x) ((x) * SQR(x))",
+>             "QAD(x) (SQR(SQR(x)))"}]
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/repos/carpet/.hg/dirstate and /home/jhar131/TESTING/einsteintoolkit/2012-06-14-020001/Cactus/repos/carpet/.hg/dirstate differ
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/simfactory/bin/RunTestSuite /home/jhar131/TESTING/einsteintoolkit/2012-06-14-020001/Cactus/simfactory/bin/RunTestSuite
+15a16,18
+> # Do not produce core files
+> ulimit -c 0
+> 
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/simfactory/lib/archive: __init__.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/simfactory/lib/archive: petashare.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/simfactory/lib/archive: uberftp.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/simfactory/lib: libutil.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/simfactory/lib: pyini.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/simfactory/lib: restartlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/simfactory/lib: sim-build.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/simfactory/lib: sim-info.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/simfactory/lib: sim-manage.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/simfactory/lib: sim-sync.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/simfactory/lib: sim-util.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/simfactory/lib: simarchive.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/simfactory/lib: simdb.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/simfactory/lib: simdt.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/simfactory/lib: simenv.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/simfactory/lib: simlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/simfactory/lib: simopts.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/simfactory/lib: simproperties.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/simfactory/lib: simremote.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/simfactory/lib: simrestart.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-13-020002/Cactus/simfactory/lib: simsubs.pyc

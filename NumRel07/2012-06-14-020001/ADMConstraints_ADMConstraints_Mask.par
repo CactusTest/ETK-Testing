@@ -1,0 +1,53 @@
+!DESC "Constraints for Schwarzschild with mask activated"
+
+# $Header$
+#
+# /*@@
+#   @file      test_ADM_1.par
+#   @date      Sunday 24th July
+#   @author    Gabrielle Allen
+#   @desc
+#   ADMConstraints test file
+#   @enddesc
+# @@*/           
+
+# Required thorns
+ActiveThorns = "ADMCoupling Boundary Time ADMconstraints pugh ADM CoordGauge pughreduce CartGrid3D CoordBase SymBase ADMBase StaticConformal admmacros spacemask idanalyticbh ioutil iobasic localreduce"
+
+# GENERAL
+
+driver::global_nx  =  20
+driver::global_ny  =  20
+driver::global_nz  =  20
+
+grid::type         =  "byspacing"
+grid::dxyz         =  0.2
+grid::domain     =  "octant"
+
+cactus::cctk_itlast        =  3
+
+
+# Einstein
+
+SpaceMask::use_mask       = "yes"
+
+ADMBase::initial_data     = "schwarzschild"
+ADMBase::metric_type      = "static conformal"
+ADMBase::evolution_method = "ADM"
+ADMBase::lapse_evolution_method  =  "1+log"
+
+adm::method               =  "stagleap"
+adm::bound                =  "flat"
+
+# Output
+
+IO::out_dir         = "ADMConstraints_Mask"
+IO::out_fileinfo   = "none"
+
+IOBasic::outScalar_every      = 1
+IOBasic::outScalar_vars       = "admconstraints::hamiltonian admconstraints::momentum"
+IOBasic::outScalar_reductions = "average count maximum minimum norm1 norm2 norm3 norm4 norm_inf sum"
+
+IOBasic::outInfo_every = 1
+IOBasic::outInfo_vars = "admconstraints::ham admbase::gxx"
+
