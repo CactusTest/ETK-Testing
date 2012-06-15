@@ -1,0 +1,72 @@
+!DESC "Diagonal shocktube, RK2, Roe, PPM, Ideal Gas"
+
+ActiveThorns = "pugh pughreduce pughslab localreduce"
+
+cactus::cctk_itlast 			= 	5
+
+driver::ghost_size			=	3
+driver::global_nx 			= 	15
+driver::global_ny 			= 	15
+driver::global_nz 			= 	15
+
+ActiveThorns = "coordbase symbase cartgrid3d boundary"
+
+grid::type 				= 	"BySpacing"
+grid::domain 				= 	"full"
+grid::dxyz 				= 	0.5
+
+ActiveThorns = "time"
+
+time::dtfac 				= 	0.25
+
+ActiveThorns = "ioutil ioascii iobasic"
+
+IO::out_fileinfo="none"
+IO::out_dir 				= 	"GRHydro_test_shock_ppm"
+
+IOBasic::outInfo_every 			= 	1
+IOBasic::outInfo_vars 			= 	"HydroBase::rho"
+
+IOASCII::out1D_every 			= 	1
+IOASCII::out1D_vars 			= 	"hydrobase::w_lorentz hydrobase::rho hydrobase::press hydrobase::eps HydroBase::vel GRHydro::dens GRHydro::tau GRHydro::scon"
+
+ActiveThorns = "nanchecker mol"
+
+methodoflines::ode_method 		= 	"rk2"
+methodoflines::mol_intermediate_steps	=	2
+
+ActiveThorns = "ADMBase StaticConformal SpaceMask CoordGauge ADMMacros ADMCoupling Tmunubase"
+
+TmunuBase::stress_energy_storage	=	yes
+TmunuBase::stress_energy_at_RHS		=	yes
+TmunuBase::timelevels			=	1
+TmunuBase::prolongation_type		=	none
+
+ADMBase::evolution_method		=	"none"
+ADMBase::initial_shift			=	"zero"
+ADMBase::metric_type			= 	"physical"
+SpaceMask::use_mask = "yes"
+
+ActiveThorns = "hydrobase grhydro initbase eos_omni"
+
+hydrobase::timelevels			= 2
+hydrobase::evolution_method       = "GRHydro"
+
+GRHydro::riemann_solver			=	"Roe"
+GRHydro::GRHydro_eos_type			=	"General"
+GRHydro::GRHydro_eos_table		=	"Ideal_Fluid"
+GRHydro::GRHydro_stencil			=	3
+GRHydro::recon_method			=	"ppm"
+GRHydro::bound				=	"flat"
+
+eos_omni::poly_gamma                    = 2.0
+eos_omni::poly_gamma_ini                = 2.0
+eos_omni::poly_k                        = 80.0
+eos_omni::gl_gamma                      = 1.66666666666666
+eos_omni::gl_k                          = 80.0
+
+ActiveThorns = "grhydro_initdata"
+
+hydrobase::initial_hydro	=	"shocktube"
+grhydro_initdata::shocktube_type	=	"diagshock"
+grhydro_initdata::shock_case		=	"Simple"
