@@ -1,0 +1,107 @@
+!DESC "TOV from TOVSolverC, ICN, Marquina, PPM, Polytrope"
+
+ActiveThorns = "time MoL pugh pughreduce pughslab coordbase symbase cartgrid3d ioutil ioascii iobasic boundary admbase staticconformal spacemask admcoupling coordgauge admmacros hydrobase grhydro grhydro_initdata tovsolver nanchecker eos_omni ML_BSSN ML_BSSN_Helper GenericFD TmunuBase NewRad admconstraints Constants localreduce InitBase LoopControl"
+
+TmunuBase::stress_energy_storage	=	yes
+TmunuBase::stress_energy_at_RHS		=	yes
+TmunuBase::timelevels			=	1
+TmunuBase::prolongation_type		=	none
+
+time::dtfac = 0.375
+
+hydrobase::timelevels			= 2
+hydrobase::evolution_method       = "GRHydro"
+
+admbase::evolution_method        = "ML_BSSN"
+admbase::lapse_evolution_method  = "ML_BSSN"
+admbase::dtlapse_evolution_method  = "ML_BSSN"
+ADMBase::shift_evolution_method   = "ML_BSSN"
+ADMBase::dtshift_evolution_method = "ML_BSSN"
+ML_BSSN::ShiftGammaCoeff = 0
+
+ML_BSSN::my_initial_boundary_condition = "extrapolate-gammas"
+ML_BSSN::my_rhs_boundary_condition     = "NewRad"
+# These are necessary
+ML_BSSN::ML_log_confac_bound = "none"
+ML_BSSN::ML_metric_bound     = "none"
+ML_BSSN::ML_Gamma_bound      = "none"
+ML_BSSN::ML_trace_curv_bound = "none"
+ML_BSSN::ML_curv_bound       = "none"
+ML_BSSN::ML_lapse_bound      = "none"
+ML_BSSN::ML_dtlapse_bound    = "none"
+ML_BSSN::ML_shift_bound      = "none"
+ML_BSSN::ML_dtshift_bound    = "none"
+
+ML_BSSN::fdOrder             = 2
+
+ml_bssn::harmonicF      = 2.0
+
+admconstraints::bound     = "static"
+ADMConstraints::constraints_persist	= yes
+
+boundary::radpower        = 2
+
+SpaceMask::use_mask	  = "yes"
+
+grid::type            = "byrange"
+grid::domain          = "full"
+grid::xyzmin          = -15.0
+grid::xyzmax          =  15.001
+driver::ghost_size    =   3
+driver::global_nsize  =  33
+
+CoordBase::boundary_size_x_lower = 2
+CoordBase::boundary_size_y_lower = 2
+CoordBase::boundary_size_z_lower = 2
+CoordBase::boundary_size_x_upper = 2
+CoordBase::boundary_size_y_upper = 2
+CoordBase::boundary_size_z_upper = 2
+
+cactus::cctk_itlast   =       7
+
+methodoflines::ode_method        = "icn"
+
+GRHydro::riemann_solver            = "Marquina"
+GRHydro::GRHydro_eos_type           = "Polytype"
+GRHydro::GRHydro_eos_table          = "2D_Polytrope"
+GRHydro::recon_method              = "ppm"
+GRHydro::GRHydro_stencil            = 3
+GRHydro::bound                     = "none"
+GRHydro::rho_abs_min               = 1.e-7
+GRHydro::initial_atmosphere_factor = 0.999
+
+GRHydro::ppm_detect = "no"
+GRHydro::ppm_epsilon = 0.0
+GRHydro::ppm_omega1 = 0.52
+GRHydro::ppm_omega2 = 0.0
+GRHydro::ppm_epsilon_shock = 0.1
+GRHydro::ppm_eta1 = 5.0
+GRHydro::ppm_k0 = 0.2
+
+GRHydro::GRHydro_enable_internal_excision = "no"
+
+ADMBase::initial_data  = "tov"
+ADMBase::initial_lapse = "tov"
+ADMBase::initial_shift = "tov"
+
+tovsolver::TOV_Rho_Central[0] = 1.28e-3
+tovsolver::TOV_Gamma[0]       = 2.0
+tovsolver::TOV_K[0]           = 100.0
+tovsolver::TOV_Combine_Method = "maximum"
+
+eos_omni::poly_gamma                    = 2.0
+eos_omni::poly_gamma_ini                = 2.0
+eos_omni::poly_k                        = 100.0
+
+IOBasic::outInfo_every 			= 	1
+IOBasic::outInfo_vars 			= 	"HydroBase::rho"
+
+IO::out_fileinfo="none"
+IO::out_dir = $parfile
+
+IOBasic::outScalar_every = 1
+IOBasic::outScalar_vars  = "hydrobase::w_lorentz hydrobase::rho hydrobase::press hydrobase::eps HydroBase::vel GRHydro::dens GRHydro::tau GRHydro::scon admbase::lapse admbase::metric admbase::curv admconstraints::ham admconstraints::momentum"
+
+IOASCII::out1D_every     = 1
+IOASCII::out1D_vars      = "hydrobase::w_lorentz hydrobase::rho hydrobase::press hydrobase::eps HydroBase::vel GRHydro::dens GRHydro::tau GRHydro::scon admconstraints::ham admconstraints::momentum"
+IOASCII::out_format      = ".10e"

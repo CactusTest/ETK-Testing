@@ -1,0 +1,47 @@
+!DESC "Octant evolution with radiation boundaries"
+# $Id: test_rad.par 82 2006-01-25 16:22:31Z yye00 $
+#
+# /*@@
+#   @file      test_rad.par
+#   @date      Saturday 18th September 1999
+#   @author    Gabrielle Allen
+#   @desc
+#   Wavetoy parameter file demonstrating radiation boundaries in Octant
+#   @enddesc
+# @@*/          
+
+ActiveThorns = "iobasic idscalarwave time wavetoyfreef90 pugh pughslab pughreduce CartGrid3D CoordBase SymBase boundary ioutil ioascii localreduce"
+ 
+time::dtfac = 0.5
+
+idscalarwave::initial_data = "gaussian"
+idscalarwave::sigma = 2.8
+idscalarwave::radius = 5
+
+wavetoyfreef90::bound = "radiation"
+
+grid::type = "BySpacing"
+grid::domain = "octant"
+grid::dxyz = 0.6
+
+driver::global_nx = 15
+driver::global_ny = 15
+driver::global_nz = 15
+
+cactus::cctk_itlast = 10
+
+IOBasic::outScalar_reductions = "norm1 norm2 minimum maximum norm_inf"
+IOBasic::outScalar_every = 1
+IOBasic::outScalar_vars = "wavetoy::phi"
+
+IOASCII::out1D_every = 1
+IOASCII::out1D_z = "no"
+IOASCII::out1D_y = "no"
+IOASCII::out1D_d = "no"
+IOASCII::out1D_vars = "wavetoy::phi "
+
+IO::out_dir       = "test_rad"
+IO::out_fileinfo = "none"
+
+# do not use the new scheme for names of output files
+IO::new_filename_scheme = "no"

@@ -1,0 +1,52 @@
+######################################################################
+#!DESC "Initial data for axisymmetric distored black hole"
+######################################################################
+
+ActiveThorns = "coordgauge admanalysis admbase admmacros staticconformal time boundary ADMCoupling ADMconstraints pugh pughreduce pughslab pughinterp LocalInterp SymBase CoordBase cartgrid3d SpaceMask DistortedBHIVP ioascii iobasic ioutil LocalReduce"
+
+# GENERAL 
+
+driver::global_nx =  32
+driver::global_ny =  32
+driver::global_nz =  32
+
+grid::type = "byspacing"
+grid::dxyz = 0.4
+grid::domain = "full"
+
+cactus::cctk_itlast       = 0
+
+# MODEL 
+
+admbase::initial_data    = "distortedbh"
+distortedbhivp::amp      = -0.1
+distortedbhivp::eta0     = 0.0
+distortedbhivp::c        = 0.5
+distortedbhivp::sigma    = 1.0
+distortedbhivp::etamax   = 6.0
+distortedbhivp::n        = 4
+distortedbhivp::neta     = 102
+distortedbhivp::ntheta   = 27
+distortedbhivp::nphi     = 5
+distortedbhivp::interpolation_order = 1
+
+
+# GAUGE
+
+admbase::metric_type               = "static conformal"
+staticconformal::conformal_storage = "factor+derivs+2nd derivs"
+
+# OUTPUT ########################################################
+IO::out_dir              = $parfile
+IO::out_fileinfo         = "none"
+IO::new_filename_scheme  = no
+
+
+IOASCII::out1d_every     =  1
+IOASCII::out1D_style     = "gnuplot f(x)"
+IOASCII::out1D_vars      = "admbase::metric admbase::curv admbase::lapse admconstraints::ham admanalysis::grr staticconformal::psi staticconformal::psix staticconformal::psiy staticconformal::psiz staticconformal::psixx staticconformal::psixy staticconformal::psixz staticconformal::psiyy staticconformal::psiyz staticconformal::psizz"
+IOBasic::outInfo_every   = 1
+IOBasic::outInfo_vars    = "admconstraints::ham admbase::gxx"
+
+##################################################################
+
