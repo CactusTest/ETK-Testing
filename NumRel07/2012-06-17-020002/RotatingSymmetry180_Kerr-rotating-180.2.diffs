@@ -1,0 +1,8 @@
+   gxx_norm2.asc: differences below tolerance on 1 lines
+   gyy_norm2.asc: differences below tolerance on 1 lines
+
+   emask_3D_diagonal.asc: not in thorn archive
+   emask_y_[2][2].asc: not in thorn archive
+   emask_x_[16][2].asc: not in thorn archive
+   emask_z_[2][16].asc: not in thorn archive
+

@@ -1,0 +1,468 @@
+/home/jhar131/TESTING/einsteintoolkit/2012-06-17-020002/Cactus/TEST/sim/CarpetReduce
+--------------------------------------------------------------------------------
+
+       10                                  
+  1   0101       ************************  
+  01  1010 10      The Cactus Code V4.0    
+ 1010 1101 011      www.cactuscode.org     
+  1001 100101    ************************  
+    00010101                               
+     100011     (c) Copyright The Authors  
+      0100      GNU Licensed. No Warranty  
+      0101                                 
+
+--------------------------------------------------------------------------------
+
+Cactus version:    4.0.1
+Compile date:      Jun 17 2012 (02:53:04)
+Run date:          Jun 17 2012 (03:20:39-0500)
+Run host:          numrel07.cct.lsu.edu (pid=25136)
+Working directory: /home/jhar131/TESTING/einsteintoolkit/2012-06-17-020002/Cactus/TEST/sim/CarpetReduce
+Executable:        /home/jhar131/TESTING/einsteintoolkit/2012-06-17-020002/Cactus/exe/cactus_sim
+Parameter file:    /home/jhar131/TESTING/einsteintoolkit/2012-06-17-020002/Cactus/arrangements/Carpet/CarpetReduce/test/nonstaggered.par
+--------------------------------------------------------------------------------
+
+Activating thorn Cactus...Success -> active implementation Cactus
+Activation requested for 
+--->IOUtil Boundary CartGrid3D CoordBase SymBase MoL InitBase<---
+Activating thorn Boundary...Success -> active implementation boundary
+Activating thorn CartGrid3D...Success -> active implementation grid
+Activating thorn CoordBase...Success -> active implementation CoordBase
+Activating thorn InitBase...Success -> active implementation InitBase
+Activating thorn IOUtil...Success -> active implementation IO
+Activating thorn MoL...Success -> active implementation MethodOfLines
+Activating thorn SymBase...Success -> active implementation SymBase
+Activation requested for 
+--->Carpet CarpetLib CarpetInterp GSL LoopControl CarpetReduce CarpetSlab<---
+Activating thorn Carpet...Success -> active implementation Driver
+Activating thorn CarpetInterp...Success -> active implementation interp
+Activating thorn CarpetLib...Success -> active implementation CarpetLib
+Activating thorn CarpetReduce...Success -> active implementation reduce
+Activating thorn CarpetSlab...Success -> active implementation Hyperslab
+Activating thorn GSL...Success -> active implementation GSL
+Activating thorn LoopControl...Success -> active implementation LoopControl
+Activation requested for 
+--->CarpetIOASCII CarpetIOBasic<---
+Activating thorn CarpetIOASCII...Success -> active implementation IOASCII
+Activating thorn CarpetIOBasic...Success -> active implementation IOBasic
+--------------------------------------------------------------------------------
+  if (recover initial data)
+    Recover parameters
+  endif
+
+  Startup routines
+    [CCTK_STARTUP]
+      Carpet::MultiModel_Startup: Multi-model Startup routine
+      CarpetLib::CarpetLib_registercycleclock: [global] Register cycle based timer
+      Carpet::Driver_Startup: Startup routine
+      IOUtil::IOUtil_Startup: Startup routine
+      CarpetInterp::CarpetInterpStartup: Startup routine
+      CarpetIOBasic::CarpetIOBasicStartup: [global] Startup routine
+      CarpetReduce::CarpetReduceStartup: Startup routine
+      CartGrid3D::SymmetryStartup: Register GH Extension for GridSymmetry
+      CoordBase::CoordBase_Startup: Register a GH extension to store the coordinate system handles
+      CarpetIOASCII::CarpetIOASCIIStartup: [global] Startup routine
+      LoopControl::lc_check_type_sizes: [meta] Check that sizes of control structures are identical in C and Fortran
+      MoL::MoL_Startup: Startup banner
+      SymBase::SymBase_Startup: Register GH Extension for SymBase
+
+  Startup routines which need an existing grid hierarchy
+    [CCTK_WRAGH]
+      Boundary::Boundary_RegisterBCs: [global] Register boundary conditions that this thorn provides
+      CartGrid3D::RegisterCartGrid3DCoords: [meta] Register coordinates for the Cartesian grid
+      MoL::MoL_SetupIndexArrays: Set up the MoL bookkeeping index arrays
+      MoL::MoL_SetScheduleStatus: [global] Set the flag so it is ok to register with MoL
+      GROUP MoL_Register: The group where physics thorns register variables with MoL
+      MoL::MoL_ReportNumberVariables: [meta] Report how many of each type of variable there are
+      GROUP SymBase_Wrapper: Wrapper group for SymBase
+        GROUP SymmetryRegister: Register your symmetries here
+          CartGrid3D::RegisterSymmetryBoundaries: [meta] Register symmetry boundaries
+        SymBase::SymBase_Statistics: Print symmetry boundary face descriptions
+  Parameter checking routines
+    [CCTK_PARAMCHECK]
+      Boundary::Boundary_Check: Check dimension of grid variables
+      Carpet::CarpetParamCheck: Parameter checking routine
+      CarpetLib::CarpetLib_test_prolongate_3d_rf2: [global] Test prolongation operators
+      CartGrid3D::ParamCheck_CartGrid3D: Check coordinates for CartGrid3D
+      MoL::MoL_ParamCheck: Basic parameter checking
+
+  Initialisation
+    if (NOT (recover initial data AND recovery_mode is 'strict'))
+      [CCTK_PREREGRIDINITIAL]
+      Set up grid hierarchy
+      [CCTK_POSTREGRIDINITIAL]
+        CartGrid3D::SpatialCoordinates: Set Coordinates after regridding
+        GROUP MaskBase_SetupMask: Set up the weight function
+          GROUP MaskBase_SetupMaskAll: Set up the weight function
+            CarpetReduce::MaskBase_AllocateMask: [global] Allocate the weight function
+            CarpetReduce::MaskBase_InitMask: [global] [loop-local] Initialise the weight function
+            GROUP SetupIMaskInternal: Set up the integer weight function (schedule other routines in here)
+              CarpetReduce::CoordBase_SetupMask: [global] [loop-local] Set up the outer boundaries of the weight function
+              CarpetReduce::CarpetMaskSetup: [global] [loop-singlemap] Set up the weight function for the restriction regions
+            GROUP SetupIMask: Set up the integer weight function (schedule other routines in here)
+            CarpetReduce::MaskBase_SetMask: [global] [loop-local] Set the weight function
+            GROUP SetupMask: Set up the real weight function (schedule other routines in here)
+            CarpetReduce::MaskBase_TestMask: [global] Test the weight function
+        GROUP MoL_PseudoEvolutionBoundaries: Apply boundary conditions to pseudo-evolved quantities
+      [CCTK_BASEGRID]
+        CarpetIOASCII::CarpetIOASCIIInit: [global] Initialisation routine
+        CarpetIOBasic::CarpetIOBasicInit: [global] Initialisation routine
+        CartGrid3D::CartGrid3D_SetRanges: Set up ranges for spatial 3D Cartesian coordinates (on all grids)
+        CartGrid3D::SpatialCoordinates: Set up spatial 3D Cartesian coordinates on the GH
+        GROUP MaskBase_SetupMask: Set up the weight function
+          GROUP MaskBase_SetupMaskAll: Set up the weight function
+            CarpetReduce::MaskBase_AllocateMask: [global] Allocate the weight function
+            CarpetReduce::MaskBase_InitMask: [global] [loop-local] Initialise the weight function
+            GROUP SetupIMaskInternal: Set up the integer weight function (schedule other routines in here)
+              CarpetReduce::CoordBase_SetupMask: [global] [loop-local] Set up the outer boundaries of the weight function
+              CarpetReduce::CarpetMaskSetup: [global] [loop-singlemap] Set up the weight function for the restriction regions
+            GROUP SetupIMask: Set up the integer weight function (schedule other routines in here)
+            CarpetReduce::MaskBase_SetMask: [global] [loop-local] Set the weight function
+            GROUP SetupMask: Set up the real weight function (schedule other routines in here)
+            CarpetReduce::MaskBase_TestMask: [global] Test the weight function
+        SymBase::SymBase_Check: Check whether the driver set up the grid consistently
+      [CCTK_INITIAL]
+        MoL::MoL_StartLoop: [level] Initialise the step size control
+      [CCTK_POSTINITIAL]
+        GROUP MoL_PostStepModify: The group for physics thorns to schedule enforcing constraints
+        GROUP MoL_PostStep: Ensure that everything is correct after the initial data have been set up
+        GROUP MoL_PseudoEvolution: Calculate pseudo-evolved quantities
+      Initialise finer grids recursively
+      Restrict from finer grids
+      [CCTK_POSTRESTRICTINITIAL]
+        GROUP MoL_PostStep: Ensure that everything is correct after restriction
+        GROUP MoL_PseudoEvolutionBoundaries: Apply boundary conditions to pseudo-evolved quantities
+      [CCTK_POSTPOSTINITIAL]
+      [CCTK_POSTSTEP]
+    endif
+    if (recover initial data)
+      [CCTK_BASEGRID]
+        CarpetIOASCII::CarpetIOASCIIInit: [global] Initialisation routine
+        CarpetIOBasic::CarpetIOBasicInit: [global] Initialisation routine
+        CartGrid3D::CartGrid3D_SetRanges: Set up ranges for spatial 3D Cartesian coordinates (on all grids)
+        CartGrid3D::SpatialCoordinates: Set up spatial 3D Cartesian coordinates on the GH
+        GROUP MaskBase_SetupMask: Set up the weight function
+          GROUP MaskBase_SetupMaskAll: Set up the weight function
+            CarpetReduce::MaskBase_AllocateMask: [global] Allocate the weight function
+            CarpetReduce::MaskBase_InitMask: [global] [loop-local] Initialise the weight function
+            GROUP SetupIMaskInternal: Set up the integer weight function (schedule other routines in here)
+              CarpetReduce::CoordBase_SetupMask: [global] [loop-local] Set up the outer boundaries of the weight function
+              CarpetReduce::CarpetMaskSetup: [global] [loop-singlemap] Set up the weight function for the restriction regions
+            GROUP SetupIMask: Set up the integer weight function (schedule other routines in here)
+            CarpetReduce::MaskBase_SetMask: [global] [loop-local] Set the weight function
+            GROUP SetupMask: Set up the real weight function (schedule other routines in here)
+            CarpetReduce::MaskBase_TestMask: [global] Test the weight function
+        SymBase::SymBase_Check: Check whether the driver set up the grid consistently
+      [CCTK_RECOVER_VARIABLES]
+      [CCTK_POST_RECOVER_VARIABLES]
+        GROUP MaskBase_SetupMask: Set up the weight function
+          GROUP MaskBase_SetupMaskAll: Set up the weight function
+            CarpetReduce::MaskBase_AllocateMask: [global] Allocate the weight function
+            CarpetReduce::MaskBase_InitMask: [global] [loop-local] Initialise the weight function
+            GROUP SetupIMaskInternal: Set up the integer weight function (schedule other routines in here)
+              CarpetReduce::CoordBase_SetupMask: [global] [loop-local] Set up the outer boundaries of the weight function
+              CarpetReduce::CarpetMaskSetup: [global] [loop-singlemap] Set up the weight function for the restriction regions
+            GROUP SetupIMask: Set up the integer weight function (schedule other routines in here)
+            CarpetReduce::MaskBase_SetMask: [global] [loop-local] Set the weight function
+            GROUP SetupMask: Set up the real weight function (schedule other routines in here)
+            CarpetReduce::MaskBase_TestMask: [global] Test the weight function
+        GROUP MoL_PostStep: Ensure that everything is correct after recovery
+    endif
+    if (checkpoint initial data)
+      [CCTK_CPINITIAL]
+    endif
+    if (analysis)
+      [CCTK_ANALYSIS]
+        CarpetLib::CarpetLib_printtimestats: [global] Print timing statistics if desired
+        CarpetLib::CarpetLib_printmemstats: [global] Print memory statistics if desired
+        LoopControl::lc_printstats_analysis: [meta] Output loop control statistics
+  endif
+  Output grid variables
+
+  do loop over timesteps
+    [CCTK_PREREGRID]
+    Change grid hierarchy
+    [CCTK_POSTREGRID]
+      CartGrid3D::SpatialCoordinates: Set Coordinates after regridding
+      GROUP MaskBase_SetupMask: Set up the weight function
+        GROUP MaskBase_SetupMaskAll: Set up the weight function
+          CarpetReduce::MaskBase_AllocateMask: [global] Allocate the weight function
+          CarpetReduce::MaskBase_InitMask: [global] [loop-local] Initialise the weight function
+          GROUP SetupIMaskInternal: Set up the integer weight function (schedule other routines in here)
+            CarpetReduce::CoordBase_SetupMask: [global] [loop-local] Set up the outer boundaries of the weight function
+            CarpetReduce::CarpetMaskSetup: [global] [loop-singlemap] Set up the weight function for the restriction regions
+          GROUP SetupIMask: Set up the integer weight function (schedule other routines in here)
+          CarpetReduce::MaskBase_SetMask: [global] [loop-local] Set the weight function
+          GROUP SetupMask: Set up the real weight function (schedule other routines in here)
+          CarpetReduce::MaskBase_TestMask: [global] Test the weight function
+      GROUP MoL_PostStep: Ensure that everything is correct after regridding
+      GROUP MoL_PseudoEvolutionBoundaries: Apply boundary conditions to pseudo-evolved quantities
+    Rotate timelevels
+    iteration = iteration+1
+    t = t+dt
+    [CCTK_PRESTEP]
+    [CCTK_EVOL]
+      MoL::MoL_StartLoop: [level] Initialise the step size control
+      while (MoL::MoL_Stepsize_Bad)
+        GROUP MoL_Evolution: A single Cactus evolution step using MoL
+          GROUP MoL_StartStep: MoL internal setup for the evolution step
+            MoL::MoL_SetCounter: [level] Set the counter for the ODE method to loop over
+            MoL::MoL_SetTime: [level] Ensure the correct time and timestep are used
+          GROUP MoL_PreStep: Physics thorns can schedule preloop setup routines in here
+          MoL::MoL_InitialCopy: Ensure the data is in the correct timelevel
+          while (MoL::MoL_Intermediate_Step)
+            GROUP MoL_Step: The loop over the intermediate steps for the ODE integrator
+              MoL::MoL_InitRHS: Initialise the RHS functions
+              GROUP MoL_CalcRHS: Physics thorns schedule the calculation of the discrete spatial operator in here
+              GROUP MoL_PostRHS: Modify RHS functions
+              GROUP MoL_RHSBoundaries: Any 'final' modifications to the RHS functions (boundaries etc.)
+              MoL::MoL_Add: Updates calculated with the efficient ICN method
+              MoL::MoL_DecrementCounter: [level] Alter the counter number
+              MoL::MoL_ResetTime: [level] If necessary, change the time
+              GROUP MoL_PostStepModify: The group for physics thorns to schedule enforcing constraints
+              GROUP MoL_PostStep: The group for physics thorns to schedule boundary calls etc.
+              MoL::MoL_ResetDeltaTime: [level] If necessary, change the timestep
+          end while
+          MoL::MoL_FinishLoop: [level] Control the step size
+          MoL::MoL_RestoreSandR: Restoring the Save and Restore variables to the original state
+      end while
+      GROUP MoL_PseudoEvolution: Calculate pseudo-evolved quantities
+    Evolve finer grids recursively
+    Restrict from finer grids
+    [CCTK_POSTRESTRICT]
+      GROUP MoL_PostStep: Ensure that everything is correct after restriction
+      GROUP MoL_PseudoEvolutionBoundaries: Apply boundary conditions to pseudo-evolved quantities
+    [CCTK_POSTSTEP]
+  if (checkpoint)
+    [CCTK_CHECKPOINT]
+  endif
+  if (analysis)
+    [CCTK_ANALYSIS]
+      CarpetLib::CarpetLib_printtimestats: [global] Print timing statistics if desired
+      CarpetLib::CarpetLib_printmemstats: [global] Print memory statistics if desired
+      LoopControl::lc_printstats_analysis: [meta] Output loop control statistics
+  endif
+  Output grid variables
+  enddo
+
+  Termination routines
+    [CCTK_TERMINATE]
+      LoopControl::lc_printstats_terminate: [meta] Output loop control statistics
+      MoL::MoL_FreeIndexArrays: Free the MoL bookkeeping index arrays
+
+  Shutdown routines
+    [CCTK_SHUTDOWN]
+
+  Routines run after changing the grid hierarchy:
+    [CCTK_POSTREGRID]
+      CartGrid3D::SpatialCoordinates: Set Coordinates after regridding
+      GROUP MaskBase_SetupMask: Set up the weight function
+        GROUP MaskBase_SetupMaskAll: Set up the weight function
+          CarpetReduce::MaskBase_AllocateMask: [global] Allocate the weight function
+          CarpetReduce::MaskBase_InitMask: [global] [loop-local] Initialise the weight function
+          GROUP SetupIMaskInternal: Set up the integer weight function (schedule other routines in here)
+            CarpetReduce::CoordBase_SetupMask: [global] [loop-local] Set up the outer boundaries of the weight function
+            CarpetReduce::CarpetMaskSetup: [global] [loop-singlemap] Set up the weight function for the restriction regions
+          GROUP SetupIMask: Set up the integer weight function (schedule other routines in here)
+          CarpetReduce::MaskBase_SetMask: [global] [loop-local] Set the weight function
+          GROUP SetupMask: Set up the real weight function (schedule other routines in here)
+          CarpetReduce::MaskBase_TestMask: [global] Test the weight function
+      GROUP MoL_PostStep: Ensure that everything is correct after regridding
+      GROUP MoL_PseudoEvolutionBoundaries: Apply boundary conditions to pseudo-evolved quantities
+--------------------------------------------------------------------------------
+INFO (Carpet): Multi-Model listing:
+   model 0: "world"
+INFO (Carpet): Multi-Model process distribution:
+   process 0: model 0 "world"
+INFO (Carpet): Multi-Model: This is process 0, model 0 "world"
+Current core file size limit: hard=[unlimited], soft=0 MB
+Current memory size limit: hard=[unlimited], soft=[unlimited]
+--------------------------------------------------------------------------------
+AMR driver provided by Carpet
+--------------------------------------------------------------------------------
+AMR info I/O provided by CarpetIOBasic
+--------------------------------------------------------------------------------
+AMR 0D ASCII I/O provided by CarpetIOASCII
+--------------------------------------------------------------------------------
+AMR 1D ASCII I/O provided by CarpetIOASCII
+--------------------------------------------------------------------------------
+AMR 2D ASCII I/O provided by CarpetIOASCII
+--------------------------------------------------------------------------------
+AMR 3D ASCII I/O provided by CarpetIOASCII
+--------------------------------------------------------------------------------
+MoL: Generalized time integration.
+--------------------------------------------------------------------------------
+
+INFO (Carpet): MPI is enabled
+INFO (Carpet): Carpet is running on 1 processes
+INFO (Carpet): This is process 0
+INFO (Carpet): OpenMP is enabled
+INFO (Carpet): This process contains 4 threads, this is thread 0
+INFO (Carpet): There are 4 threads in total
+INFO (Carpet): There are 4 threads per process
+INFO (Carpet): Host listing:
+   host 0: "numrel07.cct.lsu.edu"
+INFO (Carpet): Host/process mapping:
+   process 0: host 0 "numrel07.cct.lsu.edu"
+INFO (Carpet): Host mapping: This is process 0, host 0 "numrel07.cct.lsu.edu"
+INFO (Carpet): This process runs on host numrel07.cct.lsu.edu, pid=25136
+INFO (Carpet): This process runs on 4 cores: 0-3
+INFO (Carpet): This simulation is running in 3 dimensions
+INFO (Carpet): [tl=0] Boundary specification for map 0:
+   nboundaryzones: [[0,3,2],[0,3,2]]
+   is_internal   : [[0,0,0],[0,0,0]]
+   is_staggered  : [[1,0,0],[1,0,0]]
+   shiftout      : [[0,1,0],[0,1,0]]
+INFO (Carpet): [tl=0] CoordBase domain specification for map 0:
+   physical extent: [-1,-1,0] : [1,1,1]   ([2,2,1])
+   interior extent: [0,-1,0.25] : [0,1,0.75]   ([0,2,0.5])
+   exterior extent: [0,-2.5,-0.25] : [0,2.5,1.25]   ([0,5,1.5])
+   base_spacing   : [2,0.5,0.25]
+INFO (Carpet): [tl=0] Adapted domain specification for map 0:
+   convergence factor: 2
+   convergence level : 0
+   physical extent   : [-1,-1,0] : [1,1,1]   ([2,2,1])
+   interior extent   : [0,-1,0.25] : [0,1,0.75]   ([0,2,0.5])
+   exterior extent   : [0,-2.5,-0.25] : [0,2.5,1.25]   ([0,5,1.5])
+   spacing           : [2,0.5,0.25]
+INFO (Carpet): [tl=0] Base grid specification for map 0:
+   number of grid points             : [1,11,7]
+   number of coarse grid ghost points: [[3,3,3],[3,3,3]]
+INFO (Carpet): Buffer zone counts (excluding ghosts):
+   [0]: [[0,0,0],[0,0,0]]
+INFO (Carpet): Overlap zone counts:
+   [0]: [[0,0,0],[0,0,0]]
+INFO (Carpet): Group and variable statistics:
+INFO (Carpet):    There are 9 grid functions in 9 groups
+INFO (Carpet):    There are 55 grid scalars in 12 groups
+INFO (Carpet):    There are 7 1-dimensional grid arrays in 3 groups
+INFO (Carpet):    There are 1 2-dimensional grid arrays in 1 groups
+INFO (Carpet):    There are 0 3-dimensional grid arrays in 0 groups
+INFO (Carpet):    (The number of variables counts all time levels)
+INFO (CarpetIOASCII): I/O Method 'IOASCII_0D' registered: 0D AMR output of grid variables to ASCII files
+INFO (CarpetIOASCII): Periodic 0D AMR output requested for:
+   CARPETREDUCE::weight
+INFO (CarpetIOASCII): I/O Method 'IOASCII_1D' registered: 1D AMR output of grid variables to ASCII files
+INFO (CarpetIOASCII): Periodic 1D AMR output requested for:
+   CARPETREDUCE::weight
+INFO (CarpetIOASCII): I/O Method 'IOASCII_2D' registered: 2D AMR output of grid variables to ASCII files
+INFO (CarpetIOASCII): I/O Method 'IOASCII_3D' registered: 3D AMR output of grid variables to ASCII files
+INFO (MoL): Using Iterative Crank Nicholson with 3 iterations as the time integrator.
+INFO (MoL): The maximum number of evolved variables is 0. 0 are registered.
+INFO (MoL): The maximum number of constrained variables is 0. 0 are registered.
+INFO (MoL): The maximum number of SandR variables is 0. 0 are registered.
+INFO (MoL): The maximum number of evolved complex variables is 0. 0 are registered.
+INFO (MoL): The maximum number of constrained complex variables is 0. 0 are registered.
+INFO (MoL): The maximum number of SandR complex variables is 0. 0 are registered.
+INFO (MoL): The maximum number of evolved array variables is 0. 0 are registered.
+INFO (MoL): The maximum number of constrained array variables is 0. 0 are registered.
+INFO (MoL): The maximum number of SandR array variables is 0. 0 are registered.
+INFO (MoL): The maximum number of evolved complex array variables is 0. 0 are registered.
+INFO (MoL): The maximum number of constrained complex array variables is 0. 0 are registered.
+INFO (MoL): The maximum number of SandR complex array variables is 0. 0 are registered.
+INFO (MoL): The maximum size of any array variables is 0.
+INFO (CartGrid3D): Grid Spacings:
+INFO (CartGrid3D): dx=>2.0000000e+00  dy=>5.0000000e-01  dz=>2.5000000e-01
+INFO (CartGrid3D): Computational Coordinates:
+INFO (CartGrid3D): x=>[ 0.000, 0.000]  y=>[-2.500, 2.500]  z=>[-0.250, 1.250]
+INFO (CartGrid3D): Indices of Physical Coordinates:
+INFO (CartGrid3D): x=>[0,0]  y=>[0,10]  z=>[0,6]
+INFO (CarpetReduce): Allocating weight function helpers
+INFO (CarpetReduce): Initialising weight to 1 on level 0
+INFO (CarpetReduce): Setting boundary points in direction 0 face 0 to weight 0 on level 0
+INFO (CarpetReduce): Setting boundary points in direction 0 face 1 to weight 0 on level 0
+INFO (CarpetReduce): Setting boundary points in direction 1 face 0 to weight 0 on level 0
+INFO (CarpetReduce): Setting non-staggered boundary points in direction 1 face 0 to weight 1/2 on level 0
+INFO (CarpetReduce): Setting boundary points in direction 1 face 1 to weight 0 on level 0
+INFO (CarpetReduce): Setting non-staggered boundary points in direction 1 face 1 to weight 1/2 on level 0
+INFO (CarpetReduce): Setting boundary points in direction 2 face 0 to weight 0 on level 0
+INFO (CarpetReduce): Setting non-staggered boundary points in direction 2 face 0 to weight 1/2 on level 0
+INFO (CarpetReduce): Setting boundary points in direction 2 face 1 to weight 0 on level 0
+INFO (CarpetReduce): Setting non-staggered boundary points in direction 2 face 1 to weight 1/2 on level 0
+INFO (CarpetReduce): Setting boundary [-1,-1,-1]: prolongation region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [-1,-1,-1]: restriction region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [0,-1,-1]: prolongation region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [0,-1,-1]: restriction region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [1,-1,-1]: prolongation region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [1,-1,-1]: restriction region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [-1,0,-1]: prolongation region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [-1,0,-1]: restriction region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [0,0,-1]: prolongation region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [0,0,-1]: restriction region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [1,0,-1]: prolongation region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [1,0,-1]: restriction region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [-1,1,-1]: prolongation region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [-1,1,-1]: restriction region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [0,1,-1]: prolongation region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [0,1,-1]: restriction region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [1,1,-1]: prolongation region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [1,1,-1]: restriction region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [-1,-1,0]: prolongation region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [-1,-1,0]: restriction region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [0,-1,0]: prolongation region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [0,-1,0]: restriction region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [1,-1,0]: prolongation region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [1,-1,0]: restriction region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [-1,0,0]: prolongation region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [-1,0,0]: restriction region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [0,0,0]: prolongation region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [0,0,0]: restriction region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [1,0,0]: prolongation region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [1,0,0]: restriction region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [-1,1,0]: prolongation region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [-1,1,0]: restriction region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [0,1,0]: prolongation region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [0,1,0]: restriction region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [1,1,0]: prolongation region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [1,1,0]: restriction region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [-1,-1,1]: prolongation region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [-1,-1,1]: restriction region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [0,-1,1]: prolongation region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [0,-1,1]: restriction region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [1,-1,1]: prolongation region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [1,-1,1]: restriction region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [-1,0,1]: prolongation region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [-1,0,1]: restriction region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [0,0,1]: prolongation region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [0,0,1]: restriction region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [1,0,1]: prolongation region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [1,0,1]: restriction region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [-1,1,1]: prolongation region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [-1,1,1]: restriction region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [0,1,1]: prolongation region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [0,1,1]: restriction region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [1,1,1]: prolongation region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Setting boundary [1,1,1]: restriction region bboxset<CCTK_INT4,3>:{size=0,setsize=0,set=[]}
+INFO (CarpetReduce): Finalise the weight on level 0
+INFO (CarpetReduce): Testing weight
+INFO (CarpetReduce): Reduction weight sum: 16
+INFO (CarpetReduce): Volume of map #0: 16
+INFO (CarpetReduce): Simulation domain volume:  16
+INFO (CarpetReduce): Additional excised volume: 0
+-------------------
+Iteration      Time
+                   
+-------------------
+        0     0.000
+        1     1.000
+        2     2.000
+LoopControl timing statistics:
+Loop #0 "MaskBase_SetMask_all":
+   total count: 4   total setup: 0   total calc: 4.3583e-05
+   avg calc: 1.08957e-05   avg first calc: 1.08957e-05
+   avg improvement: 0%   saved: 0 seconds
+Loop #1 "CoordBase_SetupMask_boundary2":
+   total count: 16   total setup: 0.000108393   total calc: 0.000284123
+   avg calc: 1.77577e-05   avg first calc: 1.66427e-05
+   avg improvement: -5%   saved: -1.78396e-05 seconds
+Loop #2 "CoordBase_SetupMask_boundary":
+   total count: 24   total setup: 0.00015952   total calc: 0.000238299
+   avg calc: 9.92912e-06   avg first calc: 9.99062e-06
+   avg improvement: 1%   saved: 1.47587e-06 seconds
+Loop #3 "MaskBase_InitMask_all":
+   total count: 4   total setup: 0   total calc: 4.8331e-05
+   avg calc: 1.20827e-05   avg first calc: 1.20827e-05
+   avg improvement: 0%   saved: 0 seconds
+Total calculation time: 0.000614336 seconds; total saved time: -1.63637e-05 seconds
+--------------------------------------------------------------------------------
+Done.

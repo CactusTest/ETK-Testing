@@ -1,0 +1,131 @@
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-16-020001/Cactus: TEST.1
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-16-020001/Cactus: TEST.2
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-16-020001/Cactus/arrangements/EinsteinAnalysis/Multipole/param.ccl /home/jhar131/TESTING/einsteintoolkit/2012-06-17-020002/Cactus/arrangements/EinsteinAnalysis/Multipole/param.ccl
+32,33c32,34
+<   "midpoint" :: "Midpoint rule (1st order)"
+<   "Simpson"  :: "Simpson's rule (4th order)"
+---
+>   "midpoint"      :: "Midpoint rule (1st order)"
+>   "Simpson"       :: "Simpson's rule (4th order) [requires even ntheta and nphi]"
+>   "DriscollHealy" :: "Driscoll & Healy (exponentially convergent) [requires even ntheta]"
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-16-020001/Cactus/arrangements/EinsteinAnalysis/Multipole/src/integrate.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-17-020002/Cactus/arrangements/EinsteinAnalysis/Multipole/src/integrate.cc
+109a110,155
+> // See: J.R. Driscoll and D.M. Healy Jr., Computing Fourier transforms
+> // and convolutions on the 2-sphere. Advances in Applied Mathematics,
+> // 15(2):202–250, 1994.
+> CCTK_REAL DriscollHealy2DIntegral(CCTK_REAL const *const f,
+>                                   int const nx, int const ny,
+>                                   CCTK_REAL const hx, CCTK_REAL const hy)
+> {
+>   assert(f);
+>   assert(nx >= 0);
+>   assert(ny >= 0);
+>   assert(nx % 2 == 0);
+>   
+>   CCTK_REAL integrand_sum = 0.0;
+>   
+>   // Skip the poles (ix=0 and ix=nx), since the weight there is zero
+>   // anyway
+> #pragma omp parallel for reduction(+: integrand_sum)
+>   for (int ix = 1; ix < nx; ++ ix)
+>   {
+>     
+>     // These weights lead to an almost spectral convergence
+>     CCTK_REAL const theta = M_PI * ix / nx;
+>     CCTK_REAL weight = 0.0;
+>     for (int l = 0; l < nx/2; ++ l)
+>     {
+>       weight += sin((2*l+1)*theta)/(2*l+1);
+>     }
+>     weight *= 4.0 / M_PI;
+>     
+>     CCTK_REAL local_sum = 0.0;
+>     // Skip the last point (iy=ny), since we assume periodicity and
+>     // therefor it has the same value as the first point. We don't use
+>     // weights in this direction, which leads to spectral convergence.
+>     // (Yay periodicity!)
+>     for (int iy = 0; iy < ny; ++ iy)
+>     {
+>       local_sum += f[idx(ix,iy)];
+>     }
+>     
+>     integrand_sum += weight * local_sum;
+>     
+>   }
+>   
+>   return hx * hy * integrand_sum;
+> }
+> 
+117c163,164
+<   assert(n > 0); assert(f);
+---
+>   assert(f);
+>   assert(n > 0);
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-16-020001/Cactus/arrangements/EinsteinAnalysis/Multipole/src/integrate.hh /home/jhar131/TESTING/einsteintoolkit/2012-06-17-020002/Cactus/arrangements/EinsteinAnalysis/Multipole/src/integrate.hh
+8a9,11
+> CCTK_REAL DriscollHealy2DIntegral(CCTK_REAL const *f, int nx, int ny,
+>                                   CCTK_REAL hx, CCTK_REAL hy);
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-16-020001/Cactus/arrangements/EinsteinAnalysis/Multipole/src/utils.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-17-020002/Cactus/arrangements/EinsteinAnalysis/Multipole/src/utils.cc
+349c349,350
+<   else if (CCTK_Equals(integration_method, "simpson"))
+---
+>   else if (CCTK_Equals(integration_method, "Simpson") ||
+>            CCTK_Equals(integration_method, "DriscollHealy"))
+371,372c372,397
+<     *outre = Simpson2DIntegral(fr, ntheta, nphi, dth, dph);
+<     *outim = Simpson2DIntegral(fi, ntheta, nphi, dth, dph);
+---
+>     if (CCTK_Equals(integration_method, "Simpson"))
+>     {
+>       if (nphi % 2 != 0 || ntheta % 2 != 0)
+>       {
+>         CCTK_WARN (CCTK_WARN_ABORT, "The Simpson integration method requires even ntheta and even nphi");
+>       }
+>       *outre = Simpson2DIntegral(fr, ntheta, nphi, dth, dph);
+>       *outim = Simpson2DIntegral(fi, ntheta, nphi, dth, dph);
+>     }
+>     else if (CCTK_Equals(integration_method, "DriscollHealy"))
+>     {
+>       if (ntheta % 2 != 0)
+>       {
+>         CCTK_WARN (CCTK_WARN_ABORT, "The Driscoll&Healy integration method requires even ntheta");
+>       }
+>       *outre = DriscollHealy2DIntegral(fr, ntheta, nphi, dth, dph);
+>       *outim = DriscollHealy2DIntegral(fi, ntheta, nphi, dth, dph);
+>     }
+>     else
+>     {
+>       CCTK_WARN(CCTK_WARN_ABORT, "internal error");
+>     }
+>   }
+>   else
+>   {
+>     CCTK_WARN(CCTK_WARN_ABORT, "internal error");
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-17-020002/Cactus/arrangements/EinsteinAnalysis/Multipole/test: test_driscollhealy
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-17-020002/Cactus/arrangements/EinsteinAnalysis/Multipole/test: test_driscollhealy.par
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-16-020001/Cactus: cactusjar.git
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-16-020001/Cactus: exe
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-16-020001/Cactus: log
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-16-020001/Cactus/repos/carpet/.hg/dirstate and /home/jhar131/TESTING/einsteintoolkit/2012-06-17-020002/Cactus/repos/carpet/.hg/dirstate differ
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-16-020001/Cactus/simfactory/lib/archive: __init__.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-16-020001/Cactus/simfactory/lib/archive: petashare.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-16-020001/Cactus/simfactory/lib/archive: uberftp.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-16-020001/Cactus/simfactory/lib: libutil.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-16-020001/Cactus/simfactory/lib: pyini.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-16-020001/Cactus/simfactory/lib: restartlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-16-020001/Cactus/simfactory/lib: sim-build.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-16-020001/Cactus/simfactory/lib: sim-info.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-16-020001/Cactus/simfactory/lib: sim-manage.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-16-020001/Cactus/simfactory/lib: sim-sync.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-16-020001/Cactus/simfactory/lib: sim-util.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-16-020001/Cactus/simfactory/lib: simarchive.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-16-020001/Cactus/simfactory/lib: simdb.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-16-020001/Cactus/simfactory/lib: simdt.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-16-020001/Cactus/simfactory/lib: simenv.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-16-020001/Cactus/simfactory/lib: simlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-16-020001/Cactus/simfactory/lib: simopts.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-16-020001/Cactus/simfactory/lib: simproperties.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-16-020001/Cactus/simfactory/lib: simremote.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-16-020001/Cactus/simfactory/lib: simrestart.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-16-020001/Cactus/simfactory/lib: simsubs.pyc
