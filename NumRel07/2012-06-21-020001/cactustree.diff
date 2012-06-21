@@ -1,0 +1,549 @@
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus: TEST.1
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus: TEST.2
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/arrangements/CactusBase/Boundary/src/RobinBoundary.c /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/arrangements/CactusBase/Boundary/src/RobinBoundary.c
+13c13
+<    @version   $Id: RobinBoundary.c 290 2006-10-05 16:56:28Z schnetter $
+---
+>    @version   $Id: RobinBoundary.c 308 2012-06-20 23:44:51Z eschnett $
+109c109
+<   printf("BndRobin(): got passed GH=%p, num_vars=%d, var_indices[0]=%d, table_handles[0]=%d\n", (const void *) GH, num_vars, var_indices[0], table_handles[0]);
+---
+>   printf("BndRobin(): got passed GH=%p, num_vars=%d, vars[0]=%d, tables[0]=%d\n", (const void *) GH, num_vars, vars[0], tables[0]);
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/arrangements/CactusBase/Boundary/src/StaticBoundary.c /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/arrangements/CactusBase/Boundary/src/StaticBoundary.c
+8c8
+<    @version   $Id: StaticBoundary.c 298 2009-09-29 14:41:50Z knarf $
+---
+>    @version   $Id: StaticBoundary.c 308 2012-06-20 23:44:51Z eschnett $
+98c98
+<   printf("BndStatic(): got passed GH=%p, num_vars=%d, var_indices[0]=%d, table_handles[0]=%d\n", (const void *) GH, num_vars, var_indices[0], table_handles[0]);
+---
+>   printf("BndStatic(): got passed GH=%p, num_vars=%d, vars[0]=%d, tables[0]=%d\n", (const void *) GH, num_vars, vars[0], tables[0]);
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/arrangements/Carpet/Carpet/src/Evolve.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/arrangements/Carpet/Carpet/src/Evolve.cc
+2a3
+> #include <cmath>
+5a7
+> #include <limits>
+107c109,110
+<         CCTK_REAL const eps = 1.0e-12;
+---
+>         CCTK_REAL const eps =
+>           pow(numeric_limits<CCTK_REAL>::epsilon(), CCTK_REAL(0.75));
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/arrangements/Carpet/Carpet/src/Storage.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/arrangements/Carpet/Carpet/src/Storage.cc
+0a1
+> #include <algorithm>
+1a3
+> #include <climits>
+63c65
+<     int total_num_timelevels = 0;
+---
+>     int min_num_timelevels = INT_MAX;
+205,208c207,210
+<           // Record current number of time levels
+<           // Note: This adds the time levels of all refinement levels
+<           total_num_timelevels
+<             += groupdata.AT(group).activetimelevels.AT(ml).AT(rl);
+---
+>           // Record (minimum of) current number of time levels
+>           min_num_timelevels =
+>             min(min_num_timelevels,
+>                 groupdata.AT(group).activetimelevels.AT(ml).AT(rl));
+213a216,218
+>     if (min_num_timelevels == INT_MAX) {
+>       min_num_timelevels = 0;
+>     }
+215d219
+<     //    return total_num_timelevels;
+217c221
+<       total_num_timelevels : min(1,total_num_timelevels);
+---
+>       min_num_timelevels : min(1,min_num_timelevels);
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/arrangements/Carpet/CarpetLib/src/restrict_3d_vc_rf2.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/arrangements/Carpet/CarpetLib/src/restrict_3d_vc_rf2.cc
+172a173,180
+> 
+>     // shift vertex centered directions to lower interface (see
+>     // Refluxing for conventions)
+>     ivect const ivert(icent == 0);
+>     ibbox3 const unshifted_srcbbox = srcbbox.shift(-ivert,2);
+>     ibbox3 const unshifted_dstbbox = dstbbox.shift(-ivert,2);
+>     // ibbox3 const unshifted_srcregbbox = srcregbbox.shift(-ivert,2);
+>     ibbox3 const unshifted_regbbox = regbbox.shift(-ivert,2);
+174,175c182,183
+<     if (not regbbox.expanded_for(srcbbox).is_contained_in(srcbbox) or
+<         not regbbox.is_contained_in(dstbbox))
+---
+>     if (not unshifted_regbbox.expanded_for(unshifted_srcbbox).is_contained_in(unshifted_srcbbox) or
+>         not unshifted_regbbox.is_contained_in(unshifted_dstbbox))
+177,179c185,187
+<       cerr << "srcbbox: " << srcbbox << endl
+<            << "dstbbox: " << dstbbox << endl
+<            << "regbbox: " << regbbox << endl;
+---
+>       cerr << "unshifted_srcbbox: " << unshifted_srcbbox << endl
+>            << "unshifted_dstbbox: " << unshifted_dstbbox << endl
+>            << "unshifted_regbbox: " << unshifted_regbbox << endl;
+243a252,269
+> #ifdef CARPET_DEBUG
+>     if(not (2 * k + centk < srckext and
+>             2 * j + centj < srcjext and
+>             2 * i + centi < srciext))
+>     {
+>       cout << "restrict_3d_vc_rf2.cc\n";
+>       cout << "regext " << regext << "\n";
+>       cout << "srcext " << srcext << "\n";
+>       cout << "srcbbox=" << srcbbox << "\n";
+>       cout << "dstbbox=" << dstbbox << "\n";
+>       cout << "regbbox=" << regbbox << "\n";
+>       cout << "srcregbbox=" << srcregbbox << "\n";
+>       cout << "icent=" << icent << "\n";
+>     }
+>     assert(2 * k + centk < srckext and
+>            2 * j + centj < srcjext and
+>            2 * i + centi < srciext);
+> #endif    
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/doc/documentation.tex /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/doc/documentation.tex
+1994c1994
+< Gabrielle Allen and Thomas Radke made (and, especially Thomas, continue to make) life a
+---
+> Gabrielle Allen and Thomas Radke made (and continues to make) life a
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/interface.ccl /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/interface.ccl
+426a427,435
+> # This real mask is set during UpdateAtmosphereMask and sync'ed afterwards (including possible interpatch interpolation)
+> # After syn'ing and before any con2prim fun, we set the integer mask above based on the real-valued mask.
+> # This ensures that any routine using the int mask is still correctly working.
+> real GRHydro_atmosphere_mask_real type = GF Timelevels = 1 tags='Prolongation="copy"'
+> {
+>   atmosphere_mask_real
+> } "Flags to say whether a point needs to be reset to the atmosphere. This is sync'ed (and possibly interpolated)!"
+> 
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/param.ccl /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/param.ccl
+291c291
+<  0:*   :: "Larger than 0 MeV"
+---
+>  0.0:*   :: "Larger than 0 MeV"
+296c296
+<  0:*   :: "Larger than 0"
+---
+>  0.0:*   :: "Larger than 0"
+298a299,309
+> REAL GRHydro_Y_e_min "minimum allowed Y_e" STEERABLE=ALWAYS
+> {
+>  0.0:*   :: "Larger than or equal to zero"
+> } 0.0
+> 
+> REAL GRHydro_Y_e_max "maximum allowed Y_e" STEERABLE=ALWAYS
+> {
+>  1.0:*   :: "Larger than or equal to zero; 1 is default"
+> } 1.0
+> 
+> 
+315a327,330
+> 
+> boolean c2p_resort_to_bisection "If the pressure guess is unphysical, should we try with bisection (slower, but more robust)" STEERABLE=ALWAYS
+> {
+> } no
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/schedule.ccl /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/schedule.ccl
+479a480
+> STORAGE:GRHydro_atmosphere_mask_real
+1026a1028
+>       SYNC: GRHydro_atmosphere_mask_real  # Must be synced otherwise we get inconsistent results when using multiple procs
+1041a1044
+>       SYNC: GRHydro_atmosphere_mask_real  # Must be synced otherwise we get inconsistent results when using multiple procs
+1053,1057d1055
+<     # This is necessary to provide initial guesses for Con2Prim after atmo reset (which happens only at last MoL post-step)!
+<     schedule group GRHydro_PrimitiveBoundaries IN HydroBase_PostStep BEFORE HydroBase_Boundaries IF GRHydro::InLastMoLPostStep
+<     {
+<     } "Apply boundary conditions to primitives"
+<     
+1162a1161,1167
+> # First (right after sync) we need to convert real (and synchronized mask) to an integer mask!
+> schedule GRHydroPostSyncAtmosphereMask IN HydroBase_PostStep AFTER HydroBase_Boundaries BEFORE HydroBase_Con2Prim
+> {
+>   LANG: Fortran
+> } "Set integer atmosphere mask from synchronized real atmosphere mask"
+> 
+> # Afterwards, reset mask!
+1165c1170
+<   schedule GRHydro_AtmosphereResetM IN MoL_PostStep AFTER ADMBase_SetADMVars AFTER GRHydro_SetLastMoLPostStep BEFORE HydroBase_PostStep IF GRHydro::InLastMoLPostStep
+---
+>   schedule GRHydro_AtmosphereResetM IN HydroBase_PostStep AFTER GRHydroPostSyncAtmosphereMask BEFORE HydroBase_Con2Prim IF GRHydro::InLastMoLPostStep
+1170c1175
+<   schedule GRHydro_AtmosphereReset IN MoL_PostStep AFTER ADMBase_SetADMVars BEFORE HydroBase_PostStep IF GRHydro::InLastMoLPostStep
+---
+>   schedule GRHydro_AtmosphereReset IN HydroBase_PostStep AFTER GRHydroPostSyncAtmosphereMask BEFORE HydroBase_Con2Prim IF GRHydro::InLastMoLPostStep
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_Boundaries.F90 /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_Boundaries.F90
+101a102,103
+>   call SetCartSymVN(ierr, cctkGH, sym, "GRHydro::atmosphere_mask_real")
+>   
+212a215,216
+>     ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+>          "GRHydro::GRHydro_atmosphere_mask_real", "Flat")
+285c289,290
+<     
+---
+>     ierr = ierr + Boundary_SelectGroupForBC(cctkGH, faces, GRHydro_stencil, -ione, &
+>          "GRHydro::GRHydro_atmosphere_mask_real", "None") 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_Con2Prim.F90 /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_Con2Prim.F90
+153c153,154
+<            Y_e(i,j,k) = Y_e_con(i,j,k) / dens(i,j,k)
+---
+>            Y_e(i,j,k) = max(min(Y_e_con(i,j,k) / dens(i,j,k),GRHydro_Y_e_max),&
+>                 GRHydro_Y_e_min)
+322,323d322
+< 
+< 
+371c370
+<   real*8  :: xpress,xtemp,xye
+---
+>   real*8  :: xpress,xtemp,xye,tmp,plow
+389a389,392
+>   ! This is the lowest admissible pressure, otherwise we are off the physical regime
+>   ! Sometimes, we may end up with bad initial guesses. In that case we need to start off with something
+>   ! reasonable at least
+>   plow = max(pmin, sqrt(s2) - utau - udens)
+400a404
+>       !call CCTK_WARN(0, "c2p failed and being told not to reset the pressure")
+404d407
+<     
+480c483,521
+<     pnew = max(pold - f/df, pmin)
+---
+>     
+>     ! Try to obtain new pressure via Newton-Raphson.
+>     
+>     pnew = pold - f/df
+>     
+>     ! Check if Newton-Raphson resulted in something reasonable!
+>     
+>     if (c2p_resort_to_bisection.ne.0) then 
+>     
+>       tmp = (utau + pnew + udens)**2 - s2
+>       plow = max(pmin, sqrt(s2) - utau - udens)
+>       
+>       if (pnew .lt. plow .or. tmp .le. 0.0d0) then
+>       
+> 	 ! Ok, Newton-Raphson ended up finding something unphysical.
+> 	 ! Let's try to find our root via bisection (which converges slower but is more robust)
+>       
+> 	 pnew = (plow + pold) / 2
+> 	 tmp = (utau + pnew + udens)**2 - s2
+> 	       
+>       end if
+>     
+>     else
+>       
+>       ! This is the standard algorithm without resorting to bisection.
+>     
+>       pnew = max(pmin, pnew)
+>       tmp = (utau + pnew + udens)**2 - s2
+>     
+>     endif
+>     
+>     ! Check if we are still in the physical range now.
+>     ! If not, we set the C2P failed mask, and set pnew = pold (which will exit the loop).
+>     
+>     if ((tmp .le. 0.0d0) .and. GRHydro_C2P_failed .eq. 0) then
+>       GRHydro_C2P_failed = 1
+>       pnew = pold
+>     endif
+> 
+483,487c524,528
+<        
+<     rho = udens * sqrt( (utau + pnew + udens)**2 - s2)/(utau + pnew + udens)
+<     w_lorentz = (utau + pnew + udens) / sqrt( (utau + pnew + udens)**2 - &
+<          s2)
+<     epsilon = (sqrt( (utau + pnew + udens)**2 - s2) - pnew * w_lorentz - &
+---
+>         
+>     rho = udens * sqrt( tmp)/(utau + pnew + udens)
+> 
+>     w_lorentz = (utau + pnew + udens) / sqrt( tmp)
+>     epsilon = (sqrt( tmp) - pnew * w_lorentz - &
+587c628
+<   CCTK_REAL epsminl,pminl
+---
+>   CCTK_REAL epsminl,pminl,plow,tmp
+634a676,679
+>   ! This is the lowest admissible pressure, otherwise we are off the physical regime
+>   ! Sometimes, we may end up with bad initial guesses. In that case we need to start off with something
+>   ! reasonable at least
+>   plow = max(pminl, sqrt(s2) - utau - udens)
+824c869,906
+<     pnew = max(pold - f/df, pminl)
+---
+>     
+>     ! Try to obtain new pressure via Newton-Raphson.
+>     
+>     pnew = pold - f/df
+>     
+>     ! Check if Newton-Raphson resulted in something reasonable!
+>     
+>     if (c2p_resort_to_bisection.ne.0) then 
+>     
+>       tmp = (utau + pnew + udens)**2 - s2
+>       plow = max(pminl, sqrt(s2) - utau - udens)
+>       
+>       if (pnew .lt. plow .or. tmp .le. 0.0d0) then
+>       
+> 	 ! Ok, Newton-Raphson ended up finding something unphysical.
+> 	 ! Let's try to find our root via bisection (which converges slower but is more robust)
+>       
+> 	 pnew = (plow + pold) / 2
+> 	 tmp = (utau + pnew + udens)**2 - s2
+> 	       
+>       end if
+>     
+>     else
+>       
+>       ! This is the standard algorithm without resorting to bisection.
+>     
+>       pnew = max(pminl, pnew)
+>       tmp = (utau + pnew + udens)**2 - s2
+>     
+>     endif
+>     
+>     ! Check if we are still in the physical range now.
+>     ! If not, we set the C2P failed mask, and set pnew = pold (which will exit the loop).
+>     
+>     if ((tmp .le. 0.0d0) .and. GRHydro_C2P_failed .eq. 0) then
+>       GRHydro_C2P_failed = 1
+>       pnew = pold
+>     endif
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_Eigenproblem.F90 /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_Eigenproblem.F90
+88a89
+>      !$OMP CRITICAL
+92c93,94
+<         call CCTK_WARN(0,"cs2 < 0! Check speed of sound calculation!")
+---
+>         call CCTK_WARN(1,"cs2 < 0! Check speed of sound calculation!")
+>         cs2 = 0.0d0
+94c96
+<         cs2 = 0
+---
+>         cs2 = 0.0d0
+95a98
+>      !$OMP END CRITICAL
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_HLLEM.F90 /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_HLLEM.F90
+57a58
+>   CCTK_REAL :: charmax_dc, charmin_dc, charpm_dc
+443,444c444,457
+<              psidcf = 0.5d0 * (1.d0 * psidcfp - (-1.d0) * psidcfm + &
+<                   1.d0 * (-1.d0) * psidcdiff) 
+---
+>              !!$ psidcf = 0.5d0 * (1.d0 * psidcfp - (-1.d0) * psidcfm + &
+>              !!$      1.d0 * (-1.d0) * psidcdiff) 
+> 
+>              !!$ The fastest speed for psidc comes from the condition
+>              !!$ that the normal vector to the characteristic hypersurface
+>              !!$ be spacelike (Eq. 60 of Anton et al.)
+> 
+>              charmax_dc = sqrt(usendh) - avg_beta/avg_alp
+>              charmin_dc = -1.d0*sqrt(usendh) - avg_beta/avg_alp
+>              charpm_dc = charmax_dc - charmin_dc
+> 
+>              psidcf = (charmax_dc * psidcfp - charmin_dc * psidcfm + &
+>                        charmax_dc * charmin_dc * psidcdiff) / charpm_dc
+> 
+447,449c460,464
+<                !!$ speed as divergence
+<                f1(5+flux_direction) = 0.5d0 * (1.d0 * fplus(5+flux_direction) - (-1.d0) * fminus(5+flux_direction) + &
+<                     1.d0 * (-1.d0) * qdiff(5+flux_direction)) 
+---
+>                !!$ speed as divergence -null direction,  
+>                !!$ \pm sqrt(g^{xx}} - beta^x/alpha
+>                f1(5+flux_direction) = (charmax_dc * fplus(5+flux_direction) &
+>                                      - charmin_dc * fminus(5+flux_direction) + &
+>                   charmax_dc * charmin_dc * qdiff(5+flux_direction)) / charpm_dc
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_ParamCheck.F90 /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_ParamCheck.F90
+129c129
+<   if(clean_divergence.ne.0) then
+---
+>   if(evolve_MHD.ne.0 .and. clean_divergence.ne.0) then
+138a139,142
+>   end if
+> 
+>   if(clean_divergence.eq.0 .and. evolve_MHD.ne.0) then
+>     call CCTK_WARN(1, "You activated divergence cleaning but do not evolve a magnetic field. At best, nothing should happen, be preapered for a segfault otherwise.")
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_UpdateMask.F90 /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_UpdateMask.F90
+51c51,53
+<                  atmosphere_mask(i,j,k) = 1
+---
+>                  ! Set real-valued mask! This will be sync'ed and right after syncing translated to
+>                  ! our standard integer based mask (so that atmosphere_mask is still valid!).
+>                  atmosphere_mask_real(i,j,k) = 1
+70c72,74
+<                  atmosphere_mask(i,j,k) = 1
+---
+>                  ! Set real-valued mask! This will be sync'ed and right after syncing translated to
+>                  ! our standard integer based mask (so that atmosphere_mask is still valid!).
+>                  atmosphere_mask_real(i,j,k) = 1
+79a84,110
+> 
+> subroutine GRHydroPostSyncAtmosphereMask(CCTK_ARGUMENTS)
+> 
+>   implicit none
+>   
+>   DECLARE_CCTK_ARGUMENTS
+>   DECLARE_CCTK_PARAMETERS
+> 
+>   CCTK_INT :: i,j,k
+> 
+> !! This sets the integer atmo mask based on the real-valued (and sync'ed) atmo mask
+> 
+>    !$OMP PARALLEL DO PRIVATE(k,j,i)
+>    do k = 1, cctk_lsh(3)
+>       do j = 1, cctk_lsh(2)
+> 	 do i = 1, cctk_lsh(1)
+> 	    if ( atmosphere_mask_real(i,j,k) .ne. 0) then
+> 	       atmosphere_mask(i,j,k) = 1
+> 	    end if
+> 	 end do
+>       end do
+>    end do
+>    !$OMP END PARALLEL DO
+> 
+> end subroutine GRHydroPostSyncAtmosphereMask
+> 
+> 
+118a150
+>   atmosphere_mask_real = 0
+265a298
+>                 atmosphere_mask_real(i, j, k) = 0
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus: cactusjar.git
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus: exe
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus: log
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/repos/carpet/.hg/cache/branchheads /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/repos/carpet/.hg/cache/branchheads
+1c1
+< 0616c103e7a03423ecdc6f891330ea8a27488d59 3583
+---
+> 0820f19d45514e45f2f1e09c396b1bb71c8c200d 3588
+4c4
+< 0616c103e7a03423ecdc6f891330ea8a27488d59 default
+---
+> 0820f19d45514e45f2f1e09c396b1bb71c8c200d default
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/repos/carpet/.hg/cache/tags /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/repos/carpet/.hg/cache/tags
+1c1
+< 3583 0616c103e7a03423ecdc6f891330ea8a27488d59
+---
+> 3588 0820f19d45514e45f2f1e09c396b1bb71c8c200d
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/repos/carpet/.hg/dirstate and /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/repos/carpet/.hg/dirstate differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/repos/carpet/.hg/store/00changelog.d and /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/repos/carpet/.hg/store/00changelog.d differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/repos/carpet/.hg/store/00changelog.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/repos/carpet/.hg/store/00changelog.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/repos/carpet/.hg/store/00manifest.d and /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/repos/carpet/.hg/store/00manifest.d differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/repos/carpet/.hg/store/00manifest.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/repos/carpet/.hg/store/00manifest.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet/src/_evolve.cc.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet/src/_evolve.cc.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet/src/_storage.cc.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet/src/_storage.cc.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/src/restrict__3d__vc__rf2.cc.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/src/restrict__3d__vc__rf2.cc.i differ
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/repos/carpet/Carpet/Carpet/src/Evolve.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/repos/carpet/Carpet/Carpet/src/Evolve.cc
+2a3
+> #include <cmath>
+5a7
+> #include <limits>
+107c109,110
+<         CCTK_REAL const eps = 1.0e-12;
+---
+>         CCTK_REAL const eps =
+>           pow(numeric_limits<CCTK_REAL>::epsilon(), CCTK_REAL(0.75));
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/repos/carpet/Carpet/Carpet/src/Storage.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/repos/carpet/Carpet/Carpet/src/Storage.cc
+0a1
+> #include <algorithm>
+1a3
+> #include <climits>
+63c65
+<     int total_num_timelevels = 0;
+---
+>     int min_num_timelevels = INT_MAX;
+205,208c207,210
+<           // Record current number of time levels
+<           // Note: This adds the time levels of all refinement levels
+<           total_num_timelevels
+<             += groupdata.AT(group).activetimelevels.AT(ml).AT(rl);
+---
+>           // Record (minimum of) current number of time levels
+>           min_num_timelevels =
+>             min(min_num_timelevels,
+>                 groupdata.AT(group).activetimelevels.AT(ml).AT(rl));
+213a216,218
+>     if (min_num_timelevels == INT_MAX) {
+>       min_num_timelevels = 0;
+>     }
+215d219
+<     //    return total_num_timelevels;
+217c221
+<       total_num_timelevels : min(1,total_num_timelevels);
+---
+>       min_num_timelevels : min(1,min_num_timelevels);
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/repos/carpet/Carpet/CarpetLib/src/restrict_3d_vc_rf2.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/repos/carpet/Carpet/CarpetLib/src/restrict_3d_vc_rf2.cc
+172a173,180
+> 
+>     // shift vertex centered directions to lower interface (see
+>     // Refluxing for conventions)
+>     ivect const ivert(icent == 0);
+>     ibbox3 const unshifted_srcbbox = srcbbox.shift(-ivert,2);
+>     ibbox3 const unshifted_dstbbox = dstbbox.shift(-ivert,2);
+>     // ibbox3 const unshifted_srcregbbox = srcregbbox.shift(-ivert,2);
+>     ibbox3 const unshifted_regbbox = regbbox.shift(-ivert,2);
+174,175c182,183
+<     if (not regbbox.expanded_for(srcbbox).is_contained_in(srcbbox) or
+<         not regbbox.is_contained_in(dstbbox))
+---
+>     if (not unshifted_regbbox.expanded_for(unshifted_srcbbox).is_contained_in(unshifted_srcbbox) or
+>         not unshifted_regbbox.is_contained_in(unshifted_dstbbox))
+177,179c185,187
+<       cerr << "srcbbox: " << srcbbox << endl
+<            << "dstbbox: " << dstbbox << endl
+<            << "regbbox: " << regbbox << endl;
+---
+>       cerr << "unshifted_srcbbox: " << unshifted_srcbbox << endl
+>            << "unshifted_dstbbox: " << unshifted_dstbbox << endl
+>            << "unshifted_regbbox: " << unshifted_regbbox << endl;
+243a252,269
+> #ifdef CARPET_DEBUG
+>     if(not (2 * k + centk < srckext and
+>             2 * j + centj < srcjext and
+>             2 * i + centi < srciext))
+>     {
+>       cout << "restrict_3d_vc_rf2.cc\n";
+>       cout << "regext " << regext << "\n";
+>       cout << "srcext " << srcext << "\n";
+>       cout << "srcbbox=" << srcbbox << "\n";
+>       cout << "dstbbox=" << dstbbox << "\n";
+>       cout << "regbbox=" << regbbox << "\n";
+>       cout << "srcregbbox=" << srcregbbox << "\n";
+>       cout << "icent=" << icent << "\n";
+>     }
+>     assert(2 * k + centk < srckext and
+>            2 * j + centj < srcjext and
+>            2 * i + centi < srciext);
+> #endif    
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/simfactory/lib/archive: __init__.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/simfactory/lib/archive: petashare.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/simfactory/lib/archive: uberftp.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/simfactory/lib: libutil.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/simfactory/lib: pyini.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/simfactory/lib: restartlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/simfactory/lib: sim-build.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/simfactory/lib: sim-info.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/simfactory/lib: sim-manage.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/simfactory/lib: sim-sync.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/simfactory/lib: sim-util.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/simfactory/lib: simarchive.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/simfactory/lib: simdb.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/simfactory/lib: simdt.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/simfactory/lib: simenv.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/simfactory/lib: simlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/simfactory/lib: simopts.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/simfactory/lib: simproperties.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/simfactory/lib: simremote.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/simfactory/lib: simrestart.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/simfactory/lib: simsubs.pyc
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/simfactory/mdb/runscripts/supermuc.run /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/simfactory/mdb/runscripts/supermuc.run
+32c32
+< poe @EXECUTABLE@ -L 3 @PARFILE@
+---
+> /usr/bin/poe @EXECUTABLE@ -L 3 @PARFILE@
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-20-020001/Cactus/simfactory/mdb/submitscripts/supermuc.sub /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/simfactory/mdb/submitscripts/supermuc.sub
+7c7
+< #@ node = @((@PROCS@-1)/(@PPN@/@NUM_THREADS@)@+1)@
+---
+> #@ node = @PROCS@
