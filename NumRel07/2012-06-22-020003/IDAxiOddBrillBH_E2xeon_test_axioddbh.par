@@ -1,0 +1,61 @@
+######################################################################
+#!DESC "Initial data for axisymmetric distored black hole"
+######################################################################
+
+ActiveThorns = "coordgauge admanalysis admbase admmacros staticconformal time boundary ADMconstraints pugh pughreduce pughslab pughinterp cartgrid3d ADM IDAxiOddBrillBH ioascii iobasic ioutil LocalReduce ADMCoupling SpaceMask CoordBase SymBase LocalInterp"
+
+# GENERAL 
+
+admbase::evolution_method = "ADM"     
+
+driver::global_nx =  32
+driver::global_ny =  32
+driver::global_nz =  32
+
+grid::type   = "byspacing"
+grid::dxyz   = 0.4
+grid::domain = "full"
+
+time::dtfac = 0.25   
+
+cactus::cctk_initial_time = 0.   
+cactus::cctk_itlast       = 1
+
+adm::method           = "stagleap" 
+adm::bound            = "static"
+admconstraints::bound = "static"
+# MODEL 
+
+admbase::initial_data = "axioddbh"
+axiodd::brandt_seidel  = "no"
+axiodd::verbose        = "yes"
+axiodd::amp      = 1.
+axiodd::eta0     = 0.0
+axiodd::sigma    = 1.0
+axiodd::byJ      = 0.0
+axiodd::n        = 5
+axiodd::etamax   = 6.0
+axiodd::neta     = 102
+axiodd::ntheta   = 27
+axiodd::interpolation_order = 1
+
+# GAUGE
+admbase::lapse_evolution_method    = "geodesic"
+admbase::metric_type               = "static conformal"
+staticconformal::conformal_storage = "factor+derivs+2nd derivs"
+
+
+# OUTPUT ########################################################
+IO::out_dir               = $parfile
+IO::out_fileinfo          = "none"
+IO::new_filename_scheme   = "no"
+
+IOBasic::outInfo_vars    = "admconstraints::ham admbase::gxx"
+IOBasic::outScalar_vars  = "admbase::metric admconstraints::ham"
+IOBasic::outInfo_every   = 1
+
+IOASCII::out1d_every     = 1
+IOASCII::out1D_vars      = "admbase::shift admbase::metric  admbase::curv staticconformal::psix staticconformal::psiy staticconformal::psiz staticconformal::psixx staticconformal::psixy staticconformal::psixz staticconformal::psiyy staticconformal::psiyz staticconformal::psizz admconstraints::ham"
+
+##################################################################
+

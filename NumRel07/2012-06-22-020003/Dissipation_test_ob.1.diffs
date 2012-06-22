@@ -1,0 +1,53 @@
+   H.average.asc: differences below tolerance on 3 lines
+   H.norm1.asc: differences below tolerance on 3 lines
+   H.norm2.asc: differences below tolerance on 2 lines
+   M1.average.asc: differences below tolerance on 2 lines
+   M1.norm1.asc: differences below tolerance on 1 lines
+   M1.norm2.asc: differences below tolerance on 1 lines
+   M2.average.asc: differences below tolerance on 2 lines
+   M2.norm1.asc: differences below tolerance on 1 lines
+   M2.norm2.asc: differences below tolerance on 1 lines
+   M3.average.asc: differences below tolerance on 1 lines
+   M3.norm1.asc: differences below tolerance on 2 lines
+   M3.norm2.asc: differences below tolerance on 2 lines
+   alp.average.asc: differences below tolerance on 2 lines
+   alp.norm1.asc: differences below tolerance on 2 lines
+   alp.norm2.asc: differences below tolerance on 2 lines
+   betax.average.asc: differences below tolerance on 2 lines
+   betax.norm1.asc: differences below tolerance on 2 lines
+   betax.norm2.asc: differences below tolerance on 1 lines
+   betay.average.asc: differences below tolerance on 2 lines
+   betay.norm1.asc: differences below tolerance on 2 lines
+   betay.norm2.asc: differences below tolerance on 2 lines
+   betaz.average.asc: differences below tolerance on 2 lines
+   betaz.norm1.asc: differences below tolerance on 2 lines
+   betaz.norm2.asc: differences below tolerance on 1 lines
+   epsdisA.average.asc: differences below tolerance on 3 lines
+   epsdisA.norm1.asc: differences below tolerance on 3 lines
+   epsdisA.norm2.asc: differences below tolerance on 3 lines
+   gxx.average.asc: differences below tolerance on 3 lines
+   gxx.norm1.asc: differences below tolerance on 3 lines
+   gxx.norm2.asc: differences below tolerance on 1 lines
+   gxy.average.asc: differences below tolerance on 3 lines
+   gxy.norm1.asc: differences below tolerance on 2 lines
+   gxy.norm2.asc: differences below tolerance on 2 lines
+   gxz.average.asc: differences below tolerance on 2 lines
+   gxz.norm1.asc: differences below tolerance on 2 lines
+   gxz.norm2.asc: differences below tolerance on 1 lines
+   gyy.average.asc: differences below tolerance on 1 lines
+   gyy.norm1.asc: differences below tolerance on 1 lines
+   gyy.norm2.asc: differences below tolerance on 1 lines
+   gyz.average.asc: differences below tolerance on 2 lines
+   gyz.norm1.asc: differences below tolerance on 1 lines
+   gyz.norm2.asc: differences below tolerance on 1 lines
+   gzz.average.asc: differences below tolerance on 3 lines
+   gzz.norm1.asc: differences below tolerance on 3 lines
+   gzz.norm2.asc: differences below tolerance on 3 lines
+
+   h.t3.ah1.gp: not in thorn archive
+   h.t0.ah1.gp: not in thorn archive
+   h.t4.ah1.gp: not in thorn archive
+   h.t2.ah1.gp: not in thorn archive
+   BH_diagnostics.ah1.gp: not in thorn archive
+   h.t1.ah1.gp: not in thorn archive
+

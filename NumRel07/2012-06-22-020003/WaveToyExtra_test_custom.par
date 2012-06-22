@@ -1,0 +1,49 @@
+!DESC "Custom boundary conditions for WaveToy"
+
+# $Id: test_custom.par 22 2005-11-01 18:50:42Z yye00 $
+#
+# /*@@
+#   @file      test_custom.par
+#   @date      Friday 18th July
+#   @author    Gabrielle Allen
+#   @desc
+#   Wavetoy parameter file using custom boundary conditions 
+#   @enddesc
+# @@*/          
+
+ActiveThorns = "symbase wavetoyextra boundary iobasic idscalarwavec time wavetoyc pugh pughslab pughreduce cartgrid3d coordbase ioutil ioascii localreduce"
+ 
+time::dtfac = 0.5
+
+idscalarwave::initial_data = "gaussian"
+idscalarwave::sigma = 2.8
+idscalarwave::radius = 5
+
+wavetoy::bound = "custom"
+wavetoyextra::custom_bound = "Radiation"
+wavetoyextra::custom_options = "limit=0.0"
+
+grid::type = "BySpacing"
+grid::domain = "octant"
+grid::dxyz = 0.6
+
+driver::global_nx = 15
+driver::global_ny = 15
+driver::global_nz = 15
+
+cactus::cctk_itlast = 10
+
+IOBasic::outScalar_every = 1
+IOBasic::outScalar_vars = "wavetoy::phi"
+
+IOASCII::out1D_every = 1
+IOASCII::out1D_z = "no"
+IOASCII::out1D_y = "no"
+IOASCII::out1D_d = "no"
+IOASCII::out1D_vars = "wavetoy::phi "
+
+IO::out_dir       = "test_custom"
+IO::out_fileinfo = "none"
+
+# do not use the new scheme for names of output files
+IO::new_filename_scheme = "no"

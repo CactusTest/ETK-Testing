@@ -1,0 +1,135 @@
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus: TEST.1
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus: TEST.2
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/schedule.ccl /home/jhar131/TESTING/einsteintoolkit/2012-06-22-020003/Cactus/arrangements/EinsteinEvolve/GRHydro/schedule.ccl
+1161,1162c1161,1162
+< # First (right after sync) we need to convert real (and synchronized mask) to an integer mask!
+< schedule GRHydroPostSyncAtmosphereMask IN HydroBase_PostStep AFTER HydroBase_Boundaries BEFORE HydroBase_Con2Prim
+---
+> # First we need to convert real (and synchronized mask) to an integer mask!
+> schedule GRHydroPostSyncAtmosphereMask IN HydroBase_PostStep AFTER HydroBase_Boundaries
+1167d1166
+< # Afterwards, reset mask!
+1170c1169
+<   schedule GRHydro_AtmosphereResetM IN HydroBase_PostStep AFTER GRHydroPostSyncAtmosphereMask BEFORE HydroBase_Con2Prim IF GRHydro::InLastMoLPostStep
+---
+>   schedule GRHydro_AtmosphereResetM IN HydroBase_PostStep BEFORE HydroBase_Con2Prim IF GRHydro::InLastMoLPostStep
+1175c1174
+<   schedule GRHydro_AtmosphereReset IN HydroBase_PostStep AFTER GRHydroPostSyncAtmosphereMask BEFORE HydroBase_Con2Prim IF GRHydro::InLastMoLPostStep
+---
+>   schedule GRHydro_AtmosphereReset IN HydroBase_PostStep BEFORE HydroBase_Con2Prim IF GRHydro::InLastMoLPostStep
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_Con2Prim.F90 /home/jhar131/TESTING/einsteintoolkit/2012-06-22-020003/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_Con2Prim.F90
+351a352,353
+>   use Con2Prim_fortran_interfaces
+> 
+614a617,618
+>   use Con2Prim_fortran_interfaces
+> 
+1344a1349,1350
+>   use Con2Prim_fortran_interfaces
+> 
+1472a1479,1480
+>   use Con2Prim_fortran_interfaces
+> 
+1488,1495c1496,1499
+<   integer :: n = 1
+<   integer :: keytemp = 0
+<   integer :: anyerr = 0
+<   integer :: keyerr(1) = 0
+<   real*8  :: xpress = 0.0d0
+<   real*8  :: xeps = 0.0d0
+<   real*8  :: xtemp = 0.0d0
+<   real*8  :: xye = 0.0d0
+---
+>   integer :: n,keytemp,anyerr,keyerr(1)
+>   real*8  :: xpress(1),xeps(1),xtemp(1),xye(1)
+>   n = 1;keytemp = 0;anyerr = 0;keyerr(1) = 0
+>   xpress = 0.0d0;xeps = 0.0d0;xtemp = 0.0d0;xye = 0.0d0
+1519c1523
+<   enthalpy = 1.0d0 + xeps + press / rhoold
+---
+>   enthalpy = 1.0d0 + xeps(1) + press / rhoold
+1729a1734,1735
+>   use Con2Prim_fortran_interfaces
+> 
+1844a1851,1852
+>   use Con2Prim_fortran_interfaces
+> 
+1974a1983,1984
+>   use Con2Prim_fortran_interfaces
+> 
+2002a2013,2014
+>   use Con2Prim_fortran_interfaces
+> 
+2016a2029,2030
+>   use Con2Prim_fortran_interfaces
+> 
+2040a2055,2056
+>   use Con2Prim_fortran_interfaces
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_Eigenproblem.F90 /home/jhar131/TESTING/einsteintoolkit/2012-06-22-020003/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_Eigenproblem.F90
+242,249c242,245
+<   integer :: n = 1
+<   integer :: keytemp = 0
+<   integer :: anyerr = 0
+<   integer :: keyerr(1) = 0
+<   real*8  :: xpress = 0.0d0
+<   real*8  :: xeps = 0.0d0
+<   real*8  :: xtemp = 0.0d0
+<   real*8  :: xye = 0.0d0
+---
+>   integer :: n,keytemp,anyerr,keyerr(1)
+>   real*8  :: xpress(1),xeps(1),xtemp(1),xye(1)
+>   n = 1;keytemp = 0;anyerr = 0;keyerr(1) = 0
+>   xpress = 0.0d0;xeps = 0.0d0;xtemp = 0.0d0;xye = 0.0d0
+609,610d604
+< !!$  Warning, warning. Nasty hack follows
+< 
+612,619c606,609
+<   integer :: n = 1
+<   integer :: keytemp = 0
+<   integer :: anyerr = 0
+<   integer :: keyerr(1) = 0
+<   real*8  :: xpress = 0.0d0
+<   real*8  :: xeps = 0.0d0
+<   real*8  :: xtemp = 0.0d0
+<   real*8  :: xye = 0.0d0
+---
+>   integer :: n,keytemp,anyerr,keyerr(1)
+>   real*8  :: xpress(1),xeps(1),xtemp(1),xye(1)
+>   n = 1;keytemp = 0;anyerr = 0;keyerr(1) = 0
+>   xpress = 0.0d0;xeps = 0.0d0;xtemp = 0.0d0;xye = 0.0d0
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_ParamCheck.F90 /home/jhar131/TESTING/einsteintoolkit/2012-06-22-020003/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_ParamCheck.F90
+129c129
+<   if(evolve_MHD.ne.0 .and. clean_divergence.ne.0) then
+---
+>   if(clean_divergence.ne.0) then
+139,142d138
+<   end if
+< 
+<   if(clean_divergence.eq.0 .and. evolve_MHD.ne.0) then
+<     call CCTK_WARN(1, "You activated divergence cleaning but do not evolve a magnetic field. At best, nothing should happen, be preapered for a segfault otherwise.")
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus: cactusjar.git
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus: exe
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus: log
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/repos/carpet/.hg/dirstate and /home/jhar131/TESTING/einsteintoolkit/2012-06-22-020003/Cactus/repos/carpet/.hg/dirstate differ
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/simfactory/lib/archive: __init__.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/simfactory/lib/archive: petashare.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/simfactory/lib/archive: uberftp.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/simfactory/lib: libutil.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/simfactory/lib: pyini.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/simfactory/lib: restartlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/simfactory/lib: sim-build.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/simfactory/lib: sim-info.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/simfactory/lib: sim-manage.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/simfactory/lib: sim-sync.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/simfactory/lib: sim-util.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/simfactory/lib: simarchive.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/simfactory/lib: simdb.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/simfactory/lib: simdt.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/simfactory/lib: simenv.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/simfactory/lib: simlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/simfactory/lib: simopts.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/simfactory/lib: simproperties.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/simfactory/lib: simremote.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/simfactory/lib: simrestart.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-21-020001/Cactus/simfactory/lib: simsubs.pyc
