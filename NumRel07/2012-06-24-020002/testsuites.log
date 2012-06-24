@@ -1,0 +1,2604 @@
++ '[' '!' -z 2012-06-23-020001 ']'
++ echo 'Previous is '
+Previous is 
++ prev_test_dir=/home/jhar131/TESTING/einsteintoolkit/2012-06-23-020001
++ web_dir=/home/jhar131/network/public_html/einsteintoolkit/2012-06-24-020002
++ mkdir -p /home/jhar131/network/public_html/einsteintoolkit/2012-06-24-020002
++ mkdir -p /home/jhar131/TESTING/einsteintoolkit/2012-06-24-020002/Cactus
++ [[ https://svn.einsteintoolkit.org/manifest/trunk/einsteintoolkit.th =~ ^http.* ]]
++ curl https://svn.einsteintoolkit.org/manifest/trunk/einsteintoolkit.th -o /home/jhar131/TESTING/einsteintoolkit/2012-06-24-020002/Cactus/einsteintoolkit.th
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  9407  100  9407    0     0  36908      0 --:--:-- --:--:-- --:--:-- 58428
++ cd /home/jhar131/TESTING/einsteintoolkit/2012-06-24-020002/Cactus
++ wget --no-check-certificate https://github.com/gridaphobe/CRL/raw/master/GetComponents
+--2012-06-24 02:00:03--  https://github.com/gridaphobe/CRL/raw/master/GetComponents
+Resolving github.com... 207.97.227.239
+Connecting to github.com|207.97.227.239|:443... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: https://raw.github.com/gridaphobe/CRL/master/GetComponents [following]
+--2012-06-24 02:00:03--  https://raw.github.com/gridaphobe/CRL/master/GetComponents
+Resolving raw.github.com... 207.97.227.243
+Connecting to raw.github.com|207.97.227.243|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 98779 (96K) [text/plain]
+Saving to: `GetComponents'
+
+     0K .......... .......... .......... .......... .......... 51%  741K 0s
+    50K .......... .......... .......... .......... ......    100%  726K=0.1s
+
+2012-06-24 02:00:04 (734 KB/s) - `GetComponents' saved [98779/98779]
+
++ chmod 755 GetComponents
++ checkout=0
++ update=
++ cat ../checkout.log
++ (( try = 1 ))
++ (( try <= 3 ))
++ ./GetComponents -a --root=. einsteintoolkit.th
+-----------------------------------------------------------------
+  Checking out module: manifest
+      from repository: http://svn.einsteintoolkit.org/manifest/trunk
+                 into: .
+-----------------------------------------------------------------
+  Checking out module: Cactus
+      from repository: http://svn.cactuscode.org/flesh/trunk
+                 into: .
+                   as: .
+-----------------------------------------------------------------
+  Checking out module: simfactory2
+      from repository: https://svn.cct.lsu.edu/repos/numrel/simfactory2/trunk
+                 into: .
+                   as: simfactory
+
+[1m[31mWarning: [0mCould not checkout module simfactory2
+
+svn: E170001: OPTIONS of 'https://svn.cct.lsu.edu/repos/numrel/simfactory2/trunk': authorization failed: Could not authenticate to server: rejected Basic challenge (https://svn.cct.lsu.edu)
+
+
+-----------------------------------------------------------------
+  Checking out module: par
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinExamples/trunk/par
+                 into: .
+-----------------------------------------------------------------
+  Checking out module: .
+      from repository: http://svn.cactuscode.org/Utilities/trunk
+                 into: .
+                   as: utils
+-----------------------------------------------------------------
+  Checking out module: CactusArchive/ADM
+      from repository: http://svn.cactuscode.org/arrangements/CactusArchive/ADM/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusBase/Boundary
+      from repository: http://svn.cactuscode.org/arrangements/CactusBase/Boundary/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusBase/CartGrid3D
+      from repository: http://svn.cactuscode.org/arrangements/CactusBase/CartGrid3D/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusBase/CoordBase
+      from repository: http://svn.cactuscode.org/arrangements/CactusBase/CoordBase/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusBase/Fortran
+      from repository: http://svn.cactuscode.org/arrangements/CactusBase/Fortran/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusBase/InitBase
+      from repository: http://svn.cactuscode.org/arrangements/CactusBase/InitBase/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusBase/IOASCII
+      from repository: http://svn.cactuscode.org/arrangements/CactusBase/IOASCII/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusBase/IOBasic
+      from repository: http://svn.cactuscode.org/arrangements/CactusBase/IOBasic/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusBase/IOUtil
+      from repository: http://svn.cactuscode.org/arrangements/CactusBase/IOUtil/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusBase/SymBase
+      from repository: http://svn.cactuscode.org/arrangements/CactusBase/SymBase/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusBase/Time
+      from repository: http://svn.cactuscode.org/arrangements/CactusBase/Time/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusConnect/HTTPD
+      from repository: http://svn.cactuscode.org/arrangements/CactusConnect/HTTPD/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusConnect/HTTPDExtra
+      from repository: http://svn.cactuscode.org/arrangements/CactusConnect/HTTPDExtra/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusConnect/Socket
+      from repository: http://svn.cactuscode.org/arrangements/CactusConnect/Socket/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusElliptic/EllBase
+      from repository: http://svn.cactuscode.org/arrangements/CactusElliptic/EllBase/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusElliptic/EllSOR
+      from repository: http://svn.cactuscode.org/arrangements/CactusElliptic/EllSOR/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusIO/IOJpeg
+      from repository: http://svn.cactuscode.org/arrangements/CactusIO/IOJpeg/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusNumerical/Cartoon2D
+      from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/Cartoon2D/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusNumerical/Dissipation
+      from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/Dissipation/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusNumerical/InterpToArray
+      from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/InterpToArray/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusNumerical/LocalInterp
+      from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/LocalInterp/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusNumerical/LocalReduce
+      from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/LocalReduce/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusNumerical/MoL
+      from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/MoL/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusNumerical/Noise
+      from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/Noise/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusNumerical/Norms
+      from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/Norms/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusNumerical/Periodic
+      from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/Periodic/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusNumerical/ReflectionSymmetry
+      from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/ReflectionSymmetry/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusNumerical/RotatingSymmetry180
+      from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/RotatingSymmetry180/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusNumerical/RotatingSymmetry90
+      from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/RotatingSymmetry90/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusNumerical/Slab
+      from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/Slab/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusNumerical/SlabTest
+      from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/SlabTest/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusNumerical/SpaceMask
+      from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/SpaceMask/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusNumerical/SphericalSurface
+      from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/SphericalSurface/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusPUGH/PUGH
+      from repository: http://svn.cactuscode.org/arrangements/CactusPUGH/PUGH/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusPUGH/PUGHInterp
+      from repository: http://svn.cactuscode.org/arrangements/CactusPUGH/PUGHInterp/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusPUGH/PUGHReduce
+      from repository: http://svn.cactuscode.org/arrangements/CactusPUGH/PUGHReduce/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusPUGH/PUGHSlab
+      from repository: http://svn.cactuscode.org/arrangements/CactusPUGH/PUGHSlab/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusPUGHIO/IOHDF5
+      from repository: http://svn.cactuscode.org/arrangements/CactusPUGHIO/IOHDF5/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusPUGHIO/IOHDF5Util
+      from repository: http://svn.cactuscode.org/arrangements/CactusPUGHIO/IOHDF5Util/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestArrays
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestArrays/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestComplex
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestComplex/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestCoordinates
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestCoordinates/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestFortranDependencies1
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestFortranDependencies1/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestFortranDependencies2
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestFortranDependencies2/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestFpointerNULL
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestFpointerNULL/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestFreeF90
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestFreeF90/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestGlobalReduce
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestGlobalReduce/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestInclude1
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestInclude1/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestInclude2
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestInclude2/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestLocalReduce
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestLocalReduce/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestLoop
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestLoop/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestPar
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestPar/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestReduce
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestReduce/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestSchedule
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestSchedule/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestStrings
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestStrings/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestTable
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestTable/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestTimers
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestTimers/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestTypes
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestTypes/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusUtils/Formaline
+      from repository: http://svn.cactuscode.org/arrangements/CactusUtils/Formaline/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusUtils/NaNChecker
+      from repository: http://svn.cactuscode.org/arrangements/CactusUtils/NaNChecker/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusUtils/Nice
+      from repository: http://svn.cactuscode.org/arrangements/CactusUtils/Nice/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusUtils/NoMPI
+      from repository: http://svn.cactuscode.org/arrangements/CactusUtils/NoMPI/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusUtils/TerminationTrigger
+      from repository: http://svn.cactuscode.org/arrangements/CactusUtils/TerminationTrigger/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusUtils/TimerReport
+      from repository: http://svn.cactuscode.org/arrangements/CactusUtils/TimerReport/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusWave/IDScalarWave
+      from repository: http://svn.cactuscode.org/arrangements/CactusWave/IDScalarWave/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusWave/IDScalarWaveC
+      from repository: http://svn.cactuscode.org/arrangements/CactusWave/IDScalarWaveC/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusWave/IDScalarWaveCXX
+      from repository: http://svn.cactuscode.org/arrangements/CactusWave/IDScalarWaveCXX/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusWave/IDScalarWaveElliptic
+      from repository: http://svn.cactuscode.org/arrangements/CactusWave/IDScalarWaveElliptic/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusWave/WaveBinarySource
+      from repository: http://svn.cactuscode.org/arrangements/CactusWave/WaveBinarySource/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusWave/WaveToyC
+      from repository: http://svn.cactuscode.org/arrangements/CactusWave/WaveToyC/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusWave/WaveToyCXX
+      from repository: http://svn.cactuscode.org/arrangements/CactusWave/WaveToyCXX/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusWave/WaveToyExtra
+      from repository: http://svn.cactuscode.org/arrangements/CactusWave/WaveToyExtra/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusWave/WaveToyF77
+      from repository: http://svn.cactuscode.org/arrangements/CactusWave/WaveToyF77/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusWave/WaveToyF90
+      from repository: http://svn.cactuscode.org/arrangements/CactusWave/WaveToyF90/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusWave/WaveToyFreeF90
+      from repository: http://svn.cactuscode.org/arrangements/CactusWave/WaveToyFreeF90/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinAnalysis/ADMAnalysis
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/ADMAnalysis/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinAnalysis/ADMConstraints
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/ADMConstraints/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinAnalysis/AHFinder
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/AHFinder/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinAnalysis/AHFinderDirect
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/AHFinderDirect/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinAnalysis/CalcK
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/CalcK/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinAnalysis/EHFinder
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/EHFinder/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinAnalysis/Extract
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/Extract/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinAnalysis/Hydro_Analysis
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/Hydro_Analysis/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinAnalysis/Multipole
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/Multipole/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinAnalysis/WeylScal4
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/WeylScal4/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinBase/ADMBase
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/ADMBase/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinBase/ADMCoupling
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/ADMCoupling/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinBase/ADMMacros
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/ADMMacros/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinBase/Constants
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/Constants/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinBase/CoordGauge
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/CoordGauge/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinBase/EOS_Base
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/EOS_Base/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinBase/HydroBase
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/HydroBase/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinBase/StaticConformal
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/StaticConformal/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinBase/TmunuBase
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/TmunuBase/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinEOS/EOS_Hybrid
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinEOS/EOS_Hybrid/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinEOS/EOS_IdealFluid
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinEOS/EOS_IdealFluid/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinEOS/EOS_Omni
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinEOS/EOS_Omni/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinEOS/EOS_Polytrope
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinEOS/EOS_Polytrope/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinEvolve/GRHydro
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinEvolve/GRHydro/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinEvolve/LegoExcision
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinEvolve/LegoExcision/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinEvolve/NewRad
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinEvolve/NewRad/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/DistortedBHIVP
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/DistortedBHIVP/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/Exact
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/Exact/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/GRHydro_InitData
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/GRHydro_InitData/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/Hydro_InitExcision
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/Hydro_InitExcision/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/IDAnalyticBH
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/IDAnalyticBH/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/IDAxiBrillBH
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/IDAxiBrillBH/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/IDAxiOddBrillBH
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/IDAxiOddBrillBH/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/IDBrillData
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/IDBrillData/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/IDConstraintViolate
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/IDConstraintViolate/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/IDFileADM
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/IDFileADM/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/IDLinearWaves
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/IDLinearWaves/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/Meudon_Bin_BH
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/Meudon_Bin_BH/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/Meudon_Bin_NS
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/Meudon_Bin_NS/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/Meudon_Mag_NS
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/Meudon_Mag_NS/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/NoExcision
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/NoExcision/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/RotatingDBHIVP
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/RotatingDBHIVP/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/TOVSolver
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/TOVSolver/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/TwoPunctures
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/TwoPunctures/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinUtils/SetMask_SphericalSurface
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinUtils/SetMask_SphericalSurface/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinUtils/TGRtensor
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinUtils/TGRtensor/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: PITTNullCode/NullConstr
+      from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullConstr/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: PITTNullCode/NullDecomp
+      from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullDecomp/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: PITTNullCode/NullEvolve
+      from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullEvolve/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: PITTNullCode/NullExact
+      from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullExact/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: PITTNullCode/NullGrid
+      from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullGrid/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: PITTNullCode/NullInterp
+      from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullInterp/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: PITTNullCode/NullNews
+      from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullNews/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: PITTNullCode/NullPsiInt
+      from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullPsiInt/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: PITTNullCode/NullSHRExtract
+      from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullSHRExtract/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: PITTNullCode/NullVars
+      from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullVars/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: PITTNullCode/SphericalHarmonicDecomp
+      from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/SphericalHarmonicDecomp/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: PITTNullCode/SphericalHarmonicRecon
+      from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/SphericalHarmonicRecon/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinExact/doc
+      from repository: git://github.com/barrywardell/EinsteinExact
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinExact/m
+      from repository: git://github.com/barrywardell/EinsteinExact
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinExact/tests
+      from repository: git://github.com/barrywardell/EinsteinExact
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinExact/EinsteinExact_Test
+      from repository: git://github.com/barrywardell/EinsteinExact
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinExact/GaugeWave
+      from repository: git://github.com/barrywardell/EinsteinExact
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinExact/KerrSchild
+      from repository: git://github.com/barrywardell/EinsteinExact
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinExact/Minkowski
+      from repository: git://github.com/barrywardell/EinsteinExact
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinExact/ModifiedSchwarzschildBL
+      from repository: git://github.com/barrywardell/EinsteinExact
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinExact/ShiftedGaugeWave
+      from repository: git://github.com/barrywardell/EinsteinExact
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinExact/Vaidya2
+      from repository: git://github.com/barrywardell/EinsteinExact
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: ExternalLibraries/BLAS
+      from repository: http://svn.cactuscode.org/projects/ExternalLibraries/BLAS/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: ExternalLibraries/FFTW3
+      from repository: http://svn.cactuscode.org/projects/ExternalLibraries/FFTW3/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: ExternalLibraries/GSL
+      from repository: http://svn.cactuscode.org/projects/ExternalLibraries/GSL/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: ExternalLibraries/HDF5
+      from repository: http://svn.cactuscode.org/projects/ExternalLibraries/HDF5/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: ExternalLibraries/hwloc
+      from repository: http://svn.cactuscode.org/projects/ExternalLibraries/hwloc/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: ExternalLibraries/LAPACK
+      from repository: http://svn.cactuscode.org/projects/ExternalLibraries/LAPACK/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: ExternalLibraries/libjpeg
+      from repository: http://svn.cactuscode.org/projects/ExternalLibraries/libjpeg/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: ExternalLibraries/LORENE
+      from repository: http://svn.cactuscode.org/projects/ExternalLibraries/LORENE/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: ExternalLibraries/OpenSSL
+      from repository: http://svn.cactuscode.org/projects/ExternalLibraries/OpenSSL/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: ExternalLibraries/zlib
+      from repository: http://svn.cactuscode.org/projects/ExternalLibraries/zlib/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: TAT/TATelliptic
+      from repository: http://svn.cactuscode.org/projects/TAT/TATelliptic/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: AEIThorns/ADMMass
+      from repository: http://svn.aei.mpg.de/numrel/AEIThorns/ADMMass/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: AEIThorns/AEILocalInterp
+      from repository: http://svn.aei.mpg.de/numrel/AEIThorns/AEILocalInterp/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: AEIThorns/PunctureTracker
+      from repository: http://svn.aei.mpg.de/numrel/AEIThorns/PunctureTracker/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: AEIThorns/SystemStatistics
+      from repository: http://svn.aei.mpg.de/numrel/AEIThorns/SystemStatistics/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: LSUThorns/QuasiLocalMeasures
+      from repository: https://svn.cct.lsu.edu/repos/numrel/LSUThorns/QuasiLocalMeasures/trunk
+                 into: ./arrangements
+
+[1m[31mWarning: [0mCould not checkout module LSUThorns/QuasiLocalMeasures
+
+svn: E170001: OPTIONS of 'https://svn.cct.lsu.edu/repos/numrel/LSUThorns/QuasiLocalMeasures/trunk': authorization failed: Could not authenticate to server: rejected Basic challenge (https://svn.cct.lsu.edu)
+
+
+-----------------------------------------------------------------
+  Checking out module: LSUThorns/SummationByParts
+      from repository: https://svn.cct.lsu.edu/repos/numrel/LSUThorns/SummationByParts/trunk
+                 into: ./arrangements
+
+[1m[31mWarning: [0mCould not checkout module LSUThorns/SummationByParts
+
+svn: E170001: OPTIONS of 'https://svn.cct.lsu.edu/repos/numrel/LSUThorns/SummationByParts/trunk': authorization failed: Could not authenticate to server: rejected Basic challenge (https://svn.cct.lsu.edu)
+
+
+-----------------------------------------------------------------
+  Checking out module: LSUThorns/Vectors
+      from repository: https://svn.cct.lsu.edu/repos/numrel/LSUThorns/Vectors/trunk
+                 into: ./arrangements
+
+[1m[31mWarning: [0mCould not checkout module LSUThorns/Vectors
+
+svn: E170001: OPTIONS of 'https://svn.cct.lsu.edu/repos/numrel/LSUThorns/Vectors/trunk': authorization failed: Could not authenticate to server: rejected Basic challenge (https://svn.cct.lsu.edu)
+
+
+-----------------------------------------------------------------
+  Checking out module: KrancNumericalTools/GenericFD
+      from repository: git://github.com/ianhinder/Kranc.git
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: McLachlan/doc
+      from repository: git://carpetcode.org/McLachlan
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: McLachlan/m
+      from repository: git://carpetcode.org/McLachlan
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: McLachlan/par
+      from repository: git://carpetcode.org/McLachlan
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: McLachlan/ML_ADMConstraints
+      from repository: git://carpetcode.org/McLachlan
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: McLachlan/ML_ADMQuantities
+      from repository: git://carpetcode.org/McLachlan
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: McLachlan/ML_BSSN
+      from repository: git://carpetcode.org/McLachlan
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: McLachlan/ML_BSSN_Helper
+      from repository: git://carpetcode.org/McLachlan
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: McLachlan/ML_BSSN_Test
+      from repository: git://carpetcode.org/McLachlan
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: McLachlan/ML_CCZ4
+      from repository: git://carpetcode.org/McLachlan
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: McLachlan/ML_CCZ4_Helper
+      from repository: git://carpetcode.org/McLachlan
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: McLachlan/ML_CCZ4_Test
+      from repository: git://carpetcode.org/McLachlan
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: McLachlan/ML_WaveToy
+      from repository: git://carpetcode.org/McLachlan
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/doc
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/Carpet
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/CarpetEvolutionMask
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/CarpetIOASCII
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/CarpetIOBasic
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/CarpetIOHDF5
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/CarpetIOScalar
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/CarpetInterp
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/CarpetInterp2
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/CarpetLib
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/CarpetMask
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/CarpetReduce
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/CarpetRegrid
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/CarpetRegrid2
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/CarpetSlab
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/CarpetTracker
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/LoopControl
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: GetComponents
+      from repository: git://github.com/gridaphobe/CRL.git
+                 into: ./bin
+-----------------------------------------------------------------
+  193 components checked out.
+  0 components updated.
+
+  Unable to process simfactory2
+  Unable to process LSUThorns/QuasiLocalMeasures
+  Unable to process LSUThorns/SummationByParts
+  Unable to process LSUThorns/Vectors
+
+Summary of Warnings:
+
+Could not checkout module simfactory2
+
+svn: E170001: OPTIONS of 'https://svn.cct.lsu.edu/repos/numrel/simfactory2/trunk': authorization failed: Could not authenticate to server: rejected Basic challenge (https://svn.cct.lsu.edu)
+
+Could not checkout module LSUThorns/QuasiLocalMeasures
+
+svn: E170001: OPTIONS of 'https://svn.cct.lsu.edu/repos/numrel/LSUThorns/QuasiLocalMeasures/trunk': authorization failed: Could not authenticate to server: rejected Basic challenge (https://svn.cct.lsu.edu)
+
+Could not checkout module LSUThorns/SummationByParts
+
+svn: E170001: OPTIONS of 'https://svn.cct.lsu.edu/repos/numrel/LSUThorns/SummationByParts/trunk': authorization failed: Could not authenticate to server: rejected Basic challenge (https://svn.cct.lsu.edu)
+
+Could not checkout module LSUThorns/Vectors
+
+svn: E170001: OPTIONS of 'https://svn.cct.lsu.edu/repos/numrel/LSUThorns/Vectors/trunk': authorization failed: Could not authenticate to server: rejected Basic challenge (https://svn.cct.lsu.edu)
+
+  Time Elapsed: 2 minutes, 51 seconds
+
++ update=--update
++ continue
++ (( try++ ))
++ (( try <= 3 ))
++ ./GetComponents -a --root=. --update einsteintoolkit.th
+Use of uninitialized value in concatenation (.) or string at ./GetComponents line 2528.
+-----------------------------------------------------------------
+  Checking out module: simfactory2
+      from repository: https://svn.cct.lsu.edu/repos/numrel/simfactory2/trunk
+                 into: .
+                   as: simfactory
+
+[1m[31mWarning: [0mCould not checkout module simfactory2
+
+svn: E170001: OPTIONS of 'https://svn.cct.lsu.edu/repos/numrel/simfactory2/trunk': authorization failed: Could not authenticate to server: rejected Basic challenge (https://svn.cct.lsu.edu)
+
+
+-----------------------------------------------------------------
+  Checking out module: LSUThorns/QuasiLocalMeasures
+      from repository: https://svn.cct.lsu.edu/repos/numrel/LSUThorns/QuasiLocalMeasures/trunk
+                 into: ./arrangements
+
+[1m[31mWarning: [0mCould not checkout module LSUThorns/QuasiLocalMeasures
+
+svn: E170001: OPTIONS of 'https://svn.cct.lsu.edu/repos/numrel/LSUThorns/QuasiLocalMeasures/trunk': authorization failed: Could not authenticate to server: rejected Basic challenge (https://svn.cct.lsu.edu)
+
+
+-----------------------------------------------------------------
+  Checking out module: LSUThorns/SummationByParts
+      from repository: https://svn.cct.lsu.edu/repos/numrel/LSUThorns/SummationByParts/trunk
+                 into: ./arrangements
+
+[1m[31mWarning: [0mCould not checkout module LSUThorns/SummationByParts
+
+svn: E170001: OPTIONS of 'https://svn.cct.lsu.edu/repos/numrel/LSUThorns/SummationByParts/trunk': authorization failed: Could not authenticate to server: rejected Basic challenge (https://svn.cct.lsu.edu)
+
+
+-----------------------------------------------------------------
+  Checking out module: LSUThorns/Vectors
+      from repository: https://svn.cct.lsu.edu/repos/numrel/LSUThorns/Vectors/trunk
+                 into: ./arrangements
+
+[1m[31mWarning: [0mCould not checkout module LSUThorns/Vectors
+
+svn: E170001: OPTIONS of 'https://svn.cct.lsu.edu/repos/numrel/LSUThorns/Vectors/trunk': authorization failed: Could not authenticate to server: rejected Basic challenge (https://svn.cct.lsu.edu)
+
+
+-----------------------------------------------------------------
+  Updating module: manifest
+  from repository: http://svn.einsteintoolkit.org/manifest/trunk
+       located in: .
+-----------------------------------------------------------------
+  Updating module: Cactus
+  from repository: http://svn.cactuscode.org/flesh/trunk
+       located in: .
+            under: .
+-----------------------------------------------------------------
+  Updating module: par
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinExamples/trunk/par
+       located in: .
+-----------------------------------------------------------------
+  Updating module: .
+  from repository: http://svn.cactuscode.org/Utilities/trunk
+       located in: .
+            under: utils
+-----------------------------------------------------------------
+  Updating module: CactusArchive/ADM
+  from repository: http://svn.cactuscode.org/arrangements/CactusArchive/ADM/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusBase/Boundary
+  from repository: http://svn.cactuscode.org/arrangements/CactusBase/Boundary/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusBase/CartGrid3D
+  from repository: http://svn.cactuscode.org/arrangements/CactusBase/CartGrid3D/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusBase/CoordBase
+  from repository: http://svn.cactuscode.org/arrangements/CactusBase/CoordBase/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusBase/Fortran
+  from repository: http://svn.cactuscode.org/arrangements/CactusBase/Fortran/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusBase/InitBase
+  from repository: http://svn.cactuscode.org/arrangements/CactusBase/InitBase/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusBase/IOASCII
+  from repository: http://svn.cactuscode.org/arrangements/CactusBase/IOASCII/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusBase/IOBasic
+  from repository: http://svn.cactuscode.org/arrangements/CactusBase/IOBasic/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusBase/IOUtil
+  from repository: http://svn.cactuscode.org/arrangements/CactusBase/IOUtil/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusBase/SymBase
+  from repository: http://svn.cactuscode.org/arrangements/CactusBase/SymBase/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusBase/Time
+  from repository: http://svn.cactuscode.org/arrangements/CactusBase/Time/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusConnect/HTTPD
+  from repository: http://svn.cactuscode.org/arrangements/CactusConnect/HTTPD/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusConnect/HTTPDExtra
+  from repository: http://svn.cactuscode.org/arrangements/CactusConnect/HTTPDExtra/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusConnect/Socket
+  from repository: http://svn.cactuscode.org/arrangements/CactusConnect/Socket/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusElliptic/EllBase
+  from repository: http://svn.cactuscode.org/arrangements/CactusElliptic/EllBase/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusElliptic/EllSOR
+  from repository: http://svn.cactuscode.org/arrangements/CactusElliptic/EllSOR/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusIO/IOJpeg
+  from repository: http://svn.cactuscode.org/arrangements/CactusIO/IOJpeg/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusNumerical/Cartoon2D
+  from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/Cartoon2D/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusNumerical/Dissipation
+  from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/Dissipation/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusNumerical/InterpToArray
+  from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/InterpToArray/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusNumerical/LocalInterp
+  from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/LocalInterp/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusNumerical/LocalReduce
+  from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/LocalReduce/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusNumerical/MoL
+  from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/MoL/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusNumerical/Noise
+  from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/Noise/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusNumerical/Norms
+  from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/Norms/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusNumerical/Periodic
+  from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/Periodic/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusNumerical/ReflectionSymmetry
+  from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/ReflectionSymmetry/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusNumerical/RotatingSymmetry180
+  from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/RotatingSymmetry180/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusNumerical/RotatingSymmetry90
+  from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/RotatingSymmetry90/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusNumerical/Slab
+  from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/Slab/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusNumerical/SlabTest
+  from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/SlabTest/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusNumerical/SpaceMask
+  from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/SpaceMask/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusNumerical/SphericalSurface
+  from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/SphericalSurface/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusPUGH/PUGH
+  from repository: http://svn.cactuscode.org/arrangements/CactusPUGH/PUGH/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusPUGH/PUGHInterp
+  from repository: http://svn.cactuscode.org/arrangements/CactusPUGH/PUGHInterp/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusPUGH/PUGHReduce
+  from repository: http://svn.cactuscode.org/arrangements/CactusPUGH/PUGHReduce/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusPUGH/PUGHSlab
+  from repository: http://svn.cactuscode.org/arrangements/CactusPUGH/PUGHSlab/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusPUGHIO/IOHDF5
+  from repository: http://svn.cactuscode.org/arrangements/CactusPUGHIO/IOHDF5/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusPUGHIO/IOHDF5Util
+  from repository: http://svn.cactuscode.org/arrangements/CactusPUGHIO/IOHDF5Util/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestArrays
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestArrays/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestComplex
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestComplex/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestCoordinates
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestCoordinates/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestFortranDependencies1
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestFortranDependencies1/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestFortranDependencies2
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestFortranDependencies2/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestFpointerNULL
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestFpointerNULL/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestFreeF90
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestFreeF90/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestGlobalReduce
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestGlobalReduce/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestInclude1
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestInclude1/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestInclude2
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestInclude2/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestLocalReduce
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestLocalReduce/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestLoop
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestLoop/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestPar
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestPar/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestReduce
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestReduce/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestSchedule
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestSchedule/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestStrings
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestStrings/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestTable
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestTable/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestTimers
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestTimers/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestTypes
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestTypes/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusUtils/Formaline
+  from repository: http://svn.cactuscode.org/arrangements/CactusUtils/Formaline/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusUtils/NaNChecker
+  from repository: http://svn.cactuscode.org/arrangements/CactusUtils/NaNChecker/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusUtils/Nice
+  from repository: http://svn.cactuscode.org/arrangements/CactusUtils/Nice/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusUtils/NoMPI
+  from repository: http://svn.cactuscode.org/arrangements/CactusUtils/NoMPI/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusUtils/TerminationTrigger
+  from repository: http://svn.cactuscode.org/arrangements/CactusUtils/TerminationTrigger/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusUtils/TimerReport
+  from repository: http://svn.cactuscode.org/arrangements/CactusUtils/TimerReport/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusWave/IDScalarWave
+  from repository: http://svn.cactuscode.org/arrangements/CactusWave/IDScalarWave/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusWave/IDScalarWaveC
+  from repository: http://svn.cactuscode.org/arrangements/CactusWave/IDScalarWaveC/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusWave/IDScalarWaveCXX
+  from repository: http://svn.cactuscode.org/arrangements/CactusWave/IDScalarWaveCXX/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusWave/IDScalarWaveElliptic
+  from repository: http://svn.cactuscode.org/arrangements/CactusWave/IDScalarWaveElliptic/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusWave/WaveBinarySource
+  from repository: http://svn.cactuscode.org/arrangements/CactusWave/WaveBinarySource/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusWave/WaveToyC
+  from repository: http://svn.cactuscode.org/arrangements/CactusWave/WaveToyC/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusWave/WaveToyCXX
+  from repository: http://svn.cactuscode.org/arrangements/CactusWave/WaveToyCXX/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusWave/WaveToyExtra
+  from repository: http://svn.cactuscode.org/arrangements/CactusWave/WaveToyExtra/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusWave/WaveToyF77
+  from repository: http://svn.cactuscode.org/arrangements/CactusWave/WaveToyF77/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusWave/WaveToyF90
+  from repository: http://svn.cactuscode.org/arrangements/CactusWave/WaveToyF90/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusWave/WaveToyFreeF90
+  from repository: http://svn.cactuscode.org/arrangements/CactusWave/WaveToyFreeF90/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinAnalysis/ADMAnalysis
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/ADMAnalysis/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinAnalysis/ADMConstraints
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/ADMConstraints/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinAnalysis/AHFinder
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/AHFinder/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinAnalysis/AHFinderDirect
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/AHFinderDirect/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinAnalysis/CalcK
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/CalcK/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinAnalysis/EHFinder
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/EHFinder/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinAnalysis/Extract
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/Extract/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinAnalysis/Hydro_Analysis
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/Hydro_Analysis/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinAnalysis/Multipole
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/Multipole/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinAnalysis/WeylScal4
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/WeylScal4/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinBase/ADMBase
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/ADMBase/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinBase/ADMCoupling
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/ADMCoupling/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinBase/ADMMacros
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/ADMMacros/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinBase/Constants
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/Constants/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinBase/CoordGauge
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/CoordGauge/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinBase/EOS_Base
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/EOS_Base/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinBase/HydroBase
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/HydroBase/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinBase/StaticConformal
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/StaticConformal/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinBase/TmunuBase
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/TmunuBase/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinEOS/EOS_Hybrid
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinEOS/EOS_Hybrid/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinEOS/EOS_IdealFluid
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinEOS/EOS_IdealFluid/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinEOS/EOS_Omni
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinEOS/EOS_Omni/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinEOS/EOS_Polytrope
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinEOS/EOS_Polytrope/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinEvolve/GRHydro
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinEvolve/GRHydro/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinEvolve/LegoExcision
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinEvolve/LegoExcision/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinEvolve/NewRad
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinEvolve/NewRad/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/DistortedBHIVP
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/DistortedBHIVP/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/Exact
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/Exact/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/GRHydro_InitData
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/GRHydro_InitData/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/Hydro_InitExcision
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/Hydro_InitExcision/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/IDAnalyticBH
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/IDAnalyticBH/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/IDAxiBrillBH
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/IDAxiBrillBH/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/IDAxiOddBrillBH
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/IDAxiOddBrillBH/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/IDBrillData
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/IDBrillData/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/IDConstraintViolate
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/IDConstraintViolate/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/IDFileADM
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/IDFileADM/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/IDLinearWaves
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/IDLinearWaves/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/Meudon_Bin_BH
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/Meudon_Bin_BH/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/Meudon_Bin_NS
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/Meudon_Bin_NS/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/Meudon_Mag_NS
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/Meudon_Mag_NS/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/NoExcision
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/NoExcision/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/RotatingDBHIVP
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/RotatingDBHIVP/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/TOVSolver
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/TOVSolver/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/TwoPunctures
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/TwoPunctures/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinUtils/SetMask_SphericalSurface
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinUtils/SetMask_SphericalSurface/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinUtils/TGRtensor
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinUtils/TGRtensor/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: PITTNullCode/NullConstr
+  from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullConstr/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: PITTNullCode/NullDecomp
+  from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullDecomp/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: PITTNullCode/NullEvolve
+  from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullEvolve/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: PITTNullCode/NullExact
+  from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullExact/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: PITTNullCode/NullGrid
+  from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullGrid/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: PITTNullCode/NullInterp
+  from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullInterp/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: PITTNullCode/NullNews
+  from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullNews/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: PITTNullCode/NullPsiInt
+  from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullPsiInt/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: PITTNullCode/NullSHRExtract
+  from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullSHRExtract/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: PITTNullCode/NullVars
+  from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullVars/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: PITTNullCode/SphericalHarmonicDecomp
+  from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/SphericalHarmonicDecomp/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: PITTNullCode/SphericalHarmonicRecon
+  from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/SphericalHarmonicRecon/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinExact/doc
+  from repository: git://github.com/barrywardell/EinsteinExact
+       located in: ./arrangements
+Already on 'master'
+-----------------------------------------------------------------
+  Updating module: EinsteinExact/m
+  from repository: git://github.com/barrywardell/EinsteinExact
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinExact/tests
+  from repository: git://github.com/barrywardell/EinsteinExact
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinExact/EinsteinExact_Test
+  from repository: git://github.com/barrywardell/EinsteinExact
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinExact/GaugeWave
+  from repository: git://github.com/barrywardell/EinsteinExact
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinExact/KerrSchild
+  from repository: git://github.com/barrywardell/EinsteinExact
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinExact/Minkowski
+  from repository: git://github.com/barrywardell/EinsteinExact
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinExact/ModifiedSchwarzschildBL
+  from repository: git://github.com/barrywardell/EinsteinExact
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinExact/ShiftedGaugeWave
+  from repository: git://github.com/barrywardell/EinsteinExact
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinExact/Vaidya2
+  from repository: git://github.com/barrywardell/EinsteinExact
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: ExternalLibraries/BLAS
+  from repository: http://svn.cactuscode.org/projects/ExternalLibraries/BLAS/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: ExternalLibraries/FFTW3
+  from repository: http://svn.cactuscode.org/projects/ExternalLibraries/FFTW3/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: ExternalLibraries/GSL
+  from repository: http://svn.cactuscode.org/projects/ExternalLibraries/GSL/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: ExternalLibraries/HDF5
+  from repository: http://svn.cactuscode.org/projects/ExternalLibraries/HDF5/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: ExternalLibraries/hwloc
+  from repository: http://svn.cactuscode.org/projects/ExternalLibraries/hwloc/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: ExternalLibraries/LAPACK
+  from repository: http://svn.cactuscode.org/projects/ExternalLibraries/LAPACK/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: ExternalLibraries/libjpeg
+  from repository: http://svn.cactuscode.org/projects/ExternalLibraries/libjpeg/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: ExternalLibraries/LORENE
+  from repository: http://svn.cactuscode.org/projects/ExternalLibraries/LORENE/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: ExternalLibraries/OpenSSL
+  from repository: http://svn.cactuscode.org/projects/ExternalLibraries/OpenSSL/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: ExternalLibraries/zlib
+  from repository: http://svn.cactuscode.org/projects/ExternalLibraries/zlib/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: TAT/TATelliptic
+  from repository: http://svn.cactuscode.org/projects/TAT/TATelliptic/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: AEIThorns/ADMMass
+  from repository: http://svn.aei.mpg.de/numrel/AEIThorns/ADMMass/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: AEIThorns/AEILocalInterp
+  from repository: http://svn.aei.mpg.de/numrel/AEIThorns/AEILocalInterp/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: AEIThorns/PunctureTracker
+  from repository: http://svn.aei.mpg.de/numrel/AEIThorns/PunctureTracker/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: AEIThorns/SystemStatistics
+  from repository: http://svn.aei.mpg.de/numrel/AEIThorns/SystemStatistics/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: KrancNumericalTools/GenericFD
+  from repository: git://github.com/ianhinder/Kranc.git
+       located in: ./arrangements
+Already on 'master'
+-----------------------------------------------------------------
+  Updating module: McLachlan/doc
+  from repository: git://carpetcode.org/McLachlan
+       located in: ./arrangements
+Already on 'master'
+-----------------------------------------------------------------
+  Updating module: McLachlan/m
+  from repository: git://carpetcode.org/McLachlan
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: McLachlan/par
+  from repository: git://carpetcode.org/McLachlan
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: McLachlan/ML_ADMConstraints
+  from repository: git://carpetcode.org/McLachlan
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: McLachlan/ML_ADMQuantities
+  from repository: git://carpetcode.org/McLachlan
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: McLachlan/ML_BSSN
+  from repository: git://carpetcode.org/McLachlan
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: McLachlan/ML_BSSN_Helper
+  from repository: git://carpetcode.org/McLachlan
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: McLachlan/ML_BSSN_Test
+  from repository: git://carpetcode.org/McLachlan
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: McLachlan/ML_CCZ4
+  from repository: git://carpetcode.org/McLachlan
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: McLachlan/ML_CCZ4_Helper
+  from repository: git://carpetcode.org/McLachlan
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: McLachlan/ML_CCZ4_Test
+  from repository: git://carpetcode.org/McLachlan
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: McLachlan/ML_WaveToy
+  from repository: git://carpetcode.org/McLachlan
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/doc
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/Carpet
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/CarpetEvolutionMask
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/CarpetIOASCII
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/CarpetIOBasic
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/CarpetIOHDF5
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/CarpetIOScalar
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/CarpetInterp
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/CarpetInterp2
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/CarpetLib
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/CarpetMask
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/CarpetReduce
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/CarpetRegrid
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/CarpetRegrid2
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/CarpetSlab
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/CarpetTracker
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/LoopControl
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: GetComponents
+  from repository: git://github.com/gridaphobe/CRL.git
+       located in: ./bin
+Already on 'master'
+-----------------------------------------------------------------
+  0 components checked out.
+  193 components updated.
+
+  Unable to process simfactory2
+  Unable to process LSUThorns/QuasiLocalMeasures
+  Unable to process LSUThorns/SummationByParts
+  Unable to process LSUThorns/Vectors
+
+Summary of Warnings:
+
+Could not checkout module simfactory2
+
+svn: E170001: OPTIONS of 'https://svn.cct.lsu.edu/repos/numrel/simfactory2/trunk': authorization failed: Could not authenticate to server: rejected Basic challenge (https://svn.cct.lsu.edu)
+
+Could not checkout module LSUThorns/QuasiLocalMeasures
+
+svn: E170001: OPTIONS of 'https://svn.cct.lsu.edu/repos/numrel/LSUThorns/QuasiLocalMeasures/trunk': authorization failed: Could not authenticate to server: rejected Basic challenge (https://svn.cct.lsu.edu)
+
+Could not checkout module LSUThorns/SummationByParts
+
+svn: E170001: OPTIONS of 'https://svn.cct.lsu.edu/repos/numrel/LSUThorns/SummationByParts/trunk': authorization failed: Could not authenticate to server: rejected Basic challenge (https://svn.cct.lsu.edu)
+
+Could not checkout module LSUThorns/Vectors
+
+svn: E170001: OPTIONS of 'https://svn.cct.lsu.edu/repos/numrel/LSUThorns/Vectors/trunk': authorization failed: Could not authenticate to server: rejected Basic challenge (https://svn.cct.lsu.edu)
+
+  Time Elapsed: 0 minutes, 22 seconds
+
++ update=--update
++ continue
++ (( try++ ))
++ (( try <= 3 ))
++ ./GetComponents -a --root=. --update einsteintoolkit.th
+Use of uninitialized value in concatenation (.) or string at ./GetComponents line 2528.
+-----------------------------------------------------------------
+  Checking out module: simfactory2
+      from repository: https://svn.cct.lsu.edu/repos/numrel/simfactory2/trunk
+                 into: .
+                   as: simfactory
+
+[1m[31mWarning: [0mCould not checkout module simfactory2
+
+svn: E170001: OPTIONS of 'https://svn.cct.lsu.edu/repos/numrel/simfactory2/trunk': authorization failed: Could not authenticate to server: rejected Basic challenge (https://svn.cct.lsu.edu)
+
+
+-----------------------------------------------------------------
+  Checking out module: LSUThorns/QuasiLocalMeasures
+      from repository: https://svn.cct.lsu.edu/repos/numrel/LSUThorns/QuasiLocalMeasures/trunk
+                 into: ./arrangements
+
+[1m[31mWarning: [0mCould not checkout module LSUThorns/QuasiLocalMeasures
+
+svn: E170001: OPTIONS of 'https://svn.cct.lsu.edu/repos/numrel/LSUThorns/QuasiLocalMeasures/trunk': authorization failed: Could not authenticate to server: rejected Basic challenge (https://svn.cct.lsu.edu)
+
+
+-----------------------------------------------------------------
+  Checking out module: LSUThorns/SummationByParts
+      from repository: https://svn.cct.lsu.edu/repos/numrel/LSUThorns/SummationByParts/trunk
+                 into: ./arrangements
+
+[1m[31mWarning: [0mCould not checkout module LSUThorns/SummationByParts
+
+svn: E170001: OPTIONS of 'https://svn.cct.lsu.edu/repos/numrel/LSUThorns/SummationByParts/trunk': authorization failed: Could not authenticate to server: rejected Basic challenge (https://svn.cct.lsu.edu)
+
+
+-----------------------------------------------------------------
+  Checking out module: LSUThorns/Vectors
+      from repository: https://svn.cct.lsu.edu/repos/numrel/LSUThorns/Vectors/trunk
+                 into: ./arrangements
+
+[1m[31mWarning: [0mCould not checkout module LSUThorns/Vectors
+
+svn: E170001: OPTIONS of 'https://svn.cct.lsu.edu/repos/numrel/LSUThorns/Vectors/trunk': authorization failed: Could not authenticate to server: rejected Basic challenge (https://svn.cct.lsu.edu)
+
+
+-----------------------------------------------------------------
+  Updating module: manifest
+  from repository: http://svn.einsteintoolkit.org/manifest/trunk
+       located in: .
+-----------------------------------------------------------------
+  Updating module: Cactus
+  from repository: http://svn.cactuscode.org/flesh/trunk
+       located in: .
+            under: .
+-----------------------------------------------------------------
+  Updating module: par
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinExamples/trunk/par
+       located in: .
+-----------------------------------------------------------------
+  Updating module: .
+  from repository: http://svn.cactuscode.org/Utilities/trunk
+       located in: .
+            under: utils
+-----------------------------------------------------------------
+  Updating module: CactusArchive/ADM
+  from repository: http://svn.cactuscode.org/arrangements/CactusArchive/ADM/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusBase/Boundary
+  from repository: http://svn.cactuscode.org/arrangements/CactusBase/Boundary/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusBase/CartGrid3D
+  from repository: http://svn.cactuscode.org/arrangements/CactusBase/CartGrid3D/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusBase/CoordBase
+  from repository: http://svn.cactuscode.org/arrangements/CactusBase/CoordBase/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusBase/Fortran
+  from repository: http://svn.cactuscode.org/arrangements/CactusBase/Fortran/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusBase/InitBase
+  from repository: http://svn.cactuscode.org/arrangements/CactusBase/InitBase/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusBase/IOASCII
+  from repository: http://svn.cactuscode.org/arrangements/CactusBase/IOASCII/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusBase/IOBasic
+  from repository: http://svn.cactuscode.org/arrangements/CactusBase/IOBasic/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusBase/IOUtil
+  from repository: http://svn.cactuscode.org/arrangements/CactusBase/IOUtil/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusBase/SymBase
+  from repository: http://svn.cactuscode.org/arrangements/CactusBase/SymBase/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusBase/Time
+  from repository: http://svn.cactuscode.org/arrangements/CactusBase/Time/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusConnect/HTTPD
+  from repository: http://svn.cactuscode.org/arrangements/CactusConnect/HTTPD/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusConnect/HTTPDExtra
+  from repository: http://svn.cactuscode.org/arrangements/CactusConnect/HTTPDExtra/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusConnect/Socket
+  from repository: http://svn.cactuscode.org/arrangements/CactusConnect/Socket/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusElliptic/EllBase
+  from repository: http://svn.cactuscode.org/arrangements/CactusElliptic/EllBase/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusElliptic/EllSOR
+  from repository: http://svn.cactuscode.org/arrangements/CactusElliptic/EllSOR/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusIO/IOJpeg
+  from repository: http://svn.cactuscode.org/arrangements/CactusIO/IOJpeg/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusNumerical/Cartoon2D
+  from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/Cartoon2D/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusNumerical/Dissipation
+  from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/Dissipation/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusNumerical/InterpToArray
+  from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/InterpToArray/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusNumerical/LocalInterp
+  from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/LocalInterp/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusNumerical/LocalReduce
+  from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/LocalReduce/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusNumerical/MoL
+  from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/MoL/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusNumerical/Noise
+  from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/Noise/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusNumerical/Norms
+  from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/Norms/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusNumerical/Periodic
+  from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/Periodic/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusNumerical/ReflectionSymmetry
+  from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/ReflectionSymmetry/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusNumerical/RotatingSymmetry180
+  from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/RotatingSymmetry180/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusNumerical/RotatingSymmetry90
+  from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/RotatingSymmetry90/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusNumerical/Slab
+  from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/Slab/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusNumerical/SlabTest
+  from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/SlabTest/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusNumerical/SpaceMask
+  from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/SpaceMask/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusNumerical/SphericalSurface
+  from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/SphericalSurface/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusPUGH/PUGH
+  from repository: http://svn.cactuscode.org/arrangements/CactusPUGH/PUGH/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusPUGH/PUGHInterp
+  from repository: http://svn.cactuscode.org/arrangements/CactusPUGH/PUGHInterp/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusPUGH/PUGHReduce
+  from repository: http://svn.cactuscode.org/arrangements/CactusPUGH/PUGHReduce/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusPUGH/PUGHSlab
+  from repository: http://svn.cactuscode.org/arrangements/CactusPUGH/PUGHSlab/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusPUGHIO/IOHDF5
+  from repository: http://svn.cactuscode.org/arrangements/CactusPUGHIO/IOHDF5/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusPUGHIO/IOHDF5Util
+  from repository: http://svn.cactuscode.org/arrangements/CactusPUGHIO/IOHDF5Util/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestArrays
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestArrays/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestComplex
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestComplex/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestCoordinates
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestCoordinates/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestFortranDependencies1
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestFortranDependencies1/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestFortranDependencies2
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestFortranDependencies2/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestFpointerNULL
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestFpointerNULL/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestFreeF90
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestFreeF90/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestGlobalReduce
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestGlobalReduce/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestInclude1
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestInclude1/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestInclude2
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestInclude2/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestLocalReduce
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestLocalReduce/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestLoop
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestLoop/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestPar
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestPar/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestReduce
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestReduce/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestSchedule
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestSchedule/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestStrings
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestStrings/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestTable
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestTable/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestTimers
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestTimers/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusTest/TestTypes
+  from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestTypes/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusUtils/Formaline
+  from repository: http://svn.cactuscode.org/arrangements/CactusUtils/Formaline/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusUtils/NaNChecker
+  from repository: http://svn.cactuscode.org/arrangements/CactusUtils/NaNChecker/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusUtils/Nice
+  from repository: http://svn.cactuscode.org/arrangements/CactusUtils/Nice/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusUtils/NoMPI
+  from repository: http://svn.cactuscode.org/arrangements/CactusUtils/NoMPI/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusUtils/TerminationTrigger
+  from repository: http://svn.cactuscode.org/arrangements/CactusUtils/TerminationTrigger/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusUtils/TimerReport
+  from repository: http://svn.cactuscode.org/arrangements/CactusUtils/TimerReport/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusWave/IDScalarWave
+  from repository: http://svn.cactuscode.org/arrangements/CactusWave/IDScalarWave/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusWave/IDScalarWaveC
+  from repository: http://svn.cactuscode.org/arrangements/CactusWave/IDScalarWaveC/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusWave/IDScalarWaveCXX
+  from repository: http://svn.cactuscode.org/arrangements/CactusWave/IDScalarWaveCXX/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusWave/IDScalarWaveElliptic
+  from repository: http://svn.cactuscode.org/arrangements/CactusWave/IDScalarWaveElliptic/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusWave/WaveBinarySource
+  from repository: http://svn.cactuscode.org/arrangements/CactusWave/WaveBinarySource/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusWave/WaveToyC
+  from repository: http://svn.cactuscode.org/arrangements/CactusWave/WaveToyC/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusWave/WaveToyCXX
+  from repository: http://svn.cactuscode.org/arrangements/CactusWave/WaveToyCXX/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusWave/WaveToyExtra
+  from repository: http://svn.cactuscode.org/arrangements/CactusWave/WaveToyExtra/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusWave/WaveToyF77
+  from repository: http://svn.cactuscode.org/arrangements/CactusWave/WaveToyF77/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusWave/WaveToyF90
+  from repository: http://svn.cactuscode.org/arrangements/CactusWave/WaveToyF90/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: CactusWave/WaveToyFreeF90
+  from repository: http://svn.cactuscode.org/arrangements/CactusWave/WaveToyFreeF90/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinAnalysis/ADMAnalysis
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/ADMAnalysis/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinAnalysis/ADMConstraints
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/ADMConstraints/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinAnalysis/AHFinder
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/AHFinder/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinAnalysis/AHFinderDirect
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/AHFinderDirect/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinAnalysis/CalcK
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/CalcK/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinAnalysis/EHFinder
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/EHFinder/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinAnalysis/Extract
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/Extract/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinAnalysis/Hydro_Analysis
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/Hydro_Analysis/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinAnalysis/Multipole
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/Multipole/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinAnalysis/WeylScal4
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/WeylScal4/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinBase/ADMBase
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/ADMBase/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinBase/ADMCoupling
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/ADMCoupling/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinBase/ADMMacros
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/ADMMacros/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinBase/Constants
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/Constants/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinBase/CoordGauge
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/CoordGauge/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinBase/EOS_Base
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/EOS_Base/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinBase/HydroBase
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/HydroBase/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinBase/StaticConformal
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/StaticConformal/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinBase/TmunuBase
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/TmunuBase/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinEOS/EOS_Hybrid
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinEOS/EOS_Hybrid/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinEOS/EOS_IdealFluid
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinEOS/EOS_IdealFluid/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinEOS/EOS_Omni
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinEOS/EOS_Omni/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinEOS/EOS_Polytrope
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinEOS/EOS_Polytrope/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinEvolve/GRHydro
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinEvolve/GRHydro/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinEvolve/LegoExcision
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinEvolve/LegoExcision/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinEvolve/NewRad
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinEvolve/NewRad/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/DistortedBHIVP
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/DistortedBHIVP/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/Exact
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/Exact/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/GRHydro_InitData
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/GRHydro_InitData/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/Hydro_InitExcision
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/Hydro_InitExcision/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/IDAnalyticBH
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/IDAnalyticBH/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/IDAxiBrillBH
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/IDAxiBrillBH/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/IDAxiOddBrillBH
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/IDAxiOddBrillBH/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/IDBrillData
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/IDBrillData/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/IDConstraintViolate
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/IDConstraintViolate/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/IDFileADM
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/IDFileADM/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/IDLinearWaves
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/IDLinearWaves/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/Meudon_Bin_BH
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/Meudon_Bin_BH/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/Meudon_Bin_NS
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/Meudon_Bin_NS/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/Meudon_Mag_NS
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/Meudon_Mag_NS/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/NoExcision
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/NoExcision/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/RotatingDBHIVP
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/RotatingDBHIVP/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/TOVSolver
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/TOVSolver/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinInitialData/TwoPunctures
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/TwoPunctures/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinUtils/SetMask_SphericalSurface
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinUtils/SetMask_SphericalSurface/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinUtils/TGRtensor
+  from repository: http://svn.einsteintoolkit.org/cactus/EinsteinUtils/TGRtensor/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: PITTNullCode/NullConstr
+  from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullConstr/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: PITTNullCode/NullDecomp
+  from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullDecomp/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: PITTNullCode/NullEvolve
+  from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullEvolve/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: PITTNullCode/NullExact
+  from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullExact/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: PITTNullCode/NullGrid
+  from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullGrid/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: PITTNullCode/NullInterp
+  from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullInterp/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: PITTNullCode/NullNews
+  from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullNews/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: PITTNullCode/NullPsiInt
+  from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullPsiInt/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: PITTNullCode/NullSHRExtract
+  from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullSHRExtract/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: PITTNullCode/NullVars
+  from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullVars/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: PITTNullCode/SphericalHarmonicDecomp
+  from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/SphericalHarmonicDecomp/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: PITTNullCode/SphericalHarmonicRecon
+  from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/SphericalHarmonicRecon/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinExact/doc
+  from repository: git://github.com/barrywardell/EinsteinExact
+       located in: ./arrangements
+Already on 'master'
+-----------------------------------------------------------------
+  Updating module: EinsteinExact/m
+  from repository: git://github.com/barrywardell/EinsteinExact
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinExact/tests
+  from repository: git://github.com/barrywardell/EinsteinExact
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinExact/EinsteinExact_Test
+  from repository: git://github.com/barrywardell/EinsteinExact
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinExact/GaugeWave
+  from repository: git://github.com/barrywardell/EinsteinExact
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinExact/KerrSchild
+  from repository: git://github.com/barrywardell/EinsteinExact
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinExact/Minkowski
+  from repository: git://github.com/barrywardell/EinsteinExact
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinExact/ModifiedSchwarzschildBL
+  from repository: git://github.com/barrywardell/EinsteinExact
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinExact/ShiftedGaugeWave
+  from repository: git://github.com/barrywardell/EinsteinExact
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: EinsteinExact/Vaidya2
+  from repository: git://github.com/barrywardell/EinsteinExact
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: ExternalLibraries/BLAS
+  from repository: http://svn.cactuscode.org/projects/ExternalLibraries/BLAS/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: ExternalLibraries/FFTW3
+  from repository: http://svn.cactuscode.org/projects/ExternalLibraries/FFTW3/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: ExternalLibraries/GSL
+  from repository: http://svn.cactuscode.org/projects/ExternalLibraries/GSL/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: ExternalLibraries/HDF5
+  from repository: http://svn.cactuscode.org/projects/ExternalLibraries/HDF5/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: ExternalLibraries/hwloc
+  from repository: http://svn.cactuscode.org/projects/ExternalLibraries/hwloc/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: ExternalLibraries/LAPACK
+  from repository: http://svn.cactuscode.org/projects/ExternalLibraries/LAPACK/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: ExternalLibraries/libjpeg
+  from repository: http://svn.cactuscode.org/projects/ExternalLibraries/libjpeg/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: ExternalLibraries/LORENE
+  from repository: http://svn.cactuscode.org/projects/ExternalLibraries/LORENE/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: ExternalLibraries/OpenSSL
+  from repository: http://svn.cactuscode.org/projects/ExternalLibraries/OpenSSL/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: ExternalLibraries/zlib
+  from repository: http://svn.cactuscode.org/projects/ExternalLibraries/zlib/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: TAT/TATelliptic
+  from repository: http://svn.cactuscode.org/projects/TAT/TATelliptic/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: AEIThorns/ADMMass
+  from repository: http://svn.aei.mpg.de/numrel/AEIThorns/ADMMass/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: AEIThorns/AEILocalInterp
+  from repository: http://svn.aei.mpg.de/numrel/AEIThorns/AEILocalInterp/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: AEIThorns/PunctureTracker
+  from repository: http://svn.aei.mpg.de/numrel/AEIThorns/PunctureTracker/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: AEIThorns/SystemStatistics
+  from repository: http://svn.aei.mpg.de/numrel/AEIThorns/SystemStatistics/trunk
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: KrancNumericalTools/GenericFD
+  from repository: git://github.com/ianhinder/Kranc.git
+       located in: ./arrangements
+Already on 'master'
+-----------------------------------------------------------------
+  Updating module: McLachlan/doc
+  from repository: git://carpetcode.org/McLachlan
+       located in: ./arrangements
+Already on 'master'
+-----------------------------------------------------------------
+  Updating module: McLachlan/m
+  from repository: git://carpetcode.org/McLachlan
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: McLachlan/par
+  from repository: git://carpetcode.org/McLachlan
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: McLachlan/ML_ADMConstraints
+  from repository: git://carpetcode.org/McLachlan
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: McLachlan/ML_ADMQuantities
+  from repository: git://carpetcode.org/McLachlan
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: McLachlan/ML_BSSN
+  from repository: git://carpetcode.org/McLachlan
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: McLachlan/ML_BSSN_Helper
+  from repository: git://carpetcode.org/McLachlan
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: McLachlan/ML_BSSN_Test
+  from repository: git://carpetcode.org/McLachlan
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: McLachlan/ML_CCZ4
+  from repository: git://carpetcode.org/McLachlan
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: McLachlan/ML_CCZ4_Helper
+  from repository: git://carpetcode.org/McLachlan
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: McLachlan/ML_CCZ4_Test
+  from repository: git://carpetcode.org/McLachlan
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: McLachlan/ML_WaveToy
+  from repository: git://carpetcode.org/McLachlan
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/doc
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/Carpet
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/CarpetEvolutionMask
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/CarpetIOASCII
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/CarpetIOBasic
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/CarpetIOHDF5
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/CarpetIOScalar
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/CarpetInterp
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/CarpetInterp2
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/CarpetLib
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/CarpetMask
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/CarpetReduce
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/CarpetRegrid
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/CarpetRegrid2
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/CarpetSlab
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/CarpetTracker
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: Carpet/LoopControl
+  from repository: http://www.carpetcode.org/hg/carpet
+       located in: ./arrangements
+-----------------------------------------------------------------
+  Updating module: GetComponents
+  from repository: git://github.com/gridaphobe/CRL.git
+       located in: ./bin
+Already on 'master'
+-----------------------------------------------------------------
+  0 components checked out.
+  193 components updated.
+
+  Unable to process simfactory2
+  Unable to process LSUThorns/QuasiLocalMeasures
+  Unable to process LSUThorns/SummationByParts
+  Unable to process LSUThorns/Vectors
+
+Summary of Warnings:
+
+Could not checkout module simfactory2
+
+svn: E170001: OPTIONS of 'https://svn.cct.lsu.edu/repos/numrel/simfactory2/trunk': authorization failed: Could not authenticate to server: rejected Basic challenge (https://svn.cct.lsu.edu)
+
+Could not checkout module LSUThorns/QuasiLocalMeasures
+
+svn: E170001: OPTIONS of 'https://svn.cct.lsu.edu/repos/numrel/LSUThorns/QuasiLocalMeasures/trunk': authorization failed: Could not authenticate to server: rejected Basic challenge (https://svn.cct.lsu.edu)
+
+Could not checkout module LSUThorns/SummationByParts
+
+svn: E170001: OPTIONS of 'https://svn.cct.lsu.edu/repos/numrel/LSUThorns/SummationByParts/trunk': authorization failed: Could not authenticate to server: rejected Basic challenge (https://svn.cct.lsu.edu)
+
+Could not checkout module LSUThorns/Vectors
+
+svn: E170001: OPTIONS of 'https://svn.cct.lsu.edu/repos/numrel/LSUThorns/Vectors/trunk': authorization failed: Could not authenticate to server: rejected Basic challenge (https://svn.cct.lsu.edu)
+
+  Time Elapsed: 0 minutes, 22 seconds
+
++ update=--update
++ continue
++ (( try++ ))
++ (( try <= 3 ))
++ '[' 0 = 0 ']'
++ cat /home/jhar131/TESTING/einsteintoolkit/2012-06-24-020002/checkout.log
++ mail -s 'Cactus test suite: Checkout failure for thornlist einsteintoolkit' jhar131
++ touch /home/jhar131/TESTING/einsteintoolkit/2012-06-24-020002/checkout_failure
++ shift
++ cd -
+/home/jhar131/SCRIPTS
++ continue
++ '[' 0 -gt 0 ']'
++ ./report-tests /home/jhar131/TESTING /home/jhar131/network/public_html
