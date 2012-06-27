@@ -1,0 +1,323 @@
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-26-020002/Cactus/arrangements/Carpet/Carpet/src/Evolve.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-27-020002/Cactus/arrangements/Carpet/Carpet/src/Evolve.cc
+296a297,302
+> 
+>         bool have_done_global_mode = false;
+>         bool have_done_early_global_mode = false;
+>         bool have_done_late_global_mode = false;
+>         bool have_done_anything = false;
+> 
+313c319
+<                 do_early_global_mode = reflevel==0;
+---
+>                 do_early_global_mode = not have_done_early_global_mode;
+319a326,334
+>                 assert (not (have_done_global_mode and do_global_mode));
+>                 assert (not (have_done_early_global_mode and
+>                              do_early_global_mode));
+>                 assert (not (have_done_late_global_mode and
+>                              do_late_global_mode));
+>                 have_done_global_mode |= do_global_mode;
+>                 have_done_early_global_mode |= do_early_global_mode;
+>                 have_done_late_global_mode |= do_late_global_mode;
+>                 have_done_anything = true;
+346a362,366
+> 
+>         if (have_done_anything) assert (have_done_global_mode);
+>         if (have_done_anything) assert (have_done_early_global_mode);
+>         if (have_done_anything) assert (have_done_late_global_mode);
+>         
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-26-020002/Cactus/arrangements/Carpet/Carpet/src/Initialise.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-27-020002/Cactus/arrangements/Carpet/Carpet/src/Initialise.cc
+289a290,322
+>           // This has been activated and deactivated a number of times by now,
+>           // so I'll put down the reasoning behind deactivating it. Maybe the
+>           // other party in this tug of war will be able to respond. Most of
+>           // this is from b4429f4006e5:
+>           //
+>           // Traverse post_recover_variables in only for current timelevel (not
+>           // for all timelevels). Variables on past timelevels cannot have
+>           // their boundary conditions applied consistently, because time
+>           // interpolation for these may requires even older timelevels that
+>           // are not available.  The problem is not that prolongation in time
+>           // on the older timelevels will fail. Prolongation will succeed and
+>           // is not an extrapolation in time, so Carpet does not abort. However
+>           // the time slices used as sources for the interpolation differ from
+>           // the ones that were originally used during the evolution. This
+>           // means that data on the old slices differs from what was present
+>           // during the evolution ie. checkpointing and recovery change data
+>           // on the grid.
+>           //
+>           // Current wisdom (ie. Erik says) is that all grid functions with
+>           // multiple time levels should to be checkpointed because of this. If
+>           // you do not checkpoint them, then you must be able to recompute
+>           // them exactly using a pointwise, local, algebraic method that does
+>           // not rely on present values of the re-computed data on the grid.
+>           // This exlcudes the Hydro primitives (since con2prim requires an
+>           // initial guess), but would in principle (I think) work with the ADM
+>           // variables. 
+>           //
+>           // In particular one cannot call MoL_PostStep on all levels since it
+>           // involves prolongation.
+>           //
+>           // Roland Haas, June 21st 2012
+> 
+> #if 0
+302a336,345
+> #else
+>           Waypoint ("Recovering II at iteration %d time %g%s%s",
+>                     cctkGH->cctk_iteration,
+>                     (double)cctkGH->cctk_time,
+>                     (do_global_mode ? " (global)" : ""),
+>                     (do_meta_mode ? " (meta)" : ""));
+>           
+>           // Post recover variables
+>           ScheduleTraverse (where, "CCTK_POST_RECOVER_VARIABLES", cctkGH);
+> #endif
+876a920,925
+> 
+>         bool have_done_global_mode = false;
+>         bool have_done_early_global_mode = false;
+>         bool have_done_late_global_mode = false;
+>         bool have_done_anything = false;
+> 
+889c938
+<                 do_early_global_mode = reflevel==0;
+---
+>                 do_early_global_mode = not have_done_early_global_mode;
+894a944,952
+>                 assert (not (have_done_global_mode and do_global_mode));
+>                 assert (not (have_done_early_global_mode and
+>                              do_early_global_mode));
+>                 assert (not (have_done_late_global_mode and
+>                              do_late_global_mode));
+>                 have_done_global_mode |= do_global_mode;
+>                 have_done_early_global_mode |= do_early_global_mode;
+>                 have_done_late_global_mode |= do_late_global_mode;
+>                 have_done_anything = true;
+915a974,978
+> 
+>         if (have_done_anything) assert (have_done_global_mode);
+>         if (have_done_anything) assert (have_done_early_global_mode);
+>         if (have_done_anything) assert (have_done_late_global_mode);
+>         
+1037a1101,1106
+> 
+>         bool have_done_global_mode = false;
+>         bool have_done_early_global_mode = false;
+>         bool have_done_late_global_mode = false;
+>         bool have_done_anything = false;
+> 
+1050c1119
+<                 do_early_global_mode = reflevel==0;
+---
+>                 do_early_global_mode = not have_done_early_global_mode;
+1055a1125,1133
+>                 assert (not (have_done_global_mode and do_global_mode));
+>                 assert (not (have_done_early_global_mode and
+>                              do_early_global_mode));
+>                 assert (not (have_done_late_global_mode and
+>                              do_late_global_mode));
+>                 have_done_global_mode |= do_global_mode;
+>                 have_done_early_global_mode |= do_early_global_mode;
+>                 have_done_late_global_mode |= do_late_global_mode;
+>                 have_done_anything = true;
+1088a1167,1171
+> 
+>         if (have_done_anything) assert (have_done_global_mode);
+>         if (have_done_anything) assert (have_done_early_global_mode);
+>         if (have_done_anything) assert (have_done_late_global_mode);
+>         
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-26-020002/Cactus/arrangements/Carpet/CarpetLib/src/dh.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-27-020002/Cactus/arrangements/Carpet/CarpetLib/src/dh.cc
+1004d1003
+<           // TODO: support this
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-26-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/param.ccl /home/jhar131/TESTING/einsteintoolkit/2012-06-27-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/param.ccl
+81a82,94
+> #  7  primitives (rho,press,eps,w_lorentz,vel)
+> # 10  Tmunu
+> #  3  Bvec
+> #  1  tau (polytype EOS)
+> #  1  Y_e
+> #  1  temperature
+> #  1  entropy
+> #  3  comoving shift
+> #  3  lvel
+> #  3  local_shift
+> #  6  local_metric
+> #  6  local_extrinsic_curvature
+> #  3  lBvec
+84,85c97,98
+<   7:33		:: "A small range, depending on testing or not"
+< } 27
+---
+>   7:48		:: "A small range, depending on testing or not"
+> } 37
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-26-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_Con2Prim.F90 /home/jhar131/TESTING/einsteintoolkit/2012-06-27-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_Con2Prim.F90
+352,353d351
+<   use Con2Prim_fortran_interfaces
+< 
+617,618d614
+<   use Con2Prim_fortran_interfaces
+< 
+1479,1480d1474
+<   use Con2Prim_fortran_interfaces
+< 
+1983,1984d1976
+<   use Con2Prim_fortran_interfaces
+< 
+2013,2014d2004
+<   use Con2Prim_fortran_interfaces
+< 
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-27-020002/Cactus/arrangements: LSUThorns
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-26-020002/Cactus/repos/carpet/.hg/cache/branchheads /home/jhar131/TESTING/einsteintoolkit/2012-06-27-020002/Cactus/repos/carpet/.hg/cache/branchheads
+1c1
+< 435d3519cb69a10afd3a772d1766522a10e90795 3589
+---
+> 55759e1088072d571fa354da3843c397116e9a7a 3592
+4c4
+< 435d3519cb69a10afd3a772d1766522a10e90795 default
+---
+> 55759e1088072d571fa354da3843c397116e9a7a default
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-26-020002/Cactus/repos/carpet/.hg/cache/tags /home/jhar131/TESTING/einsteintoolkit/2012-06-27-020002/Cactus/repos/carpet/.hg/cache/tags
+1c1
+< 3589 435d3519cb69a10afd3a772d1766522a10e90795
+---
+> 3592 55759e1088072d571fa354da3843c397116e9a7a
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-26-020002/Cactus/repos/carpet/.hg/dirstate and /home/jhar131/TESTING/einsteintoolkit/2012-06-27-020002/Cactus/repos/carpet/.hg/dirstate differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-26-020002/Cactus/repos/carpet/.hg/store/00changelog.d and /home/jhar131/TESTING/einsteintoolkit/2012-06-27-020002/Cactus/repos/carpet/.hg/store/00changelog.d differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-26-020002/Cactus/repos/carpet/.hg/store/00changelog.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-27-020002/Cactus/repos/carpet/.hg/store/00changelog.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-26-020002/Cactus/repos/carpet/.hg/store/00manifest.d and /home/jhar131/TESTING/einsteintoolkit/2012-06-27-020002/Cactus/repos/carpet/.hg/store/00manifest.d differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-26-020002/Cactus/repos/carpet/.hg/store/00manifest.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-27-020002/Cactus/repos/carpet/.hg/store/00manifest.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-26-020002/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet/src/_evolve.cc.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-27-020002/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet/src/_evolve.cc.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-26-020002/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet/src/_initialise.cc.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-27-020002/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet/src/_initialise.cc.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-26-020002/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/src/dh.cc.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-27-020002/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_lib/src/dh.cc.i differ
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-26-020002/Cactus/repos/carpet/Carpet/Carpet/src/Evolve.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-27-020002/Cactus/repos/carpet/Carpet/Carpet/src/Evolve.cc
+296a297,302
+> 
+>         bool have_done_global_mode = false;
+>         bool have_done_early_global_mode = false;
+>         bool have_done_late_global_mode = false;
+>         bool have_done_anything = false;
+> 
+313c319
+<                 do_early_global_mode = reflevel==0;
+---
+>                 do_early_global_mode = not have_done_early_global_mode;
+319a326,334
+>                 assert (not (have_done_global_mode and do_global_mode));
+>                 assert (not (have_done_early_global_mode and
+>                              do_early_global_mode));
+>                 assert (not (have_done_late_global_mode and
+>                              do_late_global_mode));
+>                 have_done_global_mode |= do_global_mode;
+>                 have_done_early_global_mode |= do_early_global_mode;
+>                 have_done_late_global_mode |= do_late_global_mode;
+>                 have_done_anything = true;
+346a362,366
+> 
+>         if (have_done_anything) assert (have_done_global_mode);
+>         if (have_done_anything) assert (have_done_early_global_mode);
+>         if (have_done_anything) assert (have_done_late_global_mode);
+>         
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-26-020002/Cactus/repos/carpet/Carpet/Carpet/src/Initialise.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-27-020002/Cactus/repos/carpet/Carpet/Carpet/src/Initialise.cc
+289a290,322
+>           // This has been activated and deactivated a number of times by now,
+>           // so I'll put down the reasoning behind deactivating it. Maybe the
+>           // other party in this tug of war will be able to respond. Most of
+>           // this is from b4429f4006e5:
+>           //
+>           // Traverse post_recover_variables in only for current timelevel (not
+>           // for all timelevels). Variables on past timelevels cannot have
+>           // their boundary conditions applied consistently, because time
+>           // interpolation for these may requires even older timelevels that
+>           // are not available.  The problem is not that prolongation in time
+>           // on the older timelevels will fail. Prolongation will succeed and
+>           // is not an extrapolation in time, so Carpet does not abort. However
+>           // the time slices used as sources for the interpolation differ from
+>           // the ones that were originally used during the evolution. This
+>           // means that data on the old slices differs from what was present
+>           // during the evolution ie. checkpointing and recovery change data
+>           // on the grid.
+>           //
+>           // Current wisdom (ie. Erik says) is that all grid functions with
+>           // multiple time levels should to be checkpointed because of this. If
+>           // you do not checkpoint them, then you must be able to recompute
+>           // them exactly using a pointwise, local, algebraic method that does
+>           // not rely on present values of the re-computed data on the grid.
+>           // This exlcudes the Hydro primitives (since con2prim requires an
+>           // initial guess), but would in principle (I think) work with the ADM
+>           // variables. 
+>           //
+>           // In particular one cannot call MoL_PostStep on all levels since it
+>           // involves prolongation.
+>           //
+>           // Roland Haas, June 21st 2012
+> 
+> #if 0
+302a336,345
+> #else
+>           Waypoint ("Recovering II at iteration %d time %g%s%s",
+>                     cctkGH->cctk_iteration,
+>                     (double)cctkGH->cctk_time,
+>                     (do_global_mode ? " (global)" : ""),
+>                     (do_meta_mode ? " (meta)" : ""));
+>           
+>           // Post recover variables
+>           ScheduleTraverse (where, "CCTK_POST_RECOVER_VARIABLES", cctkGH);
+> #endif
+876a920,925
+> 
+>         bool have_done_global_mode = false;
+>         bool have_done_early_global_mode = false;
+>         bool have_done_late_global_mode = false;
+>         bool have_done_anything = false;
+> 
+889c938
+<                 do_early_global_mode = reflevel==0;
+---
+>                 do_early_global_mode = not have_done_early_global_mode;
+894a944,952
+>                 assert (not (have_done_global_mode and do_global_mode));
+>                 assert (not (have_done_early_global_mode and
+>                              do_early_global_mode));
+>                 assert (not (have_done_late_global_mode and
+>                              do_late_global_mode));
+>                 have_done_global_mode |= do_global_mode;
+>                 have_done_early_global_mode |= do_early_global_mode;
+>                 have_done_late_global_mode |= do_late_global_mode;
+>                 have_done_anything = true;
+915a974,978
+> 
+>         if (have_done_anything) assert (have_done_global_mode);
+>         if (have_done_anything) assert (have_done_early_global_mode);
+>         if (have_done_anything) assert (have_done_late_global_mode);
+>         
+1037a1101,1106
+> 
+>         bool have_done_global_mode = false;
+>         bool have_done_early_global_mode = false;
+>         bool have_done_late_global_mode = false;
+>         bool have_done_anything = false;
+> 
+1050c1119
+<                 do_early_global_mode = reflevel==0;
+---
+>                 do_early_global_mode = not have_done_early_global_mode;
+1055a1125,1133
+>                 assert (not (have_done_global_mode and do_global_mode));
+>                 assert (not (have_done_early_global_mode and
+>                              do_early_global_mode));
+>                 assert (not (have_done_late_global_mode and
+>                              do_late_global_mode));
+>                 have_done_global_mode |= do_global_mode;
+>                 have_done_early_global_mode |= do_early_global_mode;
+>                 have_done_late_global_mode |= do_late_global_mode;
+>                 have_done_anything = true;
+1088a1167,1171
+> 
+>         if (have_done_anything) assert (have_done_global_mode);
+>         if (have_done_anything) assert (have_done_early_global_mode);
+>         if (have_done_anything) assert (have_done_late_global_mode);
+>         
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-26-020002/Cactus/repos/carpet/Carpet/CarpetLib/src/dh.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-27-020002/Cactus/repos/carpet/Carpet/CarpetLib/src/dh.cc
+1004d1003
+<           // TODO: support this
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-27-020002/Cactus: simfactory
