@@ -1,0 +1,141 @@
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-28-020002/Cactus/arrangements/Carpet/Carpet/src/Evolve.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-29-020002/Cactus/arrangements/Carpet/Carpet/src/Evolve.cc
+308,313c308,311
+<           // Do not omit the global mode call when the finest level
+<           // does not change:
+<           // if (did_recompose or (did_remove_level and rl == reflevels - 1)) {
+<           if (did_recompose or
+<               ((did_remove_level or did_any_recompose) and
+<                rl == reflevels - 1))
+---
+>           // Carpet assumes that a regridding operation always changes "level N
+>           // and all finer levels" so we should call POSTREGRID on all finer levels
+>           if (did_any_recompose or
+>               (did_remove_level and rl == reflevels - 1))
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-28-020002/Cactus/arrangements/Carpet/Carpet/src/Initialise.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-29-020002/Cactus/arrangements/Carpet/Carpet/src/Initialise.cc
+915a916
+>     int const oldreflevels = reflevels;
+916a918,919
+>     bool const did_remove_level = reflevels < oldreflevels;
+>     assert (not did_remove_level or did_regrid);
+918a922
+>       bool did_any_recompose = false;
+929,931c933,934
+<           if (did_regrid) {
+<             did_recompose = Recompose (cctkGH, rl, prolongate_initial_data);
+<           }
+---
+>           did_recompose = Recompose (cctkGH, rl, prolongate_initial_data);
+>           did_any_recompose = did_any_recompose or did_recompose;
+933c936,940
+<           if (did_recompose) {
+---
+>           // Carpet assumes that a regridding operation always changes "level N
+>           // and all finer levels" so we should call POSTREGRID on all finer levels
+>           if (did_any_recompose or
+>               (did_remove_level and rl == reflevels - 1))
+>           {
+1096a1104
+>     int const oldreflevels = reflevels;
+1097a1106,1107
+>     bool const did_remove_level = reflevels < oldreflevels;
+>     assert (not did_remove_level or did_regrid);
+1099a1110
+>       bool did_any_recompose = false;
+1109,1112c1120,1121
+<           bool did_recompose = false;
+<           if (did_regrid) {
+<             did_recompose = Recompose (cctkGH, rl, prolongate_initial_data);
+<           }
+---
+>           bool did_recompose = Recompose (cctkGH, rl, prolongate_initial_data);
+>           did_any_recompose = did_any_recompose or did_recompose;
+1114c1123,1127
+<           if (did_recompose) {
+---
+>           // Carpet assumes that a regridding operation always changes "level N
+>           // and all finer levels" so we should call POSTREGRID on all finer levels
+>           if (did_any_recompose or
+>               (did_remove_level and rl == reflevels - 1))
+>           {
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-29-020002/Cactus/arrangements: LSUThorns
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-28-020002/Cactus/repos/carpet/.hg/cache/branchheads /home/jhar131/TESTING/einsteintoolkit/2012-06-29-020002/Cactus/repos/carpet/.hg/cache/branchheads
+1c1
+< 55759e1088072d571fa354da3843c397116e9a7a 3592
+---
+> ca7508a013471f3c27a607394a4828a93d5dd71a 3593
+4c4
+< 55759e1088072d571fa354da3843c397116e9a7a default
+---
+> ca7508a013471f3c27a607394a4828a93d5dd71a default
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-28-020002/Cactus/repos/carpet/.hg/cache/tags /home/jhar131/TESTING/einsteintoolkit/2012-06-29-020002/Cactus/repos/carpet/.hg/cache/tags
+1c1
+< 3592 55759e1088072d571fa354da3843c397116e9a7a
+---
+> 3593 ca7508a013471f3c27a607394a4828a93d5dd71a
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-28-020002/Cactus/repos/carpet/.hg/dirstate and /home/jhar131/TESTING/einsteintoolkit/2012-06-29-020002/Cactus/repos/carpet/.hg/dirstate differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-28-020002/Cactus/repos/carpet/.hg/store/00changelog.d and /home/jhar131/TESTING/einsteintoolkit/2012-06-29-020002/Cactus/repos/carpet/.hg/store/00changelog.d differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-28-020002/Cactus/repos/carpet/.hg/store/00changelog.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-29-020002/Cactus/repos/carpet/.hg/store/00changelog.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-28-020002/Cactus/repos/carpet/.hg/store/00manifest.d and /home/jhar131/TESTING/einsteintoolkit/2012-06-29-020002/Cactus/repos/carpet/.hg/store/00manifest.d differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-28-020002/Cactus/repos/carpet/.hg/store/00manifest.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-29-020002/Cactus/repos/carpet/.hg/store/00manifest.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-28-020002/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet/src/_evolve.cc.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-29-020002/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet/src/_evolve.cc.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-06-28-020002/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet/src/_initialise.cc.i and /home/jhar131/TESTING/einsteintoolkit/2012-06-29-020002/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet/src/_initialise.cc.i differ
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-28-020002/Cactus/repos/carpet/Carpet/Carpet/src/Evolve.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-29-020002/Cactus/repos/carpet/Carpet/Carpet/src/Evolve.cc
+308,313c308,311
+<           // Do not omit the global mode call when the finest level
+<           // does not change:
+<           // if (did_recompose or (did_remove_level and rl == reflevels - 1)) {
+<           if (did_recompose or
+<               ((did_remove_level or did_any_recompose) and
+<                rl == reflevels - 1))
+---
+>           // Carpet assumes that a regridding operation always changes "level N
+>           // and all finer levels" so we should call POSTREGRID on all finer levels
+>           if (did_any_recompose or
+>               (did_remove_level and rl == reflevels - 1))
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-06-28-020002/Cactus/repos/carpet/Carpet/Carpet/src/Initialise.cc /home/jhar131/TESTING/einsteintoolkit/2012-06-29-020002/Cactus/repos/carpet/Carpet/Carpet/src/Initialise.cc
+915a916
+>     int const oldreflevels = reflevels;
+916a918,919
+>     bool const did_remove_level = reflevels < oldreflevels;
+>     assert (not did_remove_level or did_regrid);
+918a922
+>       bool did_any_recompose = false;
+929,931c933,934
+<           if (did_regrid) {
+<             did_recompose = Recompose (cctkGH, rl, prolongate_initial_data);
+<           }
+---
+>           did_recompose = Recompose (cctkGH, rl, prolongate_initial_data);
+>           did_any_recompose = did_any_recompose or did_recompose;
+933c936,940
+<           if (did_recompose) {
+---
+>           // Carpet assumes that a regridding operation always changes "level N
+>           // and all finer levels" so we should call POSTREGRID on all finer levels
+>           if (did_any_recompose or
+>               (did_remove_level and rl == reflevels - 1))
+>           {
+1096a1104
+>     int const oldreflevels = reflevels;
+1097a1106,1107
+>     bool const did_remove_level = reflevels < oldreflevels;
+>     assert (not did_remove_level or did_regrid);
+1099a1110
+>       bool did_any_recompose = false;
+1109,1112c1120,1121
+<           bool did_recompose = false;
+<           if (did_regrid) {
+<             did_recompose = Recompose (cctkGH, rl, prolongate_initial_data);
+<           }
+---
+>           bool did_recompose = Recompose (cctkGH, rl, prolongate_initial_data);
+>           did_any_recompose = did_any_recompose or did_recompose;
+1114c1123,1127
+<           if (did_recompose) {
+---
+>           // Carpet assumes that a regridding operation always changes "level N
+>           // and all finer levels" so we should call POSTREGRID on all finer levels
+>           if (did_any_recompose or
+>               (did_remove_level and rl == reflevels - 1))
+>           {
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-06-29-020002/Cactus: simfactory
