@@ -1,0 +1,217 @@
+/home/jhar131/TESTING/einsteintoolkit/2012-06-30-020001/Cactus/TEST/sim/Multipole
+--------------------------------------------------------------------------------
+
+       10                                  
+  1   0101       ************************  
+  01  1010 10      The Cactus Code V4.0    
+ 1010 1101 011      www.cactuscode.org     
+  1001 100101    ************************  
+    00010101                               
+     100011     (c) Copyright The Authors  
+      0100      GNU Licensed. No Warranty  
+      0101                                 
+
+--------------------------------------------------------------------------------
+
+Cactus version:    4.0.1
+Compile date:      Jun 30 2012 (02:48:37)
+Run date:          Jun 30 2012 (02:55:17-0500)
+Run host:          numrel07.cct.lsu.edu (pid=18808)
+Working directory: /home/jhar131/TESTING/einsteintoolkit/2012-06-30-020001/Cactus/TEST/sim/Multipole
+Executable:        /home/jhar131/TESTING/einsteintoolkit/2012-06-30-020001/Cactus/exe/cactus_sim
+Parameter file:    /home/jhar131/TESTING/einsteintoolkit/2012-06-30-020001/Cactus/arrangements/EinsteinAnalysis/Multipole/test/test_simpson.par
+--------------------------------------------------------------------------------
+
+Activating thorn Cactus...Success -> active implementation Cactus
+Activation requested for 
+--->CoordBase SymBase Boundary CartGrid3d IOUtil Carpet CarpetLib  CarpetInterp AEILocalInterp InitBase Multipole LoopControl<---
+Activating thorn AEILocalInterp...Success -> active implementation AEILocalInterp
+Activating thorn Boundary...Success -> active implementation boundary
+Activating thorn Carpet...Success -> active implementation Driver
+Activating thorn CarpetInterp...Success -> active implementation interp
+Activating thorn CarpetLib...Success -> active implementation CarpetLib
+Activating thorn CartGrid3d...Success -> active implementation grid
+Activating thorn CoordBase...Success -> active implementation CoordBase
+Activating thorn InitBase...Success -> active implementation InitBase
+Activating thorn IOUtil...Success -> active implementation IO
+Activating thorn LoopControl...Success -> active implementation LoopControl
+Activating thorn Multipole...Success -> active implementation multipole
+Activating thorn SymBase...Success -> active implementation SymBase
+--------------------------------------------------------------------------------
+  if (recover initial data)
+    Recover parameters
+  endif
+
+  Startup routines
+    [CCTK_STARTUP]
+      Carpet::MultiModel_Startup: Multi-model Startup routine
+      CarpetLib::CarpetLib_registercycleclock: [global] Register cycle based timer
+      Carpet::Driver_Startup: Startup routine
+      CarpetInterp::CarpetInterpStartup: Startup routine
+      AEILocalInterp::AEILocalInterp_U_Startup: register CCTK_InterpLocalUniform() interpolation operators
+      CartGrid3D::SymmetryStartup: Register GH Extension for GridSymmetry
+      CoordBase::CoordBase_Startup: Register a GH extension to store the coordinate system handles
+      IOUtil::IOUtil_Startup: Startup routine
+      LoopControl::lc_check_type_sizes: [meta] Check that sizes of control structures are identical in C and Fortran
+      SymBase::SymBase_Startup: Register GH Extension for SymBase
+
+  Startup routines which need an existing grid hierarchy
+    [CCTK_WRAGH]
+      Boundary::Boundary_RegisterBCs: [global] Register boundary conditions that this thorn provides
+      CartGrid3D::RegisterCartGrid3DCoords: [meta] Register coordinates for the Cartesian grid
+      GROUP SymBase_Wrapper: Wrapper group for SymBase
+        GROUP SymmetryRegister: Register your symmetries here
+          CartGrid3D::RegisterSymmetryBoundaries: [meta] Register symmetry boundaries
+        SymBase::SymBase_Statistics: Print symmetry boundary face descriptions
+  Parameter checking routines
+    [CCTK_PARAMCHECK]
+      Boundary::Boundary_Check: Check dimension of grid variables
+      Carpet::CarpetParamCheck: Parameter checking routine
+      CarpetLib::CarpetLib_test_prolongate_3d_rf2: [global] Test prolongation operators
+      CartGrid3D::ParamCheck_CartGrid3D: Check coordinates for CartGrid3D
+      Multipole::Multipole_ParamCheck: [global] Check Multipole parameters
+
+  Initialisation
+    if (NOT (recover initial data AND recovery_mode is 'strict'))
+      [CCTK_PREREGRIDINITIAL]
+      Set up grid hierarchy
+      [CCTK_POSTREGRIDINITIAL]
+        CartGrid3D::SpatialCoordinates: Set Coordinates after regridding
+      [CCTK_BASEGRID]
+        CartGrid3D::CartGrid3D_SetRanges: Set up ranges for spatial 3D Cartesian coordinates (on all grids)
+        CartGrid3D::SpatialCoordinates: Set up spatial 3D Cartesian coordinates on the GH
+        SymBase::SymBase_Check: Check whether the driver set up the grid consistently
+      [CCTK_INITIAL]
+        Multipole::Multipole_SetHarmonic: Populate grid functions with spherical harmonics
+      [CCTK_POSTINITIAL]
+      Initialise finer grids recursively
+      Restrict from finer grids
+      [CCTK_POSTRESTRICTINITIAL]
+      [CCTK_POSTPOSTINITIAL]
+      [CCTK_POSTSTEP]
+    endif
+    if (recover initial data)
+      [CCTK_BASEGRID]
+        CartGrid3D::CartGrid3D_SetRanges: Set up ranges for spatial 3D Cartesian coordinates (on all grids)
+        CartGrid3D::SpatialCoordinates: Set up spatial 3D Cartesian coordinates on the GH
+        SymBase::SymBase_Check: Check whether the driver set up the grid consistently
+      [CCTK_RECOVER_VARIABLES]
+      [CCTK_POST_RECOVER_VARIABLES]
+    endif
+    if (checkpoint initial data)
+      [CCTK_CPINITIAL]
+    endif
+    if (analysis)
+      [CCTK_ANALYSIS]
+        CarpetLib::CarpetLib_printtimestats: [global] Print timing statistics if desired
+        CarpetLib::CarpetLib_printmemstats: [global] Print memory statistics if desired
+        LoopControl::lc_printstats_analysis: [meta] Output loop control statistics
+        Multipole::Multipole_Calc: [global] Calculate Multipoles
+  endif
+  Output grid variables
+
+  do loop over timesteps
+    [CCTK_PREREGRID]
+    Change grid hierarchy
+    [CCTK_POSTREGRID]
+      CartGrid3D::SpatialCoordinates: Set Coordinates after regridding
+    Rotate timelevels
+    iteration = iteration+1
+    t = t+dt
+    [CCTK_PRESTEP]
+    [CCTK_EVOL]
+    Evolve finer grids recursively
+    Restrict from finer grids
+    [CCTK_POSTRESTRICT]
+    [CCTK_POSTSTEP]
+  if (checkpoint)
+    [CCTK_CHECKPOINT]
+  endif
+  if (analysis)
+    [CCTK_ANALYSIS]
+      CarpetLib::CarpetLib_printtimestats: [global] Print timing statistics if desired
+      CarpetLib::CarpetLib_printmemstats: [global] Print memory statistics if desired
+      LoopControl::lc_printstats_analysis: [meta] Output loop control statistics
+      Multipole::Multipole_Calc: [global] Calculate Multipoles
+  endif
+  Output grid variables
+  enddo
+
+  Termination routines
+    [CCTK_TERMINATE]
+      LoopControl::lc_printstats_terminate: [meta] Output loop control statistics
+
+  Shutdown routines
+    [CCTK_SHUTDOWN]
+
+  Routines run after changing the grid hierarchy:
+    [CCTK_POSTREGRID]
+      CartGrid3D::SpatialCoordinates: Set Coordinates after regridding
+--------------------------------------------------------------------------------
+INFO (Carpet): Multi-Model listing:
+   model 0: "world"
+INFO (Carpet): Multi-Model process distribution:
+   process 0: model 0 "world"
+INFO (Carpet): Multi-Model: This is process 0, model 0 "world"
+Current core file size limit: hard=[unlimited], soft=0 MB
+Current memory size limit: hard=[unlimited], soft=[unlimited]
+--------------------------------------------------------------------------------
+AMR driver provided by Carpet
+--------------------------------------------------------------------------------
+
+INFO (Carpet): MPI is enabled
+INFO (Carpet): Carpet is running on 1 processes
+INFO (Carpet): This is process 0
+INFO (Carpet): OpenMP is enabled
+INFO (Carpet): This process contains 4 threads, this is thread 0
+INFO (Carpet): There are 4 threads in total
+INFO (Carpet): There are 4 threads per process
+INFO (Carpet): Host listing:
+   host 0: "numrel07.cct.lsu.edu"
+INFO (Carpet): Host/process mapping:
+   process 0: host 0 "numrel07.cct.lsu.edu"
+INFO (Carpet): Host mapping: This is process 0, host 0 "numrel07.cct.lsu.edu"
+INFO (Carpet): This process runs on host numrel07.cct.lsu.edu, pid=18808
+INFO (Carpet): This process runs on 4 cores: 0-3
+INFO (Carpet): This simulation is running in 3 dimensions
+INFO (Carpet): [tl=0] Boundary specification for map 0:
+   nboundaryzones: [[2,2,2],[2,2,2]]
+   is_internal   : [[0,0,0],[0,0,0]]
+   is_staggered  : [[0,0,0],[0,0,0]]
+   shiftout      : [[0,0,0],[0,0,0]]
+INFO (Carpet): [tl=0] CoordBase domain specification for map 0:
+   physical extent: [-10,-10,-10] : [10,10,10]   ([20,20,20])
+   interior extent: [-9.8,-9.8,-9.8] : [9.8,9.8,9.8]   ([19.6,19.6,19.6])
+   exterior extent: [-10.2,-10.2,-10.2] : [10.2,10.2,10.2]   ([20.4,20.4,20.4])
+   base_spacing   : [0.2,0.2,0.2]
+INFO (Carpet): [tl=0] Adapted domain specification for map 0:
+   convergence factor: 2
+   convergence level : 0
+   physical extent   : [-10,-10,-10] : [10,10,10]   ([20,20,20])
+   interior extent   : [-9.8,-9.8,-9.8] : [9.8,9.8,9.8]   ([19.6,19.6,19.6])
+   exterior extent   : [-10.2,-10.2,-10.2] : [10.2,10.2,10.2]   ([20.4,20.4,20.4])
+   spacing           : [0.2,0.2,0.2]
+INFO (Carpet): [tl=0] Base grid specification for map 0:
+   number of grid points             : [103,103,103]
+   number of coarse grid ghost points: [[3,3,3],[3,3,3]]
+INFO (Carpet): Buffer zone counts (excluding ghosts):
+   [0]: [[0,0,0],[0,0,0]]
+INFO (Carpet): Overlap zone counts:
+   [0]: [[0,0,0],[0,0,0]]
+INFO (Carpet): Group and variable statistics:
+INFO (Carpet):    There are 8 grid functions in 4 groups
+INFO (Carpet):    There are 32 grid scalars in 2 groups
+INFO (Carpet):    There are 6 1-dimensional grid arrays in 2 groups
+INFO (Carpet):    There are 0 2-dimensional grid arrays in 0 groups
+INFO (Carpet):    There are 0 3-dimensional grid arrays in 0 groups
+INFO (Carpet):    (The number of variables counts all time levels)
+INFO (CartGrid3D): Grid Spacings:
+INFO (CartGrid3D): dx=>2.0000000e-01  dy=>2.0000000e-01  dz=>2.0000000e-01
+INFO (CartGrid3D): Computational Coordinates:
+INFO (CartGrid3D): x=>[-10.200,10.200]  y=>[-10.200,10.200]  z=>[-10.200,10.200]
+INFO (CartGrid3D): Indices of Physical Coordinates:
+INFO (CartGrid3D): x=>[0,102]  y=>[0,102]  z=>[0,102]
+LoopControl timing statistics:
+Total calculation time: 0 seconds; total saved time: 0 seconds
+--------------------------------------------------------------------------------
+Done.
