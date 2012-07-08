@@ -1,0 +1,320 @@
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus: TEST.1
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus: TEST.2
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus/arrangements/CactusNumerical/RotatingSymmetry180/schedule.ccl /home/jhar131/TESTING/einsteintoolkit/2012-07-07-020001/Cactus/arrangements/CactusNumerical/RotatingSymmetry180/schedule.ccl
+12a13,18
+> SCHEDULE Rot180_ComputeLevelExtent IN BoundaryConditions BEFORE Rot180_ApplyBC
+> {
+>   LANG: C
+>   OPTIONS: LEVEL
+> } "Compute extent of level"
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus/arrangements/CactusNumerical/RotatingSymmetry180/src/rotatingsymmetry180.c /home/jhar131/TESTING/einsteintoolkit/2012-07-07-020001/Cactus/arrangements/CactusNumerical/RotatingSymmetry180/src/rotatingsymmetry180.c
+16a17,20
+> /* bbox, lbnd and ubnd of combined level box */
+> static int global_bbox[6];
+> static int global_lbnd[3], global_ubnd[3];
+> static int extent_valid_for_iteration = -1;
+35,36d38
+<   int global_bbox[6];
+<   int global_lbnd[3], global_ubnd[3];
+64c66
+<   
+---
+> 
+269,306c271,272
+< #if 0
+<     int min_handle, max_handle;
+<     CCTK_REAL local[6], global[6];
+<     min_handle = CCTK_ReductionArrayHandle ("minimum");
+<     if (min_handle<0) CCTK_WARN (0, "Could not obtain reduction handle");
+<     max_handle = CCTK_ReductionArrayHandle ("maximum");
+<     if (max_handle<0) CCTK_WARN (0, "Could not obtain reduction handle");
+<     
+<     for (d=0; d<6; ++d) local[d] = cctkGH->cctk_bbox[d];
+<     ierr = CCTK_ReduceLocArrayToArray1D
+<       (cctkGH, -1, max_handle, local, global, 6, CCTK_VARIABLE_REAL);
+<     for (d=0; d<6; ++d) global_bbox[d] = (int)global[d];
+<     
+<     for (d=0; d<3; ++d) local[d] = cctkGH->cctk_lbnd[d];
+<     ierr = CCTK_ReduceLocArrayToArray1D
+<       (cctkGH, -1, min_handle, local, global, 3, CCTK_VARIABLE_REAL);
+<     for (d=0; d<3; ++d) global_lbnd[d] = (int)global[d];
+<     
+<     for (d=0; d<3; ++d) local[d] = cctkGH->cctk_ubnd[d];
+<     ierr = CCTK_ReduceLocArrayToArray1D
+<       (cctkGH, -1, max_handle, local, global, 3, CCTK_VARIABLE_REAL);
+<     for (d=0; d<3; ++d) global_ubnd[d] = (int)global[d];
+< #else
+<     int max_handle;
+<     CCTK_INT local[12], global[12];
+<     max_handle = CCTK_ReductionArrayHandle ("maximum");
+<     if (max_handle<0) CCTK_WARN (0, "Could not obtain reduction handle");
+<     
+<     for (d=0; d<6; ++d) local[  d] =  cctkGH->cctk_bbox[d];
+<     for (d=0; d<3; ++d) local[6+d] = -cctkGH->cctk_lbnd[d];
+<     for (d=0; d<3; ++d) local[9+d] =  cctkGH->cctk_ubnd[d];
+<     ierr = CCTK_ReduceLocArrayToArray1D
+<       (cctkGH, -1, max_handle, local, global, 12, CCTK_VARIABLE_INT);
+<     for (d=0; d<6; ++d) global_bbox[d] =  global[  d];
+<     for (d=0; d<3; ++d) global_lbnd[d] = -global[6+d];
+<     for (d=0; d<3; ++d) global_ubnd[d] =  global[9+d];
+< #endif
+<     
+---
+>     assert(extent_valid_for_iteration == cctk_iteration);
+>   
+729a696,760
+> }
+> 
+> 
+> 
+> void Rot180_ComputeLevelExtent (CCTK_ARGUMENTS)
+> {
+>   DECLARE_CCTK_ARGUMENTS;
+>   
+>   int nvars;
+> 
+>   assert (cctkGH);
+>   
+>   nvars = Boundary_SelectedGVs (cctkGH, 0, 0, 0, 0, 0, 0);
+>   assert (nvars>=0);
+>   
+>   if (nvars==0) return;
+>   
+>   {
+> #if 0
+>     int min_handle, max_handle;
+>     int d;                        /* 0..group.dim-1 */
+>     int ierr;
+>     CCTK_REAL local[6], global[6];
+>     min_handle = CCTK_ReductionArrayHandle ("minimum");
+>     if (min_handle<0) CCTK_WARN (0, "Could not obtain reduction handle");
+>     max_handle = CCTK_ReductionArrayHandle ("maximum");
+>     if (max_handle<0) CCTK_WARN (0, "Could not obtain reduction handle");
+>     
+>     for (d=0; d<6; ++d) local[d] = cctkGH->cctk_bbox[d];
+>     ierr = CCTK_ReduceLocArrayToArray1D
+>       (cctkGH, -1, max_handle, local, global, 6, CCTK_VARIABLE_REAL);
+>     for (d=0; d<6; ++d) global_bbox[d] = (int)global[d];
+>     
+>     for (d=0; d<3; ++d) local[d] = cctkGH->cctk_lbnd[d];
+>     ierr = CCTK_ReduceLocArrayToArray1D
+>       (cctkGH, -1, min_handle, local, global, 3, CCTK_VARIABLE_REAL);
+>     for (d=0; d<3; ++d) global_lbnd[d] = (int)global[d];
+>     
+>     for (d=0; d<3; ++d) local[d] = cctkGH->cctk_ubnd[d];
+>     ierr = CCTK_ReduceLocArrayToArray1D
+>       (cctkGH, -1, max_handle, local, global, 3, CCTK_VARIABLE_REAL);
+>     for (d=0; d<3; ++d) global_ubnd[d] = (int)global[d];
+> #else
+>     int max_handle;
+>     int d;                        /* 0..group.dim-1 */
+>     int ierr;
+>     CCTK_INT local[12], global[12];
+>     max_handle = CCTK_ReductionArrayHandle ("maximum");
+>     if (max_handle<0) CCTK_WARN (0, "Could not obtain reduction handle");
+>     
+>     for (d=0; d<6; ++d) local[  d] =  cctkGH->cctk_bbox[d];
+>     for (d=0; d<3; ++d) local[6+d] = -cctkGH->cctk_lbnd[d];
+>     for (d=0; d<3; ++d) local[9+d] =  cctkGH->cctk_ubnd[d];
+>     ierr = CCTK_ReduceLocArrayToArray1D
+>       (cctkGH, -1, max_handle, local, global, 12, CCTK_VARIABLE_INT);
+>     assert(!ierr);
+>     for (d=0; d<6; ++d) global_bbox[d] =  global[  d];
+>     for (d=0; d<3; ++d) global_lbnd[d] = -global[6+d];
+>     for (d=0; d<3; ++d) global_ubnd[d] =  global[9+d];
+> 
+>     /* record when we ran to have some sanity check against using old data in
+>      * global variables */
+>     extent_valid_for_iteration = cctk_iteration;
+> #endif
+>   }
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus/arrangements/CactusNumerical/RotatingSymmetry90/schedule.ccl /home/jhar131/TESTING/einsteintoolkit/2012-07-07-020001/Cactus/arrangements/CactusNumerical/RotatingSymmetry90/schedule.ccl
+12a13,18
+> SCHEDULE Rot90_ComputeLevelExtent IN BoundaryConditions BEFORE Rot90_ApplyBC
+> {
+>   LANG: C
+>   OPTIONS: LEVEL
+> } "Compute extent of level"
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus/arrangements/CactusNumerical/RotatingSymmetry90/src/rotatingsymmetry90.c /home/jhar131/TESTING/einsteintoolkit/2012-07-07-020001/Cactus/arrangements/CactusNumerical/RotatingSymmetry90/src/rotatingsymmetry90.c
+63c63,66
+< 
+---
+> /* bbox, lbnd and ubnd of combined level box */
+> static int global_bbox[2*DIM];
+> static int global_lbnd[DIM], global_ubnd[DIM];
+> static int extent_valid_for_iteration = -1;
+87,88d89
+<   int global_bbox[2*DIM];
+<   int global_lbnd[DIM], global_ubnd[DIM];
+166,179c167,168
+<     int max_handle;
+<     CCTK_INT local[4*DIM], global[4*DIM];
+<     max_handle = CCTK_ReductionArrayHandle ("maximum");
+<     if (max_handle<0) CCTK_WARN (0, "Could not obtain reduction handle");
+<     
+<     for (d=0; d<2*DIM; ++d) local[      d] =  cctkGH->cctk_bbox[d];
+<     for (d=0; d<  DIM; ++d) local[2*DIM+d] = -cctkGH->cctk_lbnd[d];
+<     for (d=0; d<  DIM; ++d) local[3*DIM+d] =  cctkGH->cctk_ubnd[d];
+<     ierr = CCTK_ReduceLocArrayToArray1D
+<       (cctkGH, -1, max_handle, local, global, 4*DIM, CCTK_VARIABLE_INT);
+<     for (d=0; d<2*DIM; ++d) global_bbox[d] =  global[      d];
+<     for (d=0; d<  DIM; ++d) global_lbnd[d] = -global[2*DIM+d];
+<     for (d=0; d<  DIM; ++d) global_ubnd[d] =  global[3*DIM+d];
+<     
+---
+>     assert(extent_valid_for_iteration == cctk_iteration);
+>   
+802a792,830
+> }
+> 
+> 
+> 
+> void Rot90_ComputeLevelExtent (CCTK_ARGUMENTS)
+> {
+>   DECLARE_CCTK_ARGUMENTS;
+>   
+>   int nvars;
+> 
+>   assert (cctkGH);
+>   
+>   nvars = Boundary_SelectedGVs (cctkGH, 0, 0, 0, 0, 0, 0);
+>   assert (nvars>=0);
+>   
+>   if (nvars==0) return;
+> 
+>   {
+>     int max_handle;
+>     int d;                        /* 0..group.dim-1 */
+>     int ierr;
+>     CCTK_INT local[4*DIM], global[4*DIM];
+>     max_handle = CCTK_ReductionArrayHandle ("maximum");
+>     if (max_handle<0) CCTK_WARN (0, "Could not obtain reduction handle");
+>     
+>     for (d=0; d<2*DIM; ++d) local[      d] =  cctkGH->cctk_bbox[d];
+>     for (d=0; d<  DIM; ++d) local[2*DIM+d] = -cctkGH->cctk_lbnd[d];
+>     for (d=0; d<  DIM; ++d) local[3*DIM+d] =  cctkGH->cctk_ubnd[d];
+>     ierr = CCTK_ReduceLocArrayToArray1D
+>       (cctkGH, -1, max_handle, local, global, 4*DIM, CCTK_VARIABLE_INT);
+>     assert(!ierr);
+>     for (d=0; d<2*DIM; ++d) global_bbox[d] =  global[      d];
+>     for (d=0; d<  DIM; ++d) global_lbnd[d] = -global[2*DIM+d];
+>     for (d=0; d<  DIM; ++d) global_ubnd[d] =  global[3*DIM+d];
+> 
+>     /* record when we ran to have some sanity check against using old data in
+>      * global variables */
+>     extent_valid_for_iteration = cctk_iteration;
+>   }
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/src/Hydro_InitExcision.c /home/jhar131/TESTING/einsteintoolkit/2012-07-07-020001/Cactus/arrangements/EinsteinInitialData/Hydro_InitExcision/src/Hydro_InitExcision.c
+14a15
+> #include <assert.h>
+36a38,47
+>   enum domain_vals {full = 0, octant, n_domain_vals};
+>   enum hydro_initexcision_type_vals {
+>     box = 0, xaxis, yaxis, zaxis, diagonal, sphere, 
+>     n_hydro_initexcision_type_vals
+>   };
+>   const char * domain_val_keywords[n_domain_vals] = {"full", "octant"};
+>   const char * hydro_initexcision_type_val_keywords[n_hydro_initexcision_type_vals] = {
+>     "box", "x-axis", "y-axis", "z-axis", "diagonal", "sphere"
+>   };
+> 
+42a54,55
+>   enum domain_vals domain_val;
+>   enum hydro_initexcision_type_vals hydro_initexcision_type_val;
+48a62,78
+>   /* decode keyword parameters */
+>   for (domain_val = 0 ; domain_val < n_domain_vals ; domain_val++)
+>   {
+>     if (CCTK_Equals(domain, domain_val_keywords[domain_val]))
+>       break;
+>   }
+>   assert(domain_val < n_domain_vals);
+>   for (hydro_initexcision_type_val = 0 ; 
+>        hydro_initexcision_type_val < n_hydro_initexcision_type_vals ; 
+>        hydro_initexcision_type_val++)
+>   {
+>     if (CCTK_Equals(hydro_initexcision_type, 
+>           hydro_initexcision_type_val_keywords[hydro_initexcision_type_val]))
+>       break;
+>   }
+>   assert(hydro_initexcision_type_val < n_hydro_initexcision_type_vals);
+> 
+87c117
+<           if (CCTK_Equals(hydro_initexcision_type,"box"))
+---
+>           if (hydro_initexcision_type_val == box)
+89c119
+<               if (CCTK_Equals(domain,"full"))
+---
+>               if (domain_val == full)
+118c148
+<               else if (CCTK_Equals(domain,"octant"))
+---
+>               else if (domain_val == octant)
+145c175
+<           else if (CCTK_Equals(hydro_initexcision_type,"x-axis"))
+---
+>           else if (hydro_initexcision_type_val == xaxis)
+158c188
+<           else if (CCTK_Equals(hydro_initexcision_type,"y-axis"))
+---
+>           else if (hydro_initexcision_type_val == yaxis)
+171c201
+<           else if (CCTK_Equals(hydro_initexcision_type,"z-axis"))
+---
+>           else if (hydro_initexcision_type_val == zaxis)
+184c214
+<           else if (CCTK_Equals(hydro_initexcision_type,"diagonal"))
+---
+>           else if (hydro_initexcision_type_val == diagonal)
+198c228
+<           else if (CCTK_Equals(hydro_initexcision_type,"sphere"))
+---
+>           else if (hydro_initexcision_type_val == sphere)
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus: cactusjar.git
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus/doc/ReferenceManual/CCTKReference.tex /home/jhar131/TESTING/einsteintoolkit/2012-07-07-020001/Cactus/doc/ReferenceManual/CCTKReference.tex
+24c24
+< \begin{cactuspart}{\code{CCTK\_*} Functions Reference}{}{$Revision: 4841 $}
+---
+> \begin{cactuspart}{\code{CCTK\_*} Functions Reference}{}{$Revision: 4842 $}
+12480a12481,12482
+> For vector variables, the zero-based component index should be included
+> in square brackets after the variable name.
+12502a12505
+> index = CCTK_VarIndex("evolve::vect[0]");
+12507a12511
+> call CCTK_VarIndex(index,"evolve::vect[0]")
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus: exe
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus: log
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus/repos/carpet/.hg/dirstate and /home/jhar131/TESTING/einsteintoolkit/2012-07-07-020001/Cactus/repos/carpet/.hg/dirstate differ
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus/simfactory/lib/archive: __init__.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus/simfactory/lib/archive: petashare.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus/simfactory/lib/archive: uberftp.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus/simfactory/lib: libutil.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus/simfactory/lib: pyini.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus/simfactory/lib: restartlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus/simfactory/lib: sim-build.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus/simfactory/lib: sim-info.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus/simfactory/lib: sim-manage.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus/simfactory/lib: sim-sync.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus/simfactory/lib: sim-util.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus/simfactory/lib: simarchive.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus/simfactory/lib: simdb.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus/simfactory/lib: simdt.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus/simfactory/lib: simenv.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus/simfactory/lib: simlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus/simfactory/lib: simopts.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus/simfactory/lib: simproperties.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus/simfactory/lib: simremote.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus/simfactory/lib: simrestart.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus/simfactory/lib: simsubs.pyc
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus/simfactory/mdb/runscripts/datura.run /home/jhar131/TESTING/einsteintoolkit/2012-07-07-020001/Cactus/simfactory/mdb/runscripts/datura.run
+16a17,18
+> export CACTUS_NUM_PROCS=@NUM_PROCS@
+> export CACTUS_NUM_THREADS=@NUM_THREADS@
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-06-020002/Cactus/simfactory/mdb/runscripts/stokes.run /home/jhar131/TESTING/einsteintoolkit/2012-07-07-020001/Cactus/simfactory/mdb/runscripts/stokes.run
+17a18,19
+> export CACTUS_NUM_PROCS=@NUM_PROCS@
+> export CACTUS_NUM_THREADS=@NUM_THREADS@
