@@ -1,0 +1,328 @@
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus: TEST.1
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus: TEST.2
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/arrangements/CactusConnect/HTTPD/src/Authorisation.c /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/arrangements/CactusConnect/HTTPD/src/Authorisation.c
+25c25
+< #include "util_Hash.h"
+---
+> #include "httpd_Map.h"
+52c52
+< static int AddUser(uHash *database, 
+---
+> static int AddUser(uMap database, 
+69c69
+< static uHash *AuthDatabase = NULL;
+---
+> static uMap AuthDatabase = NULL;
+98c98
+<   uHash *this_database = NULL;
+---
+>   uMap this_database = NULL;
+103c103
+<     AuthDatabase = Util_HashCreate(INITIAL_SIZE);
+---
+>     AuthDatabase = Httpd_MapCreate();
+109c109
+<     this_database = (uHash *)Util_HashData(AuthDatabase, strlen(database), database, 0);
+---
+>     this_database = (uMap)Httpd_MapData(AuthDatabase, strlen(database), database);
+113c113
+<       this_database = Util_HashCreate(INITIAL_SIZE);
+---
+>       this_database = Httpd_MapCreate();
+117c117
+<         Util_HashStore(AuthDatabase, strlen(database), database, 0, (void *)this_database);
+---
+>         Httpd_MapStore(AuthDatabase, strlen(database), database, (void *)this_database);
+257c257
+< static int AddUser(uHash *database, 
+---
+> static int AddUser(uMap database, 
+265,266c265,266
+<   struct httpUserData * this_user = (struct httpUserData *)Util_HashData(
+<                                               database, strlen(name), name, 0);
+---
+>   struct httpUserData * this_user = (struct httpUserData *)Httpd_MapData(
+>                                               database, strlen(name), name);
+279c279
+<       retcode = Util_HashStore(database, strlen(name), name, 0, (void *)this_user);
+---
+>       retcode = Httpd_MapStore(database, strlen(name), name, (void *)this_user);
+320,321c320,321
+<     uHash *this_database = (uHash *)Util_HashData(AuthDatabase,
+<                                               strlen(database), database, 0);
+---
+>     uMap this_database = (uMap)Httpd_MapData(AuthDatabase,
+>                                               strlen(database), database);
+325,326c325,326
+<       struct httpUserData *data = (struct httpUserData *) Util_HashData(
+<                                          this_database, strlen(user), user, 0);
+---
+>       struct httpUserData *data = (struct httpUserData *) Httpd_MapData(
+>                                          this_database, strlen(user), user);
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/arrangements/CactusConnect/HTTPD/src: Map.cc
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/arrangements/CactusConnect/HTTPD/src/Server.c /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/arrangements/CactusConnect/HTTPD/src/Server.c
+18c18
+< #include "util_Hash.h"
+---
+> #include "httpd_Map.h"
+64c64
+< static uHash *pages = NULL;
+---
+> static uMap pages = NULL;
+167c167
+<     pages = Util_HashCreate(INITIAL_SIZE);
+---
+>     pages = Httpd_MapCreate();
+170c170
+<   if(Util_HashData(pages, strlen(path), path, 0))
+---
+>   if(Httpd_MapData(pages, strlen(path), path))
+181c181
+<       retval = Util_HashStore(pages, strlen(path), path, 0, (void *)pagedata);
+---
+>       retval = Httpd_MapStore(pages, strlen(path), path, (void *)pagedata);
+358c358
+<       pagedata = Util_HashData(pages, Length(temp), GetBuffer(temp), 0);
+---
+>       pagedata = Httpd_MapData(pages, Length(temp), GetBuffer(temp));
+360c360
+<     else if((pagedata = Util_HashData(pages, strlen(path), path, 0)))
+---
+>     else if((pagedata = Httpd_MapData(pages, strlen(path), path)))
+372c372
+<       pagedata = Util_HashData(pages, Length(temp), GetBuffer(temp), 0);
+---
+>       pagedata = Httpd_MapData(pages, Length(temp), GetBuffer(temp));
+388c388
+<           if((pagedata = Util_HashData(pages, position-path, path, 0)))
+---
+>           if((pagedata = Httpd_MapData(pages, position-path, path)))
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/arrangements/CactusConnect/HTTPD/src/http.c /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/arrangements/CactusConnect/HTTPD/src/http.c
+35c35
+< #include "util_Hash.h"
+---
+> #include "httpd_Map.h"
+81c81
+<   uHash *headers;
+---
+>   uMap headers;
+86c86
+<   uHash *arguments;
+---
+>   uMap arguments;
+330c330
+<     const httpArg *value = (httpArg *)Util_HashData(request->arguments, strlen(arg), arg, 0);
+---
+>     const httpArg *value = (httpArg *)Httpd_MapData(request->arguments, strlen(arg), arg);
+389c389
+<     header_line = Util_HashData(request->headers, strlen(header), header, 0);
+---
+>     header_line = Httpd_MapData(request->headers, strlen(header), header);
+640c640
+<       request->headers = Util_HashCreate(INITIAL_SIZE);
+---
+>       request->headers = Httpd_MapCreate();
+646c646
+<       header_line = (struct httpHeader *)Util_HashData(request->headers, keylength, line, 0);
+---
+>       header_line = (struct httpHeader *)Httpd_MapData(request->headers, keylength, line);
+675c675
+<             Util_HashStore(request->headers, keylength, line, 0, (void *)header_line);
+---
+>             Httpd_MapStore(request->headers, keylength, line, (void *)header_line);
+711c711
+<     request->arguments = Util_HashCreate(INITIAL_SIZE);
+---
+>     request->arguments = Httpd_MapCreate();
+746c746
+<           if((stored = (httpArg *)Util_HashData(request->arguments, strlen(token), token, 0)))
+---
+>           if((stored = (httpArg *)Httpd_MapData(request->arguments, strlen(token), token)))
+762c762
+<             Util_HashStore(request->arguments, strlen(token), token, 0, (void *)argument);
+---
+>             Httpd_MapStore(request->arguments, strlen(token), token, (void *)argument);
+860c860
+<     Util_HashDestroy(request->arguments, (void (*)(void *))DestroyArgument);
+---
+>     Httpd_MapDestroy(request->arguments, (void (*)(void *))DestroyArgument);
+865c865
+<     Util_HashDestroy(request->headers, (void (*)(void *))DestroyHeader);
+---
+>     Httpd_MapDestroy(request->headers, (void (*)(void *))DestroyHeader);
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/arrangements/CactusConnect/HTTPD/src: httpd_Map.h
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/arrangements/CactusConnect/HTTPD/src/make.code.defn /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/arrangements/CactusConnect/HTTPD/src/make.code.defn
+6c6
+< MISC_SRC = Startup.c Expression.c
+---
+> MISC_SRC = Startup.c Expression.c Map.cc
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/arrangements/CactusUtils/NaNChecker/src/NaNCheck.cc /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/arrangements/CactusUtils/NaNChecker/src/NaNCheck.cc
+9c9
+<    @version   $Id: NaNCheck.cc 104 2012-07-05 05:38:50Z rhaas $
+---
+>    @version   $Id: NaNCheck.cc 105 2012-07-09 00:19:07Z eschnett $
+12,16c12,16
+< #include <math.h>
+< #include <stdio.h>
+< #include <stdlib.h>
+< #include <string.h>
+< #include <assert.h>
+---
+> #include <cmath>
+> #include <cstdio>
+> #include <cstdlib>
+> #include <cstring>
+> #include <cassert>
+28a29,31
+> using namespace std;
+> 
+> namespace NaNChecker {
+30,32d32
+< /* the rcsid and the macro to use it */
+< static const char *rcsid = "$Header$";
+< CCTK_FILEVERSION(CactusUtils_NaNChecker_NaNCheck_c)
+63,73c63,73
+< static void CheckForNaN (int vindex, const char *optstring, void *arg);
+< static void SetToNaN (int vindex, const char *optstring, void *arg);
+< static void PrintWarning (const char *error_type,
+<                           int verbose,
+<                           int linear_index,
+<                           int reflevel,
+<                           int cctk_iteration,
+<                           int fp_type,
+<                           const CCTK_REAL *const coords[],
+<                           const char *fullname,
+<                           const cGroupDynamicData *gdata);
+---
+> void CheckForNaN (int vindex, const char *optstring, void *arg);
+> void SetToNaN (int vindex, const char *optstring, void *arg);
+> void PrintWarning (const char *error_type,
+>                    int verbose,
+>                    int linear_index,
+>                    int reflevel,
+>                    int cctk_iteration,
+>                    int fp_type,
+>                    const CCTK_REAL *const coords[],
+>                    const char *fullname,
+>                    const cGroupDynamicData *gdata);
+99c99
+< static int last_iteration_output = -1;
+---
+> int last_iteration_output = -1;
+141c141
+< static t_nanchecker_info info;
+---
+> t_nanchecker_info info;
+197a198,199
+> 
+> extern "C"
+210a213,214
+> 
+> extern "C"
+587,595c591,599
+< static void PrintWarning (const char *error_type,
+<                           int verbose,
+<                           int linear_index,
+<                           int reflevel,
+<                           int cctk_iteration,
+<                           int fp_type,
+<                           const CCTK_REAL *const coords[],
+<                           const char *fullname,
+<                           const cGroupDynamicData *gdata)
+---
+> void PrintWarning (const char *error_type,
+>                    int verbose,
+>                    int linear_index,
+>                    int reflevel,
+>                    int cctk_iteration,
+>                    int fp_type,
+>                    const CCTK_REAL *const coords[],
+>                    const char *fullname,
+>                    const cGroupDynamicData *gdata)
+683c687
+< template<class cctk_type> static void
+---
+> template<class cctk_type> void
+756c760
+< static void CheckForNaN (int vindex, const char *optstring, void *_info)
+---
+> void CheckForNaN (int vindex, const char *optstring, void *_info)
+1010c1014
+< static void SetToNaN (int vindex, const char *optstring, void *_info)
+---
+> void SetToNaN (int vindex, const char *optstring, void *_info)
+1108a1113
+> extern "C"
+1120a1126
+> extern "C"
+1127a1134,1135
+> 
+> } // end namespace NaNChecker
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/arrangements/CactusUtils/NaNChecker/src/NaNCheck.h /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/arrangements/CactusUtils/NaNChecker/src/NaNCheck.h
+15a16
+> namespace NaNChecker {
+30a32
+> } // end namespace NaNChecker
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/arrangements/Carpet/CarpetRegrid2/src/amr.cc /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/arrangements/Carpet/CarpetRegrid2/src/amr.cc
+105c105
+<             ivect const lsh = ivect::ref(cctk_lbnd);
+---
+>             ivect const lsh = ivect::ref(cctk_lsh);
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/src/make.configuration.deps /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/src/make.configuration.deps
+11c11
+< 	$(F90) $(CREATEEXE)$(OPTIONSEP)$@ $(DEBUG_LD) $(LDFLAGS) $(EXTRAFLAGS) $(GENERAL_LIBRARIES) -lstdc++ $<
+---
+> 	$(F90) $(CREATEEXE)$(OPTIONSEP)$@ $(DEBUG_LD) $(LDFLAGS) $(EXTRAFLAGS)  $< $(GENERAL_LIBRARIES)
+18c18
+< 	$(F90) $< $(F90FLAGS) -I$(CONFIG) -I$(BINDINGS_DIR)$(DIRSEP)include -I$(FLESH_DIR)$(DIRSEP)include -I$(CCTK_HOME)$(DIRSEP)arrangements $(SYS_INC_DIRS:%=-I%) $(FCOMPILEONLY)$(OPTIONSEP)$@
+---
+> 	$(F90) $< $(filter-out $(F90_OPENMP_FLAGS),$(F90FLAGS)) -I$(CONFIG) -I$(BINDINGS_DIR)$(DIRSEP)include -I$(FLESH_DIR)$(DIRSEP)include -I$(CCTK_HOME)$(DIRSEP)arrangements $(SYS_INC_DIRS:%=-I%) $(FCOMPILEONLY)$(OPTIONSEP)$@
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus: cactusjar.git
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus: exe
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus: log
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/repos/carpet/.hg/cache/branchheads /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/repos/carpet/.hg/cache/branchheads
+1c1
+< 87a47611d72e03b66753d8867b1d488a9b264ff8 3596
+---
+> cb0b446adcb54cdc7ee4761b724d7beb964e6d7e 3597
+4c4
+< 87a47611d72e03b66753d8867b1d488a9b264ff8 default
+---
+> cb0b446adcb54cdc7ee4761b724d7beb964e6d7e default
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/repos/carpet/.hg/cache/tags /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/repos/carpet/.hg/cache/tags
+1c1
+< 3596 87a47611d72e03b66753d8867b1d488a9b264ff8
+---
+> 3597 cb0b446adcb54cdc7ee4761b724d7beb964e6d7e
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/repos/carpet/.hg/dirstate and /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/repos/carpet/.hg/dirstate differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/repos/carpet/.hg/store/00changelog.d and /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/repos/carpet/.hg/store/00changelog.d differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/repos/carpet/.hg/store/00changelog.i and /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/repos/carpet/.hg/store/00changelog.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/repos/carpet/.hg/store/00manifest.d and /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/repos/carpet/.hg/store/00manifest.d differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/repos/carpet/.hg/store/00manifest.i and /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/repos/carpet/.hg/store/00manifest.i differ
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_regrid2/src/amr.cc.i and /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/repos/carpet/.hg/store/data/_carpet/_carpet_regrid2/src/amr.cc.i differ
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/repos/carpet/Carpet/CarpetRegrid2/src/amr.cc /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/repos/carpet/Carpet/CarpetRegrid2/src/amr.cc
+105c105
+<             ivect const lsh = ivect::ref(cctk_lbnd);
+---
+>             ivect const lsh = ivect::ref(cctk_lsh);
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/simfactory/lib/archive: __init__.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/simfactory/lib/archive: petashare.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/simfactory/lib/archive: uberftp.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/simfactory/lib: libutil.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/simfactory/lib: pyini.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/simfactory/lib: restartlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/simfactory/lib: sim-build.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/simfactory/lib: sim-info.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/simfactory/lib: sim-manage.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/simfactory/lib: sim-sync.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/simfactory/lib: sim-util.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/simfactory/lib: simarchive.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/simfactory/lib: simdb.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/simfactory/lib: simdt.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/simfactory/lib: simenv.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/simfactory/lib: simlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/simfactory/lib: simopts.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/simfactory/lib: simproperties.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/simfactory/lib: simremote.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/simfactory/lib: simrestart.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-08-020002/Cactus/simfactory/lib: simsubs.pyc

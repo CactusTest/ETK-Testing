@@ -1,0 +1,136 @@
+#------------------------------------------------------------------------------
+# cartoon, using BSSN_MoL
+#------------------------------------------------------------------------------
+
+ActiveThorns = "admbase admcoupling admmacros coordgauge spacemask staticconformal idanalyticbh time pugh pughreduce pughslab cartgrid3d ioascii ioutil iobasic cartoon2d ml_bssn ml_bssn_helper genericfd newrad loopcontrol tmunubase mol admconstraints boundary nanchecker coordbase symbase localreduce reflectionsymmetry"
+
+IOBasic::outScalar_vars = " admbase::metric admbase::curv admbase::lapse admbase::shift ml_bssn::ml_metric ml_bssn::ml_curv ml_bssn::ml_trace_curv ml_bssn::ml_Gamma ml_bssn::phi admconstraints::momy admconstraints::ham "
+
+IOBasic::outInfo_vars = " admconstraints::ham admbase::alp "
+
+IOASCII::out1D_vars = " admbase::metric admbase::curv admbase::lapse admbase::shift ml_bssn::ml_metric ml_bssn::ml_curv ml_bssn::ml_trace_curv ml_bssn::ml_Gamma ml_bssn::phi admconstraints::momy admconstraints::ham "
+
+#==============================================================================
+# schwarzschild initial data
+#==============================================================================
+
+admbase::initial_data                  = "bl_bh"
+admbase::metric_type = "physical"
+idanalyticbh::bl_M_1                    = 1.0
+idanalyticbh::epsilon                   = 1e-1
+
+#==============================================================================
+#generic machine outputdir
+#==============================================================================
+
+IO::out_dir=$parfile
+
+#==============================================================================
+# Cartoon grid
+#==============================================================================
+
+driver::global_nx                       = 51
+driver::global_ny                       = 5
+driver::global_nz                       = 51
+
+grid::type                              = "byrange"
+
+grid::xmin				= -0.15
+grid::xmax				= 4.85
+
+grid::ymin				= -0.2
+grid::ymax				= 0.2
+
+grid::zmin				= -0.15
+grid::zmax				= 4.85
+
+time::dtfac                             = 0.25
+
+grid::domain                            = "full"
+
+coordbase::xmin				= -0.15
+coordbase::xmax				= 4.85
+
+coordbase::ymin				= -0.2
+coordbase::ymax				= 0.2
+
+coordbase::zmin				= -0.15
+coordbase::zmax				= 4.85
+
+coordbase::boundary_size_x_upper        = 2
+coordbase::boundary_size_y_upper        = 2
+coordbase::boundary_size_z_upper        = 2
+coordbase::boundary_size_x_lower        = 2
+coordbase::boundary_size_y_lower        = 2
+coordbase::boundary_size_z_lower        = 2
+
+reflectionsymmetry::reflection_z        = yes
+
+driver::ghost_size_x                    = 2
+driver::ghost_size_y                    = 2
+driver::ghost_size_z                    = 2
+
+cactus::cctk_itlast                     = 10
+
+grid::avoid_originy 			= "no"
+
+cartoon2d::stencil			= "yes"
+cartoon2d::order			= 3
+
+cartoon2d::cartoon_active		= "yes"
+admconstraints::cartoon			= "yes"
+
+#==============================================================================
+# Standard ADM_BSSN evolution
+#==============================================================================
+
+admbase::evolution_method              = "ml_bssn"
+
+methodoflines::ode_method		= "icn"
+
+ml_bssn::fdOrder                        = 2
+ml_bssn::my_initial_boundary_condition = "extrapolate-gammas"
+ml_bssn::my_rhs_boundary_condition     = "newrad"
+# these are necessary
+ml_bssn::ml_log_confac_bound           = "none"
+ml_bssn::ml_metric_bound               = "none"
+ml_bssn::ml_gamma_bound                = "none"
+ml_bssn::ml_trace_curv_bound           = "none"
+ml_bssn::ml_curv_bound                 = "none"
+ml_bssn::ml_lapse_bound                = "none"
+ml_bssn::ml_dtlapse_bound              = "none"
+ml_bssn::ml_shift_bound                = "none"
+ml_bssn::ml_dtshift_bound              = "none"
+boundary::radpower                      = 3
+
+#==============================================================================
+# 1+log
+#==============================================================================
+
+admbase::initial_lapse                 = "one"
+admbase::lapse_evolution_method        = "ML_BSSN"
+admbase::dtlapse_evolution_method      = "ML_BSSN"
+ml_bssn::alphadriver                   = 1
+ml_bssn::lapseadvectioncoeff           = 0
+ml_bssn::harmonicf                     = 2.0
+
+#==============================================================================
+# Gamma0 shift
+#==============================================================================
+
+admbase::initial_shift                 = "zero"
+admbase::initial_dtshift               = "zero"
+admbase::shift_evolution_method        = "ML_BSSN"
+admbase::dtshift_evolution_method      = "ML_BSSN"
+ml_bssn::shiftgammacoeff               = 0.75
+ml_bssn::betadriver                    = 4.0
+ml_bssn::shiftadvectioncoeff           = 0
+
+#==============================================================================
+# 1D output
+#==============================================================================
+
+IOBasic::outScalar_every                = 1
+IOASCII::out1D_every                    = 1
+IOBasic::outInfo_every                  = 1
+IO::out_fileinfo   			= "none"

@@ -1,0 +1,44 @@
+!DESC "Kleing 1+log sliced black hole, ADM, double leapfrog"
+
+#Required thorns
+ActiveThorns = "ADMCoupling Boundary Time ADMBase ADMConstraints SpaceMask StaticConformal CoordGauge ADMMacros CartGrid3D CoordBase SymBase pugh pughslab pughreduce ADM IDanalyticBH IOASCII IOUtil iobasic admanalysis localreduce"
+
+# GENERAL 
+
+admbase::evolution_method = "ADM"     
+ 
+ADM::leapfrog_firststep    = "predcorr"
+
+driver::global_nx          = 20     
+driver::global_ny          = 20     
+driver::global_nz          = 20     
+
+grid::type                 = "byspacing"
+grid::dxyz                 =  0.2  
+grid::domain               = "octant"
+
+time::dtfac                =  0.25   
+
+admbase::lapse_evolution_method  =  "coordgauge"  
+coordgauge::lapse_list           = "1+log"
+
+admbase::metric_type   =  "static conformal"
+admbase::initial_data     = "schwarzschild"
+
+cactus::cctk_itlast        = 10      
+
+adm::method                = "leapfrog" 
+adm::bound                 = "flat"      
+adm::slicing_flavour       = "kleing"
+adm::flat_dissip           = 1e-6
+
+
+IO::out_dir                 = "test_ADM_2"
+IO::out_fileinfo           = "none"
+IOBasic::outScalar_every   = 2
+IOBasic::outScalar_vars    = "admbase::gxx admbase::kxx admconstraints::hamiltonian admconstraints::momentum admanalysis::grr admbase::alp"
+
+##################################################################
+
+# do not use the new scheme for names of output files
+IO::new_filename_scheme = "no"
