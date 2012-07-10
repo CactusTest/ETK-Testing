@@ -1,0 +1,19 @@
+   BH_diagnostics.ah1.gp: differences below tolerance on 3 lines
+   gxx_average.xg: differences below tolerance on 2 lines
+   gxx_norm1.xg: differences below tolerance on 2 lines
+   gyy_norm2.xg: differences below tolerance on 1 lines
+   gzz_average.xg: differences below tolerance on 1 lines
+   gzz_norm1.xg: differences below tolerance on 1 lines
+   h.t0.ah1.gp: differences below tolerance on 1276 lines
+   h.t1.ah1.gp: differences below tolerance on 407 lines
+   h.t2.ah1.gp: differences below tolerance on 1208 lines
+   ham_3D_diagonal.xg: differences below tolerance on 1 lines
+   ham_average.xg: differences below tolerance on 1 lines
+   ham_x_[24][24].xg: differences below tolerance on 3 lines
+   ham_z_[24][24].xg: differences below tolerance on 2 lines
+   kxx_x_[24][24].xg: differences below tolerance on 2 lines
+   kxz_average.xg: differences below tolerance on 1 lines
+   kyy_3D_diagonal.xg: differences below tolerance on 1 lines
+   momz_x_[24][24].xg: differences below tolerance on 2 lines
+
+

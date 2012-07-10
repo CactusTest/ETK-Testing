@@ -1,0 +1,15 @@
+   alp_norm2.asc: differences below tolerance on 1 lines
+   ham_3D_diagonal.asc: differences below tolerance on 1 lines
+   ham_x_[16][2].asc: differences below tolerance on 3 lines
+   ham_y_[16][2].asc: differences below tolerance on 4 lines
+   ham_z_[16][16].asc: differences below tolerance on 2 lines
+   momx_z_[16][16].asc: differences below tolerance on 1 lines
+   momy_norm2.asc: differences below tolerance on 1 lines
+   momy_y_[16][2].asc: differences below tolerance on 1 lines
+   momz_y_[16][2].asc: differences below tolerance on 2 lines
+
+   emask_3D_diagonal.asc: not in thorn archive
+   emask_z_[16][16].asc: not in thorn archive
+   emask_x_[16][2].asc: not in thorn archive
+   emask_y_[16][2].asc: not in thorn archive
+

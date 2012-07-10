@@ -1,0 +1,327 @@
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus: TEST.1
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus: TEST.2
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/test/test_tov_carpet_refined_nosync/rho.x.asc /home/jhar131/TESTING/einsteintoolkit/2012-07-10-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/test/test_tov_carpet_refined_nosync/rho.x.asc
+2,6d1
+< # created on horizon.tapir.caltech.edu by rhaas on Mar 09 2012 at 13:13:37-0800
+< # parameter filename: "test_tov_carpet_refined_nosync.par"
+< # Build ID: build-bns_all-horizon.tapir.caltech.edu-rhaas-2012.03.09-21.08.06-21979
+< # Simulation ID: run-test_tov_carpet_refined_nosync-horizon.tapir.caltech.edu-rhaas-2012.03.09-21.13.37-24326
+< # Run ID: run-test_tov_carpet_refined_nosync-horizon.tapir.caltech.edu-rhaas-2012.03.09-21.13.37-24326
+8,13d2
+< # rho x (rho)
+< #
+< # iteration 0   time 0
+< # time level 0
+< # refinement level 0   multigrid level 0   map 0   component 0
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+29,32d17
+< # iteration 0   time 0
+< # time level 0
+< # refinement level 0   multigrid level 0   map 0   component 1
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+48,51d32
+< # iteration 2   time 0.7031484375
+< # time level 0
+< # refinement level 0   multigrid level 0   map 0   component 0
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+67,70d47
+< # iteration 2   time 0.7031484375
+< # time level 0
+< # refinement level 0   multigrid level 0   map 0   component 1
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+86,89d62
+< # iteration 4   time 1.406296875
+< # time level 0
+< # refinement level 0   multigrid level 0   map 0   component 0
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+105,108d77
+< # iteration 4   time 1.406296875
+< # time level 0
+< # refinement level 0   multigrid level 0   map 0   component 1
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+124,127d92
+< # iteration 5   time 1.75787109375
+< # time level 0
+< # refinement level 1   multigrid level 0   map 0   component 0
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+151,154d115
+< # iteration 5   time 1.75787109375
+< # time level 0
+< # refinement level 1   multigrid level 0   map 0   component 1
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+178,181d138
+< # iteration 6   time 2.1094453125
+< # time level 0
+< # refinement level 0   multigrid level 0   map 0   component 0
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+197,200d153
+< # iteration 6   time 2.1094453125
+< # time level 0
+< # refinement level 0   multigrid level 0   map 0   component 1
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+216,219d168
+< # iteration 6   time 2.1094453125
+< # time level 0
+< # refinement level 1   multigrid level 0   map 0   component 0
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+243,246d191
+< # iteration 6   time 2.1094453125
+< # time level 0
+< # refinement level 1   multigrid level 0   map 0   component 1
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+270,273d214
+< # iteration 7   time 2.46101953125
+< # time level 0
+< # refinement level 1   multigrid level 0   map 0   component 0
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+297,300d237
+< # iteration 7   time 2.46101953125
+< # time level 0
+< # refinement level 1   multigrid level 0   map 0   component 1
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+324,327d260
+< # iteration 8   time 2.81259375
+< # time level 0
+< # refinement level 0   multigrid level 0   map 0   component 0
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+343,346d275
+< # iteration 8   time 2.81259375
+< # time level 0
+< # refinement level 0   multigrid level 0   map 0   component 1
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+362,365d290
+< # iteration 8   time 2.81259375
+< # time level 0
+< # refinement level 1   multigrid level 0   map 0   component 0
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+389,392d313
+< # iteration 8   time 2.81259375
+< # time level 0
+< # refinement level 1   multigrid level 0   map 0   component 1
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/test/test_tov_carpet_refined_nosync/rho.y.asc /home/jhar131/TESTING/einsteintoolkit/2012-07-10-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/test/test_tov_carpet_refined_nosync/rho.y.asc
+2,6d1
+< # created on horizon.tapir.caltech.edu by rhaas on Mar 09 2012 at 13:13:37-0800
+< # parameter filename: "test_tov_carpet_refined_nosync.par"
+< # Build ID: build-bns_all-horizon.tapir.caltech.edu-rhaas-2012.03.09-21.08.06-21979
+< # Simulation ID: run-test_tov_carpet_refined_nosync-horizon.tapir.caltech.edu-rhaas-2012.03.09-21.13.37-24326
+< # Run ID: run-test_tov_carpet_refined_nosync-horizon.tapir.caltech.edu-rhaas-2012.03.09-21.13.37-24326
+8,13d2
+< # rho y (rho)
+< #
+< # iteration 0   time 0
+< # time level 0
+< # refinement level 0   multigrid level 0   map 0   component 0
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+29,32d17
+< # iteration 0   time 0
+< # time level 0
+< # refinement level 0   multigrid level 0   map 0   component 1
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+49,52d33
+< # iteration 2   time 0.7031484375
+< # time level 0
+< # refinement level 0   multigrid level 0   map 0   component 0
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+68,71d48
+< # iteration 2   time 0.7031484375
+< # time level 0
+< # refinement level 0   multigrid level 0   map 0   component 1
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+88,91d64
+< # iteration 4   time 1.406296875
+< # time level 0
+< # refinement level 0   multigrid level 0   map 0   component 0
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+107,110d79
+< # iteration 4   time 1.406296875
+< # time level 0
+< # refinement level 0   multigrid level 0   map 0   component 1
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+127,130d95
+< # iteration 5   time 1.75787109375
+< # time level 0
+< # refinement level 1   multigrid level 0   map 0   component 0
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+154,157d118
+< # iteration 5   time 1.75787109375
+< # time level 0
+< # refinement level 1   multigrid level 0   map 0   component 1
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+182,185d142
+< # iteration 6   time 2.1094453125
+< # time level 0
+< # refinement level 0   multigrid level 0   map 0   component 0
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+201,204d157
+< # iteration 6   time 2.1094453125
+< # time level 0
+< # refinement level 0   multigrid level 0   map 0   component 1
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+221,224d173
+< # iteration 6   time 2.1094453125
+< # time level 0
+< # refinement level 1   multigrid level 0   map 0   component 0
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+248,251d196
+< # iteration 6   time 2.1094453125
+< # time level 0
+< # refinement level 1   multigrid level 0   map 0   component 1
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+276,279d220
+< # iteration 7   time 2.46101953125
+< # time level 0
+< # refinement level 1   multigrid level 0   map 0   component 0
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+303,306d243
+< # iteration 7   time 2.46101953125
+< # time level 0
+< # refinement level 1   multigrid level 0   map 0   component 1
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+331,334d267
+< # iteration 8   time 2.81259375
+< # time level 0
+< # refinement level 0   multigrid level 0   map 0   component 0
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+350,353d282
+< # iteration 8   time 2.81259375
+< # time level 0
+< # refinement level 0   multigrid level 0   map 0   component 1
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+370,373d298
+< # iteration 8   time 2.81259375
+< # time level 0
+< # refinement level 1   multigrid level 0   map 0   component 0
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+397,400d321
+< # iteration 8   time 2.81259375
+< # time level 0
+< # refinement level 1   multigrid level 0   map 0   component 1
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/test/test_tov_carpet_refined_nosync/rho.z.asc /home/jhar131/TESTING/einsteintoolkit/2012-07-10-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/test/test_tov_carpet_refined_nosync/rho.z.asc
+2,6d1
+< # created on horizon.tapir.caltech.edu by rhaas on Mar 09 2012 at 13:13:37-0800
+< # parameter filename: "test_tov_carpet_refined_nosync.par"
+< # Build ID: build-bns_all-horizon.tapir.caltech.edu-rhaas-2012.03.09-21.08.06-21979
+< # Simulation ID: run-test_tov_carpet_refined_nosync-horizon.tapir.caltech.edu-rhaas-2012.03.09-21.13.37-24326
+< # Run ID: run-test_tov_carpet_refined_nosync-horizon.tapir.caltech.edu-rhaas-2012.03.09-21.13.37-24326
+8,13d2
+< # rho z (rho)
+< #
+< # iteration 0   time 0
+< # time level 0
+< # refinement level 0   multigrid level 0   map 0   component 0
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+29,32d17
+< # iteration 0   time 0
+< # time level 0
+< # refinement level 0   multigrid level 0   map 0   component 1
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+49,52d33
+< # iteration 2   time 0.7031484375
+< # time level 0
+< # refinement level 0   multigrid level 0   map 0   component 0
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+68,71d48
+< # iteration 2   time 0.7031484375
+< # time level 0
+< # refinement level 0   multigrid level 0   map 0   component 1
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+88,91d64
+< # iteration 4   time 1.406296875
+< # time level 0
+< # refinement level 0   multigrid level 0   map 0   component 0
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+107,110d79
+< # iteration 4   time 1.406296875
+< # time level 0
+< # refinement level 0   multigrid level 0   map 0   component 1
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+127,130d95
+< # iteration 5   time 1.75787109375
+< # time level 0
+< # refinement level 1   multigrid level 0   map 0   component 0
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+154,157d118
+< # iteration 5   time 1.75787109375
+< # time level 0
+< # refinement level 1   multigrid level 0   map 0   component 1
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+182,185d142
+< # iteration 6   time 2.1094453125
+< # time level 0
+< # refinement level 0   multigrid level 0   map 0   component 0
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+201,204d157
+< # iteration 6   time 2.1094453125
+< # time level 0
+< # refinement level 0   multigrid level 0   map 0   component 1
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+221,224d173
+< # iteration 6   time 2.1094453125
+< # time level 0
+< # refinement level 1   multigrid level 0   map 0   component 0
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+248,251d196
+< # iteration 6   time 2.1094453125
+< # time level 0
+< # refinement level 1   multigrid level 0   map 0   component 1
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+276,279d220
+< # iteration 7   time 2.46101953125
+< # time level 0
+< # refinement level 1   multigrid level 0   map 0   component 0
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+303,306d243
+< # iteration 7   time 2.46101953125
+< # time level 0
+< # refinement level 1   multigrid level 0   map 0   component 1
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+331,334d267
+< # iteration 8   time 2.81259375
+< # time level 0
+< # refinement level 0   multigrid level 0   map 0   component 0
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+350,353d282
+< # iteration 8   time 2.81259375
+< # time level 0
+< # refinement level 0   multigrid level 0   map 0   component 1
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+370,373d298
+< # iteration 8   time 2.81259375
+< # time level 0
+< # refinement level 1   multigrid level 0   map 0   component 0
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+397,400d321
+< # iteration 8   time 2.81259375
+< # time level 0
+< # refinement level 1   multigrid level 0   map 0   component 1
+< # column format: 1:it	2:tl	3:rl 4:c 5:ml	6:ix 7:iy 8:iz	9:time	10:x 11:y 12:z	13:data
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/arrangements/EinsteinEvolve/GRHydro/test/test_tov_carpet_refined_nosync.par /home/jhar131/TESTING/einsteintoolkit/2012-07-10-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/test/test_tov_carpet_refined_nosync.par
+107a108
+> IO::out_fileinfo                = "none"
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus: cactusjar.git
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus: exe
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus: log
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/repos/carpet/.hg/dirstate and /home/jhar131/TESTING/einsteintoolkit/2012-07-10-020001/Cactus/repos/carpet/.hg/dirstate differ
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/simfactory/lib/archive: __init__.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/simfactory/lib/archive: petashare.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/simfactory/lib/archive: uberftp.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/simfactory/lib: libutil.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/simfactory/lib: pyini.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/simfactory/lib: restartlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/simfactory/lib: sim-build.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/simfactory/lib: sim-info.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/simfactory/lib: sim-manage.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/simfactory/lib: sim-sync.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/simfactory/lib: sim-util.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/simfactory/lib: simarchive.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/simfactory/lib: simdb.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/simfactory/lib: simdt.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/simfactory/lib: simenv.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/simfactory/lib: simlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/simfactory/lib: simopts.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/simfactory/lib: simproperties.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/simfactory/lib: simremote.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/simfactory/lib: simrestart.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-09-020002/Cactus/simfactory/lib: simsubs.pyc
