@@ -1,0 +1,59 @@
+!DESC "Geodesically sliced black hole, ADM, Staggered leapfrog"
+
+# $Header$
+#
+# /*@@
+#   @file      test_ADM_1.par
+#   @date      Sunday 24th July
+#   @author    Gabrielle Allen
+#   @desc
+#   ADM test file
+#   @enddesc
+# @@*/           
+
+# Required thorns
+ActiveThorns = "ADMCoupling Boundary Time ADMconstraints SpaceMask pugh pughreduce CartGrid3D CoordBase SymBase admbase ADM admanalysis staticconformal coordgauge idanalyticbh ioutil iobasic ADMMacros localreduce"
+
+# GENERAL 
+
+driver::global_nx  =  20     
+driver::global_ny  =  20     
+driver::global_nz  =  20     
+
+grid::type         =  "byspacing"
+grid::dxyz         =  0.2
+grid::domain     =  "octant"
+
+time::dtfac    =  0.25   
+
+cactus::cctk_initial_time  =  0.     
+cactus::cctk_itlast        =  10      
+
+
+# Einstein 
+
+admbase::metric_type   =  "static conformal"
+admbase::initial_data     = "schwarzschild"
+admbase::evolution_method = "ADM"     
+
+adm::method        =  "stagleap" 
+adm::bound         =  "flat"
+
+admbase::lapse_evolution_method  =  "coordgauge"  
+coordgauge::lapse_list  =  "geodesic"  
+
+# Output
+
+IO::out_dir         = "test_ADM_1"
+IO::out_fileinfo   = "none"
+
+IOBasic::outScalar_every =  2      
+IOBasic::outScalar_vars  = "admbase::gxx admbase::kxx admconstraints::hamiltonian admconstraints::momentum admanalysis::grr admbase::alp"
+
+IOBasic::outInfo_every = 1
+IOBasic::outInfo_vars = "admconstraints::ham admbase::gxx"
+
+##################################################################
+
+# do not use the new scheme for names of output files
+IO::new_filename_scheme = "no"

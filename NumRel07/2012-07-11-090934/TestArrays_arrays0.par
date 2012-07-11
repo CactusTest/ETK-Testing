@@ -1,0 +1,28 @@
+
+!DESC "Test parameter file for multidimensional arrays"
+
+# FIXME: Remove CartGrid3D CoordBase on Alpha
+ActiveThorns = "CartGrid3D CoordBase SymBase pughslab ioascii iobasic ioutil testarrays pugh LocalReduce"
+
+arrays::xghost1d = 2
+arrays::xsize1d  = 0
+
+arrays::xghost2d = 1
+arrays::yghost2d = 2
+arrays::xsize2d  = 0
+arrays::ysize2d  = 10
+
+arrays::xghost3d = 3
+arrays::yghost3d = 1
+arrays::zghost3d = 2
+arrays::xsize3d  = 10
+arrays::ysize3d  = 0
+arrays::zsize3d  = 10
+
+IO::out_dir             = $parfile
+io::out_every           = 1
+IO::out_fileinfo        = "none"
+iobasic::outinfo_vars   = ""
+ioascii::out1d_vars     = "testarrays::foo1d testarrays::foo2d testarrays::foo3d"
+
+Cactus::allow_mixeddim_gfs = "yes"
