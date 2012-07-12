@@ -1,0 +1,54 @@
+!DESC "1+log sliced 4 BL black holes, ADM, double leapfrog"
+
+#Required thorns
+ActiveThorns = "Boundary Time ADMBase ADM ADMAnalysis CoordGauge ADMMacros SpaceMask StaticConformal CartGrid3D CoordBase SymBase pugh pughreduce  IDanalyticBH IOUtil iobasic localreduce"
+
+# GENERAL 
+
+driver::global_nx          = 20     
+driver::global_ny          = 20     
+driver::global_nz          = 20     
+
+grid::type                 = "byspacing"
+grid::dxyz                 =  0.8 
+grid::domain               = "full"
+
+time::dtfac                =  0.25 
+  
+admbase::metric_type      = "static conformal"
+admbase::evolution_method = "ADM"     
+admbase::lapse_evolution_method = "1+log"
+admbase::initial_data     = "bl_bh" 
+
+idanalyticbh::bl_nbh       = 4
+idanalyticbh::bl_x0_1      = 3.5
+idanalyticbh::bl_y0_1      = 3.5
+idanalyticbh::bl_z0_1      = 3.5
+idanalyticbh::bl_M_1       = 0.1
+idanalyticbh::bl_x0_2      = 3.5
+idanalyticbh::bl_y0_2      = -3.5
+idanalyticbh::bl_z0_2      = 3.1
+idanalyticbh::bl_M_2       = 0.2
+idanalyticbh::bl_x0_3      = -3.5
+idanalyticbh::bl_y0_3      = 3.2
+idanalyticbh::bl_z0_3      = -3.5
+idanalyticbh::bl_M_3       = 0.3
+idanalyticbh::bl_x0_4      = -3.5
+idanalyticbh::bl_y0_4      = -3.3
+idanalyticbh::bl_z0_4      = 3.5
+idanalyticbh::bl_M_4       = 0.4
+
+cactus::cctk_itlast        = 3      
+adm::bound                 = "flat"      
+adm::method                = "leapfrog"
+
+IO::out_dir               = "test_bl"
+IO::out_fileinfo         = "none"
+IOBasic::outInfo_every   = 1
+IOBasic::outInfo_vars    = "admbase::gxx staticconformal::psi"
+IOBasic::outScalar_every = 2
+IOBasic::outScalar_vars  = "admanalysis::grr staticconformal::psi"
+
+
+# do not use the new scheme for names of output files
+IO::new_filename_scheme = "no"

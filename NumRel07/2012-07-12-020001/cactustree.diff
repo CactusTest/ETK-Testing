@@ -1,0 +1,39 @@
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-11-090934/Cactus: TEST.1
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-11-090934/Cactus: TEST.2
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-11-090934/Cactus/arrangements/EinsteinEvolve/GRHydro/test/test.ccl /home/jhar131/TESTING/einsteintoolkit/2012-07-12-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/test/test.ccl
+2a3,7
+> 
+> TEST test_tov_carpet_refined_nosync
+> {
+>         NPROCS 2
+> }
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-11-090934/Cactus/arrangements/EinsteinEvolve/GRHydro/test/test_tov_carpet_refined_nosync.par /home/jhar131/TESTING/einsteintoolkit/2012-07-12-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/test/test_tov_carpet_refined_nosync.par
+1c1
+< !DESC "Carpet unigrid, one TOV" 
+---
+> !DESC "Carpet mesh refined, one TOV, synchronize only conservatives"
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-11-090934/Cactus: cactusjar.git
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-11-090934/Cactus: exe
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-11-090934/Cactus: log
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-07-11-090934/Cactus/repos/carpet/.hg/dirstate and /home/jhar131/TESTING/einsteintoolkit/2012-07-12-020001/Cactus/repos/carpet/.hg/dirstate differ
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-11-090934/Cactus/simfactory/lib/archive: __init__.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-11-090934/Cactus/simfactory/lib/archive: petashare.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-11-090934/Cactus/simfactory/lib/archive: uberftp.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-11-090934/Cactus/simfactory/lib: libutil.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-11-090934/Cactus/simfactory/lib: pyini.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-11-090934/Cactus/simfactory/lib: restartlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-11-090934/Cactus/simfactory/lib: sim-build.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-11-090934/Cactus/simfactory/lib: sim-info.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-11-090934/Cactus/simfactory/lib: sim-manage.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-11-090934/Cactus/simfactory/lib: sim-sync.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-11-090934/Cactus/simfactory/lib: sim-util.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-11-090934/Cactus/simfactory/lib: simarchive.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-11-090934/Cactus/simfactory/lib: simdb.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-11-090934/Cactus/simfactory/lib: simdt.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-11-090934/Cactus/simfactory/lib: simenv.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-11-090934/Cactus/simfactory/lib: simlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-11-090934/Cactus/simfactory/lib: simopts.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-11-090934/Cactus/simfactory/lib: simproperties.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-11-090934/Cactus/simfactory/lib: simremote.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-11-090934/Cactus/simfactory/lib: simrestart.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-11-090934/Cactus/simfactory/lib: simsubs.pyc
