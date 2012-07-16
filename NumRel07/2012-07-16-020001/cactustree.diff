@@ -1,0 +1,57 @@
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-15-020002/Cactus/Makefile /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus/Makefile
+833c833,835
+< 	if ($(SETUP_ENV) $(PERL) -s $(SETUP) -config_file=$(CONFIGS_DIR)/$(@:%-reconfig=%)/config-info $(@:%-reconfig=%)) ; then : ; else \
+---
+> 	if ($(SETUP_ENV) $(PERL) -s $(SETUP) -config_file=$(CONFIGS_DIR)/$(@:%-reconfig=%)/config-info $(@:%-reconfig=%)) ; then \
+> 	  $(MAKE) $(@:%-reconfig=%)-cleandeps ; \
+>         else \
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-15-020002/Cactus: TEST.1
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-15-020002/Cactus: TEST.2
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-15-020002/Cactus: cactusjar.git
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-15-020002/Cactus: exe
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-15-020002/Cactus/lib/make/force-reconfigure /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus/lib/make/force-reconfigure
+33a34
+> 15 Jul 2012: Correct error in determining make dependencies
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-15-020002/Cactus/lib/make/make.config.rules.in /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus/lib/make/make.config.rules.in
+62c62,67
+< # Define how to do dependencies
+---
+> # Define how to do dependencies.
+> # Correct the dependency target (i.e. the item on the LHS of a make
+> # rule). The name of the object file is wrong, and the dependency file
+> # (.d file) is missing. To simplify things, we don't try to match the
+> # object file name -- we assume that any file ending in .o is the
+> # object file.
+65,66c70
+< 	#$(PERL) -pi -e "s,([^:]*),$(basename $@).o $(basename $@).d, if(m/: /);\
+< 	 s:\s+\S*[/\\\]($(DEP_EXCLUDE_FILES))\b::g" $@
+---
+> 	$(PERL) -pi -e 's{^\Q$(basename $(basename $@)).o:\E}{$(basename $@).o $(basename $@).d:}' $@
+70,71c74
+< 	#$(PERL) -pi.bak -e "s,([^:]*),$(basename $@).o $(basename $@).d, if(m/: /);\
+< 	 s:\s+\S*[/\\\]($(DEP_EXCLUDE_FILES))\b::g" $@
+---
+> 	$(PERL) -pi.bak -e 's{^\Q$(basename $(basename $@)).o:\E}{$(basename $@).o $(basename $@).d:}' $@
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-15-020002/Cactus: log
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-07-15-020002/Cactus/repos/carpet/.hg/dirstate and /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus/repos/carpet/.hg/dirstate differ
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-15-020002/Cactus/simfactory/lib/archive: __init__.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-15-020002/Cactus/simfactory/lib/archive: petashare.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-15-020002/Cactus/simfactory/lib/archive: uberftp.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-15-020002/Cactus/simfactory/lib: libutil.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-15-020002/Cactus/simfactory/lib: pyini.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-15-020002/Cactus/simfactory/lib: restartlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-15-020002/Cactus/simfactory/lib: sim-build.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-15-020002/Cactus/simfactory/lib: sim-info.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-15-020002/Cactus/simfactory/lib: sim-manage.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-15-020002/Cactus/simfactory/lib: sim-sync.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-15-020002/Cactus/simfactory/lib: sim-util.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-15-020002/Cactus/simfactory/lib: simarchive.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-15-020002/Cactus/simfactory/lib: simdb.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-15-020002/Cactus/simfactory/lib: simdt.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-15-020002/Cactus/simfactory/lib: simenv.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-15-020002/Cactus/simfactory/lib: simlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-15-020002/Cactus/simfactory/lib: simopts.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-15-020002/Cactus/simfactory/lib: simproperties.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-15-020002/Cactus/simfactory/lib: simremote.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-15-020002/Cactus/simfactory/lib: simrestart.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-15-020002/Cactus/simfactory/lib: simsubs.pyc

@@ -1,0 +1,802 @@
++ (( try = 1 ))
++ (( try <= 3 ))
++ ./GetComponents -a --root=. einsteintoolkit.th
+-----------------------------------------------------------------
+  Checking out module: manifest
+      from repository: http://svn.einsteintoolkit.org/manifest/trunk
+                 into: .
+-----------------------------------------------------------------
+  Checking out module: Cactus
+      from repository: http://svn.cactuscode.org/flesh/trunk
+                 into: .
+                   as: .
+-----------------------------------------------------------------
+  Checking out module: simfactory2
+      from repository: https://svn.cct.lsu.edu/repos/numrel/simfactory2/trunk
+                 into: .
+                   as: simfactory
+-----------------------------------------------------------------
+  Checking out module: par
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinExamples/trunk/par
+                 into: .
+-----------------------------------------------------------------
+  Checking out module: .
+      from repository: http://svn.cactuscode.org/Utilities/trunk
+                 into: .
+                   as: utils
+-----------------------------------------------------------------
+  Checking out module: CactusArchive/ADM
+      from repository: http://svn.cactuscode.org/arrangements/CactusArchive/ADM/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusBase/Boundary
+      from repository: http://svn.cactuscode.org/arrangements/CactusBase/Boundary/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusBase/CartGrid3D
+      from repository: http://svn.cactuscode.org/arrangements/CactusBase/CartGrid3D/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusBase/CoordBase
+      from repository: http://svn.cactuscode.org/arrangements/CactusBase/CoordBase/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusBase/Fortran
+      from repository: http://svn.cactuscode.org/arrangements/CactusBase/Fortran/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusBase/InitBase
+      from repository: http://svn.cactuscode.org/arrangements/CactusBase/InitBase/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusBase/IOASCII
+      from repository: http://svn.cactuscode.org/arrangements/CactusBase/IOASCII/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusBase/IOBasic
+      from repository: http://svn.cactuscode.org/arrangements/CactusBase/IOBasic/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusBase/IOUtil
+      from repository: http://svn.cactuscode.org/arrangements/CactusBase/IOUtil/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusBase/SymBase
+      from repository: http://svn.cactuscode.org/arrangements/CactusBase/SymBase/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusBase/Time
+      from repository: http://svn.cactuscode.org/arrangements/CactusBase/Time/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusConnect/HTTPD
+      from repository: http://svn.cactuscode.org/arrangements/CactusConnect/HTTPD/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusConnect/HTTPDExtra
+      from repository: http://svn.cactuscode.org/arrangements/CactusConnect/HTTPDExtra/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusConnect/Socket
+      from repository: http://svn.cactuscode.org/arrangements/CactusConnect/Socket/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusElliptic/EllBase
+      from repository: http://svn.cactuscode.org/arrangements/CactusElliptic/EllBase/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusElliptic/EllSOR
+      from repository: http://svn.cactuscode.org/arrangements/CactusElliptic/EllSOR/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusIO/IOJpeg
+      from repository: http://svn.cactuscode.org/arrangements/CactusIO/IOJpeg/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusNumerical/Cartoon2D
+      from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/Cartoon2D/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusNumerical/Dissipation
+      from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/Dissipation/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusNumerical/InterpToArray
+      from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/InterpToArray/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusNumerical/LocalInterp
+      from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/LocalInterp/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusNumerical/LocalReduce
+      from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/LocalReduce/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusNumerical/MoL
+      from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/MoL/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusNumerical/Noise
+      from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/Noise/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusNumerical/Norms
+      from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/Norms/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusNumerical/Periodic
+      from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/Periodic/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusNumerical/ReflectionSymmetry
+      from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/ReflectionSymmetry/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusNumerical/RotatingSymmetry180
+      from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/RotatingSymmetry180/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusNumerical/RotatingSymmetry90
+      from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/RotatingSymmetry90/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusNumerical/Slab
+      from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/Slab/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusNumerical/SlabTest
+      from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/SlabTest/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusNumerical/SpaceMask
+      from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/SpaceMask/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusNumerical/SphericalSurface
+      from repository: http://svn.cactuscode.org/arrangements/CactusNumerical/SphericalSurface/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusPUGH/PUGH
+      from repository: http://svn.cactuscode.org/arrangements/CactusPUGH/PUGH/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusPUGH/PUGHInterp
+      from repository: http://svn.cactuscode.org/arrangements/CactusPUGH/PUGHInterp/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusPUGH/PUGHReduce
+      from repository: http://svn.cactuscode.org/arrangements/CactusPUGH/PUGHReduce/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusPUGH/PUGHSlab
+      from repository: http://svn.cactuscode.org/arrangements/CactusPUGH/PUGHSlab/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusPUGHIO/IOHDF5
+      from repository: http://svn.cactuscode.org/arrangements/CactusPUGHIO/IOHDF5/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusPUGHIO/IOHDF5Util
+      from repository: http://svn.cactuscode.org/arrangements/CactusPUGHIO/IOHDF5Util/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestArrays
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestArrays/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestComplex
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestComplex/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestCoordinates
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestCoordinates/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestFortranDependencies1
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestFortranDependencies1/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestFortranDependencies2
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestFortranDependencies2/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestFpointerNULL
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestFpointerNULL/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestFreeF90
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestFreeF90/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestGlobalReduce
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestGlobalReduce/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestInclude1
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestInclude1/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestInclude2
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestInclude2/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestLocalReduce
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestLocalReduce/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestLoop
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestLoop/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestPar
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestPar/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestReduce
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestReduce/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestSchedule
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestSchedule/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestStrings
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestStrings/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestTable
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestTable/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestTimers
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestTimers/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusTest/TestTypes
+      from repository: http://svn.cactuscode.org/arrangements/CactusTest/TestTypes/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusUtils/Formaline
+      from repository: http://svn.cactuscode.org/arrangements/CactusUtils/Formaline/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusUtils/NaNChecker
+      from repository: http://svn.cactuscode.org/arrangements/CactusUtils/NaNChecker/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusUtils/Nice
+      from repository: http://svn.cactuscode.org/arrangements/CactusUtils/Nice/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusUtils/NoMPI
+      from repository: http://svn.cactuscode.org/arrangements/CactusUtils/NoMPI/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusUtils/TerminationTrigger
+      from repository: http://svn.cactuscode.org/arrangements/CactusUtils/TerminationTrigger/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusUtils/TimerReport
+      from repository: http://svn.cactuscode.org/arrangements/CactusUtils/TimerReport/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusWave/IDScalarWave
+      from repository: http://svn.cactuscode.org/arrangements/CactusWave/IDScalarWave/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusWave/IDScalarWaveC
+      from repository: http://svn.cactuscode.org/arrangements/CactusWave/IDScalarWaveC/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusWave/IDScalarWaveCXX
+      from repository: http://svn.cactuscode.org/arrangements/CactusWave/IDScalarWaveCXX/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusWave/IDScalarWaveElliptic
+      from repository: http://svn.cactuscode.org/arrangements/CactusWave/IDScalarWaveElliptic/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusWave/WaveBinarySource
+      from repository: http://svn.cactuscode.org/arrangements/CactusWave/WaveBinarySource/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusWave/WaveToyC
+      from repository: http://svn.cactuscode.org/arrangements/CactusWave/WaveToyC/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusWave/WaveToyCXX
+      from repository: http://svn.cactuscode.org/arrangements/CactusWave/WaveToyCXX/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusWave/WaveToyExtra
+      from repository: http://svn.cactuscode.org/arrangements/CactusWave/WaveToyExtra/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusWave/WaveToyF77
+      from repository: http://svn.cactuscode.org/arrangements/CactusWave/WaveToyF77/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusWave/WaveToyF90
+      from repository: http://svn.cactuscode.org/arrangements/CactusWave/WaveToyF90/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: CactusWave/WaveToyFreeF90
+      from repository: http://svn.cactuscode.org/arrangements/CactusWave/WaveToyFreeF90/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinAnalysis/ADMAnalysis
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/ADMAnalysis/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinAnalysis/ADMConstraints
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/ADMConstraints/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinAnalysis/AHFinder
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/AHFinder/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinAnalysis/AHFinderDirect
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/AHFinderDirect/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinAnalysis/CalcK
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/CalcK/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinAnalysis/EHFinder
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/EHFinder/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinAnalysis/Extract
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/Extract/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinAnalysis/Hydro_Analysis
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/Hydro_Analysis/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinAnalysis/Multipole
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/Multipole/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinAnalysis/WeylScal4
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinAnalysis/WeylScal4/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinBase/ADMBase
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/ADMBase/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinBase/ADMCoupling
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/ADMCoupling/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinBase/ADMMacros
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/ADMMacros/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinBase/Constants
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/Constants/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinBase/CoordGauge
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/CoordGauge/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinBase/EOS_Base
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/EOS_Base/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinBase/HydroBase
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/HydroBase/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinBase/StaticConformal
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/StaticConformal/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinBase/TmunuBase
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinBase/TmunuBase/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinEOS/EOS_Hybrid
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinEOS/EOS_Hybrid/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinEOS/EOS_IdealFluid
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinEOS/EOS_IdealFluid/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinEOS/EOS_Omni
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinEOS/EOS_Omni/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinEOS/EOS_Polytrope
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinEOS/EOS_Polytrope/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinEvolve/GRHydro
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinEvolve/GRHydro/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinEvolve/LegoExcision
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinEvolve/LegoExcision/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinEvolve/NewRad
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinEvolve/NewRad/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/DistortedBHIVP
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/DistortedBHIVP/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/Exact
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/Exact/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/GRHydro_InitData
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/GRHydro_InitData/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/Hydro_InitExcision
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/Hydro_InitExcision/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/IDAnalyticBH
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/IDAnalyticBH/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/IDAxiBrillBH
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/IDAxiBrillBH/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/IDAxiOddBrillBH
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/IDAxiOddBrillBH/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/IDBrillData
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/IDBrillData/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/IDConstraintViolate
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/IDConstraintViolate/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/IDFileADM
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/IDFileADM/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/IDLinearWaves
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/IDLinearWaves/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/Meudon_Bin_BH
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/Meudon_Bin_BH/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/Meudon_Bin_NS
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/Meudon_Bin_NS/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/Meudon_Mag_NS
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/Meudon_Mag_NS/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/NoExcision
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/NoExcision/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/RotatingDBHIVP
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/RotatingDBHIVP/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/TOVSolver
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/TOVSolver/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinInitialData/TwoPunctures
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinInitialData/TwoPunctures/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinUtils/SetMask_SphericalSurface
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinUtils/SetMask_SphericalSurface/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinUtils/TGRtensor
+      from repository: http://svn.einsteintoolkit.org/cactus/EinsteinUtils/TGRtensor/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: PITTNullCode/NullConstr
+      from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullConstr/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: PITTNullCode/NullDecomp
+      from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullDecomp/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: PITTNullCode/NullEvolve
+      from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullEvolve/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: PITTNullCode/NullExact
+      from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullExact/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: PITTNullCode/NullGrid
+      from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullGrid/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: PITTNullCode/NullInterp
+      from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullInterp/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: PITTNullCode/NullNews
+      from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullNews/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: PITTNullCode/NullPsiInt
+      from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullPsiInt/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: PITTNullCode/NullSHRExtract
+      from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullSHRExtract/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: PITTNullCode/NullVars
+      from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/NullVars/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: PITTNullCode/SphericalHarmonicDecomp
+      from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/SphericalHarmonicDecomp/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: PITTNullCode/SphericalHarmonicRecon
+      from repository: http://svn.einsteintoolkit.org/cactus/PITTNullCode/SphericalHarmonicRecon/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinExact/doc
+      from repository: git://github.com/barrywardell/EinsteinExact
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinExact/m
+      from repository: git://github.com/barrywardell/EinsteinExact
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinExact/tests
+      from repository: git://github.com/barrywardell/EinsteinExact
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinExact/EinsteinExact_Test
+      from repository: git://github.com/barrywardell/EinsteinExact
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinExact/GaugeWave
+      from repository: git://github.com/barrywardell/EinsteinExact
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinExact/KerrSchild
+      from repository: git://github.com/barrywardell/EinsteinExact
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinExact/Minkowski
+      from repository: git://github.com/barrywardell/EinsteinExact
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinExact/ModifiedSchwarzschildBL
+      from repository: git://github.com/barrywardell/EinsteinExact
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinExact/ShiftedGaugeWave
+      from repository: git://github.com/barrywardell/EinsteinExact
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: EinsteinExact/Vaidya2
+      from repository: git://github.com/barrywardell/EinsteinExact
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: ExternalLibraries/BLAS
+      from repository: http://svn.cactuscode.org/projects/ExternalLibraries/BLAS/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: ExternalLibraries/FFTW3
+      from repository: http://svn.cactuscode.org/projects/ExternalLibraries/FFTW3/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: ExternalLibraries/GSL
+      from repository: http://svn.cactuscode.org/projects/ExternalLibraries/GSL/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: ExternalLibraries/HDF5
+      from repository: http://svn.cactuscode.org/projects/ExternalLibraries/HDF5/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: ExternalLibraries/hwloc
+      from repository: http://svn.cactuscode.org/projects/ExternalLibraries/hwloc/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: ExternalLibraries/LAPACK
+      from repository: http://svn.cactuscode.org/projects/ExternalLibraries/LAPACK/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: ExternalLibraries/libjpeg
+      from repository: http://svn.cactuscode.org/projects/ExternalLibraries/libjpeg/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: ExternalLibraries/LORENE
+      from repository: http://svn.cactuscode.org/projects/ExternalLibraries/LORENE/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: ExternalLibraries/OpenSSL
+      from repository: http://svn.cactuscode.org/projects/ExternalLibraries/OpenSSL/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: ExternalLibraries/zlib
+      from repository: http://svn.cactuscode.org/projects/ExternalLibraries/zlib/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: TAT/TATelliptic
+      from repository: http://svn.cactuscode.org/projects/TAT/TATelliptic/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: AEIThorns/ADMMass
+      from repository: http://svn.aei.mpg.de/numrel/AEIThorns/ADMMass/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: AEIThorns/AEILocalInterp
+      from repository: http://svn.aei.mpg.de/numrel/AEIThorns/AEILocalInterp/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: AEIThorns/PunctureTracker
+      from repository: http://svn.aei.mpg.de/numrel/AEIThorns/PunctureTracker/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: AEIThorns/SystemStatistics
+      from repository: http://svn.aei.mpg.de/numrel/AEIThorns/SystemStatistics/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: LSUThorns/QuasiLocalMeasures
+      from repository: https://svn.cct.lsu.edu/repos/numrel/LSUThorns/QuasiLocalMeasures/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: LSUThorns/SummationByParts
+      from repository: https://svn.cct.lsu.edu/repos/numrel/LSUThorns/SummationByParts/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: LSUThorns/Vectors
+      from repository: https://svn.cct.lsu.edu/repos/numrel/LSUThorns/Vectors/trunk
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: KrancNumericalTools/GenericFD
+      from repository: git://github.com/ianhinder/Kranc.git
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: McLachlan/doc
+      from repository: git://carpetcode.org/McLachlan
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: McLachlan/m
+      from repository: git://carpetcode.org/McLachlan
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: McLachlan/par
+      from repository: git://carpetcode.org/McLachlan
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: McLachlan/ML_ADMConstraints
+      from repository: git://carpetcode.org/McLachlan
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: McLachlan/ML_ADMQuantities
+      from repository: git://carpetcode.org/McLachlan
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: McLachlan/ML_BSSN
+      from repository: git://carpetcode.org/McLachlan
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: McLachlan/ML_BSSN_Helper
+      from repository: git://carpetcode.org/McLachlan
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: McLachlan/ML_BSSN_Test
+      from repository: git://carpetcode.org/McLachlan
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: McLachlan/ML_CCZ4
+      from repository: git://carpetcode.org/McLachlan
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: McLachlan/ML_CCZ4_Helper
+      from repository: git://carpetcode.org/McLachlan
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: McLachlan/ML_CCZ4_Test
+      from repository: git://carpetcode.org/McLachlan
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: McLachlan/ML_WaveToy
+      from repository: git://carpetcode.org/McLachlan
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/doc
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/Carpet
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/CarpetEvolutionMask
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/CarpetIOASCII
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/CarpetIOBasic
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/CarpetIOHDF5
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/CarpetIOScalar
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/CarpetInterp
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/CarpetInterp2
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/CarpetLib
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/CarpetMask
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/CarpetReduce
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/CarpetRegrid
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/CarpetRegrid2
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/CarpetSlab
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/CarpetTracker
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: Carpet/LoopControl
+      from repository: http://www.carpetcode.org/hg/carpet
+                 into: ./arrangements
+-----------------------------------------------------------------
+  Checking out module: GetComponents
+      from repository: git://github.com/gridaphobe/CRL.git
+                 into: ./bin
+-----------------------------------------------------------------
+  197 components checked out successfully.
+  0 components updated successfully.
+
+  Time Elapsed: 3 minutes, 8 seconds
+
++ checkout=1
++ break
