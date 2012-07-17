@@ -1,0 +1,95 @@
+#==============================================================================
+# single rotating black hole
+#==============================================================================
+
+ActiveThorns = " adm RotatingDBHIVP coordbase coordgauge staticconformal spacemask admbase admcoupling admmacros admanalysis ellbase cartgrid3d time pugh pughreduce pughslab ioascii ioutil iobasic adm admconstraints symbase boundary pughinterp LocalInterp nanchecker LocalReduce"
+IOBasic::outScalar_vars = " admbase::metric admbase::curv admbase::lapse admbase::shift admconstraints::momy admconstraints::ham "
+IOBasic::outInfo_vars = " admconstraints::ham admbase::alp "
+IOASCII::out1D_vars = " admbase::metric admbase::curv admbase::lapse admbase::shift admconstraints::momy admconstraints::ham "
+
+IOASCII::out2D_vars = ""
+
+#==============================================================================
+# MODEL preisco 
+#==============================================================================
+
+admbase::initial_data                  = "rotatingdbh"
+admbase::metric_type = "static conformal"
+
+rotatingdbhivp::amp      = 0.5
+rotatingdbhivp::eta0     = 0.0
+rotatingdbhivp::sigma    = 1.0
+rotatingdbhivp::byJ      = 10.0
+rotatingdbhivp::mm       = 2.0
+rotatingdbhivp::etamax   = 6.0
+rotatingdbhivp::neta     = 102
+rotatingdbhivp::ntheta   = 27
+rotatingdbhivp::nphi     = 5
+
+#==============================================================================
+# generic output directory
+#==============================================================================
+
+IO::out_dir="test_rdbh"
+
+#==============================================================================
+
+driver::global_nx                       = 30
+driver::global_ny                       = 30
+driver::global_nz                       = 30
+
+
+time::dtfac                             = 0.25
+
+grid::type                              = "byspacing"
+
+grid::dxyz                              = 0.1
+grid::domain                            = "full"
+
+pugh::ghost_size                        = 2
+
+cactus::cctk_itlast                     = 1
+
+
+#==============================================================================
+# Standard ADM_BSSN evolution
+#==============================================================================
+
+
+
+admbase::evolution_method              = "adm"
+
+
+#==============================================================================
+# lapse
+#==============================================================================
+
+admbase::lapse_evolution_method         = "geodesic"
+
+#==============================================================================
+# NaNchecker
+#==============================================================================
+
+NaNChecker::check_every 	=	10
+NaNChecker::check_vars	 	=	"admbase::metric admbase::curv"
+NaNChecker::action_if_found	=	"abort"
+
+
+
+
+#==============================================================================
+# 1D output
+#==============================================================================
+
+
+
+
+IOBasic::outScalar_every                = 1
+IOASCII::out1D_every                    = 10
+IOBasic::outInfo_every                  = 10
+
+#IO::out_xline_y				= 2.342904144
+#IO::out_zline_y				= 2.342904144
+
+
+

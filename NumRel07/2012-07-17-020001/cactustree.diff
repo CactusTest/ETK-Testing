@@ -1,0 +1,278 @@
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus: TEST.1
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus: TEST.2
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus: cactusjar.git
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus: exe
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus: log
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus/repos/carpet/.hg/dirstate and /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/repos/carpet/.hg/dirstate differ
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus/simfactory/lib/archive: __init__.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus/simfactory/lib/archive: petashare.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus/simfactory/lib/archive: uberftp.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus/simfactory/lib: libutil.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus/simfactory/lib: pyini.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus/simfactory/lib: restartlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus/simfactory/lib: sim-build.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus/simfactory/lib: sim-info.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus/simfactory/lib: sim-manage.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus/simfactory/lib: sim-sync.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus/simfactory/lib: sim-util.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus/simfactory/lib: simarchive.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus/simfactory/lib: simdb.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus/simfactory/lib: simdt.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus/simfactory/lib: simenv.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus/simfactory/lib: simlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus/simfactory/lib: simopts.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus/simfactory/lib: simproperties.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus/simfactory/lib: simremote.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus/simfactory/lib: simrestart.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus/simfactory/lib: simsubs.pyc
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus/src/param.ccl /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/src/param.ccl
+93a94,105
+> # these options are intended to help debugging schedule files. Do not rely on
+> # them to ensure any particular ordering.
+> KEYWORD schedule_sort_mode "How to behave when no explicit ordering is prescribed between itemse" STEERABLE=RECOVER
+> {
+>   "none"       :: "no special ordering is enforced"
+>   "ascending"  :: "sorted alphabetically by thorn name and item name"
+>   "descending" :: "sorted in reverse alphabetical order by thorn name and item name"
+> } "none"
+> 
+> BOOLEAN schedule_sort_warnings "Output warnings if a schedule item refers to a non-existing item for ordering"
+> {
+> } "no"
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus/src/schedule/Schedule.h /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/src/schedule/Schedule.h
+46a47,48
+> typedef enum {sort_order_none, sort_order_ascending, sort_order_descending} t_sort_order;
+> 
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-16-020001/Cactus/src/schedule/ScheduleCreater.c /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/src/schedule/ScheduleCreater.c
+14a15
+> #include "cctk.h"
+15a17
+> #include "cctk_Parameters.h"
+17a20,21
+> #include "util_String.h"
+> 
+45a50,51
+> static const char * ScheduleModifierTypeName(t_sched_modifier_type type);
+> 
+48a55,58
+> static t_sort_order ScheduleTranslateSortOrder(const char *order);
+> 
+> static int ScheduleCompareAscending(const void *a, const void *b);
+> static int ScheduleCompareDescending(const void *a, const void *b);
+695a706,811
+>    @routine    ScheduleTranslateSortOrder
+>    @date       Sun Jul 15 20:29:29 PDT 2012
+>    @author     Roland Haas
+>    @desc 
+>    Translates a sorting order type from a string to an enum.
+>    @enddesc 
+>    @calls     
+>    @calledby   
+>    @history 
+>  
+>    @endhistory 
+>    @var     order
+>    @vdesc   The order string
+>    @vtype   const char *
+>    @vio     in
+>    @vcomment 
+>  
+>    @endvar 
+> 
+>    @returntype t_sort_order
+>    @returndesc 
+>    The enumerated sort order.
+>    @endreturndesc
+> @@*/
+> static t_sort_order ScheduleTranslateSortOrder(const char *order)
+> {
+>   t_sort_order retval;
+> 
+>   if(CCTK_Equals(order, "none"))
+>   {
+>     retval = sort_order_none;
+>   }
+>   else if(CCTK_Equals(order, "ascending"))
+>   {
+>     retval = sort_order_ascending;
+>   }
+>   else if(CCTK_Equals(order, "descending"))
+>   {
+>     retval = sort_order_descending;
+>   }
+>   else
+>   {
+>     CCTK_VWarn(CCTK_WARN_ABORT, __LINE__, __FILE__, "Cactus",
+>         "Unknown sort ordering type '%s'", order);
+>     retval = -1; /* NOTREACHED */
+>   }
+> 
+> #ifdef DEBUG_SCHEDULAR
+>   printf("Translated sort order %s to %d\n", order, retval);
+> #endif
+> 
+>   return retval;
+> }
+> 
+> 
+>  /*@@
+>    @routine    ScheduleModifierTypeName
+>    @date       Sun Jul 15 18:42:48 PDT 2012
+>    @author     Roland Haas
+>    @desc 
+>    Translates a modifier type from an enum to a string.
+>    @enddesc 
+>    @calls     
+>    @calledby   
+>    @history 
+>  
+>    @endhistory 
+>    @var     type
+>    @vdesc   The modifier type
+>    @vtype   t_sched_modifier_type
+>    @vio     in
+>    @vcomment 
+>  
+>    @endvar 
+> 
+>    @returntype const char *
+>    @returndesc 
+>    The named schedule modifier type.
+>    @endreturndesc
+> @@*/
+> static const char *ScheduleModifierTypeName(t_sched_modifier_type type)
+> {
+>   switch(type)
+>   {
+>     case sched_before:
+>       return "before";
+>       break;
+>     case sched_after:
+>       return "after";
+>       break;
+>     case sched_while:
+>       return "while";
+>       break;
+>     case sched_if:
+>       return "if";
+>       break;
+>     default:
+>       CCTK_VWarn(CCTK_WARN_ABORT, __LINE__, __FILE__, "Cactus",
+>           "Internal error: Unknown schedule modifier type %d",
+>           (int)type);
+>       break;
+>   }
+>   return NULL; /* NOTREACHED */
+> }
+> 
+>  /*@@
+731a848,849
+>   DECLARE_CCTK_PARAMETERS;
+> 
+740a859
+>   int sort_order;
+749a869,880
+> 
+>   sort_order = ScheduleTranslateSortOrder(schedule_sort_mode);
+>   if(sort_order == sort_order_ascending)
+>   {
+>     qsort(group->scheditems, group->n_scheditems,
+>         sizeof(*group->scheditems), ScheduleCompareAscending);
+>   }
+>   else if(sort_order == sort_order_descending)
+>   {
+>     qsort(group->scheditems, group->n_scheditems,
+>         sizeof(*group->scheditems), ScheduleCompareDescending);
+>   }
+764,766c895,902
+< #ifdef DEBUG_SCHEDULAR
+<       printf("Scheduling against item %d '%s' - mod-type %d\n", number, group->scheditems[number].name, modifier->type);
+< #endif
+---
+>       if(number < 0 && schedule_sort_warnings)
+>       {
+>         CCTK_VWarn(CCTK_WARN_ALERT, __LINE__, __FILE__, "Cactus",
+>             "Modifier '%s' of schedule item '%s' in group '%s' refers to non-existing item '%s'.",
+>             ScheduleModifierTypeName(modifier->type), group->scheditems[item].name,
+>             group->name, modifier->argument);
+>       }
+> 
+768a905,907
+> #ifdef DEBUG_SCHEDULAR
+>         printf("Scheduling against item %d '%s' - mod-type %d\n", number, group->scheditems[number].name, modifier->type);
+> #endif
+1048a1188,1260
+> }
+> 
+>  /*@@
+>    @routine    ScheduleCompareAscending
+>    @date       Mon Jul 16 07:27:39 PDT 2012
+>    @author     Roland Haas
+>    @desc
+>    Compare two schedule items based on their thorn and routine names
+>    @enddesc
+>    @calls
+>    @calledby
+>    @history
+> 
+>    @endhistory
+>    @var     a
+>    @vdesc   The first schedule items to work on
+>    @vtype   t_sched_item *
+>    @vio     ino
+>    @vcomment
+> 
+>    @var     b
+>    @vdesc   The first schedule items to work on
+>    @vtype   t_sched_item *
+>    @vio     ino
+>    @vcomment
+> 
+>    @returntype int
+>    @returndesc
+>    Returns +strcmpi(a->name, b->name)
+>    @endreturndesc
+> @@*/
+> static int ScheduleCompareAscending(const void *a_, const void *b_)
+> {
+>   const t_sched_item *a = a_;
+>   const t_sched_item *b = b_;
+>   return +Util_StrCmpi(a->name, b->name);
+> }
+> 
+>  /*@@
+>    @routine    ScheduleCompareDescending
+>    @date       Mon Jul 16 07:27:39 PDT 2012
+>    @author     Roland Haas
+>    @desc
+>    Compare (in reverse alphabetical order) two schedule items based on their
+>    thorn and routine names
+>    @enddesc
+>    @calls
+>    @calledby
+>    @history
+> 
+>    @endhistory
+>    @var     a
+>    @vdesc   The first schedule items to work on
+>    @vtype   t_sched_item *
+>    @vio     ino
+>    @vcomment
+> 
+>    @var     b
+>    @vdesc   The first schedule items to work on
+>    @vtype   t_sched_item *
+>    @vio     ino
+>    @vcomment
+> 
+>    @returntype int
+>    @returndesc
+>    Returns -strcmpi(a->name, b->name)
+>    @endreturndesc
+> @@*/
+> static int ScheduleCompareDescending(const void *a_, const void *b_)
+> {
+>   const t_sched_item *a = a_;
+>   const t_sched_item *b = b_;
+>   return -Util_StrCmpi(a->name, b->name);
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/utils: Syntax

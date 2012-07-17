@@ -1,0 +1,1446 @@
+------------------------------------------------------------------------
+
+
+  Warnings for configuration sim
+  --------
+
+
+  Tests missed for lack of thorns:
+
+    tov_whisky in ADMMass
+      (AEIThorns/ADMMass/test/tov_whisky.par)
+      Missing:  WHISKY WHISKY_TOVSOLVERC
+
+    outer-buffers in Carpet
+      (Carpet/Carpet/test/outer-buffers.par)
+      Missing:  WAVEMOL IDWAVEMOL
+
+    input_initial_data in CarpetIOHDF5
+      (Carpet/CarpetIOHDF5/test/input_initial_data.par)
+      Missing:  WAVETOYMOL
+
+    waveinterp-1p in CarpetInterp
+      (Carpet/CarpetInterp/test/waveinterp-1p.par)
+      Missing:  WAVEMOL IDWAVEMOL
+
+    waveinterp-2p in CarpetInterp
+      (Carpet/CarpetInterp/test/waveinterp-2p.par)
+      Missing:  WAVEMOL IDWAVEMOL
+
+    test_BSSN_MoL_Carpet in CarpetRegrid
+      (1+log sliced black hole, ADM_BSSN, Iterative CN, Carpet with 2 levels)
+      Missing:  BSSN_MOL
+
+    test_BSSN_MoL_Carpet_keep in CarpetRegrid
+      (1+log sliced black hole, ADM_BSSN, Iterative CN, Carpet with 2 levels)
+      Missing:  BSSN_MOL
+
+    test_BSSN_MoL_Carpet in CarpetRegrid2
+      (1+log sliced black hole, ADM_BSSN, Iterative CN, Carpet with 2 levels)
+      Missing:  BSSN_MOL
+
+    test_dbh in DistortedBHIVP
+      (EinsteinInitialData/DistortedBHIVP/test/test_dbh.par)
+      Missing:  FLEXIO
+
+    xeon_test_dbh in DistortedBHIVP
+      (EinsteinInitialData/DistortedBHIVP/test/xeon_test_dbh.par)
+      Missing:  EINSTEIN
+
+    test_brilldata_1 in IDBrillData
+      (Brill wave initial data (Physical, BAM))
+      Missing:  BAM_ELLIPTIC
+
+    test_brilldata_2 in IDBrillData
+      (Brill wave initial data (Conformal, BAM))
+      Missing:  BAM_ELLIPTIC
+
+    test_legoexcision in LegoExcision
+      (LegoExcision with AHFinder on schwarzschild BH)
+      Missing:  ADM_BSSN
+
+    ML_BSSN_MP_O8_bh in ML_BSSN_Test
+      (McLachlan/ML_BSSN_Test/test/ML_BSSN_MP_O8_bh.par)
+      Missing:  ML_BSSN_MP_O8 ML_BSSN_MP_O8_HELPER COORDINATES INTERPOLATE2
+
+    ML_BSSN_O8_sgw3d in ML_BSSN_Test
+      (McLachlan/ML_BSSN_Test/test/ML_BSSN_O8_sgw3d.par)
+      Missing:  ML_BSSN_O8 ML_BSSN_O8_HELPER
+
+    bam in TwoPunctures
+      (EinsteinInitialData/TwoPunctures/test/bam.par)
+      Missing:  BAM_ELLIPTIC
+
+    idpuncture in TwoPunctures
+      (EinsteinInitialData/TwoPunctures/test/idpuncture.par)
+      Missing:  IDPUNCTURE TATJACOBI TATMG TATPETSC
+
+
+  Tests missed for different number of processors required:
+
+    checkpointML in AHFinderDirect
+      (EinsteinAnalysis/AHFinderDirect/test/checkpointML.par)
+      Requires 1 processors
+
+    checkpointML-EE in AHFinderDirect
+      (EinsteinAnalysis/AHFinderDirect/test/checkpointML-EE.par)
+      Requires 1 processors
+
+    misner1.2-025 in AHFinderDirect
+      (EinsteinAnalysis/AHFinderDirect/test/misner1.2-025.par)
+      Requires 1 processors
+
+    recoverML in AHFinderDirect
+      (EinsteinAnalysis/AHFinderDirect/test/recoverML.par)
+      Requires 1 processors
+
+    recoverML-EE in AHFinderDirect
+      (EinsteinAnalysis/AHFinderDirect/test/recoverML-EE.par)
+      Requires 1 processors
+
+    CarpetEvolutionMask_test in CarpetEvolutionMask
+      (1+log sliced black hole, ML_BSSN, Iterative CN, Carpet with 3 levels)
+      Requires 1 processors
+
+    CarpetEvolutionMask_test_off in CarpetEvolutionMask
+      (1+log sliced black hole, ML_BSSN, Iterative CN, Carpet with 3 levels)
+      Requires 1 processors
+
+    CarpetWaveToyNewRecover_test_1proc in CarpetIOHDF5
+      (Carpet/CarpetIOHDF5/test/CarpetWaveToyNewRecover_test_1proc.par)
+      Requires 1 processors
+
+    CarpetWaveToyRecover_test_1proc in CarpetIOHDF5
+      (Carpet/CarpetIOHDF5/test/CarpetWaveToyRecover_test_1proc.par)
+      Requires 1 processors
+
+    CarpetWaveToyRecover_test_4proc in CarpetIOHDF5
+      (Carpet/CarpetIOHDF5/test/CarpetWaveToyRecover_test_4proc.par)
+      Requires 4 processors
+
+    nonstaggered in CarpetReduce
+      (Carpet/CarpetReduce/test/nonstaggered.par)
+      Requires 1 processors
+
+    nonstaggered_excl in CarpetReduce
+      (Carpet/CarpetReduce/test/nonstaggered_excl.par)
+      Requires 1 processors
+
+    staggered in CarpetReduce
+      (Carpet/CarpetReduce/test/staggered.par)
+      Requires 1 processors
+
+    test_ah in Dissipation
+      (distorted BH, no rotation, fixed mesh refinement evolution with carpet)
+      Requires 1 processors
+
+    test_ob in Dissipation
+      (distorted BH, no rotation, fixed mesh refinement evolution with carpet)
+      Requires 1 processors
+
+    GaugeWave in EinsteinExact_Test
+      (EinsteinExact/EinsteinExact_Test/test/GaugeWave.par)
+      Requires 1 processors
+
+    KerrSchild in EinsteinExact_Test
+      (EinsteinExact/EinsteinExact_Test/test/KerrSchild.par)
+      Requires 1 processors
+
+    Minkowski in EinsteinExact_Test
+      (EinsteinExact/EinsteinExact_Test/test/Minkowski.par)
+      Requires 1 processors
+
+    ModifiedSchwarzschildBL in EinsteinExact_Test
+      (EinsteinExact/EinsteinExact_Test/test/ModifiedSchwarzschildBL.par)
+      Requires 1 processors
+
+    ShiftedGaugeWave in EinsteinExact_Test
+      (EinsteinExact/EinsteinExact_Test/test/ShiftedGaugeWave.par)
+      Requires 1 processors
+
+    Vaidya2 in EinsteinExact_Test
+      (EinsteinExact/EinsteinExact_Test/test/Vaidya2.par)
+      Requires 1 processors
+
+    bhns_eval in TwoPunctures
+      (EinsteinInitialData/TwoPunctures/test/bhns_eval.par)
+      Requires 1 processors
+
+    bhns_interp in TwoPunctures
+      (EinsteinInitialData/TwoPunctures/test/bhns_interp.par)
+      Requires 1 processors
+
+    twopunctures in TwoPunctures
+      (EinsteinInitialData/TwoPunctures/test/twopunctures.par)
+      Requires 1 processors
+
+    teukolsky in WeylScal4
+      (EinsteinAnalysis/WeylScal4/test/teukolsky.par)
+      Requires 1 processors
+
+    teukolskyID in WeylScal4
+      (EinsteinAnalysis/WeylScal4/test/teukolskyID.par)
+      Requires 1 processors
+
+    teukolskyParity in WeylScal4
+      (EinsteinAnalysis/WeylScal4/test/teukolskyParity.par)
+      Requires 1 processors
+
+
+  Tests with different number of test files:
+
+    Hydro_InitExcision (halfsphere_pugh_ppm)
+      Test created 1 extra files: 
+    IDAxiOddBrillBH (E2xeon_test_axioddbh)
+      Test created 12 extra files: 
+    IDAxiOddBrillBH (test_axioddbh)
+      Test created 24 extra files: 
+    Multipole (test_22)
+      Test created 4 extra files: 
+    Multipole (test_31)
+      Test created 4 extra files: 
+    Multipole (test_44)
+      Test created 4 extra files: 
+    RotatingDBHIVP (test_rdbh)
+      Test created 24 extra files: 
+    RotatingSymmetry180 (Kerr-rotating-180)
+      Test created 4 extra files: 
+    RotatingSymmetry180 (Kerr-rotating-180-staggered)
+      Test created 4 extra files: 
+    RotatingSymmetry180 (Kerr-staggered)
+      Test created 4 extra files: 
+
+
+------------------------------------------------------------------------
+
+
+  Testsuite Summary for configuration sim
+
+  -----------------
+
+
+  Suitable testsuite parameter files found in:
+
+
+    ADM [4]
+
+    ADMConstraints [4]
+
+    ADMMass [2]
+
+    AHFinder [2]
+
+    AHFinderDirect [24]
+
+    Carpet [2]
+
+    CarpetIOASCII [2]
+
+    CarpetIOHDF5 [1]
+
+    CarpetIOScalar [4]
+
+    Cartoon2D [3]
+
+    DistortedBHIVP [1]
+
+    EOS_Omni [1]
+
+    Exact [5]
+
+    Extract [2]
+
+    GRHydro [6]
+
+    Hydro_InitExcision [16]
+
+    IDAnalyticBH [3]
+
+    IDAxiBrillBH [2]
+
+    IDAxiOddBrillBH [2]
+
+    IDConstraintViolate [1]
+
+    IDLinearWaves [2]
+
+    IDScalarWaveElliptic [1]
+
+    IOHDF5 [1]
+
+    InterpToArray [2]
+
+    ML_BSSN_Test [4]
+
+    ML_CCZ4_Test [2]
+
+    Multipole [7]
+
+    NaNChecker [1]
+
+    QuasiLocalMeasures [6]
+
+    RotatingDBHIVP [2]
+
+    RotatingSymmetry180 [5]
+
+    RotatingSymmetry90 [3]
+
+    SlabTest [1]
+
+    SphericalHarmonicRecon [1]
+
+    TOVSolver [5]
+
+    TestArrays [2]
+
+    TestComplex [2]
+
+    TestFpointerNULL [1]
+
+    TestGlobalReduce [17]
+
+    TestLocalReduce [3]
+
+    TestPar [1]
+
+    TestTable [1]
+
+    Vectors [1]
+
+    WaveBinarySource [1]
+
+    WaveToyC [2]
+
+    WaveToyCXX [1]
+
+    WaveToyExtra [1]
+
+    WaveToyF77 [2]
+
+    WaveToyF90 [3]
+
+    WaveToyFreeF90 [1]
+
+
+
+  Details:
+
+
+    ADM:
+
+      test_ADM_1
+
+      test_ADM_2
+
+      test_ADM_3
+
+      test_ADM_4
+
+    ADMConstraints:
+
+      ADMConstraints_Mask
+
+      ADMConstraints_Physical
+
+      ADMConstraints_Shift
+
+      test_ADM
+
+    ADMMass:
+
+      tov
+
+      tov_carpet
+
+    AHFinder:
+
+      test_AHF_1
+
+      test_AHF_2
+
+    AHFinderDirect:
+
+      Kerr
+
+      Kerr-Cartoon
+
+      Kerr-Cartoon-EE
+
+      Kerr-EE
+
+      Kerr-definition-expansion
+
+      Kerr-definition-expansion-EE
+
+      Kerr-definition-expansion-product
+
+      Kerr-definition-expansion-product-EE
+
+      Kerr-definition-inner-expansion
+
+      Kerr-definition-inner-expansion-EE
+
+      Kerr-definition-mean-curvature
+
+      Kerr-definition-mean-curvature-EE
+
+      Kerr-modification-radius
+
+      Kerr-modification-radius-EE
+
+      Kerr-rotating-180
+
+      Kerr-rotating-180-EE
+
+      Kerr-rotating-90
+
+      Kerr-rotating-90-EE
+
+      Kerr-selection-areal-radius
+
+      Kerr-selection-areal-radius-EE
+
+      Kerr-selection-areal-radius-definition-expansion-product
+
+      Kerr-selection-areal-radius-definition-expansion-product-EE
+
+      Kerr-selection-mean-coordinate-radius
+
+      Kerr-selection-mean-coordinate-radius-EE
+
+    Carpet:
+
+      no-overlap
+
+      overlap
+
+    CarpetIOASCII:
+
+      compact
+
+      coords
+
+    CarpetIOHDF5:
+
+      nobuffers
+
+    CarpetIOScalar:
+
+      coords
+
+      coords2
+
+      coords3
+
+      coords4
+
+    Cartoon2D:
+
+      schw-0050
+
+      test_cartoon_2
+
+      test_cartoon_3
+
+    DistortedBHIVP:
+
+      E2xeon_test_dbh
+
+    EOS_Omni:
+
+      eos_omni
+
+    Exact:
+
+      KS-tilted
+
+      Schwarzschild_EF
+
+      bowl-evolution
+
+      bowl-init
+
+      de_Sitter
+
+    Extract:
+
+      extract_physical
+
+      test_extract
+
+    GRHydro:
+
+      GRHydro_test_shock
+
+      GRHydro_test_shock_ppm
+
+      GRHydro_test_tov_ppm_ML
+
+      GRHydro_test_tov_ppm_ML_disable_internal_excision
+
+      GRHydro_test_tov_ppm_no_trp_ML
+
+      test_tov_carpet_refined_nosync
+
+    Hydro_InitExcision:
+
+      diag_flip_pugh_eno
+
+      diag_flip_pugh_ppm
+
+      diag_flip_pugh_tvd
+
+      diag_pugh_eno
+
+      diag_pugh_ppm
+
+      diag_pugh_tvd
+
+      halfsphere_pugh_ppm
+
+      halfsphere_pugh_tvd
+
+      sphere_pugh_ppm
+
+      sphere_pugh_tvd
+
+      x_flip_pugh_eno
+
+      x_flip_pugh_ppm
+
+      x_flip_pugh_tvd
+
+      x_pugh_eno
+
+      x_pugh_ppm
+
+      x_pugh_tvd
+
+    IDAnalyticBH:
+
+      kerr
+
+      test_bl
+
+      test_misner
+
+    IDAxiBrillBH:
+
+      test_axibrill
+
+      test_axibrill_nostagger
+
+    IDAxiOddBrillBH:
+
+      E2xeon_test_axioddbh
+
+      test_axioddbh
+
+    IDConstraintViolate:
+
+      ConstraintViolate
+
+    IDLinearWaves:
+
+      test_pw_ADM_leap
+
+      test_pw_ADM_sl
+
+    IDScalarWaveElliptic:
+
+      test_waveell
+
+    IOHDF5:
+
+      test_recover
+
+    InterpToArray:
+
+      wavetoy
+
+      wavetoy2
+
+    ML_BSSN_Test:
+
+      ML_BSSN_NewRad
+
+      ML_BSSN_sgw3d
+
+      ML_BSSN_sgw3d_harmonic
+
+      ML_BSSN_sgw3d_rhs
+
+    ML_CCZ4_Test:
+
+      ML_CCZ4_sgw3d
+
+      ML_CCZ4_sgw3d_rhs
+
+    Multipole:
+
+      test_22
+
+      test_31
+
+      test_44
+
+      test_driscollhealy
+
+      test_rads
+
+      test_simpson
+
+      test_vars
+
+    NaNChecker:
+
+      nancount
+
+    QuasiLocalMeasures:
+
+      qlm-bl
+
+      qlm-ks
+
+      qlm-ks-boosted
+
+      qlm-ks-shifted
+
+      qlm-ks-tilted
+
+      qlm-minkowski
+
+    RotatingDBHIVP:
+
+      E2xeon_test_rdbh
+
+      test_rdbh
+
+    RotatingSymmetry180:
+
+      Kerr
+
+      Kerr-rotating-180
+
+      Kerr-rotating-180-staggered
+
+      Kerr-staggered
+
+      KerrSchild-rotating-180
+
+    RotatingSymmetry90:
+
+      Kerr-rotating-90
+
+      Kerr-rotating-90-staggered
+
+      KerrSchild-rotating-90
+
+    SlabTest:
+
+      slabtest
+
+    SphericalHarmonicRecon:
+
+      regression_test
+
+    TOVSolver:
+
+      test_one_boost_max
+
+      test_one_static_max
+
+      test_tov_carpet
+
+      test_two_av
+
+      test_two_max
+
+    TestArrays:
+
+      arrays
+
+      arrays0
+
+    TestComplex:
+
+      TestComplex
+
+      TestComplexPow
+
+    TestFpointerNULL:
+
+      test_fpointer_null
+
+    TestGlobalReduce:
+
+      TestAvg
+
+      TestAvg_dest0
+
+      TestMax
+
+      TestMax_dest0
+
+      TestMin
+
+      TestMin_dest0
+
+      TestScalar
+
+      TestSum
+
+      TestSum_dest0
+
+      TestWeightAvg
+
+      TestWeightMax
+
+      TestWeightMin
+
+      TestWeightSum
+
+      gaussianMax
+
+      gaussianMax_dest0
+
+      gaussianSum
+
+      gaussianSum_dest0
+
+    TestLocalReduce:
+
+      TestAvg
+
+      TestMax
+
+      TestSum
+
+    TestPar:
+
+      expressions
+
+    TestTable:
+
+      test-table
+
+    Vectors:
+
+      vectors
+
+    WaveBinarySource:
+
+      test_binary_1
+
+    WaveToyC:
+
+      test_rad
+
+      wave_output
+
+    WaveToyCXX:
+
+      test_rad
+
+    WaveToyExtra:
+
+      test_custom
+
+    WaveToyF77:
+
+      test_rad
+
+      test_rob
+
+    WaveToyF90:
+
+      test_rad
+
+      test_wavef90_flat
+
+      test_wavef90_zero
+
+    WaveToyFreeF90:
+
+      test_rad
+
+
+
+  Thorns with no valid testsuite parameter files:
+
+
+    ADMAnalysis
+    ADMBase
+    ADMCoupling
+    ADMMacros
+    AEILocalInterp
+    BLAS
+    Boundary
+    CalcK
+    CarpetEvolutionMask
+    CarpetIOBasic
+    CarpetInterp
+    CarpetInterp2
+    CarpetLib
+    CarpetMask
+    CarpetReduce
+    CarpetRegrid
+    CarpetRegrid2
+    CarpetSlab
+    CarpetTracker
+    CartGrid3D
+    Constants
+    CoordBase
+    CoordGauge
+    Dissipation
+    EHFinder
+    EOS_Base
+    EOS_Hybrid
+    EOS_IdealFluid
+    EOS_Polytrope
+    EinsteinExact_Test
+    EllBase
+    EllSOR
+    FFTW3
+    Formaline
+    Fortran
+    GRHydro_InitData
+    GSL
+    GaugeWave
+    GenericFD
+    HDF5
+    HTTPD
+    HTTPDExtra
+    HydroBase
+    Hydro_Analysis
+    IDBrillData
+    IDFileADM
+    IDScalarWave
+    IDScalarWaveC
+    IDScalarWaveCXX
+    IOASCII
+    IOBasic
+    IOHDF5Util
+    IOJpeg
+    IOUtil
+    InitBase
+    KerrSchild
+    LAPACK
+    LORENE
+    LegoExcision
+    LocalInterp
+    LocalReduce
+    LoopControl
+    ML_ADMConstraints
+    ML_ADMQuantities
+    ML_BSSN
+    ML_BSSN_Helper
+    ML_CCZ4
+    ML_CCZ4_Helper
+    ML_WaveToy
+    Meudon_Bin_BH
+    Meudon_Bin_NS
+    Meudon_Mag_NS
+    Minkowski
+    MoL
+    ModifiedSchwarzschildBL
+    NewRad
+    Nice
+    NoExcision
+    NoMPI
+    Noise
+    Norms
+    NullConstr
+    NullDecomp
+    NullEvolve
+    NullExact
+    NullGrid
+    NullInterp
+    NullNews
+    NullPsiInt
+    NullSHRExtract
+    NullVars
+    OpenSSL
+    PUGH
+    PUGHInterp
+    PUGHReduce
+    PUGHSlab
+    Periodic
+    PunctureTracker
+    ReflectionSymmetry
+    SetMask_SphericalSurface
+    ShiftedGaugeWave
+    Slab
+    Socket
+    SpaceMask
+    SphericalHarmonicDecomp
+    SphericalSurface
+    StaticConformal
+    SummationByParts
+    SymBase
+    SystemStatistics
+    TATelliptic
+    TGRtensor
+    TerminationTrigger
+    TestCoordinates
+    TestFortranDependencies1
+    TestFortranDependencies2
+    TestFreeF90
+    TestInclude1
+    TestInclude2
+    TestLoop
+    TestReduce
+    TestSchedule
+    TestStrings
+    TestTimers
+    TestTypes
+    Time
+    TimerReport
+    TmunuBase
+    TwoPunctures
+    Vaidya2
+    WeylScal4
+    hwloc
+    libjpeg
+    zlib
+
+
+------------------------------------------------------------------------
+
+
+  Run details for configuration sim
+
+      ADM: test_ADM_1
+         Success: 32 files compared, 1 differ in the last digits
+      ADM: test_ADM_2
+         Success: 32 files identical
+      ADM: test_ADM_3
+         Success: 32 files compared, 1 differ in the last digits
+      ADM: test_ADM_4
+         Success: 64 files compared, 5 differ in the last digits
+      ADMConstraints: ADMConstraints_Mask
+         Success: 40 files identical
+      ADMConstraints: ADMConstraints_Physical
+         Success: 36 files identical
+      ADMConstraints: ADMConstraints_Shift
+         Success: 40 files identical
+      ADMConstraints: test_ADM
+         Success: 16 files identical
+      ADMMass: tov
+         Success: 3 files identical
+      ADMMass: tov_carpet
+         Success: 3 files identical
+      AHFinder: test_AHF_1
+         Success: 12 files identical
+      AHFinder: test_AHF_2
+         Success: 12 files identical
+      AHFinderDirect: Kerr
+         Success: 2 files compared, 2 differ in the last digits
+      AHFinderDirect: Kerr-Cartoon
+         Success: 2 files compared, 2 differ in the last digits
+      AHFinderDirect: Kerr-Cartoon-EE
+         Success: 2 files compared, 2 differ in the last digits
+      AHFinderDirect: Kerr-EE
+         Success: 2 files compared, 2 differ in the last digits
+      AHFinderDirect: Kerr-definition-expansion
+         Success: 2 files compared, 2 differ in the last digits
+      AHFinderDirect: Kerr-definition-expansion-EE
+         Success: 2 files compared, 2 differ in the last digits
+      AHFinderDirect: Kerr-definition-expansion-product
+         Success: 2 files compared, 2 differ in the last digits
+      AHFinderDirect: Kerr-definition-expansion-product-EE
+         Success: 2 files compared, 1 differ in the last digits
+      AHFinderDirect: Kerr-definition-inner-expansion
+         Success: 2 files compared, 2 differ in the last digits
+      AHFinderDirect: Kerr-definition-inner-expansion-EE
+         Success: 2 files compared, 2 differ in the last digits
+      AHFinderDirect: Kerr-definition-mean-curvature
+         Success: 2 files compared, 2 differ in the last digits
+      AHFinderDirect: Kerr-definition-mean-curvature-EE
+         Success: 2 files compared, 2 differ in the last digits
+      AHFinderDirect: Kerr-modification-radius
+         Success: 2 files compared, 1 differ in the last digits
+      AHFinderDirect: Kerr-modification-radius-EE
+         Success: 2 files compared, 1 differ in the last digits
+      AHFinderDirect: Kerr-rotating-180
+         Success: 2 files compared, 2 differ in the last digits
+      AHFinderDirect: Kerr-rotating-180-EE
+         Success: 2 files compared, 2 differ in the last digits
+      AHFinderDirect: Kerr-rotating-90
+         Success: 2 files compared, 2 differ in the last digits
+      AHFinderDirect: Kerr-rotating-90-EE
+         Success: 2 files compared, 2 differ in the last digits
+      AHFinderDirect: Kerr-selection-areal-radius
+         Success: 2 files compared, 1 differ in the last digits
+      AHFinderDirect: Kerr-selection-areal-radius-EE
+         Success: 2 files compared, 2 differ in the last digits
+      AHFinderDirect: Kerr-selection-areal-radius-definition-expansion-product
+         Success: 2 files compared, 2 differ in the last digits
+      AHFinderDirect: Kerr-selection-areal-radius-definition-expansion-product-EE
+         Success: 2 files compared, 1 differ in the last digits
+      AHFinderDirect: Kerr-selection-mean-coordinate-radius
+         Success: 2 files compared, 1 differ in the last digits
+      AHFinderDirect: Kerr-selection-mean-coordinate-radius-EE
+         Success: 2 files compared, 1 differ in the last digits
+      Carpet: no-overlap
+         Success: 15 files identical
+      Carpet: overlap
+         Success: 15 files identical
+      CarpetIOASCII: compact
+         Success: 27 files identical
+      CarpetIOASCII: coords
+         Success: 27 files identical
+      CarpetIOHDF5: nobuffers
+         Success: 0 files identical
+      CarpetIOScalar: coords
+         Success: 5 files compared, 2 differ in the last digits
+      CarpetIOScalar: coords2
+         Success: 9 files compared, 6 differ in the last digits
+      CarpetIOScalar: coords3
+         Success: 36 files compared, 12 differ in the last digits
+      CarpetIOScalar: coords4
+         Success: 1 files compared, 1 differ in the last digits
+      Cartoon2D: schw-0050
+         Success: 280 files compared, 13 differ in the last digits
+      Cartoon2D: test_cartoon_2
+         Success: 144 files compared, 8 differ in the last digits
+      Cartoon2D: test_cartoon_3
+         Success: 144 files compared, 1 differ in the last digits
+      DistortedBHIVP: E2xeon_test_dbh
+         Success: 100 files compared, 44 differ in the last digits
+      EOS_Omni: eos_omni
+         Success: 1 files identical
+      Exact: KS-tilted
+         Success: 235 files compared, 17 differ in the last digits
+      Exact: Schwarzschild_EF
+         Success: 112 files identical
+      Exact: bowl-evolution
+         Success: 24 files identical
+      Exact: bowl-init
+         Success: 24 files compared, 1 differ in the last digits
+      Exact: de_Sitter
+         Success: 40 files compared, 3 differ in the last digits
+      Extract: extract_physical
+         Success: 60 files compared, 56 differ in the last digits
+      Extract: test_extract
+         Success: 60 files compared, 56 differ in the last digits
+      GRHydro: GRHydro_test_shock
+         Success: 48 files compared, 10 differ in the last digits
+      GRHydro: GRHydro_test_shock_ppm
+         Success: 48 files compared, 15 differ in the last digits
+      GRHydro: GRHydro_test_tov_ppm_ML
+         Success: 180 files compared, 41 differ in the last digits
+      GRHydro: GRHydro_test_tov_ppm_ML_disable_internal_excision
+         Success: 180 files compared, 41 differ in the last digits
+      GRHydro: GRHydro_test_tov_ppm_no_trp_ML
+         Success: 180 files compared, 44 differ in the last digits
+      GRHydro: test_tov_carpet_refined_nosync
+         Success: 3 files compared, 2 differ in the last digits
+      Hydro_InitExcision: diag_flip_pugh_eno
+         Success: 72 files compared, 59 differ in the last digits
+      Hydro_InitExcision: diag_flip_pugh_ppm
+         Success: 72 files compared, 55 differ in the last digits
+      Hydro_InitExcision: diag_flip_pugh_tvd
+         Success: 72 files compared, 60 differ in the last digits
+      Hydro_InitExcision: diag_pugh_eno
+         Success: 72 files compared, 58 differ in the last digits
+      Hydro_InitExcision: diag_pugh_ppm
+         Success: 72 files compared, 55 differ in the last digits
+      Hydro_InitExcision: diag_pugh_tvd
+         Success: 72 files compared, 55 differ in the last digits
+      Hydro_InitExcision: halfsphere_pugh_ppm
+         Success: 75 files identical
+      Hydro_InitExcision: halfsphere_pugh_tvd
+         Success: 75 files identical
+      Hydro_InitExcision: sphere_pugh_ppm
+         Success: 75 files compared, 59 differ in the last digits
+      Hydro_InitExcision: sphere_pugh_tvd
+         Success: 75 files identical
+      Hydro_InitExcision: x_flip_pugh_eno
+         Success: 72 files compared, 26 differ in the last digits
+      Hydro_InitExcision: x_flip_pugh_ppm
+         Success: 72 files compared, 27 differ in the last digits
+      Hydro_InitExcision: x_flip_pugh_tvd
+         Success: 72 files compared, 25 differ in the last digits
+      Hydro_InitExcision: x_pugh_eno
+         Success: 72 files compared, 30 differ in the last digits
+      Hydro_InitExcision: x_pugh_ppm
+         Success: 72 files compared, 36 differ in the last digits
+      Hydro_InitExcision: x_pugh_tvd
+         Success: 72 files identical
+      IDAnalyticBH: kerr
+         Success: 45 files compared, 1 differ in the last digits
+      IDAnalyticBH: test_bl
+         Success: 8 files identical
+      IDAnalyticBH: test_misner
+         Success: 8 files identical
+      IDAxiBrillBH: test_axibrill
+         Success: 96 files compared, 96 differ in the last digits
+      IDAxiBrillBH: test_axibrill_nostagger
+         Success: 96 files compared, 69 differ in the last digits
+      IDAxiOddBrillBH: E2xeon_test_axioddbh
+         Success: 88 files compared, 85 differ in the last digits
+      IDAxiOddBrillBH: test_axioddbh
+         Success: 120 files compared, 73 differ in the last digits
+      IDConstraintViolate: ConstraintViolate
+         Success: 24 files identical
+      IDLinearWaves: test_pw_ADM_leap
+         Success: 60 files compared, 7 differ in the last digits
+      IDLinearWaves: test_pw_ADM_sl
+         Success: 64 files compared, 1 differ in the last digits
+      IDScalarWaveElliptic: test_waveell
+         Success: 8 files compared, 4 differ in the last digits
+      IOHDF5: test_recover
+         Success: 5 files identical
+      InterpToArray: wavetoy
+         Success: 25 files compared, 1 differ in the last digits
+      InterpToArray: wavetoy2
+         Success: 17 files identical
+      ML_BSSN_Test: ML_BSSN_NewRad
+         Success: 52 files compared, 50 differ in the last digits
+      ML_BSSN_Test: ML_BSSN_sgw3d
+         Success: 32 files compared, 30 differ in the last digits
+      ML_BSSN_Test: ML_BSSN_sgw3d_harmonic
+         Success: 32 files compared, 30 differ in the last digits
+      ML_BSSN_Test: ML_BSSN_sgw3d_rhs
+         Success: 171 files compared, 106 differ in the last digits
+      ML_CCZ4_Test: ML_CCZ4_sgw3d
+         Success: 33 files compared, 31 differ in the last digits
+      ML_CCZ4_Test: ML_CCZ4_sgw3d_rhs
+         Success: 177 files compared, 111 differ in the last digits
+      Multipole: test_22
+         Success: 9 files compared, 9 differ in the last digits
+      Multipole: test_31
+         Success: 25 files compared, 25 differ in the last digits
+      Multipole: test_44
+         Success: 25 files compared, 25 differ in the last digits
+      Multipole: test_driscollhealy
+         Success: 13 files compared, 9 differ in the last digits
+      Multipole: test_rads
+         Success: 39 files compared, 27 differ in the last digits
+      Multipole: test_simpson
+         Success: 13 files compared, 9 differ in the last digits
+      Multipole: test_vars
+         Success: 33 files compared, 32 differ in the last digits
+      NaNChecker: nancount
+         Success: 1 files identical
+      QuasiLocalMeasures: qlm-bl
+         Success: 169 files compared, 160 differ in the last digits
+      QuasiLocalMeasures: qlm-ks
+         Success: 169 files compared, 139 differ in the last digits
+      QuasiLocalMeasures: qlm-ks-boosted
+         Success: 169 files compared, 145 differ in the last digits
+      QuasiLocalMeasures: qlm-ks-shifted
+         Success: 169 files compared, 143 differ in the last digits
+      QuasiLocalMeasures: qlm-ks-tilted
+         Success: 169 files compared, 143 differ in the last digits
+      QuasiLocalMeasures: qlm-minkowski
+         Success: 169 files compared, 86 differ in the last digits
+      RotatingDBHIVP: E2xeon_test_rdbh
+         Success: 96 files compared, 92 differ in the last digits
+      RotatingDBHIVP: test_rdbh
+         Success: 120 files compared, 82 differ in the last digits
+      RotatingSymmetry180: Kerr
+         Success: 144 files compared, 8 differ in the last digits
+      RotatingSymmetry180: Kerr-rotating-180
+         Success: 140 files compared, 5 differ in the last digits
+      RotatingSymmetry180: Kerr-rotating-180-staggered
+         Success: 140 files compared, 9 differ in the last digits
+      RotatingSymmetry180: Kerr-staggered
+         Success: 140 files compared, 9 differ in the last digits
+      RotatingSymmetry180: KerrSchild-rotating-180
+         Success: 120 files compared, 78 differ in the last digits
+      RotatingSymmetry90: Kerr-rotating-90
+         Success: 140 files compared, 8 differ in the last digits
+      RotatingSymmetry90: Kerr-rotating-90-staggered
+         Success: 140 files compared, 10 differ in the last digits
+      RotatingSymmetry90: KerrSchild-rotating-90
+         Success: 120 files compared, 76 differ in the last digits
+      SlabTest: slabtest
+         Success: 1 files identical
+      SphericalHarmonicRecon: regression_test
+         Success: 2 files compared, 2 differ in the last digits
+      TOVSolver: test_one_boost_max
+         Success: 232 files identical
+      TOVSolver: test_one_static_max
+         Success: 232 files identical
+      TOVSolver: test_tov_carpet
+         Success: 116 files compared, 12 differ in the last digits
+      TOVSolver: test_two_av
+         Success: 232 files identical
+      TOVSolver: test_two_max
+         Success: 232 files identical
+      TestArrays: arrays
+         Success: 10 files identical
+      TestArrays: arrays0
+         Success: 7 files identical
+      TestComplex: TestComplex
+         Success: 15 files identical
+      TestComplex: TestComplexPow
+         Success: 2 files identical
+      TestFpointerNULL: test_fpointer_null
+         Success: 6 files identical
+      TestGlobalReduce: TestAvg
+         Success: 2 files identical
+      TestGlobalReduce: TestAvg_dest0
+         Success: 2 files identical
+      TestGlobalReduce: TestMax
+         Success: 2 files identical
+      TestGlobalReduce: TestMax_dest0
+         Success: 2 files identical
+      TestGlobalReduce: TestMin
+         Success: 2 files identical
+      TestGlobalReduce: TestMin_dest0
+         Success: 2 files identical
+      TestGlobalReduce: TestScalar
+         Success: 2 files identical
+      TestGlobalReduce: TestSum
+         Success: 2 files identical
+      TestGlobalReduce: TestSum_dest0
+         Success: 2 files identical
+      TestGlobalReduce: TestWeightAvg
+         Success: 2 files identical
+      TestGlobalReduce: TestWeightMax
+         Success: 2 files identical
+      TestGlobalReduce: TestWeightMin
+         Success: 2 files identical
+      TestGlobalReduce: TestWeightSum
+         Success: 2 files identical
+      TestGlobalReduce: gaussianMax
+         Success: 1 files identical
+      TestGlobalReduce: gaussianMax_dest0
+         Success: 1 files identical
+      TestGlobalReduce: gaussianSum
+         Success: 1 files compared, 1 differ in the last digits
+      TestGlobalReduce: gaussianSum_dest0
+         Success: 1 files compared, 1 differ in the last digits
+      TestLocalReduce: TestAvg
+         Success: 6 files identical
+      TestLocalReduce: TestMax
+         Success: 6 files identical
+      TestLocalReduce: TestSum
+         Success: 6 files identical
+      TestPar: expressions
+         Success: 1 files identical
+      TestTable: test-table
+         Success: 0 files identical
+      Vectors: vectors
+         Success: 4 files identical
+      WaveBinarySource: test_binary_1
+         Success: 9 files identical
+      WaveToyC: test_rad
+         Success: 6 files identical
+      WaveToyC: wave_output
+         Success: 13 files identical
+      WaveToyCXX: test_rad
+         Success: 6 files identical
+      WaveToyExtra: test_custom
+         Success: 5 files identical
+      WaveToyF77: test_rad
+         Success: 6 files compared, 1 differ in the last digits
+      WaveToyF77: test_rob
+         Success: 6 files identical
+      WaveToyF90: test_rad
+         Success: 6 files compared, 1 differ in the last digits
+      WaveToyF90: test_wavef90_flat
+         Success: 6 files compared, 1 differ in the last digits
+      WaveToyF90: test_wavef90_zero
+         Success: 6 files compared, 1 differ in the last digits
+      WaveToyFreeF90: test_rad
+         Success: 6 files compared, 1 differ in the last digits
+
+========================================================================
+
+
+  Summary for configuration sim
+
+    Time                     -> Tue Jul 17 03:48:09 CDT 2012
+    Host                     -> numrel07.cct.lsu.edu
+    Processes                -> 2
+    User                     -> jhar131
+
+    Total available tests    -> 213
+    Unrunnable tests         -> 44
+    Runnable tests           -> 169
+    Total number of thorns   -> 184
+    Number of tested thorns  -> 50
+    Number of tests passed   -> 169
+    Number passed only to
+               set tolerance -> 105
+    Number failed            -> 0
+
+  Tests passed:
+
+    test_ADM_1 (from ADM)
+    test_ADM_2 (from ADM)
+    test_ADM_3 (from ADM)
+    test_ADM_4 (from ADM)
+    ADMConstraints_Mask (from ADMConstraints)
+    ADMConstraints_Physical (from ADMConstraints)
+    ADMConstraints_Shift (from ADMConstraints)
+    test_ADM (from ADMConstraints)
+    tov (from ADMMass)
+    tov_carpet (from ADMMass)
+    test_AHF_1 (from AHFinder)
+    test_AHF_2 (from AHFinder)
+    Kerr (from AHFinderDirect)
+    Kerr-Cartoon (from AHFinderDirect)
+    Kerr-Cartoon-EE (from AHFinderDirect)
+    Kerr-EE (from AHFinderDirect)
+    Kerr-definition-expansion (from AHFinderDirect)
+    Kerr-definition-expansion-EE (from AHFinderDirect)
+    Kerr-definition-expansion-product (from AHFinderDirect)
+    Kerr-definition-expansion-product-EE (from AHFinderDirect)
+    Kerr-definition-inner-expansion (from AHFinderDirect)
+    Kerr-definition-inner-expansion-EE (from AHFinderDirect)
+    Kerr-definition-mean-curvature (from AHFinderDirect)
+    Kerr-definition-mean-curvature-EE (from AHFinderDirect)
+    Kerr-modification-radius (from AHFinderDirect)
+    Kerr-modification-radius-EE (from AHFinderDirect)
+    Kerr-rotating-180 (from AHFinderDirect)
+    Kerr-rotating-180-EE (from AHFinderDirect)
+    Kerr-rotating-90 (from AHFinderDirect)
+    Kerr-rotating-90-EE (from AHFinderDirect)
+    Kerr-selection-areal-radius (from AHFinderDirect)
+    Kerr-selection-areal-radius-EE (from AHFinderDirect)
+    Kerr-selection-areal-radius-definition-expansion-product (from AHFinderDirect)
+    Kerr-selection-areal-radius-definition-expansion-product-EE (from AHFinderDirect)
+    Kerr-selection-mean-coordinate-radius (from AHFinderDirect)
+    Kerr-selection-mean-coordinate-radius-EE (from AHFinderDirect)
+    no-overlap (from Carpet)
+    overlap (from Carpet)
+    compact (from CarpetIOASCII)
+    coords (from CarpetIOASCII)
+    nobuffers (from CarpetIOHDF5)
+    coords (from CarpetIOScalar)
+    coords2 (from CarpetIOScalar)
+    coords3 (from CarpetIOScalar)
+    coords4 (from CarpetIOScalar)
+    schw-0050 (from Cartoon2D)
+    test_cartoon_2 (from Cartoon2D)
+    test_cartoon_3 (from Cartoon2D)
+    E2xeon_test_dbh (from DistortedBHIVP)
+    eos_omni (from EOS_Omni)
+    KS-tilted (from Exact)
+    Schwarzschild_EF (from Exact)
+    bowl-evolution (from Exact)
+    bowl-init (from Exact)
+    de_Sitter (from Exact)
+    extract_physical (from Extract)
+    test_extract (from Extract)
+    GRHydro_test_shock (from GRHydro)
+    GRHydro_test_shock_ppm (from GRHydro)
+    GRHydro_test_tov_ppm_ML (from GRHydro)
+    GRHydro_test_tov_ppm_ML_disable_internal_excision (from GRHydro)
+    GRHydro_test_tov_ppm_no_trp_ML (from GRHydro)
+    test_tov_carpet_refined_nosync (from GRHydro)
+    diag_flip_pugh_eno (from Hydro_InitExcision)
+    diag_flip_pugh_ppm (from Hydro_InitExcision)
+    diag_flip_pugh_tvd (from Hydro_InitExcision)
+    diag_pugh_eno (from Hydro_InitExcision)
+    diag_pugh_ppm (from Hydro_InitExcision)
+    diag_pugh_tvd (from Hydro_InitExcision)
+    halfsphere_pugh_ppm (from Hydro_InitExcision)
+    halfsphere_pugh_tvd (from Hydro_InitExcision)
+    sphere_pugh_ppm (from Hydro_InitExcision)
+    sphere_pugh_tvd (from Hydro_InitExcision)
+    x_flip_pugh_eno (from Hydro_InitExcision)
+    x_flip_pugh_ppm (from Hydro_InitExcision)
+    x_flip_pugh_tvd (from Hydro_InitExcision)
+    x_pugh_eno (from Hydro_InitExcision)
+    x_pugh_ppm (from Hydro_InitExcision)
+    x_pugh_tvd (from Hydro_InitExcision)
+    kerr (from IDAnalyticBH)
+    test_bl (from IDAnalyticBH)
+    test_misner (from IDAnalyticBH)
+    test_axibrill (from IDAxiBrillBH)
+    test_axibrill_nostagger (from IDAxiBrillBH)
+    E2xeon_test_axioddbh (from IDAxiOddBrillBH)
+    test_axioddbh (from IDAxiOddBrillBH)
+    ConstraintViolate (from IDConstraintViolate)
+    test_pw_ADM_leap (from IDLinearWaves)
+    test_pw_ADM_sl (from IDLinearWaves)
+    test_waveell (from IDScalarWaveElliptic)
+    test_recover (from IOHDF5)
+    wavetoy (from InterpToArray)
+    wavetoy2 (from InterpToArray)
+    ML_BSSN_NewRad (from ML_BSSN_Test)
+    ML_BSSN_sgw3d (from ML_BSSN_Test)
+    ML_BSSN_sgw3d_harmonic (from ML_BSSN_Test)
+    ML_BSSN_sgw3d_rhs (from ML_BSSN_Test)
+    ML_CCZ4_sgw3d (from ML_CCZ4_Test)
+    ML_CCZ4_sgw3d_rhs (from ML_CCZ4_Test)
+    test_22 (from Multipole)
+    test_31 (from Multipole)
+    test_44 (from Multipole)
+    test_driscollhealy (from Multipole)
+    test_rads (from Multipole)
+    test_simpson (from Multipole)
+    test_vars (from Multipole)
+    nancount (from NaNChecker)
+    qlm-bl (from QuasiLocalMeasures)
+    qlm-ks (from QuasiLocalMeasures)
+    qlm-ks-boosted (from QuasiLocalMeasures)
+    qlm-ks-shifted (from QuasiLocalMeasures)
+    qlm-ks-tilted (from QuasiLocalMeasures)
+    qlm-minkowski (from QuasiLocalMeasures)
+    E2xeon_test_rdbh (from RotatingDBHIVP)
+    test_rdbh (from RotatingDBHIVP)
+    Kerr (from RotatingSymmetry180)
+    Kerr-rotating-180 (from RotatingSymmetry180)
+    Kerr-rotating-180-staggered (from RotatingSymmetry180)
+    Kerr-staggered (from RotatingSymmetry180)
+    KerrSchild-rotating-180 (from RotatingSymmetry180)
+    Kerr-rotating-90 (from RotatingSymmetry90)
+    Kerr-rotating-90-staggered (from RotatingSymmetry90)
+    KerrSchild-rotating-90 (from RotatingSymmetry90)
+    slabtest (from SlabTest)
+    regression_test (from SphericalHarmonicRecon)
+    test_one_boost_max (from TOVSolver)
+    test_one_static_max (from TOVSolver)
+    test_tov_carpet (from TOVSolver)
+    test_two_av (from TOVSolver)
+    test_two_max (from TOVSolver)
+    arrays (from TestArrays)
+    arrays0 (from TestArrays)
+    TestComplex (from TestComplex)
+    TestComplexPow (from TestComplex)
+    test_fpointer_null (from TestFpointerNULL)
+    TestAvg (from TestGlobalReduce)
+    TestAvg_dest0 (from TestGlobalReduce)
+    TestMax (from TestGlobalReduce)
+    TestMax_dest0 (from TestGlobalReduce)
+    TestMin (from TestGlobalReduce)
+    TestMin_dest0 (from TestGlobalReduce)
+    TestScalar (from TestGlobalReduce)
+    TestSum (from TestGlobalReduce)
+    TestSum_dest0 (from TestGlobalReduce)
+    TestWeightAvg (from TestGlobalReduce)
+    TestWeightMax (from TestGlobalReduce)
+    TestWeightMin (from TestGlobalReduce)
+    TestWeightSum (from TestGlobalReduce)
+    gaussianMax (from TestGlobalReduce)
+    gaussianMax_dest0 (from TestGlobalReduce)
+    gaussianSum (from TestGlobalReduce)
+    gaussianSum_dest0 (from TestGlobalReduce)
+    TestAvg (from TestLocalReduce)
+    TestMax (from TestLocalReduce)
+    TestSum (from TestLocalReduce)
+    expressions (from TestPar)
+    test-table (from TestTable)
+    vectors (from Vectors)
+    test_binary_1 (from WaveBinarySource)
+    test_rad (from WaveToyC)
+    wave_output (from WaveToyC)
+    test_rad (from WaveToyCXX)
+    test_custom (from WaveToyExtra)
+    test_rad (from WaveToyF77)
+    test_rob (from WaveToyF77)
+    test_rad (from WaveToyF90)
+    test_wavef90_flat (from WaveToyF90)
+    test_wavef90_zero (from WaveToyF90)
+    test_rad (from WaveToyFreeF90)
+
+========================================================================
+
