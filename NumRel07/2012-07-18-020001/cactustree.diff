@@ -1,0 +1,481 @@
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus: TEST.1
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus: TEST.2
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/param.ccl /home/jhar131/TESTING/einsteintoolkit/2012-07-18-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/param.ccl
+220a221,225
+> real enhanced_ppm_C4 "Parameter for enhancecd ppm limiter. This is for the additional velocity limiter" STEERABLE=ALWAYS
+> {
+>    0:1 :: "must be greater than or equal to 0, and not larger than 1"
+> } 0.0
+> 
+296a302,305
+> 
+> boolean GRHydro_eos_hot_prim2con_warn "Warn about temperature workaround in prim2con" STEERABLE=ALWAYS
+> {
+> } "yes"
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/schedule.ccl /home/jhar131/TESTING/einsteintoolkit/2012-07-18-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/schedule.ccl
+490c490
+< schedule GRHydroCopyIntegerMask AT CCTK_POST_RECOVER_VARIABLES BEFORE HydroBase_PostStep
+---
+> schedule GRHydroCopyIntegerMask AT CCTK_POST_RECOVER_VARIABLES BEFORE MoL_PostStep
+1012c1012
+< schedule group GRHydro_AtmosphereMaskBoundaries IN HydroBase_PostStep BEFORE (HydroBase_Boundaries,GRHydro_PrimitiveBoundaries)
+---
+> schedule group GRHydro_AtmosphereMaskBoundaries IN HydroBase_PostStep BEFORE (HydroBase_Boundaries,GRHydro_PrimitiveInitialGuessesBoundaries)
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_Con2Prim.F90 /home/jhar131/TESTING/einsteintoolkit/2012-07-18-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_Con2Prim.F90
+120a121,135
+> #if 0
+>         !$OMP CRITICAL
+>          if (rho(i,j,k).le.0.0d0) then
+> 	    call CCTK_WARN(1,"rho less than zero at entry of Con2Prim")
+> 	    write(warnline,"(A10,i5)") "reflevel: ",GRHydro_reflevel
+> 	    call CCTK_WARN(1,warnline)
+> 	    write(warnline,"(3i5,1P10E15.6)") i,j,k,x(i,j,k),y(i,j,k),z(i,j,k)
+> 	    call CCTK_WARN(1,warnline)
+> 	    write(warnline,"(1P10E15.6)") rho(i,j,k),dens(i,j,k),eps(i,j,k)
+> 	    call CCTK_WARN(1,warnline)
+> 	    call CCTK_WARN(0,"Aborting!!!")
+> 	 endif
+> 	 !$OMP END CRITICAL
+> #endif
+> 
+322a338,377
+> !! Some debugging convenience output
+> # if 0
+> 	 !$OMP CRITICAL
+> 	 if (dens(i,j,k).ne.dens(i,j,k)) then
+> 	    call CCTK_WARN(1,"NAN at exit of Con2Prim")
+> 	    write(warnline,"(A10,i5)") "reflevel: ",GRHydro_reflevel
+> 	    call CCTK_WARN(1,warnline)
+> 	    write(warnline,"(3i5,1P10E15.6)") i,j,k,x(i,j,k),y(i,j,k),z(i,j,k)
+> 	    call CCTK_WARN(1,warnline)
+> 	    write(warnline,"(1P10E15.6)") rho(i,j,k),dens(i,j,k),eps(i,j,k)
+> 	    call CCTK_WARN(1,warnline)
+> 	    call CCTK_WARN(0,"Aborting!!!")
+> 	 endif
+> 	 if (rho(i,j,k).ne.rho(i,j,k)) then
+> 	    call CCTK_WARN(1,"NAN in rho at exit of Con2Prim")
+> 	    write(warnline,"(A10,i5)") "reflevel: ",GRHydro_reflevel
+> 	    call CCTK_WARN(1,warnline)
+> 	    write(warnline,"(3i5,1P10E15.6)") i,j,k,x(i,j,k),y(i,j,k),z(i,j,k)
+> 	    call CCTK_WARN(1,warnline)
+> 	    write(warnline,"(1P10E15.6)") rho(i,j,k),dens(i,j,k),eps(i,j,k)
+> 	    call CCTK_WARN(1,warnline)
+> 	    call CCTK_WARN(0,"Aborting!!!")
+> 	 endif
+> 	 !$OMP END CRITICAL
+> 	 
+> 	 !$OMP CRITICAL
+>          if (rho(i,j,k).le.0.0d0) then
+> 	    call CCTK_WARN(1,"rho less than zero at exit of Con2Prim")
+> 	    write(warnline,"(A10,i5)") "reflevel: ",GRHydro_reflevel
+> 	    call CCTK_WARN(1,warnline)
+> 	    write(warnline,"(3i5,1P10E15.6)") i,j,k,x(i,j,k),y(i,j,k),z(i,j,k)
+> 	    call CCTK_WARN(1,warnline)
+> 	    write(warnline,"(1P10E15.6)") rho(i,j,k),dens(i,j,k),eps(i,j,k)
+> 	    call CCTK_WARN(1,warnline)
+> 	    call CCTK_WARN(0,"Aborting!!!")
+> 	 endif
+> 	 !$OMP END CRITICAL
+> #endif
+>          
+> 
+366c421
+<   logical epsnegative
+---
+>   logical epsnegative, mustbisect
+388c443
+<   pold = max(1.d-10,xpress)
+---
+>   !pold = max(1.d-10,xpress)
+392a448,450
+>   
+>   ! Start out with some reasonable initial guess
+>   pold = max(plow+1.d-10,xpress)
+393a452
+>   mustbisect = .false.
+425a485,489
+>   if (f .ne. f) then 
+>      ! Ok, this yielded nonsense, let's enforce bisection!
+>      mustbisect = .true.
+>   endif
+> 
+495c559
+<       if (pnew .lt. plow .or. tmp .le. 0.0d0) then
+---
+>       if (pnew .lt. plow .or. tmp .le. 0.0d0 .or. mustbisect) then
+502c566,567
+< 	       
+---
+> 	 
+> 	 mustbisect = .false.
+526a592,633
+> !! Some debugging convenience output
+> #if 0
+>     if (rho .ne. rho) then
+>     !$OMP CRITICAL
+>       write(warnline,'(a38, i16)') 'NAN in rho! Root finding iteration: ', count
+>       call CCTK_WARN(1,warnline)
+>       write(warnline,'(a28,i2)') 'on carpet reflevel: ',GRHydro_reflevel
+>       call CCTK_WARN(1,warnline)
+>       write(warnline,'(a20,3g16.7)') 'xyz location: ',x,y,z
+>       call CCTK_WARN(1,warnline)
+>       write(warnline,'(a20,g16.7)') 'radius: ',r
+>       call CCTK_WARN(1,warnline)
+>       write(warnline,'(a20,g16.7)') 'udens: ', udens
+>       call CCTK_WARN(1,warnline)
+>       write(warnline,'(a20,g16.7)') 'dens: ', dens
+>       call CCTK_WARN(1,warnline)
+>       !write(warnline,'(a20,g16.7)') 'rho-old: ', rhoold
+>       !call CCTK_WARN(1,warnline)
+>       write(warnline,'(a20,g16.7)') 'pnew: ', pnew
+>       call CCTK_WARN(1,warnline)
+>       write(warnline,'(a20,g16.7)') 'pold: ', pold
+>       call CCTK_WARN(1,warnline)
+>       write(warnline,'(a20,g16.7)') 'xpress: ', xpress
+>       call CCTK_WARN(1,warnline)
+>       write(warnline,'(a20,g16.7)') 'f: ', f
+>       call CCTK_WARN(1,warnline)
+>       write(warnline,'(a20,g16.7)') 'df: ', df
+>       call CCTK_WARN(1,warnline)
+>       write(warnline,'(a20,g16.7)') 'f/df: ', f/df
+>       call CCTK_WARN(1,warnline)
+>       write(warnline,'(a30,g16.7)') '(utau + pnew + udens)**2 - s2: ', (utau + pnew + udens)**2 - s2
+>       call CCTK_WARN(1,warnline)
+>       write(warnline,'(a30,g16.7)') '(utau + pnew + udens): ', (utau + pnew + udens)
+>       call CCTK_WARN(1,warnline)
+>       write(warnline,'(a20,g16.7)') 'drhobydpress: ', drhobydpress
+>       call CCTK_WARN(1,warnline)
+>       write(warnline,'(a20,g16.7)') 'depsbydpress: ', depsbydpress
+>       call CCTK_WARN(0,warnline)
+>    !$OMP END CRITICAL
+>   endif
+> #endif
+> 
+535a643,647
+>     if (f .ne. f) then 
+>        ! Ok, this yielded nonsense, let's enforce bisection!
+>        mustbisect = .true.
+>     endif
+> 
+606a719,759
+> #if 0
+>   if (rho .le. 0.0d0) then
+>     !$OMP CRITICAL
+>       write(warnline,'(a38, i16)') 'Epsilon negative!'
+>       call CCTK_WARN(1,warnline)
+>       write(warnline,'(a28,i2)') 'on carpet reflevel: ',GRHydro_reflevel
+>       call CCTK_WARN(1,warnline)
+>       write(warnline,'(a20,3g16.7)') 'xyz location: ',x,y,z
+>       call CCTK_WARN(1,warnline)
+>       write(warnline,'(a20,g16.7)') 'radius: ',r
+>       call CCTK_WARN(1,warnline)
+>       write(warnline,'(a20,g16.7)') 'udens: ', udens
+>       call CCTK_WARN(1,warnline)
+>       write(warnline,'(a20,g16.7)') 'dens: ', dens
+>       call CCTK_WARN(1,warnline)
+>       !write(warnline,'(a20,g16.7)') 'rho-old: ', rhoold
+>       !call CCTK_WARN(1,warnline)
+>       write(warnline,'(a20,g16.7)') 'pnew: ', pnew
+>       call CCTK_WARN(1,warnline)
+>       write(warnline,'(a20,g16.7)') 'pold: ', pold
+>       call CCTK_WARN(1,warnline)
+>       write(warnline,'(a20,g16.7)') 'xpress: ', xpress
+>       call CCTK_WARN(1,warnline)
+>       write(warnline,'(a20,g16.7)') 'f: ', f
+>       call CCTK_WARN(1,warnline)
+>       write(warnline,'(a20,g16.7)') 'df: ', df
+>       call CCTK_WARN(1,warnline)
+>       write(warnline,'(a20,g16.7)') 'f/df: ', f/df
+>       call CCTK_WARN(1,warnline)
+>       write(warnline,'(a30,g16.7)') '(utau + pnew + udens)**2 - s2: ', (utau + pnew + udens)**2 - s2
+>       call CCTK_WARN(1,warnline)
+>       write(warnline,'(a30,g16.7)') '(utau + pnew + udens): ', (utau + pnew + udens)
+>       call CCTK_WARN(1,warnline)
+>       write(warnline,'(a20,g16.7)') 'drhobydpress: ', drhobydpress
+>       call CCTK_WARN(1,warnline)
+>       write(warnline,'(a20,g16.7)') 'depsbydpress: ', depsbydpress
+>       call CCTK_WARN(0,warnline)
+>    !$OMP END CRITICAL
+>   endif
+> #endif
+> 
+632c785
+<   logical epsnegative
+---
+>   logical epsnegative, mustbisect
+645a799,800
+>   mustbisect = .false.
+> 
+675c830
+<   pold = max(1.d-15,xpress)
+---
+>   !pold = max(1.d-15,xpress)
+679a835,836
+>   ! Start out with some reasonable initial guess
+>   pold = max(plow+1.d-10,xpress)
+838a996,999
+>   if (f .ne. f) then 
+>      ! Ok, this yielded nonsense, let's enforce bisection!
+>      mustbisect = .true.
+>   endif
+881c1042
+<       if (pnew .lt. plow .or. tmp .le. 0.0d0) then
+---
+>       if (pnew .lt. plow .or. tmp .le. 0.0d0 .or. mustbisect) then
+888c1049,1050
+< 	       
+---
+> 	 
+> 	 mustbisect = .false.
+986a1149,1153
+> 
+>     if (f .ne. f) then 
+>       ! Ok, this yielded nonsense, let's enforce bisection!
+>       mustbisect = .true.
+>     endif
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_PPM.F90 /home/jhar131/TESTING/einsteintoolkit/2012-07-18-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_PPM.F90
+226a227
+> 
+768a770,802
+> ! Reconstruct quantity on plus face
+> #define AVGP(a) \
+>    0.5*(a(i)+a(i+1))
+> 
+> ! Reconstruct quantity on minus face
+> #define AVGM(a) \
+>    0.5*(a(i)+a(i-1))
+> 
+> 
+> !! Compute scalar product v^i v_i on plus face
+> #define VEL2P(dvelx,dvely,dvelz) \
+>    (AVGP(gxx)*dvelx*dvelx + AVGP(gyy)*dvely*dvely + AVGP(gzz)  \
+>        *dvelz*dvelz + 2*AVGP(gxy)*dvelx*dvely + 2*AVGP(gxz)*dvelx *dvelz + 2*AVGP(gyz) \
+>        *dvely*dvelz)
+> 
+> !! Compute scalar product v^i v_i on minus face
+> #define VEL2M(dvelx,dvely,dvelz) \
+>    (AVGM(gxx)*dvelx*dvelx + AVGM(gyy)*dvely*dvely + AVGM(gzz)  \
+>        *dvelz*dvelz + 2*AVGM(gxy)*dvelx*dvely + 2*AVGM(gxz)*dvelx *dvelz + 2*AVGM(gyz) \
+>        *dvely*dvelz)
+> 
+> 
+> !! Check if velocity is below speed of light. If not, reduce reconstruction to first order!
+> #define VELCHECK(vxminus,vx,vxplus,vyminus,vy,vyplus,vzminus,vz,vzplus) \
+>    if (VEL2M(vxminus(i),vyminus(i),vzminus(i)) .ge. (1.0d0-enhanced_ppm_C4) .or. VEL2P(vxplus(i),vyplus(i),vzplus(i)) .ge. (1.0d0-enhanced_ppm_C4)) then &&\
+>       vxminus(i) = vx(i)  &&\
+>       vxplus(i) = vx(i)   &&\
+>       vyminus(i) = vy(i)  &&\
+>       vyplus(i) = vy(i)   &&\
+>       vzminus(i) = vz(i)  &&\
+>       vzplus(i) = vz(i)   &&\
+>    endif
+> 
+777a812,813
+> 		  ! Ensure that velocity is below speed of light!
+> 		  VELCHECK(velxminus,velx,velxplus,velyminus,vely,velyplus,velzminus,velz,velzplus)
+790a827,828
+> 		  ! Ensure that velocity is below speed of light!
+> 		  VELCHECK(velxminus,velx,velxplus,velyminus,vely,velyplus,velzminus,velz,velzplus)
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_Prim2Con.F90 /home/jhar131/TESTING/einsteintoolkit/2012-07-18-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_Prim2Con.F90
+156c156,158
+<                    i,j,k,x(i,j,k),y(i,j,k),z(i,j,k),g11l,g12l,g13l,g22l,& 
+---
+>                    cctk_iteration,i,j,k,x(i,j,k),y(i,j,k),z(i,j,k),&
+>                    r(i,j,k),&
+>                    g11l,g12l,g13l,g22l,& 
+173,174c175,178
+<                    i,j,k,x(i,j,k),y(i,j,k),z(i,j,k),g11r,g12r,g13r,&
+<                    g22r,g23r,g33r, &
+---
+>                    cctk_iteration,i,j,k,x(i,j,k),y(i,j,k),z(i,j,k),&
+>                    r(i,j,k),&
+>                    g11r,g12r,g13r,&
+>                    g22r,g23r,g33r,&
+244,245c248,249
+< subroutine prim2con_hot(handle, GRHydro_reflevel, ii, jj, kk, &
+<      x, y, z, gxx, gxy, gxz, gyy, gyz, gzz, det, ddens, &
+---
+> subroutine prim2con_hot(handle, GRHydro_reflevel, cctk_iteration, ii, jj, kk, &
+>      x, y, z, r, gxx, gxy, gxz, gyy, gyz, gzz, det, ddens, &
+257,258c261,262
+<   CCTK_REAL :: temp(1),ye(1), x, y, z
+<   CCTK_INT :: handle, GRHydro_reflevel, ii, jj, kk
+---
+>   CCTK_REAL :: temp(1),ye(1), x, y, z, r
+>   CCTK_INT :: handle, GRHydro_reflevel, cctk_iteration, ii, jj, kk
+290c294
+<            write(warnline,"(3i5,1P10E15.6)") ii,jj,kk,x,y,z
+---
+>            write(warnline,"(i8,3i5,1P10E15.6)") cctk_iteration,ii,jj,kk,x,y,z,r
+303a308
+>         if(GRHydro_eos_hot_prim2con_warn.ne.0) then
+305,313c310,318
+<         call CCTK_WARN(1,"EOS error in prim2con_hot: NOW using averaged temp!")
+<         write(warnline,"(3i5,1P10E15.6)") ii,jj,kk,x,y,z
+<         call CCTK_WARN(1,warnline)
+<         write(warnline,"(1P10E15.6)") drho,deps,temp0,ye
+<         call CCTK_WARN(1,warnline)
+<         write(warnline,"(A7,i8)") "code: ",keyerr(1)
+<         call CCTK_WARN(1,warnline)
+<         write(warnline,"(A10,i5)") "reflevel: ", GRHydro_reflevel
+<         call CCTK_WARN(1,warnline)
+---
+>            call CCTK_WARN(1,"EOS error in prim2con_hot: NOW using averaged temp!")
+>            write(warnline,"(i8,3i5,1P10E15.6)") cctk_iteration,ii,jj,kk,x,y,z,r
+>            call CCTK_WARN(1,warnline)
+>            write(warnline,"(1P10E15.6)") drho,deps,temp0,ye
+>            call CCTK_WARN(1,warnline)
+>            write(warnline,"(A7,i8)") "code: ",keyerr(1)
+>            call CCTK_WARN(1,warnline)
+>            write(warnline,"(A10,i5)") "reflevel: ", GRHydro_reflevel
+>            call CCTK_WARN(1,warnline)
+314a320
+>         endif
+323c329
+<            write(warnline,"(3i5,1P10E15.6)") ii,jj,kk,x,y,z
+---
+>            write(warnline,"(i8,3i5,1P10E15.6)") cctk_iteration,ii,jj,kk,x,y,z,r
+438,439c444,446
+<               call prim2con_hot(GRHydro_eos_handle,GRHydro_reflevel,i,j,k,&
+<                    x(i,j,k),y(i,j,k),z(i,j,k),g11(i,j,k),&
+---
+>               call prim2con_hot(GRHydro_eos_handle,GRHydro_reflevel,cctk_iteration,&
+>                    i,j,k,&
+>                    x(i,j,k),y(i,j,k),z(i,j,k),r(i,j,k),g11(i,j,k),&
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_UpdateMask.F90 /home/jhar131/TESTING/einsteintoolkit/2012-07-18-020001/Cactus/arrangements/EinsteinEvolve/GRHydro/src/GRHydro_UpdateMask.F90
+41,43c41,43
+<      do k = 1, cctk_lsh(3)
+<         do j = 1, cctk_lsh(2)
+<            do i = 1, cctk_lsh(1)
+---
+>      do k = 1+GRHydro_stencil, cctk_lsh(3)-GRHydro_stencil
+>         do j = 1+GRHydro_stencil, cctk_lsh(2)-GRHydro_stencil
+>            do i = 1+GRHydro_stencil, cctk_lsh(1)-GRHydro_stencil
+62,64c62,64
+<      do k = 1, cctk_lsh(3)
+<         do j = 1, cctk_lsh(2)
+<            do i = 1, cctk_lsh(1)
+---
+>      do k = 1+GRHydro_stencil, cctk_lsh(3)-GRHydro_stencil
+>         do j = 1+GRHydro_stencil, cctk_lsh(2)-GRHydro_stencil
+>            do i = 1+GRHydro_stencil, cctk_lsh(1)-GRHydro_stencil
+306c306,307
+<                   i,j,k,x(i,j,k),y(i,j,k),z(i,j,k),g11(i,j,k),g12(i,j,k),&
+---
+>                   cctk_iteration,i,j,k,x(i,j,k),y(i,j,k),z(i,j,k),r(i,j,k),&
+>                   g11(i,j,k),g12(i,j,k),&
+468c469,470
+<                   i,j,k,x(i,j,k),y(i,j,k),z(i,j,k),g11(i,j,k),g12(i,j,k),&
+---
+>                   cctk_iteration,i,j,k,x(i,j,k),y(i,j,k),z(i,j,k),r(i,j,k),&
+>                   g11(i,j,k),g12(i,j,k),&
+508c510,511
+<                   i,j,k,x(i,j,k),y(i,j,k),z(i,j,k),g11_p(i,j,k),g12_p(i,j,k),&
+---
+>                   cctk_iteration,i,j,k,x(i,j,k),y(i,j,k),z(i,j,k),r(i,j,k),&
+>                   g11_p(i,j,k),g12_p(i,j,k),&
+548c551,552
+<                   i,j,k,x(i,j,k),y(i,j,k),z(i,j,k),g11_p_p(i,j,k),g12_p_p(i,j,k),&
+---
+>                   cctk_iteration,i,j,k,x(i,j,k),y(i,j,k),z(i,j,k),r(i,j,k),&
+>                   g11_p_p(i,j,k),g12_p_p(i,j,k),&
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus: cactusjar.git
+diff -r '--exclude=.svn' '--exclude=.git' /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/doc/ReferenceManual/CCTKReference.tex /home/jhar131/TESTING/einsteintoolkit/2012-07-18-020001/Cactus/doc/ReferenceManual/CCTKReference.tex
+24c24
+< \begin{cactuspart}{\code{CCTK\_*} Functions Reference}{}{$Revision: 4842 $}
+---
+> \begin{cactuspart}{\code{CCTK\_*} Functions Reference}{}{$Revision: 4846 $}
+806a807,809
+> \item[\code{CCTK\_TraverseString}] [\pageref{CCTK-TraverseString}]
+>   Traverse through all variables and/or groups whose names appear in the given string.
+> 
+12339a12343,12406
+> \end{Error}
+> \end{ErrorSection}
+> \end{FunctionDescription}
+> 
+> \begin{FunctionDescription}{CCTK\_TraverseString}
+> \label{CCTK-TraverseString}
+> Traverse through all variables and/or groups whose names appear in the given
+> string, and call the callback routine with those indices and an optional
+> option string appended to the variable/group name enclosed in square braces.
+> The special keyword "all" in the string can be used to indicate that the
+> callback should be called for all variables/groups.
+> 
+> \begin{SynopsisSection}
+> \begin{Synopsis}{C}
+> \begin{verbatim}
+> int err = CCTK_TraverseString(traverse_string, callback, callback_arg,
+>                               selection)
+> \end{verbatim}
+> \end{Synopsis}
+> \end{SynopsisSection}
+> 
+> \begin{ParameterSection}
+>    \begin{Parameter} {const char * traverse\_string}
+>    List of variable and/or group names
+>    \end{Parameter}
+>    \begin{Parameter} {int (*callback) (int idx, const char *optstring, void *callback\_arg)}
+>    Routine to call for every variable and/or group found. \code{idx} is the
+>    Cactus variable index, \code{optstring} is the optional `\verb|{}|'
+>    enclosed option string after the variable name, and \code{callback\_arg} is
+>    the arbitrary argument passed to \code{CCTK\_TraverseString}.
+>    \end{Parameter}
+>    \begin{Parameter} {void *callback\_arg}
+>    An arbitrary argument which gets passed to the callback routine
+>    \end{Parameter}
+>    \begin{Parameter} {int selection}
+>    Decides whether group and/or variable names are accepted in the string
+>    \end{Parameter}
+> \end{ParameterSection}
+> 
+> \begin{Discussion}
+> Use this to loop over a list of variables passed in by the user.
+> \end{Discussion}
+> 
+> \begin{ResultSection}
+> \begin{Result}{number of variables}
+> positive for the number of traversed variables
+> \end{Result}
+> \end{ResultSection}
+> 
+> \begin{ErrorSection}
+> \begin{Error}{-1}
+> no callback routine was given
+> \end{Error}
+> \begin{Error}{-2}
+> option string is not associated with a group or variable
+> \end{Error}
+> \begin{Error}{-3}
+> unterminated option string
+> \end{Error}
+> \begin{Error}{-4}
+> garbage found at end of option string
+> \end{Error}
+> \begin{Error}{-5}
+> invalid token in traversed string found
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/doc/ReferenceManual.pdf and /home/jhar131/TESTING/einsteintoolkit/2012-07-18-020001/Cactus/doc/ReferenceManual.pdf differ
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus: exe
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus: log
+Binary files /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/repos/carpet/.hg/dirstate and /home/jhar131/TESTING/einsteintoolkit/2012-07-18-020001/Cactus/repos/carpet/.hg/dirstate differ
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/simfactory/lib/archive: __init__.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/simfactory/lib/archive: petashare.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/simfactory/lib/archive: uberftp.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/simfactory/lib: libutil.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/simfactory/lib: pyini.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/simfactory/lib: restartlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/simfactory/lib: sim-build.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/simfactory/lib: sim-info.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/simfactory/lib: sim-manage.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/simfactory/lib: sim-sync.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/simfactory/lib: sim-util.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/simfactory/lib: simarchive.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/simfactory/lib: simdb.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/simfactory/lib: simdt.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/simfactory/lib: simenv.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/simfactory/lib: simlib.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/simfactory/lib: simopts.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/simfactory/lib: simproperties.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/simfactory/lib: simremote.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/simfactory/lib: simrestart.pyc
+Only in /home/jhar131/TESTING/einsteintoolkit/2012-07-17-020001/Cactus/simfactory/lib: simsubs.pyc
